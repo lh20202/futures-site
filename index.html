@@ -130,6 +130,8 @@ const SOURCES = [
 ];
 
 let lastCalcText = '';
+let lastCaseData = null;
+let lastBlackSwanText = '';
 
 function init(){
   const countrySelect = document.getElementById('countrySelect');
@@ -426,6 +428,8 @@ async function buildCase(){
     const [projections, context] = await Promise.all([getProjectionBundle(country,targetYear), fetchContext(country)]);
     const derived = deriveImplications(projections,targetYear);
     lastCalcText = buildCalcLog(country,targetYear,projections,derived,context);
+    lastCaseData = {country, targetYear, projections, derived, context};
+    lastBlackSwanText = '';
     results.innerHTML = renderCase(country,targetYear,projections,derived,context);
     setMessage(`Generated a ${targetYear} case file for ${country.name}.`);
   }catch(e){
@@ -461,6 +465,13 @@ function renderCase(country,targetYear,projections,derived,context){
     <section class="panel">
       <div class="section-title"><div><h2>Dataset and event details</h2><p>This section explains the contextual records listed above. Dataset listings show what data exists for further inspection; event listings show recent/current records. Counts do not mean severity.</p></div><span class="pill teal">details</span></div>
       ${renderDetails(context)}
+    </section>
+
+    <section class="panel">
+      <div class="section-title"><div><h2>Beta testing - Black Swan Stress-Test</h2><p>This is an experimental stress-test. It injects a rare, high-impact disruption into the generated country-year case to show which assumptions become fragile. It does not predict the disruption.</p></div><span class="pill red">experimental</span></div>
+      <div class="explain"><strong>How it works:</strong> the simulator reads the projected indicators and contextual counts above, tags the case for structural sensitivities such as digital dependency, workforce fragility, urban concentration or data-density, then randomly selects a stress-test shock weighted toward those tags.</div>
+      <div class="btnrow" style="margin-top:14px"><button class="btn" onclick="generateBlackSwanStressTest()">Generate Black Swan stress-test</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear stress-test</button></div>
+      <div id="blackSwanOutput" style="margin-top:14px"></div>
     </section>
 
     <section class="panel">
@@ -523,6 +534,172 @@ function renderDetails(context){
   <div class="table-wrap"><table><thead><tr><th>Type</th><th>Title / record</th><th>Organisation / country / date</th><th>Query or category</th><th>Link</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+
+function getDerivedValue(derived, label){
+  const d = derived.find(x=>x.label===label);
+  return d && Number.isFinite(d.value) ? d.value : null;
+}
+
+function buildBlackSwanTags(caseData){
+  const {projections, derived, context} = caseData;
+  const tags = [];
+  const reasons = [];
+  const pop = value(projections,'population');
+  const urbanPct = value(projections,'urbanPct');
+  const internetPct = value(projections,'internetUsers');
+  const mobile = value(projections,'mobileSubs');
+  const servers = value(projections,'secureServers');
+  const peoplePerPhys = getDerivedValue(derived,'People per physician');
+  const urbanPop = getDerivedValue(derived,'Projected urban population');
+  const internetPop = getDerivedValue(derived,'Projected internet-user population');
+
+  if(Number.isFinite(pop) && pop >= 50000000){ tags.push('population-scale'); reasons.push(`projected population is large (${fmtSmart(pop,0)} people)`); }
+  if(Number.isFinite(peoplePerPhys) && peoplePerPhys >= 1500){ tags.push('health-workforce-fragility'); reasons.push(`projected people per physician is high (${fmtSmart(peoplePerPhys,0)})`); }
+  if(Number.isFinite(urbanPct) && urbanPct >= 50){ tags.push('urban-concentration'); reasons.push(`projected urban population share is high (${fmtSmart(urbanPct,1)}%)`); }
+  if(Number.isFinite(urbanPop) && urbanPop >= 20000000){ tags.push('urban-service-scale'); reasons.push(`projected urban population is large (${fmtSmart(urbanPop,0)} people)`); }
+  if((Number.isFinite(internetPct) && internetPct >= 50) || (Number.isFinite(mobile) && mobile >= 90) || (Number.isFinite(servers) && servers >= 50)){
+    tags.push('digital-dependency'); reasons.push('country-level digital-access or digital-infrastructure indicators are substantial enough to make digital coordination dependency plausible');
+  }
+  if(Number.isFinite(internetPop) && internetPop >= 10000000){ tags.push('digital-population-scale'); reasons.push(`projected internet-user population is large (${fmtSmart(internetPop,0)} people)`); }
+  if((context.gdacs && context.gdacs.count > 0) || (context.nasa && context.nasa.count >= 5)){ tags.push('hazard-observation-context'); reasons.push('GDACS or NASA Earthdata returned disaster/environmental context records or collections'); }
+  if(context.unhcr && context.unhcr.count > 0){ tags.push('displacement-visibility'); reasons.push('UNHCR returned country-related displacement/population records'); }
+  if(context.hdx && context.hdx.count >= 15){ tags.push('data-dense-context'); reasons.push(`HDX returned many dataset listings (${context.hdx.count})`); }
+  if(context.hdx && context.hdx.count > 0 && context.hdx.count < 5){ tags.push('thin-data-context'); reasons.push('HDX returned only a small number of dataset listings'); }
+  if(!tags.length){ tags.push('baseline-uncertainty'); reasons.push('few strong structural tags were triggered, so the shock is intentionally broad'); }
+  return {tags:[...new Set(tags)], reasons};
+}
+
+const BLACK_SWAN_SHOCKS = [
+  {
+    id:'data-blackout',
+    title:'The data layer goes dark',
+    tags:['digital-dependency','digital-population-scale','data-dense-context'],
+    event:'A regional cyberattack and cloud-service outage disables digital health reporting, humanitarian dashboards and partner coordination platforms for several weeks.',
+    breaks:'The base case assumes that population, health and humanitarian information can be accessed, updated and coordinated through functioning digital systems. That assumption fails.',
+    still:'Long-run structural indicators still matter: population scale, urbanisation, health-workforce proxy and child-health trajectories remain relevant even when live systems fail.',
+    leadership:'Maintain service continuity and accountability when digital visibility collapses; decide what minimum paper, radio, offline and local-partner systems must remain viable.'
+  },
+  {
+    id:'workforce-rupture',
+    title:'The workforce breaks before the system does',
+    tags:['health-workforce-fragility','population-scale','urban-service-scale'],
+    event:'A sudden wave of health-worker migration, burnout and absenteeism hits at the same time as demand rises, leaving formal staffing models unusable.',
+    breaks:'The base case treats physician density as a gradual trend. The shock creates an abrupt capacity discontinuity that a trend line cannot anticipate.',
+    still:'People-per-physician and population-scale calculations still identify the underlying exposure: there may be too little workforce elasticity for a shock year.',
+    leadership:'Redesign roles, delegation, supervision and duty-of-care arrangements without pretending individual resilience can compensate for a structural capacity gap.'
+  },
+  {
+    id:'urban-overload',
+    title:'The city becomes the crisis system',
+    tags:['urban-concentration','urban-service-scale','population-scale'],
+    event:'A rapid urban influx, heat-health emergency and infrastructure failure converge in informal settlements, overwhelming routine service assumptions.',
+    breaks:'The base case may imply gradual urban growth. The shock turns urban concentration into an acute coordination, shelter, water, health and protection problem.',
+    still:'Projected urban population and overall population scale remain useful for thinking about the size of the system exposed to failure.',
+    leadership:'Shift from project delivery to city-scale coordination across municipal actors, local communities, health providers and humanitarian organisations.'
+  },
+  {
+    id:'compound-climate-health',
+    title:'The compound climate-health collision',
+    tags:['hazard-observation-context','health-workforce-fragility','urban-concentration'],
+    event:'A severe climate hazard overlaps with a disease outbreak and power disruption, forcing response teams to manage simultaneous public-health and infrastructure failures.',
+    breaks:'The base case does not predict a specific flood, drought, cyclone or outbreak. The shock shows that separate indicators can become one operational problem.',
+    still:'Health-system proxies, population scale and disaster-context records remain useful as background pressure indicators.',
+    leadership:'Prioritise under uncertainty: decide which services continue, which populations are protected first, and what data is trustworthy enough to act on.'
+  },
+  {
+    id:'displacement-surge',
+    title:'The movement pattern changes overnight',
+    tags:['displacement-visibility','population-scale','hazard-observation-context'],
+    event:'A sudden political, economic or environmental trigger causes rapid cross-border or internal movement, making previous population baselines temporarily unreliable.',
+    breaks:'The base case relies on country-level population and health indicators. Those remain structurally useful but may not match where people are now located.',
+    still:'Population scale, health-workforce proxy and existing displacement visibility remain useful for understanding system stress.',
+    leadership:'Coordinate mobile service delivery, registration, referral pathways and host-community relationships without treating formal records as complete reality.'
+  },
+  {
+    id:'legitimacy-collapse',
+    title:'The trusted operating picture collapses',
+    tags:['data-dense-context','digital-dependency','thin-data-context'],
+    event:'Misinformation, political contestation and disagreement between authorities, communities and agencies undermine trust in official data and response priorities.',
+    breaks:'The base case assumes data can serve as a neutral coordination layer. The shock turns data itself into a contested object.',
+    still:'The data trail remains useful for showing what is visible to formal systems, but not whether those systems are trusted.',
+    leadership:'Lead through legitimacy problems: communicate uncertainty, involve local knowledge holders and prevent dashboards from becoming substitutes for accountable relationships.'
+  },
+  {
+    id:'funding-cliff',
+    title:'The funding cliff arrives mid-cycle',
+    tags:['population-scale','health-workforce-fragility','data-dense-context'],
+    event:'Major donors suddenly reduce or redirect funding, forcing health and humanitarian managers to cut scope while needs and reporting demands remain high.',
+    breaks:'The base case describes structural pressure but does not assume financing continuity. This shock removes the resources needed to respond to projected scale.',
+    still:'Projected demand-side indicators remain useful for explaining why prioritisation becomes ethically and operationally difficult.',
+    leadership:'Choose what not to do, transparently; protect critical services; and avoid letting reporting requirements consume the remaining delivery capacity.'
+  },
+  {
+    id:'positive-breakthrough',
+    title:'The upside surprise changes the constraint',
+    tags:['digital-dependency','health-workforce-fragility','urban-concentration','baseline-uncertainty'],
+    event:'A low-cost offline diagnostic, translation, logistics or energy technology becomes widely available and significantly improves local service continuity.',
+    breaks:'The base case assumes constraints continue broadly along historical lines. The shock introduces a beneficial discontinuity that improves capacity or reach.',
+    still:'Population scale, urbanisation and workforce proxies still matter because breakthrough tools must be governed, maintained and distributed.',
+    leadership:'Avoid magical-thinking: decide how to govern, evaluate and integrate the breakthrough without creating new dependency, inequity or data-protection risks.'
+  }
+];
+
+function weightedPick(items, tags){
+  const weighted = items.map(item=>{
+    const matches = item.tags.filter(t=>tags.includes(t)).length;
+    return {item, weight: 1 + matches * 3};
+  });
+  const total = weighted.reduce((a,w)=>a+w.weight,0);
+  let r = Math.random()*total;
+  for(const w of weighted){ r -= w.weight; if(r <= 0) return w.item; }
+  return weighted[weighted.length-1].item;
+}
+
+function generateBlackSwanStressTest(){
+  if(!lastCaseData){ alert('Generate a country-year case file first.'); return; }
+  const tagData = buildBlackSwanTags(lastCaseData);
+  const shock = weightedPick(BLACK_SWAN_SHOCKS, tagData.tags);
+  const {country, targetYear} = lastCaseData;
+  const matched = shock.tags.filter(t=>tagData.tags.includes(t));
+  const output = `<div class="panel soft" style="margin:0;border-color:#f0b4ad">
+    <div class="section-title"><div><h2>${escapeHtml(shock.title)}</h2><p>Stress-test for ${escapeHtml(country.name)} ${targetYear}. This is a randomised resilience test, not a forecast.</p></div><span class="pill red">Black Swan stress-test</span></div>
+    <div class="grid two">
+      <div class="explain"><strong>Shock event</strong><br>${escapeHtml(shock.event)}</div>
+      <div class="explain"><strong>Why this shock was selected</strong><br>${matched.length ? 'It matched these case tags: '+escapeHtml(matched.join(', '))+'.' : 'It was selected from the baseline uncertainty pool.'}<br><br>${escapeHtml(tagData.reasons.slice(0,4).join(' '))}</div>
+      <div class="explain"><strong>What breaks in the original case</strong><br>${escapeHtml(shock.breaks)}</div>
+      <div class="explain"><strong>What still matters</strong><br>${escapeHtml(shock.still)}</div>
+    </div>
+    <div class="explain" style="margin-top:12px"><strong>Leadership / management problem created by the shock</strong><br>${escapeHtml(shock.leadership)}</div>
+    <div class="notice" style="margin-bottom:0"><p><strong>Do not overclaim:</strong> this is not a prediction and no probability is assigned. It is a stress-test designed to reveal fragile assumptions in the generated country-year case.</p></div>
+  </div>`;
+  const target = document.getElementById('blackSwanOutput');
+  if(target) target.innerHTML = output;
+  lastBlackSwanText = [
+    'BETA TESTING - BLACK SWAN STRESS-TEST',
+    `Generated: ${new Date().toISOString()}`,
+    `Country: ${country.name} (${country.iso3})`,
+    `Target year: ${targetYear}`,
+    `Selected shock: ${shock.title}`,
+    `Shock ID: ${shock.id}`,
+    `Case tags: ${tagData.tags.join(', ')}`,
+    `Matched shock tags: ${matched.join(', ') || 'none'}`,
+    `Selection logic: weighted random pick. Each shock starts with weight 1; each matching case tag adds 3 to that shock's weight.`,
+    `Shock event: ${shock.event}`,
+    `Why selected: ${tagData.reasons.join(' ')}`,
+    `What breaks: ${shock.breaks}`,
+    `What still matters: ${shock.still}`,
+    `Leadership challenge: ${shock.leadership}`,
+    'Limit: This stress-test is a randomised resilience prompt. It is not a forecast, probability estimate, or evidence of a future event.'
+  ].join('\n');
+  lastCalcText += '\n\n========================================\n' + lastBlackSwanText;
+}
+
+function clearBlackSwanStressTest(){
+  const target = document.getElementById('blackSwanOutput');
+  if(target) target.innerHTML = '';
+  lastBlackSwanText = '';
+}
+
 function renderBadClaims(context){
   const claims = [
     'Do not claim the simulator predicts the selected country’s future. It extends selected historical indicators using a transparent mathematical continuation.',
@@ -530,7 +707,8 @@ function renderBadClaims(context){
     'Do not treat HDX or NASA dataset counts as crisis severity. A high count means more catalogue records were found, not that need is higher.',
     'Do not claim the health workforce situation is fully represented by physicians per 1,000 people. It excludes nurses, midwives, community health workers, quality, distribution and retention.',
     'Do not treat country-level indicators as local operational reality. They can hide major subnational variation.',
-    'Do not infer conflict patterns from this version. ACLED is not directly queried in the static front-end.'
+    'Do not infer conflict patterns from this version. ACLED is not directly queried in the static front-end.',
+    'Do not treat the Black Swan stress-test as a prediction. It is a randomised assumption test added after the numeric case file has been generated.'
   ];
   return `<ul>${claims.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}</ul>`;
 }
