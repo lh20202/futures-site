@@ -182,7 +182,7 @@
       margin: 22px 0;
     }
 
-    .explain-card, .data-card, .source-card {
+    .explain-card, .data-card, .source-card, .coverage-card {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
@@ -271,6 +271,14 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+    }
+
+    .coverage-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
     }
 
     .output {
@@ -382,7 +390,7 @@
       margin-top: 32px;
     }
 
-    .discovery-grid {
+    .discovery-grid, .coverage-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
@@ -395,6 +403,42 @@
       border-radius: 8px;
       padding: 14px;
       background: var(--panel);
+    }
+
+    .coverage-section {
+      margin-top: 34px;
+    }
+
+    .coverage-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .coverage-card {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      padding: 16px;
+    }
+
+    .coverage-card h3 {
+      font-size: 1.05rem;
+    }
+
+    .coverage-card p {
+      margin: 0;
+      color: #334155;
+    }
+
+    .category-pill {
+      width: max-content;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
     .sources-section {
@@ -461,6 +505,7 @@
       <a class="brand" href="#data-playground">Futures Site</a>
       <nav aria-label="Page navigation">
         <a href="#data-playground">Data Playground</a>
+        <a href="#source-coverage">Source coverage tester</a>
         <a href="#data-sources">Data Sources</a>
       </nav>
     </div>
@@ -804,6 +849,20 @@
       </div>
     </section>
 
+    <section id="source-coverage" class="coverage-section">
+      <div class="section-header">
+        <p class="eyebrow">Technical checks</p>
+        <h2>Source coverage tester</h2>
+        <p class="note">This page checks a wider set of humanitarian, displacement, disaster, health, climate, population, development, and dataset catalogue sources. It separates live data pulls, dataset discovery, public alternatives, and sources that are not active in this static version.</p>
+        <p class="note">Keep it simple. This is a technical/source-checking page, not the main user playground.</p>
+      </div>
+      <div class="coverage-actions">
+        <button id="testAllCoverageButton" type="button" onclick="testAllCoverageSources()">Test all browser-safe sources</button>
+        <span class="small-text" id="coverageSummary">Not tested yet.</span>
+      </div>
+      <div class="coverage-grid" id="sourceCoverageGrid"></div>
+    </section>
+
     <section id="data-sources" class="sources-section">
       <div class="section-header">
         <p class="eyebrow">Source context</p>
@@ -879,6 +938,193 @@
       ["IDMC via HDX", "Internal displacement dataset listings discoverable through HDX.", "Dataset discovery for IDMC resources.", "Open dataset metadata should be checked against source methods and update dates.", "The site searches HDX metadata for IDMC keywords.", "https://www.internal-displacement.org/database/"],
       ["EM-DAT via HDX", "Disaster dataset listings related to EM-DAT discoverable through HDX.", "Dataset discovery for disaster data resources.", "This is not direct EM-DAT database access.", "The site searches HDX metadata for EM-DAT keywords.", "https://www.emdat.be/"],
       ["IPC via HDX", "Food security classification dataset listings discoverable through HDX.", "Dataset discovery for acute food insecurity resources.", "Open the dataset page to inspect geography, method, and update date.", "The site searches HDX metadata for IPC keywords.", "https://www.ipcinfo.org/"]
+    ];
+
+    const sourceCoverageSources = [
+      {
+        id: "coverage-unhcr",
+        name: "UNHCR Refugee Data Finder",
+        category: "live data",
+        description: "Official displacement and refugee population records.",
+        url: "https://www.unhcr.org/refugee-statistics/",
+        testKey: "unhcr"
+      },
+      {
+        id: "coverage-worldbank",
+        name: "World Bank Indicators API",
+        category: "live data",
+        description: "Country-level development, population, health, and environment indicators.",
+        url: "https://data.worldbank.org/",
+        testKey: "worldbank"
+      },
+      {
+        id: "coverage-gdacs",
+        name: "GDACS",
+        category: "live data",
+        description: "Current or recently updated global disaster event records.",
+        url: "https://www.gdacs.org/",
+        testKey: "gdacs"
+      },
+      {
+        id: "coverage-gdelt",
+        name: "GDELT",
+        category: "live data",
+        description: "Open global media and event monitoring records.",
+        url: "https://www.gdeltproject.org/",
+        testKey: "gdelt"
+      },
+      {
+        id: "coverage-owid",
+        name: "Our World in Data",
+        category: "live data",
+        description: "Public Grapher indicators as CSV files.",
+        url: "https://ourworldindata.org/",
+        testKey: "owid"
+      },
+      {
+        id: "coverage-worldpop",
+        name: "WorldPop",
+        category: "live data",
+        description: "Population estimates for a small public sample area.",
+        url: "https://www.worldpop.org/",
+        testKey: "worldpop"
+      },
+      {
+        id: "coverage-hdx",
+        name: "HDX CKAN",
+        category: "dataset discovery",
+        description: "Humanitarian dataset catalogue search through the public CKAN API.",
+        url: "https://data.humdata.org/",
+        testKey: "hdx"
+      },
+      {
+        id: "coverage-nasa-cmr",
+        name: "NASA CMR / Earthdata",
+        category: "dataset discovery",
+        description: "NASA Earthdata collection metadata search.",
+        url: "https://www.earthdata.nasa.gov/",
+        testKey: "nasaCmr"
+      },
+      {
+        id: "coverage-inform",
+        name: "INFORM via HDX",
+        category: "dataset discovery",
+        description: "INFORM-related dataset listings found through HDX metadata search.",
+        url: "https://drmkc.jrc.ec.europa.eu/inform-index",
+        testKey: "inform"
+      },
+      {
+        id: "coverage-dtm",
+        name: "IOM DTM via HDX",
+        category: "dataset discovery",
+        description: "Displacement Tracking Matrix dataset listings found through HDX metadata search.",
+        url: "https://dtm.iom.int/",
+        testKey: "dtm"
+      },
+      {
+        id: "coverage-idmc",
+        name: "IDMC via HDX",
+        category: "dataset discovery",
+        description: "Internal displacement dataset listings found through HDX metadata search.",
+        url: "https://www.internal-displacement.org/database/",
+        testKey: "idmc"
+      },
+      {
+        id: "coverage-emdat",
+        name: "EM-DAT via HDX",
+        category: "dataset discovery",
+        description: "EM-DAT-related disaster dataset listings found through HDX metadata search.",
+        url: "https://www.emdat.be/",
+        testKey: "emdat"
+      },
+      {
+        id: "coverage-ipc",
+        name: "IPC via HDX",
+        category: "dataset discovery",
+        description: "Food security dataset listings found through HDX metadata search.",
+        url: "https://www.ipcinfo.org/",
+        testKey: "ipc"
+      },
+      {
+        id: "coverage-acled-metadata",
+        name: "ACLED-related metadata via HDX only",
+        category: "dataset discovery",
+        description: "Public HDX dataset listings that mention ACLED. This does not call ACLED directly.",
+        url: "https://acleddata.com/",
+        testKey: "acledMetadata"
+      },
+      {
+        id: "coverage-who-gho-alt",
+        name: "WHO GHO via World Bank health indicators",
+        category: "public alternative",
+        description: "Health context using a browser-safe World Bank health indicator instead of direct WHO GHO.",
+        url: "https://data.worldbank.org/indicator/SH.DYN.MORT",
+        testKey: "whoGhoAlternative"
+      },
+      {
+        id: "coverage-who-workforce-alt",
+        name: "WHO Health Workforce via World Bank physician density",
+        category: "public alternative",
+        description: "Health workforce context through World Bank physician-density values.",
+        url: "https://data.worldbank.org/indicator/SH.MED.PHYS.ZS",
+        testKey: "whoWorkforceAlternative"
+      },
+      {
+        id: "coverage-cckp-alt",
+        name: "CCKP via World Bank climate/development indicator",
+        category: "public alternative",
+        description: "Climate and development context through a browser-safe World Bank indicator.",
+        url: "https://climateknowledgeportal.worldbank.org/",
+        testKey: "cckpAlternative"
+      },
+      {
+        id: "coverage-who-gho-direct",
+        name: "WHO GHO direct",
+        category: "not active",
+        description: "Direct WHO Global Health Observatory access is not active in this static version.",
+        url: "https://www.who.int/data/gho",
+        inactiveReason: "Skipped: direct WHO GHO access is not wired into this static browser-only page."
+      },
+      {
+        id: "coverage-acled-direct",
+        name: "ACLED direct",
+        category: "not active",
+        description: "Direct ACLED access is not active in this static version.",
+        url: "https://acleddata.com/",
+        inactiveReason: "Skipped: direct ACLED data access requires a different integration path and is not used here."
+      },
+      {
+        id: "coverage-hdx-hapi",
+        name: "HDX HAPI",
+        category: "not active",
+        description: "HDX HAPI is not active in this static version.",
+        url: "https://hapi.humdata.org/",
+        inactiveReason: "Skipped: this page uses HDX catalogue metadata only, not HAPI."
+      },
+      {
+        id: "coverage-reliefweb",
+        name: "ReliefWeb",
+        category: "not active",
+        description: "ReliefWeb is not active in this static version.",
+        url: "https://reliefweb.int/",
+        inactiveReason: "Skipped: ReliefWeb is listed for coverage context but no static test is wired in this pass."
+      },
+      {
+        id: "coverage-fews-net",
+        name: "FEWS NET",
+        category: "not active",
+        description: "FEWS NET is not active in this static version.",
+        url: "https://fews.net/",
+        inactiveReason: "Skipped: FEWS NET is listed for coverage context but no static test is wired in this pass."
+      },
+      {
+        id: "coverage-acaps",
+        name: "ACAPS",
+        category: "not active",
+        description: "ACAPS is not active in this static version.",
+        url: "https://www.acaps.org/",
+        inactiveReason: "Skipped: ACAPS is listed for coverage context but no static test is wired in this pass."
+      }
     ];
 
     function escapeHtml(value) {
@@ -1222,6 +1468,223 @@
       }
     }
 
+    const coverageTests = {
+      async unhcr() {
+        const data = await fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=3");
+        const records = data.items || [];
+        return {
+          data,
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>Records returned: ${escapeHtml(records.length)}</p>
+            <p>Sample: ${escapeHtml(records.map(record => record.coo_name).filter(Boolean).join(", ") || "No named origins returned")}</p>
+          `
+        };
+      },
+      async worldbank() {
+        return coverageWorldBankIndicator("KEN", "SP.POP.TOTL", "Kenya population");
+      },
+      async gdacs() {
+        const data = await fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest");
+        const events = data.features || [];
+        return {
+          data,
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>Event records returned: ${escapeHtml(events.length)}</p>
+            <p>First record: ${escapeHtml((events[0] && events[0].properties && (events[0].properties.name || events[0].properties.eventname)) || "No named event returned")}</p>
+          `
+        };
+      },
+      async gdelt() {
+        const data = await fetchJson("https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=artlist&format=json&maxrecords=3");
+        const articles = data.articles || [];
+        return {
+          data,
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>Records returned: ${escapeHtml(articles.length)}</p>
+            <p>First record: ${escapeHtml((articles[0] && (articles[0].title || articles[0].domain)) || "No title returned")}</p>
+          `
+        };
+      },
+      async owid() {
+        const text = await fetchText("https://ourworldindata.org/grapher/life-expectancy.csv");
+        const rows = parseCsvRows(text).slice(0, 3);
+        return {
+          data: text.slice(0, 3500),
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>CSV rows sampled: ${escapeHtml(rows.length)}</p>
+            <p>First place: ${escapeHtml((rows[0] && rows[0].Entity) || "No place returned")}</p>
+          `
+        };
+      },
+      async worldpop() {
+        const area = worldPopAreas.KEN;
+        const geojson = encodeURIComponent(JSON.stringify(polygonFromBbox(area.bbox)));
+        const data = await fetchJson(`https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=${geojson}&runasync=false`);
+        return {
+          data,
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>Sample area: ${escapeHtml(area.label)}</p>
+            <p>Total population estimate: ${escapeHtml(formatNumber(data && data.data ? data.data.total_population : null))}</p>
+          `
+        };
+      },
+      async hdx() {
+        return coverageHdxSearch("displacement");
+      },
+      async nasaCmr() {
+        const data = await fetchJson("https://cmr.earthdata.nasa.gov/search/collections.json?keyword=precipitation&page_size=3");
+        const entries = data.feed && data.feed.entry ? data.feed.entry : [];
+        return {
+          data,
+          html: `
+            <p class="status-line">Status: success</p>
+            <p>Collection records returned: ${escapeHtml(entries.length)}</p>
+            <p>First collection: ${escapeHtml((entries[0] && entries[0].title) || "No collection title returned")}</p>
+          `
+        };
+      },
+      async inform() {
+        return coverageHdxSearch("INFORM Risk Index");
+      },
+      async dtm() {
+        return coverageHdxSearch("Global IOM DTM from API");
+      },
+      async idmc() {
+        return coverageHdxSearch("IDMC internal displacement");
+      },
+      async emdat() {
+        return coverageHdxSearch("EM-DAT");
+      },
+      async ipc() {
+        return coverageHdxSearch("IPC acute food insecurity");
+      },
+      async acledMetadata() {
+        return coverageHdxSearch("ACLED");
+      },
+      async whoGhoAlternative() {
+        return coverageWorldBankIndicator("KEN", "SH.DYN.MORT", "WHO GHO alternative: under-5 mortality");
+      },
+      async whoWorkforceAlternative() {
+        return coverageWorldBankIndicator("KEN", "SH.MED.PHYS.ZS", "WHO workforce alternative: physician density");
+      },
+      async cckpAlternative() {
+        return coverageWorldBankIndicator("KEN", "AG.LND.FRST.ZS", "CCKP alternative: forest and land context");
+      }
+    };
+
+    async function coverageWorldBankIndicator(countryCode, indicatorCode, label) {
+      const data = await fetchJson(`https://api.worldbank.org/v2/country/${countryCode}/indicator/${indicatorCode}?format=json&per_page=5`);
+      const values = Array.isArray(data) && Array.isArray(data[1]) ? data[1].filter(row => row.value !== null && row.value !== undefined) : [];
+      if (!values.length) throw new Error("No non-empty World Bank values returned.");
+      const latest = values[0];
+      return {
+        data,
+        html: `
+          <p class="status-line">Status: success</p>
+          <p>${escapeHtml(label)}</p>
+          <p>Latest available year: ${escapeHtml(latest.date)}</p>
+          <p>Latest value: ${escapeHtml(formatNumber(latest.value))}</p>
+        `
+      };
+    }
+
+    async function coverageHdxSearch(keyword) {
+      const data = await fetchJson(`https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(keyword)}&rows=3`);
+      const datasets = data.result && data.result.results ? data.result.results : [];
+      return {
+        data,
+        html: `
+          <p class="status-line">Status: success</p>
+          <p>Search: ${escapeHtml(keyword)}</p>
+          <p>Dataset listings returned: ${escapeHtml(datasets.length)}</p>
+          <p>First listing: ${escapeHtml((datasets[0] && (datasets[0].title || datasets[0].name)) || "No dataset title returned")}</p>
+          <p class="small-text">This searches dataset listings. It does not load the full dataset.</p>
+        `
+      };
+    }
+
+    function setCoverageLoading(sourceId) {
+      const output = document.querySelector(`#${sourceId}-output`);
+      output.className = "output loading";
+      output.textContent = "Testing...";
+    }
+
+    function setCoverageSuccess(sourceId, html, data) {
+      const output = document.querySelector(`#${sourceId}-output`);
+      const raw = document.querySelector(`#${sourceId}-raw`);
+      output.className = "output success";
+      output.innerHTML = html;
+      if (raw) raw.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    function setCoverageFailure(sourceId, error) {
+      const output = document.querySelector(`#${sourceId}-output`);
+      const raw = document.querySelector(`#${sourceId}-raw`);
+      output.className = "output failure";
+      output.innerHTML = `<p class="status-line">Test failed.</p><p class="small-text">${escapeHtml(error.message || error)}</p>`;
+      if (raw) raw.textContent = "No successful response yet.";
+    }
+
+    function setCoverageSkipped(source) {
+      const output = document.querySelector(`#${source.id}-output`);
+      output.className = "output";
+      output.innerHTML = `<p class="status-line">Not active in this static version.</p><p class="small-text">${escapeHtml(source.inactiveReason)}</p>`;
+    }
+
+    async function testCoverageSource(sourceId) {
+      const source = sourceCoverageSources.find(item => item.id === sourceId);
+      if (!source) return "failed";
+      if (!source.testKey) {
+        setCoverageSkipped(source);
+        return "skipped";
+      }
+      setCoverageLoading(source.id);
+      try {
+        const result = await coverageTests[source.testKey]();
+        setCoverageSuccess(source.id, result.html, result.data);
+        return "success";
+      } catch (error) {
+        setCoverageFailure(source.id, error);
+        return "failed";
+      }
+    }
+
+    async function testAllCoverageSources() {
+      const button = document.querySelector("#testAllCoverageButton");
+      const summary = document.querySelector("#coverageSummary");
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Testing sources...";
+      summary.textContent = "Testing browser-safe sources...";
+      const totals = { success: 0, failed: 0, skipped: 0 };
+      for (const source of sourceCoverageSources) {
+        const result = await testCoverageSource(source.id);
+        totals[result] += 1;
+      }
+      summary.textContent = `Last run: ${totals.success} passed, ${totals.failed} failed, ${totals.skipped} skipped.`;
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+
+    function renderSourceCoverage() {
+      document.querySelector("#sourceCoverageGrid").innerHTML = sourceCoverageSources.map(source => `
+        <article class="coverage-card" id="${source.id}-card">
+          <span class="category-pill">${escapeHtml(source.category)}</span>
+          <h3>${escapeHtml(source.name)}</h3>
+          <p>${escapeHtml(source.description)}</p>
+          <p class="small-text">Official source: <a href="${source.url}" target="_blank" rel="noreferrer">${escapeHtml(source.name)}</a></p>
+          ${source.testKey ? `<button type="button" onclick="testCoverageSource('${source.id}')">Test source</button>` : ""}
+          <div class="output" id="${source.id}-output">${source.inactiveReason ? `<p class="status-line">Not active in this static version.</p><p class="small-text">${escapeHtml(source.inactiveReason)}</p>` : "Not tested yet."}</div>
+          ${source.testKey ? `<details class="raw"><summary>View raw response</summary><pre id="${source.id}-raw">No successful response yet.</pre></details>` : ""}
+        </article>
+      `).join("");
+    }
+
     function renderAboutSources() {
       document.querySelector("#aboutSources").innerHTML = aboutSources.map(([name, what, used, caution, technical, url]) => `
         <article class="source-card">
@@ -1237,6 +1700,7 @@
 
     ["unhcr", "worldbank", "gdacs", "hdx", "worldpop", "gdelt", "owid"].forEach(clearCard);
     updateIndicatorHelp();
+    renderSourceCoverage();
     renderAboutSources();
   </script>
 </body>
