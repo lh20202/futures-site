@@ -3,1299 +3,505 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A static public-data focus finder for health and humanitarian futures." />
-  <title>Humanitarian Futures Focus Finder</title>
+  <title>Humanitarian Futures Case Builder</title>
   <style>
     :root {
-      --bg: #f6f4ef;
-      --panel: #ffffff;
-      --soft: #fbfaf7;
-      --text: #1f252b;
-      --muted: #647180;
-      --line: #d8d3c9;
-      --accent: #245c73;
-      --accent-dark: #183f50;
-      --accent-soft: #e8f1f3;
-      --green: #17643d;
-      --green-bg: #e8f6ee;
-      --amber: #805a12;
-      --amber-bg: #fff4d9;
-      --red: #8a2634;
-      --red-bg: #fde8eb;
-      --shadow: 0 18px 48px rgba(38, 43, 49, 0.08);
-      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-      color-scheme: light;
+      --page:#eef2f6; --panel:#fff; --soft:#f7f9fb; --ink:#17202a; --muted:#5b6776;
+      --line:#d9e0e8; --blue:#1f6feb; --blue2:#174ea6; --green:#16794c; --amber:#8a5b00;
+      --red:#9f2520; --purple:#5b35a5; --teal:#0f766e; --shadow:0 12px 32px rgba(17,24,39,.08);
     }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(36, 92, 115, 0.12), transparent 30rem),
-        linear-gradient(180deg, #fbfaf7 0%, var(--bg) 48%, #efede7 100%);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.5;
-    }
-
-    a { color: var(--accent); }
-    button, select, input { font: inherit; }
-
-    .page {
-      width: min(1240px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(246, 244, 239, 0.94);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(16px);
-    }
-
-    nav {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #172027;
-      font-weight: 850;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      border: 1px solid #b7ccd4;
-      border-radius: 8px;
-      background:
-        linear-gradient(90deg, transparent 0 24%, rgba(36,92,115,.32) 24% 48%, transparent 48% 100%),
-        linear-gradient(180deg, #fff, #e8f1f3);
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 14px;
-      color: var(--muted);
-      font-size: .92rem;
-      font-weight: 750;
-    }
-
-    .nav-links a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    main { padding-bottom: 64px; }
-
-    section {
-      padding: 54px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .hero {
-      min-height: 470px;
-      border-top: 0;
-      padding-top: 72px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .65fr);
-      gap: 30px;
-      align-items: end;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--accent);
-      font-size: .78rem;
-      font-weight: 850;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3, h4 {
-      margin: 0;
-      line-height: 1.1;
-    }
-
-    h1 {
-      max-width: 850px;
-      font-size: clamp(2.55rem, 5.2vw, 5.4rem);
-      font-weight: 880;
-      letter-spacing: -.045em;
-    }
-
-    h2 {
-      font-size: clamp(1.75rem, 3vw, 3rem);
-      font-weight: 850;
-      letter-spacing: -.03em;
-    }
-
-    h3 { font-size: 1.12rem; font-weight: 820; }
-    h4 { font-size: 1rem; font-weight: 820; }
-
-    .intro {
-      max-width: 760px;
-      margin: 20px 0 0;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .panel, .card, article {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-    }
-
-    .panel { padding: 22px; }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    .section-heading p {
-      max-width: 560px;
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .builder {
-      display: grid;
-      grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .controls {
-      display: grid;
-      gap: 13px;
-      margin-top: 16px;
-    }
-
-    .control {
-      display: grid;
-      gap: 6px;
-    }
-
-    .control label {
-      color: var(--muted);
-      font-size: .77rem;
-      font-weight: 850;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .control select,
-    .control input {
-      width: 100%;
-      min-height: 42px;
-      padding: 0 10px;
-      color: var(--text);
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .btn {
-      min-height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 16px;
-      border: 1px solid var(--accent);
-      border-radius: 9px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 850;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .btn.secondary {
-      background: #fff;
-      color: var(--text);
-      border-color: var(--line);
-    }
-
-    .btn:disabled {
-      cursor: wait;
-      opacity: .62;
-    }
-
-    .result-shell {
-      display: grid;
-      gap: 14px;
-    }
-
-    .empty {
-      padding: 18px;
-      border: 1px dashed #bdb7ad;
-      border-radius: 12px;
-      background: rgba(255,255,255,.7);
-      color: var(--muted);
-    }
-
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .status-card {
-      padding: 14px;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 11px;
-    }
-
-    .status-card span {
-      display: block;
-      color: var(--muted);
-      font-size: .72rem;
-      font-weight: 850;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .status-card b {
-      display: block;
-      margin-top: 6px;
-      font-size: 1.18rem;
-    }
-
-    .snapshot-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .focus-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .card {
-      padding: 18px;
-      overflow: hidden;
-    }
-
-    .card p {
-      color: var(--muted);
-      margin: 8px 0;
-    }
-
-    .mini {
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .pill {
-      min-height: 27px;
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 9px;
-      border: 1px solid #c8d6dc;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #1e4b5d;
-      font-size: .77rem;
-      font-weight: 850;
-    }
-
-    .pill.green {
-      border-color: #b8dfc8;
-      background: var(--green-bg);
-      color: var(--green);
-    }
-
-    .pill.amber {
-      border-color: #f0d38a;
-      background: var(--amber-bg);
-      color: var(--amber);
-    }
-
-    .pill.red {
-      border-color: #efb3bd;
-      background: var(--red-bg);
-      color: var(--red);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #fff;
-      font-size: .9rem;
-    }
-
-    th, td {
-      padding: 9px 10px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    tr:last-child td { border-bottom: 0; }
-
-    th {
-      background: #eef2f3;
-      color: #31414a;
-      font-size: .74rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-
-    .table-wrap {
-      max-height: 380px;
-      overflow: auto;
-      border-radius: 10px;
-    }
-
-    details {
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--soft);
-      overflow: hidden;
-    }
-
-    summary {
-      padding: 10px 12px;
-      cursor: pointer;
-      font-weight: 800;
-      color: #344650;
-    }
-
-    pre {
-      margin: 0;
-      max-height: 320px;
-      overflow: auto;
-      padding: 12px;
-      background: #111820;
-      color: #d8f6e5;
-      font-family: var(--mono);
-      font-size: .78rem;
-      line-height: 1.45;
-    }
-
-    .source-list, .coverage-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .source-card {
-      padding: 18px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-
-    .source-card p {
-      margin: 8px 0;
-      color: var(--muted);
-    }
-
-    .source-card .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 12px;
-    }
-
-    .source-link {
-      display: inline-flex;
-      margin-top: 8px;
-      font-weight: 800;
-      font-size: .9rem;
-    }
-
-    .loading {
-      position: relative;
-      color: var(--accent-dark);
-    }
-
-    .loading::after {
-      content: "";
-      display: inline-block;
-      width: .8em;
-      animation: dots 1.1s steps(4, end) infinite;
-    }
-
-    @keyframes dots {
-      0% { content: ""; }
-      25% { content: "."; }
-      50% { content: ".."; }
-      75% { content: "..."; }
-      100% { content: ""; }
-    }
-
-    footer {
-      padding: 28px 0 40px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    @media (max-width: 980px) {
-      nav, .section-heading, .hero, .builder { display: block; }
-      .nav-links { justify-content: flex-start; margin-top: 12px; }
-      .hero { min-height: auto; }
-      .panel { margin-top: 20px; }
-      .status-grid, .snapshot-grid, .source-list, .coverage-list { grid-template-columns: 1fr; }
-    }
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:var(--page);color:var(--ink);line-height:1.5}
+    a{color:var(--blue2);font-weight:700;text-decoration:none} a:hover{text-decoration:underline}
+    .page{width:min(1220px,calc(100% - 32px));margin:0 auto;padding:34px 0 54px}
+    header{display:grid;gap:14px;margin-bottom:22px}.eyebrow{margin:0;color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;max-width:980px;font-size:clamp(2rem,4vw,3.25rem);line-height:1.05} h2,h3,h4{margin:0}.intro{max-width:980px;margin:0;color:#334155;font-size:1.04rem}
+    .notice{border:1px solid var(--line);border-left:4px solid var(--blue);background:var(--panel);padding:16px;border-radius:8px;color:#334155}.notice p{margin:0}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+    .controls{padding:18px;display:grid;gap:16px;margin-bottom:18px}.control-grid{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px}
+    label{display:grid;gap:6px;color:#334155;font-size:.9rem;font-weight:800} select,input{min-height:44px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:8px 10px;font:inherit;color:var(--ink)}
+    .button-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button{min-height:44px;border:0;border-radius:8px;padding:0 18px;background:var(--blue);color:#fff;font:inherit;font-weight:800;cursor:pointer}button.secondary{background:#e8f0fe;color:var(--blue2)}button:hover:not(:disabled){filter:brightness(.92)}button:disabled{cursor:not-allowed;opacity:.6}.tiny{font-size:.84rem;color:var(--muted);margin:0}
+    .results{display:grid;gap:16px}.status{padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:10px;color:#334155}.status.ok{border-left:4px solid var(--green)}.status.warn{border-left:4px solid var(--amber)}.status.err{border-left:4px solid var(--red)}
+    .section{padding:18px;display:grid;gap:14px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.section-title{display:grid;gap:4px}.section-title p{margin:0;color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:14px;display:grid;gap:8px;align-content:start}.card strong{font-size:1.15rem}.metric{font-size:1.45rem;font-weight:900}.muted{color:var(--muted)}
+    .badge{display:inline-flex;width:fit-content;align-items:center;border-radius:999px;padding:3px 10px;font-size:.74rem;font-weight:900}.b-live{background:#e6f4ed;color:var(--green)}.b-derived{background:#e0f2f1;color:var(--teal)}.b-proj{background:#efe7ff;color:var(--purple)}.b-warn{background:#fff5d6;color:var(--amber)}.b-meta{background:#e8f0fe;color:var(--blue2)}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top;font-size:.92rem}th{background:#f1f5f9;color:#334155;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:0}
+    .narrative{background:#101827;color:#f8fafc;border-radius:12px;padding:18px;display:grid;gap:12px}.narrative h3{color:#fff}.narrative p{margin:0;color:#e5e7eb}.narrative .line{height:1px;background:#334155;margin:2px 0}
+    .split{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.list{display:grid;gap:8px;margin:0;padding-left:18px}.list li{padding-left:2px}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+    details{border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}summary{padding:13px 14px;font-weight:900;cursor:pointer;background:#f8fafc}.details-body{padding:14px;display:grid;gap:12px}pre{max-height:260px;overflow:auto;background:#111827;color:#f8fafc;padding:12px;border-radius:8px;font-size:.78rem;white-space:pre-wrap;word-break:break-word;margin:0}
+    .source-row{display:grid;grid-template-columns:160px 120px 1fr;gap:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--soft);font-size:.9rem}.source-row span:first-child{font-weight:900}
+    .loader{display:inline-block;width:12px;height:12px;border:2px solid #cbd5e1;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:860px){.control-grid,.split{grid-template-columns:1fr}.section-head{display:grid}.page{width:min(100% - 24px,1220px)}.source-row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="page">
-      <nav aria-label="Main navigation">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Futures Focus Finder</div>
-        <div class="nav-links">
-          <a href="#finder">Finder</a>
-          <a href="#coverage">Source checks</a>
-          <a href="#sources">Sources</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
   <main class="page">
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Public data · Focus suggestions · Caveats</p>
-        <h1>Find a futures focus from visible humanitarian data.</h1>
-        <p class="intro">Choose a country, theme, time view and lens. The site pulls public signals, applies transparent rules, and suggests focus areas worth exploring.</p>
+    <header>
+      <p class="eyebrow">Humanitarian futures data playground</p>
+      <h1>Country-year case builder</h1>
+      <p class="intro">Pick a country and target year. The site extends historical public-data trends where that is mathematically possible, then builds a concrete case file from the projected indicators, current disaster signals, humanitarian dataset discovery, Earth-observation catalogue results, and technology trend signals.</p>
+      <section class="notice"><p><strong>Important:</strong> projections here are simple mathematical continuations of past returned data, not forecasts. Disaster, conflict, displacement and technology disruption are not predicted as events. They are used as current/contextual signals or dataset-discovery evidence.</p></section>
+    </header>
+
+    <section class="panel controls">
+      <div class="control-grid">
+        <label>Country
+          <select id="countrySelect"></select>
+        </label>
+        <label>Target year
+          <input id="targetYear" type="number" min="2026" max="2100" value="2052" />
+        </label>
+        <label>Projection method
+          <select id="methodSelect">
+            <option value="regression">Linear regression across returned values</option>
+            <option value="endpoints">Earliest-to-latest average annual change</option>
+          </select>
+        </label>
+        <label>Technology signal query
+          <select id="techQuerySelect">
+            <option value="artificial intelligence humanitarian health">AI + humanitarian health</option>
+            <option value="digital health humanitarian">Digital health + humanitarian</option>
+            <option value="climate technology humanitarian">Climate technology + humanitarian</option>
+            <option value="satellite earth observation disaster response">Satellite / earth observation + disaster response</option>
+            <option value="data governance humanitarian artificial intelligence">Data governance + humanitarian AI</option>
+          </select>
+        </label>
       </div>
-      <aside class="panel">
-        <h3>Output</h3>
-        <div class="pill-row">
-          <span class="pill green">Focus areas</span>
-          <span class="pill green">Why this appears</span>
-          <span class="pill">Data signals</span>
-          <span class="pill amber">Time angle</span>
-          <span class="pill amber">Caution</span>
-        </div>
-      </aside>
-    </section>
-
-    <section id="finder">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Finder</p>
-          <h2>Find focus areas</h2>
-        </div>
-        <p>Works with public browser-safe sources only. If sources fail, the page still returns useful focus areas based on what did and did not come back.</p>
-      </div>
-
-      <div class="builder">
-        <article class="card">
-          <h3>Settings</h3>
-          <div class="controls">
-            <div class="control">
-              <label for="country">Country</label>
-              <select id="country"></select>
-            </div>
-            <div class="control">
-              <label for="theme">Theme</label>
-              <select id="theme"></select>
-            </div>
-            <div class="control">
-              <label for="timeview">Time view</label>
-              <select id="timeview">
-                <option value="now">Current pattern</option>
-                <option value="2032">2032 near future</option>
-                <option value="2052">2052 structural future</option>
-                <option value="beyond">Beyond 2052 edge future</option>
-              </select>
-            </div>
-            <div class="control">
-              <label for="lens">Lens</label>
-              <select id="lens">
-                <option value="project">Project management</option>
-                <option value="self">Self-management</option>
-                <option value="team">Team management</option>
-                <option value="relationships">Relationship management</option>
-                <option value="macro">Macro trends</option>
-                <option value="technology">Technology</option>
-                <option value="health">Health / humanitarian impact</option>
-              </select>
-            </div>
-            <div class="control">
-              <label for="depth">Depth</label>
-              <select id="depth">
-                <option value="quick">Quick</option>
-                <option value="standard" selected>Standard</option>
-                <option value="comprehensive">Comprehensive</option>
-              </select>
-            </div>
-          </div>
-          <div class="button-row">
-            <button class="btn" id="build-btn" onclick="buildFocus()">Find focus areas</button>
-            <button class="btn secondary" onclick="clearFocus()">Clear</button>
-          </div>
-        </article>
-
-        <div id="output" class="result-shell">
-          <div class="empty">No focus areas yet.</div>
-        </div>
+      <div class="button-row">
+        <button id="runButton">Generate country-year case</button>
+        <button id="compareButton" class="secondary">Compare all starter countries</button>
+        <p class="tiny" id="runNote">Uses browser-safe public APIs and catalogue searches. No hidden credentials.</p>
       </div>
     </section>
 
-    <section id="coverage">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Source checks</p>
-          <h2>Active source checks</h2>
-        </div>
-        <p>Checks the active routes used by the site.</p>
-      </div>
-      <div class="button-row" style="margin-bottom:16px;">
-        <button class="btn" onclick="testSources()">Test active sources</button>
-      </div>
-      <div id="coverage-result" class="coverage-list"></div>
-    </section>
-
-    <section id="sources">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Sources</p>
-          <h2>Active sources</h2>
-        </div>
-        <p>Inactive sources requiring credentials, app approval, server access or non-browser access are not listed.</p>
-      </div>
-      <div id="source-list" class="source-list"></div>
-    </section>
+    <section id="status" class="status warn">Choose a country/year and generate a case.</section>
+    <div id="results" class="results"></div>
   </main>
 
-  <footer>
-    <div class="page">Static HTML, CSS and JavaScript. Public APIs only.</div>
-  </footer>
-
-  <script>
-    const COUNTRIES = [
-      ["KEN", "Kenya"], ["BGD", "Bangladesh"], ["NGA", "Nigeria"], ["SDN", "Sudan"],
-      ["HTI", "Haiti"], ["PHL", "Philippines"], ["ETH", "Ethiopia"], ["SOM", "Somalia"],
-      ["SSD", "South Sudan"], ["UKR", "Ukraine"], ["AFG", "Afghanistan"], ["YEM", "Yemen"],
-      ["COL", "Colombia"], ["PAK", "Pakistan"], ["MMR", "Myanmar"], ["TCD", "Chad"]
-    ];
-
-    const THEMES = {
-      health: {
-        label: "Health workforce",
-        wb: ["SP.POP.TOTL", "SH.MED.PHYS.ZS", "SH.DYN.MORT"],
-        hdx: ["health workforce", "health facilities humanitarian", "health system"],
-        nasa: "health population exposure",
-        gdelt: "health humanitarian",
-        gdacs: false,
-        unhcr: false
-      },
-      displacement: {
-        label: "Displacement",
-        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
-        hdx: ["IOM DTM displacement", "IDMC displacement", "refugees displacement"],
-        nasa: "population displacement exposure",
-        gdelt: "displacement refugees migration",
-        gdacs: false,
-        unhcr: true
-      },
-      climate: {
-        label: "Climate / disasters",
-        wb: ["SP.POP.TOTL", "AG.LND.FRST.ZS", "SP.URB.TOTL.IN.ZS"],
-        hdx: ["disaster climate flood", "EM-DAT disaster", "climate humanitarian"],
-        nasa: "climate disaster flood exposure population",
-        gdelt: "climate disaster humanitarian",
-        gdacs: true,
-        unhcr: false
-      },
-      conflict: {
-        label: "Conflict / access",
-        wb: ["SP.POP.TOTL", "NY.GDP.PCAP.CD"],
-        hdx: ["access constraints humanitarian", "conflict humanitarian", "security access"],
-        nasa: "population conflict exposure",
-        gdelt: "conflict humanitarian access",
-        gdacs: false,
-        unhcr: true
-      },
-      food: {
-        label: "Food security",
-        wb: ["SP.POP.TOTL", "NY.GDP.PCAP.CD"],
-        hdx: ["IPC food security", "food security humanitarian", "nutrition"],
-        nasa: "food security climate agriculture",
-        gdelt: "food security humanitarian",
-        gdacs: false,
-        unhcr: false
-      },
-      population: {
-        label: "Population / exposure",
-        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
-        hdx: ["population exposure", "WorldPop population", "settlements humanitarian"],
-        nasa: "population exposure settlements",
-        gdelt: "population exposure humanitarian",
-        gdacs: false,
-        unhcr: false
-      },
-      technology: {
-        label: "Humanitarian data / technology",
-        wb: ["SP.POP.TOTL", "IT.NET.USER.ZS"],
-        hdx: ["data digital humanitarian", "information management humanitarian", "humanitarian technology"],
-        nasa: "earth observation data",
-        gdelt: "humanitarian technology data",
-        gdacs: false,
-        unhcr: false
-      },
-      compound: {
-        label: "Compound pressure",
-        wb: ["SP.POP.TOTL", "SH.MED.PHYS.ZS", "SH.DYN.MORT", "AG.LND.FRST.ZS"],
-        hdx: ["humanitarian needs", "displacement disaster health", "INFORM Risk Index"],
-        nasa: "population climate exposure",
-        gdelt: "humanitarian crisis displacement disaster health",
-        gdacs: true,
-        unhcr: true
-      }
-    };
-
-    const WB_LABELS = {
-      "SP.POP.TOTL": "Population",
-      "SH.MED.PHYS.ZS": "Physicians per 1,000 people",
-      "SH.DYN.MORT": "Under-5 mortality",
-      "AG.LND.FRST.ZS": "Forest area percentage",
-      "SP.URB.TOTL.IN.ZS": "Urban population share",
-      "NY.GDP.PCAP.CD": "GDP per capita",
-      "IT.NET.USER.ZS": "Internet users percentage"
-    };
-
-    const SOURCES = [
-      { id: "worldbank", name: "World Bank Indicators", type: "Live values", url: "https://data.worldbank.org/", description: "Country-level population, health, development, economy and environment indicators." },
-      { id: "unhcr", name: "UNHCR Refugee Data Finder", type: "Live records", url: "https://www.unhcr.org/refugee-statistics/", description: "Displacement and refugee population records." },
-      { id: "gdacs", name: "GDACS", type: "Live events", url: "https://www.gdacs.org/", description: "Current or recently updated disaster event records." },
-      { id: "hdx", name: "HDX", type: "Dataset discovery", url: "https://data.humdata.org/", description: "Humanitarian dataset catalogue." },
-      { id: "nasa", name: "NASA CMR / Earthdata", type: "Dataset discovery", url: "https://www.earthdata.nasa.gov/", description: "Earth observation dataset catalogue." },
-      { id: "gdelt", name: "GDELT", type: "Media/event signal", url: "https://www.gdeltproject.org/", description: "Open global media and event monitoring." }
-    ];
-
-    function esc(value) {
-      return String(value ?? "").replace(/[&<>"']/g, c => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-      }[c]));
-    }
-
-    function formatNumber(value) {
-      const n = Number(value);
-      if (!Number.isFinite(n)) return "not available";
-      return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
-    }
-
-    function table(headers, rows) {
-      if (!rows.length) return "<p class='mini'>No rows to show.</p>";
-      return `<div class="table-wrap"><table><thead><tr>${headers.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-    }
-
-    function rawDetails(label, data) {
-      return `<details><summary>${esc(label)}</summary><pre>${esc(JSON.stringify(data, null, 2).slice(0, 16000))}</pre></details>`;
-    }
-
-    function timeoutFetch(url, options = {}, ms = 14000) {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), ms);
-      return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
-    }
-
-    async function fetchJson(url) {
-      const res = await timeoutFetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-      return res.json();
-    }
-
-    function settings() {
-      const depth = document.getElementById("depth").value;
-      if (depth === "quick") return { wb: 10, hdx: 5, nasa: 5, gdelt: 10, unhcr: 25 };
-      if (depth === "comprehensive") return { wb: 60, hdx: 100, nasa: 50, gdelt: 100, unhcr: 500 };
-      return { wb: 25, hdx: 25, nasa: 20, gdelt: 50, unhcr: 100 };
-    }
-
-    function init() {
-      document.getElementById("country").innerHTML = COUNTRIES.map(([code, name]) => `<option value="${code}">${name} · ${code}</option>`).join("");
-      document.getElementById("theme").innerHTML = Object.entries(THEMES).map(([id, theme]) => `<option value="${id}">${theme.label}</option>`).join("");
-      renderSources();
-    }
-
-    async function buildFocus() {
-      const button = document.getElementById("build-btn");
-      const out = document.getElementById("output");
-      const countryCode = document.getElementById("country").value;
-      const countryName = COUNTRIES.find(c => c[0] === countryCode)?.[1] || countryCode;
-      const themeId = document.getElementById("theme").value;
-      const theme = THEMES[themeId];
-      const timeview = document.getElementById("timeview").value;
-      const lens = document.getElementById("lens").value;
-      const depth = settings();
-
-      button.disabled = true;
-      out.innerHTML = `<div class="empty loading">Finding focus areas</div>`;
-
-      const tasks = [
-        task("World Bank", "live", () => fetchWorldBank(countryCode, theme.wb, depth.wb)),
-        task("HDX", "metadata", () => fetchHdx(countryName, theme.hdx, depth.hdx)),
-        task("NASA CMR", "metadata", () => fetchNasa(theme.nasa, depth.nasa)),
-        task("GDELT", "signal", () => fetchGdelt(`${countryName} ${theme.gdelt}`, depth.gdelt))
-      ];
-      if (theme.gdacs) tasks.push(task("GDACS", "live", () => fetchGdacs(countryName)));
-      if (theme.unhcr) tasks.push(task("UNHCR", "live", () => fetchUnhcr(countryCode, depth.unhcr)));
-
-      const results = await Promise.all(tasks);
-      const analysis = analyse({ countryCode, countryName, themeId, theme, timeview, lens, results });
-      renderOutput(analysis);
-      button.disabled = false;
-    }
-
-    async function task(name, category, fn) {
-      try {
-        const data = await fn();
-        return { name, category, ok: true, data };
-      } catch (error) {
-        return { name, category, ok: false, error: error.name === "AbortError" ? "Timed out" : (error.message || String(error)) };
-      }
-    }
-
-    async function fetchWorldBank(country, indicators, perPage) {
-      const series = [];
-      for (const indicator of indicators) {
-        const url = `https://api.worldbank.org/v2/country/${encodeURIComponent(country)}/indicator/${encodeURIComponent(indicator)}?format=json&per_page=${encodeURIComponent(perPage)}`;
-        const raw = await fetchJson(url);
-        const rows = (raw[1] || []).filter(r => r.value !== null && r.value !== undefined);
-        series.push({ indicator, label: WB_LABELS[indicator] || indicator, rows, url, raw });
-      }
-      return { series };
-    }
-
-    async function fetchHdx(countryName, queries, rows) {
-      const searches = [];
-      for (const query of queries) {
-        const q = `${countryName} ${query}`;
-        const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(q)}&rows=${encodeURIComponent(rows)}`;
-        const raw = await fetchJson(url);
-        searches.push({ query: q, count: raw.result?.count || 0, results: raw.result?.results || [], url, raw });
-      }
-      return { searches };
-    }
-
-    async function fetchNasa(query, pageSize) {
-      const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(query)}&page_size=${encodeURIComponent(pageSize)}`;
-      const raw = await fetchJson(url);
-      return { query, results: raw.feed?.entry || [], url, raw };
-    }
-
-    async function fetchGdelt(query, maxRecords) {
-      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&format=json&maxrecords=${encodeURIComponent(maxRecords)}&sort=HybridRel`;
-      const raw = await fetchJson(url);
-      return { query, articles: raw.articles || [], url, raw };
-    }
-
-    async function fetchGdacs(countryName) {
-      const url = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest";
-      const raw = await fetchJson(url);
-      const records = Array.isArray(raw) ? raw : (raw.features || raw.items || raw.events || []);
-      const rows = records.map(item => item.properties ? { ...item.properties, geometry: item.geometry } : item);
-      const countryLower = countryName.toLowerCase();
-      const matching = rows.filter(r => JSON.stringify(r).toLowerCase().includes(countryLower));
-      return { all: rows, matching, url, raw };
-    }
-
-    async function fetchUnhcr(countryCode, limit) {
-      const year = new Date().getFullYear() - 1;
-      const url = `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${encodeURIComponent(countryCode)}&limit=${encodeURIComponent(limit)}`;
-      const raw = await fetchJson(url);
-      const rows = Array.isArray(raw?.items) ? raw.items : Array.isArray(raw) ? raw : (raw?.data || []);
-      return { year, rows, url, raw };
-    }
-
-    function analyse(ctx) {
-      const byName = Object.fromEntries(ctx.results.map(r => [r.name, r]));
-      const wb = byName["World Bank"]?.ok ? byName["World Bank"].data : null;
-      const hdx = byName["HDX"]?.ok ? byName["HDX"].data : null;
-      const nasa = byName["NASA CMR"]?.ok ? byName["NASA CMR"].data : null;
-      const gdelt = byName["GDELT"]?.ok ? byName["GDELT"].data : null;
-      const gdacs = byName["GDACS"]?.ok ? byName["GDACS"].data : null;
-      const unhcr = byName["UNHCR"]?.ok ? byName["UNHCR"].data : null;
-
-      const metrics = {
-        working: ctx.results.filter(r => r.ok).length,
-        attempted: ctx.results.length,
-        live: ctx.results.filter(r => r.ok && r.category === "live").length,
-        metadata: ctx.results.filter(r => r.ok && r.category === "metadata").length,
-        signal: ctx.results.filter(r => r.ok && r.category === "signal").length,
-        failed: ctx.results.filter(r => !r.ok).length,
-        hdxDatasets: hdx ? hdx.searches.reduce((sum, s) => sum + s.count, 0) : 0,
-        nasaCollections: nasa ? nasa.results.length : 0,
-        gdeltArticles: gdelt ? gdelt.articles.length : 0,
-        gdacsMatches: gdacs ? gdacs.matching.length : 0,
-        gdacsReturned: gdacs ? gdacs.all.length : 0,
-        unhcrRecords: unhcr ? unhcr.rows.length : 0,
-        wbSeries: wb ? wb.series.filter(s => s.rows.length).length : 0,
-        wbLatest: wb ? latestIndicators(wb.series) : [],
-        wbTrends: wb ? indicatorTrends(wb.series) : []
-      };
-
-      metrics.visibility = visibility(metrics);
-      const focuses = generateFocuses(ctx, metrics);
-      return { ...ctx, sources: { wb, hdx, nasa, gdelt, gdacs, unhcr }, metrics, focuses };
-    }
-
-    function latestIndicators(series) {
-      return series.map(item => {
-        const sorted = [...item.rows].sort((a,b) => Number(b.date) - Number(a.date));
-        const latest = sorted[0];
-        return { indicator: item.indicator, label: item.label, latest };
-      }).filter(x => x.latest);
-    }
-
-    function indicatorTrends(series) {
-      return series.map(item => {
-        const clean = item.rows.map(r => ({ year: Number(r.date), value: Number(r.value) }))
-          .filter(r => Number.isFinite(r.year) && Number.isFinite(r.value))
-          .sort((a,b) => a.year - b.year);
-        if (clean.length < 2) return null;
-        const first = clean[0], latest = clean[clean.length - 1];
-        const change = latest.value - first.value;
-        const pct = first.value !== 0 ? (change / first.value) * 100 : null;
-        return { indicator: item.indicator, label: item.label, first, latest, change, pct };
-      }).filter(Boolean);
-    }
-
-    function visibility(m) {
-      if (m.working === 0) return "No useful data returned";
-      if (m.live >= 2 && m.metadata >= 2 && m.working / m.attempted >= .75) return "Strong";
-      if (m.working / m.attempted >= .45) return "Partial";
-      return "Limited";
-    }
-
-    function generateFocuses(ctx, m) {
-      const list = [];
-      const signals = signalList(ctx, m);
-      const time = timeAngle(ctx.timeview);
-      const lens = lensText(ctx.lens);
-
-      function add(title, why, caution, localSignals = signals) {
-        list.push({ title, why, signals: localSignals, time, caution, lens });
-      }
-
-      if (ctx.themeId === "climate" && (m.gdacsMatches > 0 || m.hdxDatasets > 0)) {
-        add(
-          "Recurrent disaster response as adaptive management",
-          `This appears because disaster/event monitoring and disaster-climate dataset discovery returned visible signals for ${ctx.countryName}.`,
-          "This does not estimate future disaster frequency or impact.",
-          compact(["GDACS event records", "HDX disaster/climate datasets", "World Bank population/context indicators"])
-        );
-      }
-
-      if (ctx.themeId === "displacement" && (m.unhcrRecords > 0 || m.hdxDatasets > 0)) {
-        add(
-          "Managing mobility as a long-term coordination challenge",
-          `This appears because displacement records or displacement-related dataset listings were visible for ${ctx.countryName}.`,
-          "Formal records may miss informal, temporary, circular or unregistered movement.",
-          compact(["UNHCR displacement records", "HDX displacement datasets", "World Bank population context"])
-        );
-      }
-
-      if (ctx.themeId === "health" && m.wbSeries > 0) {
-        add(
-          "Health workforce pressure and team capacity",
-          "This appears because the selected indicators include population scale, health workforce proxy data, and child-health pressure indicators where available.",
-          "Country-level health indicators do not show local staffing gaps, workload, service quality or burnout.",
-          compact(["World Bank health workforce indicator", "World Bank population indicator", "World Bank under-5 mortality indicator", "HDX health datasets"])
-        );
-      }
-
-      if (ctx.themeId === "conflict" && (m.hdxDatasets > 0 || m.gdeltArticles > 0 || m.unhcrRecords > 0)) {
-        add(
-          "Access, relationships and negotiated operating space",
-          "This appears because access/conflict dataset discovery, media/event signals, or displacement records returned visible context.",
-          "Media attention and dataset availability do not prove access conditions on the ground.",
-          compact(["HDX access/conflict datasets", "GDELT topic signal", "UNHCR records where returned"])
-        );
-      }
-
-      if (ctx.themeId === "food" && (m.hdxDatasets > 0 || m.gdeltArticles > 0)) {
-        add(
-          "Food security as a coordination and monitoring problem",
-          "This appears because food-security dataset discovery or topic signals returned results that can support further inspection.",
-          "Dataset listings do not show current household-level food security conditions unless the underlying data is loaded and validated.",
-          compact(["HDX IPC/food-security datasets", "GDELT food-security signal", "World Bank population/economic context"])
-        );
-      }
-
-      if (ctx.themeId === "technology" || m.metadata > m.live) {
-        add(
-          "Data visibility versus decision-readiness",
-          "This appears because dataset catalogues or metadata sources returned more visibility than direct live values.",
-          "More datasets do not automatically create better decisions. Methods, freshness, coverage and usability still need review.",
-          compact(["HDX dataset listings", "NASA CMR metadata", "source status results"])
-        );
-      }
-
-      if (ctx.themeId === "population" && m.wbSeries > 0) {
-        add(
-          "Population exposure and service pressure",
-          "This appears because population and exposure-related indicators or dataset listings are visible for the selected country.",
-          "National population indicators do not show who is exposed, where they live, or what services they can access.",
-          compact(["World Bank population/urban indicators", "NASA exposure metadata", "HDX population datasets"])
-        );
-      }
-
-      if (ctx.themeId === "compound" && m.live + m.metadata >= 3) {
-        add(
-          "Compound pressure across systems",
-          "This appears because multiple source types returned data or metadata across humanitarian, health, displacement, disaster or development routes.",
-          "This is a signal combination, not a severity score or causal explanation.",
-          compact(["World Bank indicators", "HDX datasets", "GDACS events", "UNHCR records", "GDELT signal"])
-        );
-      }
-
-      if (m.failed > 0) {
-        add(
-          "Planning with partial visibility",
-          `This appears because ${m.failed} of ${m.attempted} attempted source routes did not return usable data in the browser.`,
-          "A failed browser route is not proof that the data does not exist. It may require a different access route, backend, download or manual review.",
-          compact(["Source status", "failed routes", "returned routes"])
-        );
-      }
-
-      if (m.wbTrends.some(t => Math.abs(t.pct || 0) > 10)) {
-        const strongest = [...m.wbTrends].sort((a,b) => Math.abs(b.pct || 0) - Math.abs(a.pct || 0))[0];
-        add(
-          "Historical change as a futures prompt",
-          `${strongest.label} changed by ${formatNumber(strongest.pct)}% across the returned World Bank series.`,
-          "Extending a past pattern is not a prediction. It is a prompt for questioning assumptions.",
-          compact(["World Bank time series", strongest.label])
-        );
-      }
-
-      if (!list.length) {
-        add(
-          "Data availability as the first focus",
-          "The selected combination returned too little direct signal for a stronger thematic suggestion.",
-          "The useful next step may be source review rather than interpretation.",
-          compact(["Source status", "metadata results", "failed routes"])
-        );
-        add(
-          "Decision-making under uncertainty",
-          "The query produced limited visibility, which makes uncertainty itself a relevant management focus.",
-          "This should not be treated as a finding about the country context.",
-          compact(["source coverage", "missing values", "available metadata"])
-        );
-      }
-
-      return list.slice(0, 5);
-    }
-
-    function compact(arr) {
-      return arr.filter(Boolean);
-    }
-
-    function signalList(ctx, m) {
-      const list = [];
-      if (m.wbSeries) list.push(`${m.wbSeries} World Bank indicator series`);
-      if (m.hdxDatasets) list.push(`${m.hdxDatasets.toLocaleString()} HDX dataset matches`);
-      if (m.nasaCollections) list.push(`${m.nasaCollections} NASA catalogue records`);
-      if (m.gdeltArticles) list.push(`${m.gdeltArticles} GDELT article records`);
-      if (m.gdacsMatches) list.push(`${m.gdacsMatches} GDACS country-matched events`);
-      if (m.unhcrRecords) list.push(`${m.unhcrRecords} UNHCR records`);
-      if (!list.length) list.push("limited returned data");
-      return list;
-    }
-
-    function timeAngle(view) {
-      return {
-        now: "Current pattern: focus on what is visible now and what still needs checking.",
-        "2032": "2032: use this as a near-future planning lens, not a prediction.",
-        "2052": "2052: use this as a structural future lens for slow pressures and institutional capacity.",
-        beyond: "Beyond 2052: use this to test assumptions that could fail under long-term change."
-      }[view];
-    }
-
-    function lensText(lens) {
-      return {
-        project: "project design, portfolio pressure and delivery model",
-        self: "personal workload, judgement and decision pressure",
-        team: "team capacity, roles and duty of care",
-        relationships: "coordination, trust, legitimacy and negotiation",
-        macro: "structural change and institutional constraints",
-        technology: "data systems, automation and accountability",
-        health: "service pressure, access and humanitarian impact"
-      }[lens];
-    }
-
-    function renderOutput(a) {
-      const out = document.getElementById("output");
-      const m = a.metrics;
-
-      out.innerHTML = `
-        <div class="status-grid">
-          <div class="status-card"><span>Country</span><b>${esc(a.countryName)}</b></div>
-          <div class="status-card"><span>Theme</span><b>${esc(a.theme.label)}</b></div>
-          <div class="status-card"><span>Visibility</span><b>${esc(m.visibility)}</b></div>
-          <div class="status-card"><span>Sources</span><b>${m.working}/${m.attempted}</b></div>
-        </div>
-
-        <article class="card">
-          <h3>Suggested focus areas</h3>
-          <div class="focus-grid">
-            ${a.focuses.map(renderFocusCard).join("")}
-          </div>
-        </article>
-
-        <div class="snapshot-grid">
-          <article class="card">
-            <h3>Data signals</h3>
-            ${renderSignalSummary(a)}
-          </article>
-
-          <article class="card">
-            <h3>Source status</h3>
-            ${renderSourceStatus(a.results)}
-          </article>
-
-          <article class="card">
-            <h3>Indicator snapshot</h3>
-            ${renderIndicators(a.sources.wb)}
-            ${renderGdacs(a.sources.gdacs)}
-            ${renderUnhcr(a.sources.unhcr)}
-          </article>
-
-          <article class="card">
-            <h3>Dataset discovery</h3>
-            ${renderHdx(a.sources.hdx)}
-            ${renderNasa(a.sources.nasa)}
-          </article>
-        </div>
-
-        <article class="card">
-          <h3>Raw details</h3>
-          ${rawDetails("View responses and derived metrics", { metrics: a.metrics, results: a.results })}
-        </article>
-      `;
-    }
-
-    function renderFocusCard(focus) {
-      return `
-        <article class="source-card">
-          <h4>${esc(focus.title)}</h4>
-          <p><b>Why this appears:</b> ${esc(focus.why)}</p>
-          <p><b>Data signals:</b> ${esc(focus.signals.join("; "))}</p>
-          <p><b>Time angle:</b> ${esc(focus.time)}</p>
-          <p><b>Lens:</b> ${esc(focus.lens)}</p>
-          <p><b>Caution:</b> ${esc(focus.caution)}</p>
-        </article>
-      `;
-    }
-
-    function renderSignalSummary(a) {
-      const m = a.metrics;
-      return `
-        <div class="pill-row">
-          <span class="pill ${m.visibility === "Strong" ? "green" : m.visibility === "Partial" ? "amber" : "red"}">Visibility: ${esc(m.visibility)}</span>
-          <span class="pill">Live routes: ${m.live}</span>
-          <span class="pill">Metadata routes: ${m.metadata}</span>
-          <span class="pill">Media signal routes: ${m.signal}</span>
-          <span class="pill amber">Failed routes: ${m.failed}</span>
-        </div>
-        ${table(["Signal", "Value"], [
-          ["World Bank series", esc(m.wbSeries)],
-          ["HDX dataset matches", esc(m.hdxDatasets.toLocaleString())],
-          ["NASA collection records", esc(m.nasaCollections)],
-          ["GDELT article records", esc(m.gdeltArticles)],
-          ["GDACS country-matched events", esc(m.gdacsMatches)],
-          ["UNHCR records", esc(m.unhcrRecords)]
-        ])}
-      `;
-    }
-
-    function renderSourceStatus(results) {
-      return table(["Source", "Type", "Status", "Result"], results.map(r => [
-        esc(r.name),
-        esc(r.category),
-        r.ok ? `<span class="pill green">Returned</span>` : `<span class="pill red">Failed</span>`,
-        esc(r.ok ? countResult(r) : r.error)
-      ]));
-    }
-
-    function countResult(r) {
-      if (r.name === "World Bank") return `${r.data.series.filter(s => s.rows.length).length} indicator series`;
-      if (r.name === "HDX") return `${r.data.searches.reduce((s, q) => s + q.count, 0).toLocaleString()} dataset matches`;
-      if (r.name === "NASA CMR") return `${r.data.results.length} collections`;
-      if (r.name === "GDELT") return `${r.data.articles.length} articles`;
-      if (r.name === "GDACS") return `${r.data.matching.length} country matches / ${r.data.all.length} feed records`;
-      if (r.name === "UNHCR") return `${r.data.rows.length} records`;
-      return "response";
-    }
-
-    function renderIndicators(wb) {
-      if (!wb) return `<p class="mini">No World Bank values returned.</p>`;
-      const rows = wb.series.map(item => {
-        const sorted = [...item.rows].sort((a,b) => Number(b.date) - Number(a.date));
-        const latest = sorted[0];
-        const trend = trendFromRows(sorted);
-        return [
-          esc(item.label),
-          esc(latest ? latest.date : "—"),
-          esc(latest ? formatNumber(latest.value) : "—"),
-          esc(trend ? formatNumber(trend.change) : "—"),
-          esc(trend && trend.pct !== null ? `${formatNumber(trend.pct)}%` : "—")
-        ];
-      });
-      return table(["Indicator", "Latest year", "Latest value", "Change", "% change"], rows);
-    }
-
-    function trendFromRows(rows) {
-      const clean = rows.map(r => ({ year: Number(r.date), value: Number(r.value) }))
-        .filter(r => Number.isFinite(r.year) && Number.isFinite(r.value))
-        .sort((a,b) => a.year - b.year);
-      if (clean.length < 2) return null;
-      const first = clean[0], latest = clean[clean.length - 1];
-      const change = latest.value - first.value;
-      const pct = first.value !== 0 ? (change / first.value) * 100 : null;
-      return { first, latest, change, pct };
-    }
-
-    function renderGdacs(gdacs) {
-      if (!gdacs) return "";
-      return `
-        <h4 style="margin-top:14px;">GDACS</h4>
-        <div class="pill-row">
-          <span class="pill green">${gdacs.matching.length} country-matched events</span>
-          <span class="pill">${gdacs.all.length} feed records</span>
-        </div>
-      `;
-    }
-
-    function renderUnhcr(unhcr) {
-      if (!unhcr) return "";
-      const total = unhcr.rows.reduce((sum, r) => sum + numeric(r.value || r.population || r.total || r.individuals), 0);
-      return `
-        <h4 style="margin-top:14px;">UNHCR</h4>
-        <div class="pill-row">
-          <span class="pill green">${unhcr.rows.length} records</span>
-          <span class="pill">Readable value sum: ${formatNumber(total)}</span>
-        </div>
-      `;
-    }
-
-    function renderHdx(hdx) {
-      if (!hdx) return `<p class="mini">No HDX listings returned.</p>`;
-      const all = hdx.searches.flatMap(search => search.results.map(d => ({ ...d, search: search.query })));
-      const rows = all.slice(0, 12).map(d => [
-        `<a href="https://data.humdata.org/dataset/${esc(d.name)}" target="_blank" rel="noreferrer">${esc(d.title || d.name)}</a>`,
-        esc(d.organization?.title || d.organization?.name || "—"),
-        esc(d.num_resources ?? d.resources?.length ?? "—"),
-        esc(d.metadata_modified ? new Date(d.metadata_modified).toLocaleDateString() : "—")
-      ]);
-      return `
-        <p><b>${hdx.searches.reduce((s, q) => s + q.count, 0).toLocaleString()}</b> HDX matches across ${hdx.searches.length} searches.</p>
-        ${table(["Dataset", "Organisation", "Resources", "Modified"], rows)}
-      `;
-    }
-
-    function renderNasa(nasa) {
-      if (!nasa) return "";
-      const rows = nasa.results.slice(0, 5).map(e => [
-        `<a href="${esc(e.links?.find(l => l.href)?.href || "https://www.earthdata.nasa.gov/")}" target="_blank" rel="noreferrer">${esc(e.title || e.short_name || "Untitled")}</a>`,
-        esc(e.short_name || "—"),
-        esc(e.updated || "—")
-      ]);
-      return `
-        <h4 style="margin-top:14px;">NASA CMR</h4>
-        <p><b>${nasa.results.length}</b> collection metadata records.</p>
-        ${table(["Collection", "ID", "Updated"], rows)}
-      `;
-    }
-
-    function numeric(value) {
-      const n = Number(value);
-      return Number.isFinite(n) ? n : 0;
-    }
-
-    function clearFocus() {
-      document.getElementById("output").innerHTML = `<div class="empty">No focus areas yet.</div>`;
-    }
-
-    async function testSources() {
-      const out = document.getElementById("coverage-result");
-      out.innerHTML = SOURCES.map(s => `<article class="source-card" id="test-${s.id}"><div class="top"><h3>${esc(s.name)}</h3><span class="pill">Testing</span></div></article>`).join("");
-
-      const tests = {
-        worldbank: () => fetchJson("https://api.worldbank.org/v2/country/KEN/indicator/SP.POP.TOTL?format=json&per_page=3"),
-        unhcr: () => fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=3"),
-        gdacs: () => fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest"),
-        hdx: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=displacement&rows=3"),
-        nasa: () => fetchJson("https://cmr.earthdata.nasa.gov/search/collections.json?keyword=population&page_size=3"),
-        gdelt: () => fetchJson("https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=ArtList&format=json&maxrecords=3")
-      };
-
-      for (const source of SOURCES) {
-        const el = document.getElementById(`test-${source.id}`);
-        try {
-          const result = await tests[source.id]();
-          el.innerHTML = `<div class="top"><h3>${esc(source.name)}</h3><span class="pill green">Working</span></div><p>${esc(source.type)}</p>${rawDetails("View response", result)}`;
-        } catch (error) {
-          el.innerHTML = `<div class="top"><h3>${esc(source.name)}</h3><span class="pill red">Failed</span></div><p>${esc(error.name === "AbortError" ? "Timed out" : error.message || error)}</p>`;
-        }
-      }
-    }
-
-    function renderSources() {
-      document.getElementById("source-list").innerHTML = SOURCES.map(source => `
-        <article class="source-card">
-          <div class="top">
-            <h3>${esc(source.name)}</h3>
-            <span class="pill">${esc(source.type)}</span>
-          </div>
-          <p>${esc(source.description)}</p>
-          <a class="source-link" href="${esc(source.url)}" target="_blank" rel="noreferrer">Open source</a>
-        </article>
-      `).join("");
-    }
-
-    init();
-  </script>
+<script>
+const countries = [
+  { name: "Kenya", iso2: "KE", iso3: "KEN", wb: "KEN" },
+  { name: "Bangladesh", iso2: "BD", iso3: "BGD", wb: "BGD" },
+  { name: "Nigeria", iso2: "NG", iso3: "NGA", wb: "NGA" },
+  { name: "Sudan", iso2: "SD", iso3: "SDN", wb: "SDN" },
+  { name: "Haiti", iso2: "HT", iso3: "HTI", wb: "HTI" },
+  { name: "Philippines", iso2: "PH", iso3: "PHL", wb: "PHL" }
+];
+
+const wbIndicators = [
+  { code:"SP.POP.TOTL", label:"Population", unit:"people", type:"scale", clamp:null, source:"World Bank" },
+  { code:"SP.URB.TOTL.IN.ZS", label:"Urban population", unit:"% of population", type:"percent", clamp:[0,100], source:"World Bank" },
+  { code:"SH.MED.PHYS.ZS", label:"Physicians", unit:"per 1,000 people", type:"capacity", clamp:[0,null], source:"World Bank" },
+  { code:"SH.DYN.MORT", label:"Under-5 mortality", unit:"per 1,000 live births", type:"health", clamp:[0,null], source:"World Bank" },
+  { code:"SP.DYN.LE00.IN", label:"Life expectancy", unit:"years", type:"health", clamp:[0,120], source:"World Bank" },
+  { code:"SH.XPD.CHEX.PC.CD", label:"Current health expenditure", unit:"US$ per capita", type:"capacity", clamp:[0,null], source:"World Bank" },
+  { code:"IT.NET.USER.ZS", label:"Internet users", unit:"% of population", type:"technology", clamp:[0,100], source:"World Bank" },
+  { code:"IT.CEL.SETS.P2", label:"Mobile cellular subscriptions", unit:"per 100 people", type:"technology", clamp:[0,null], source:"World Bank" },
+  { code:"IT.NET.SECR.P6", label:"Secure internet servers", unit:"per 1m people", type:"technology", clamp:[0,null], source:"World Bank" },
+  { code:"AG.LND.FRST.ZS", label:"Forest area", unit:"% of land area", type:"environment", clamp:[0,100], source:"World Bank" },
+  { code:"EN.ATM.CO2E.PC", label:"CO₂ emissions", unit:"metric tons per capita", type:"environment", clamp:[0,null], source:"World Bank" }
+];
+
+const hdxThemes = ["health", "displacement", "disaster", "climate", "food security", "IOM DTM", "IDMC", "INFORM Risk", "EM-DAT", "technology", "data governance"];
+const nasaKeywords = ["population exposure", "flood", "drought", "land surface temperature", "precipitation", "nighttime lights", "earth observation disaster"];
+
+const $ = id => document.getElementById(id);
+const fmt = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 });
+const fmt0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
+const money = new Intl.NumberFormat("en-GB", { style:"currency", currency:"USD", maximumFractionDigits:0 });
+
+function init(){
+  $("countrySelect").innerHTML = countries.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join("");
+  $("runButton").addEventListener("click", () => runCase(false));
+  $("compareButton").addEventListener("click", compareCountries);
+}
+function countryByIso(iso3){return countries.find(c=>c.iso3===iso3) || countries[0];}
+function setStatus(msg, type="warn"){const el=$("status"); el.className=`status ${type}`; el.innerHTML=msg;}
+function esc(v){return String(v ?? "").replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#039;","\"":"&quot;"}[ch]));}
+function safeNum(v){const n=Number(v); return Number.isFinite(n)?n:null;}
+function yearNum(v){const y=parseInt(v,10); return Number.isFinite(y)?y:null;}
+function formatValue(value, indicator){
+  if(value === null || value === undefined || !Number.isFinite(value)) return "—";
+  if(indicator && indicator.unit === "people") return fmt0.format(value);
+  if(indicator && indicator.unit === "US$ per capita") return money.format(value);
+  if(Math.abs(value) >= 1000) return fmt0.format(value);
+  return fmt.format(value);
+}
+function clampValue(value, clamp){
+  if(value === null || !Number.isFinite(value) || !clamp) return value;
+  let out = value;
+  if(clamp[0] !== null && out < clamp[0]) out = clamp[0];
+  if(clamp[1] !== null && out > clamp[1]) out = clamp[1];
+  return out;
+}
+async function fetchJson(url, opts={}){
+  const controller = new AbortController();
+  const t = setTimeout(()=>controller.abort(), opts.timeout || 16000);
+  try{
+    const res = await fetch(url, { headers:{Accept:"application/json,*/*"}, signal:controller.signal });
+    const text = await res.text();
+    clearTimeout(t);
+    let data;
+    try{ data = JSON.parse(text); } catch(e){ throw new Error(`Non-JSON response from ${url}`); }
+    if(!res.ok || data.error){ throw new Error(data.error?.message || data.message || `HTTP ${res.status}`); }
+    return { ok:true, data, url };
+  }catch(error){ clearTimeout(t); return { ok:false, error:error.message, url }; }
+}
+async function fetchText(url, opts={}){
+  const controller = new AbortController();
+  const t = setTimeout(()=>controller.abort(), opts.timeout || 16000);
+  try{
+    const res = await fetch(url, { signal:controller.signal });
+    const text = await res.text();
+    clearTimeout(t);
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    return { ok:true, text, url };
+  }catch(error){ clearTimeout(t); return { ok:false, error:error.message, url }; }
+}
+
+async function fetchWorldBankSeries(country, indicator){
+  const url = `https://api.worldbank.org/v2/country/${country.wb}/indicator/${indicator.code}?format=json&per_page=80`;
+  const res = await fetchJson(url);
+  if(!res.ok) return { ...res, indicator, points:[] };
+  const rows = Array.isArray(res.data) ? res.data[1] || [] : [];
+  const points = rows.map(r=>({ year:yearNum(r.date), value:safeNum(r.value) }))
+    .filter(p=>p.year && p.value !== null)
+    .sort((a,b)=>a.year-b.year);
+  return { ok:true, indicator, points, url, raw:rows };
+}
+function regression(points){
+  const n = points.length;
+  if(n < 2) return null;
+  const sumX = points.reduce((s,p)=>s+p.year,0);
+  const sumY = points.reduce((s,p)=>s+p.value,0);
+  const sumXY = points.reduce((s,p)=>s+p.year*p.value,0);
+  const sumXX = points.reduce((s,p)=>s+p.year*p.year,0);
+  const denom = n*sumXX - sumX*sumX;
+  if(denom === 0) return null;
+  const slope = (n*sumXY - sumX*sumY) / denom;
+  const intercept = (sumY - slope*sumX) / n;
+  return { slope, intercept, predict:y=>intercept+slope*y };
+}
+function projectSeries(series, targetYear, method){
+  const points = series.points || [];
+  const indicator = series.indicator;
+  if(points.length < 2) return { indicator, ok:false, reason:"Not enough non-empty historical values", points };
+  const latest = points[points.length-1];
+  const earliest = points[0];
+  let annualChange, projectedRaw, methodLabel;
+  if(method === "endpoints"){
+    annualChange = (latest.value - earliest.value) / (latest.year - earliest.year);
+    projectedRaw = latest.value + annualChange * (targetYear - latest.year);
+    methodLabel = "Earliest-to-latest annual change";
+  } else {
+    const reg = regression(points);
+    if(!reg) return { indicator, ok:false, reason:"Could not calculate linear regression", points };
+    annualChange = reg.slope;
+    projectedRaw = reg.predict(targetYear);
+    methodLabel = "Linear regression across returned values";
+  }
+  const projected = clampValue(projectedRaw, indicator.clamp);
+  const changeFromLatest = projected - latest.value;
+  const pctFromLatest = latest.value !== 0 ? (changeFromLatest / latest.value) * 100 : null;
+  return { indicator, ok:true, points, earliest, latest, annualChange, projectedRaw, projected, targetYear, pctFromLatest, methodLabel, clamped:projected!==projectedRaw };
+}
+function direction(p, goodDown=false){
+  if(!p.ok || Math.abs(p.annualChange) < 0.000001) return "flat/unclear";
+  const rising = p.annualChange > 0;
+  if(goodDown) return rising ? "worsening" : "improving";
+  return rising ? "rising" : "falling";
+}
+
+async function fetchGdacs(country){
+  const url = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest";
+  const res = await fetchJson(url, { timeout:16000 });
+  if(!res.ok) return { ok:false, error:res.error, url, matches:[], all:[] };
+  const feats = res.data.features || [];
+  const lname = country.name.toLowerCase();
+  const matches = feats.filter(f=>{
+    const p = f.properties || {};
+    const blob = JSON.stringify(p).toLowerCase();
+    return blob.includes(lname) || blob.includes(country.iso2.toLowerCase()) || blob.includes(country.iso3.toLowerCase());
+  });
+  return { ok:true, url, all:feats, matches };
+}
+async function hdxSearch(query, rows=6){
+  const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=${rows}`;
+  const res = await fetchJson(url, { timeout:16000 });
+  if(!res.ok) return { ok:false, query, url, results:[], error:res.error };
+  const results = res.data?.result?.results || [];
+  return { ok:true, query, url, results };
+}
+async function fetchHdxBundle(country){
+  const searches = hdxThemes.map(theme => hdxSearch(`${country.name} ${theme}`, 5));
+  const results = await Promise.all(searches);
+  return results;
+}
+async function fetchUnhcr(country){
+  const year = 2024;
+  const urls = [
+    `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=10`,
+    `https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=10`
+  ];
+  const res = await Promise.all(urls.map(u=>fetchJson(u,{timeout:16000})));
+  const items = [];
+  res.forEach((r,i)=>{ if(r.ok){ (r.data.items || r.data.data || []).forEach(x=>items.push({...x, _route:i===0?"origin":"asylum"})); } });
+  return { ok:res.some(r=>r.ok), urls, items, raw:res };
+}
+async function fetchNasaBundle(country){
+  const qs = nasaKeywords.map(k => `${country.name} ${k}`);
+  const calls = qs.map(q=>{
+    const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(q)}&page_size=5`;
+    return fetchJson(url,{timeout:16000}).then(r=>({ ...r, query:q, results:r.ok ? (r.data.feed?.entry || []) : [] }));
+  });
+  return Promise.all(calls);
+}
+async function fetchGdelt(country, techQuery){
+  const query = `${country.name} ${techQuery}`;
+  const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=artlist&format=json&maxrecords=10&sort=hybridrel`;
+  const res = await fetchJson(url,{timeout:20000});
+  return { ok:res.ok, query, url, articles:res.ok ? (res.data.articles || []) : [], error:res.error };
+}
+async function fetchOpenAlex(country, techQuery){
+  const search = `${techQuery} ${country.name}`;
+  const groupUrl = `https://api.openalex.org/works?search=${encodeURIComponent(search)}&filter=from_publication_date:2015-01-01&group_by=publication_year&per-page=1`;
+  const grouped = await fetchJson(groupUrl,{timeout:20000});
+  if(grouped.ok && grouped.data.group_by){
+    return { ok:true, search, url:groupUrl, groups:grouped.data.group_by, works:[], mode:"group_by" };
+  }
+  const fallbackUrl = `https://api.openalex.org/works?search=${encodeURIComponent(search)}&filter=from_publication_date:2015-01-01&per-page=5&sort=publication_year:desc`;
+  const fallback = await fetchJson(fallbackUrl,{timeout:20000});
+  return { ok:fallback.ok, search, url:fallbackUrl, groups:[], works:fallback.ok ? (fallback.data.results||[]) : [], mode:"works", error:fallback.error || grouped.error };
+}
+
+function deriveMetrics(projections, targetYear){
+  const byCode = Object.fromEntries(projections.map(p=>[p.indicator.code,p]));
+  const pop = byCode["SP.POP.TOTL"];
+  const phys = byCode["SH.MED.PHYS.ZS"];
+  const urb = byCode["SP.URB.TOTL.IN.ZS"];
+  const internet = byCode["IT.NET.USER.ZS"];
+  const derived = [];
+  if(pop?.ok && phys?.ok && phys.projected > 0){
+    const peoplePerPhys = 1000 / phys.projected;
+    const estimatedPhysicians = pop.projected * phys.projected / 1000;
+    derived.push({ label:"Projected people per physician", value:peoplePerPhys, unit:"people per physician", explanation:"Calculated as 1,000 divided by projected physicians per 1,000 people." });
+    derived.push({ label:"Implied physician count", value:estimatedPhysicians, unit:"physicians", explanation:"Projected population × projected physicians per 1,000 / 1,000." });
+  }
+  if(pop?.ok && pop.latest){
+    derived.push({ label:`Population change to ${targetYear}`, value:pop.pctFromLatest, unit:"% from latest actual", explanation:"Projected target-year population compared with latest actual population returned." });
+  }
+  if(pop?.ok && urb?.ok){
+    derived.push({ label:"Projected urban population", value:pop.projected * urb.projected/100, unit:"people", explanation:"Projected population × projected urban population share." });
+  }
+  if(pop?.ok && internet?.ok){
+    derived.push({ label:"Projected internet users", value:pop.projected * internet.projected/100, unit:"people", explanation:"Projected population × projected internet user share." });
+  }
+  return derived;
+}
+function buildCaseNarrative(country, targetYear, projections, derived, contexts){
+  const byCode = Object.fromEntries(projections.map(p=>[p.indicator.code,p]));
+  const pop = byCode["SP.POP.TOTL"], phys = byCode["SH.MED.PHYS.ZS"], mort = byCode["SH.DYN.MORT"], internet = byCode["IT.NET.USER.ZS"], urban = byCode["SP.URB.TOTL.IN.ZS"];
+  const lines = [];
+  if(pop?.ok){ lines.push(`If the returned population trend continued, ${country.name} would have an estimated ${formatValue(pop.projected, pop.indicator)} people in ${targetYear}, ${pop.pctFromLatest>=0?"up":"down"} ${fmt.format(Math.abs(pop.pctFromLatest||0))}% from the latest actual value returned for ${pop.latest.year}.`); }
+  if(phys?.ok){ lines.push(`The projected physician-density proxy is ${fmt.format(phys.projected)} per 1,000 people, which translates into roughly ${fmt.format(1000/Math.max(phys.projected,0.0001))} people per physician if the trend continued.`); }
+  if(mort?.ok){ lines.push(`The under-5 mortality trajectory is ${direction(mort,true)}, with a target-year continuation of ${fmt.format(mort.projected)} per 1,000 live births.`); }
+  if(urban?.ok){ lines.push(`The urbanisation trajectory points to ${fmt.format(urban.projected)}% urban population by ${targetYear}, creating a planning case around urban service delivery, infrastructure, and concentrated health/humanitarian demand.`); }
+  if(internet?.ok){ lines.push(`The internet-use trajectory points to ${fmt.format(internet.projected)}% of the population online by ${targetYear}, making digital coordination, health information systems, misinformation risk, and data protection a plausible part of the case.`); }
+  const hdxCount = contexts.hdx.reduce((s,x)=>s+(x.results?.length||0),0);
+  const nasaCount = contexts.nasa.reduce((s,x)=>s+(x.results?.length||0),0);
+  const gdacsCount = contexts.gdacs.matches?.length || 0;
+  const gdeltCount = contexts.gdelt.articles?.length || 0;
+  const openAlexCount = contexts.openAlex.groups?.reduce((s,g)=>s+(g.count||0),0) || contexts.openAlex.works?.length || 0;
+  lines.push(`Context signals add ${gdacsCount} current/recent GDACS country matches, ${hdxCount} HDX dataset listings, ${nasaCount} NASA Earthdata collection matches, ${gdeltCount} GDELT news/article matches, and ${openAlexCount} OpenAlex scholarly trend records/listings for the selected technology query.`);
+  let caseType = "mixed data case";
+  if(pop?.ok && phys?.ok && pop.pctFromLatest > 25 && phys.pctFromLatest < pop.pctFromLatest) caseType = "workforce-lag under population growth";
+  else if(pop?.ok && urban?.ok && urban.projected > 50) caseType = "urban-scale service planning";
+  else if(internet?.ok && internet.projected > 60 && hdxCount > 5) caseType = "digitally mediated coordination and data-governance case";
+  else if(mort?.ok && direction(mort,true)==="improving" && gdacsCount+hdxCount > 5) caseType = "development progress under continuing humanitarian exposure";
+  return { caseType, lines };
+}
+function buildWarnings(projections, contexts){
+  const warnings = [];
+  projections.forEach(p=>{
+    if(!p.ok) warnings.push(`${p.indicator.label}: not projected because ${p.reason}.`);
+    if(p.ok && p.points.length < 6) warnings.push(`${p.indicator.label}: projection uses only ${p.points.length} non-empty values; treat as weak.`);
+    if(p.ok && p.latest.year < new Date().getFullYear()-4) warnings.push(`${p.indicator.label}: latest actual returned is ${p.latest.year}, so the baseline is dated.`);
+    if(p.ok && p.clamped) warnings.push(`${p.indicator.label}: raw projection exceeded plausible bounds and was clamped for display.`);
+  });
+  if(contexts.gdacs.ok) warnings.push("GDACS latest/current records are event listings, not a disaster-frequency forecast.");
+  warnings.push("HDX, NASA CMR, INFORM/DTM/IDMC/EM-DAT via HDX are catalogue/discovery signals unless the underlying data file is loaded separately.");
+  warnings.push("GDELT is a media/news signal, not a verified humanitarian-needs dataset.");
+  warnings.push("OpenAlex tracks scholarly/publication metadata; it can suggest attention to a topic, not actual technology deployment or impact.");
+  return [...new Set(warnings)].slice(0,12);
+}
+
+async function runCase(returnData=false){
+  const country = countryByIso($("countrySelect").value);
+  const targetYear = parseInt($("targetYear").value,10);
+  const method = $("methodSelect").value;
+  const techQuery = $("techQuerySelect").value;
+  if(!targetYear || targetYear < 2026 || targetYear > 2100){ setStatus("Choose a target year between 2026 and 2100.", "err"); return; }
+  setStatus(`<span class="loader"></span> Pulling time series, projecting indicators, and loading context sources for ${country.name} ${targetYear}...`, "warn");
+  $("results").innerHTML = "";
+
+  const [series, gdacs, hdx, unhcr, nasa, gdelt, openAlex] = await Promise.all([
+    Promise.all(wbIndicators.map(ind=>fetchWorldBankSeries(country, ind))),
+    fetchGdacs(country),
+    fetchHdxBundle(country),
+    fetchUnhcr(country),
+    fetchNasaBundle(country),
+    fetchGdelt(country, techQuery),
+    fetchOpenAlex(country, techQuery)
+  ]);
+  const projections = series.map(s=>projectSeries(s, targetYear, method));
+  const derived = deriveMetrics(projections, targetYear);
+  const contexts = { gdacs, hdx, unhcr, nasa, gdelt, openAlex };
+  const narrative = buildCaseNarrative(country, targetYear, projections, derived, contexts);
+  const warnings = buildWarnings(projections, contexts);
+  const payload = { country, targetYear, method, techQuery, series, projections, derived, contexts, narrative, warnings };
+  if(returnData) return payload;
+  renderCase(payload);
+  setStatus(`Generated a ${targetYear} case file for ${country.name}.`, "ok");
+}
+
+function renderCase(data){
+  const {country,targetYear,projections,derived,contexts,narrative,warnings,techQuery} = data;
+  const goodProj = projections.filter(p=>p.ok).length;
+  const hdxCount = contexts.hdx.reduce((s,x)=>s+(x.results?.length||0),0);
+  const nasaCount = contexts.nasa.reduce((s,x)=>s+(x.results?.length||0),0);
+  const gdacsCount = contexts.gdacs.matches?.length || 0;
+  const openAlexCount = contexts.openAlex.groups?.reduce((s,g)=>s+(g.count||0),0) || contexts.openAlex.works?.length || 0;
+
+  $("results").innerHTML = `
+    <section class="narrative">
+      <h3>${esc(country.name)} ${targetYear}: ${esc(narrative.caseType)}</h3>
+      ${narrative.lines.map(l=>`<p>${esc(l)}</p>`).join("")}
+      <div class="line"></div>
+      <p><strong>Use this as a case file:</strong> a numeric continuation of selected indicators plus current/contextual source signals. It is not an official forecast.</p>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Projected indicator table</h2><p>Generated from World Bank time-series values. Percentages and impossible negative values are clamped where appropriate.</p></div><span class="badge b-proj">${goodProj}/${projections.length} projected</span></div>
+      <div style="overflow:auto">${renderProjectionTable(projections)}</div>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Derived case calculations</h2><p>These combine projected indicators into more interpretable service-planning quantities.</p></div><span class="badge b-derived">calculated</span></div>
+      <div class="cards">${derived.length ? derived.map(d=>renderDerivedCard(d)).join("") : `<div class="card"><span class="badge b-warn">not enough data</span><p>No derived calculations could be made from the projected indicators.</p></div>`}</div>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Current/contextual source signals</h2><p>These sources add context but are not projected into the target year.</p></div></div>
+      <div class="mini-grid">
+        <div class="card"><span class="badge b-live">GDACS</span><strong>${gdacsCount}</strong><p>current/recent disaster records matched to ${esc(country.name)}.</p></div>
+        <div class="card"><span class="badge b-meta">HDX</span><strong>${hdxCount}</strong><p>dataset listings across health, displacement, disaster, climate, food security, technology, INFORM, DTM, IDMC and EM-DAT searches.</p></div>
+        <div class="card"><span class="badge b-live">UNHCR</span><strong>${contexts.unhcr.items.length}</strong><p>country-related 2024 population records returned across origin/asylum query attempts.</p></div>
+        <div class="card"><span class="badge b-meta">NASA CMR</span><strong>${nasaCount}</strong><p>Earthdata collection listings for exposure, flood, drought, temperature, precipitation and observation keywords.</p></div>
+        <div class="card"><span class="badge b-live">GDELT</span><strong>${contexts.gdelt.articles.length}</strong><p>recent article/news records for: ${esc(techQuery)}.</p></div>
+        <div class="card"><span class="badge b-meta">OpenAlex</span><strong>${openAlexCount}</strong><p>scholarly/publication trend records or listings for: ${esc(techQuery)}.</p></div>
+      </div>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Technology and data-development signals</h2><p>Technology is treated as a changing operating condition: digital access, infrastructure proxies, media attention, scholarly attention and Earth-observation/data availability.</p></div></div>
+      ${renderTechnologySection(data)}
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Dataset and event details</h2><p>Open these to see what the contextual sources returned.</p></div></div>
+      <div class="split"><div>${renderHdxDetails(contexts.hdx)}</div><div>${renderEventDetails(contexts)}</div></div>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Bad claims to avoid</h2><p>These warnings are part of the output, not fine print.</p></div><span class="badge b-warn">caveats</span></div>
+      <ul class="list">${warnings.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>
+    </section>
+
+    <section class="panel section">
+      <div class="section-head"><div class="section-title"><h2>Source trail</h2><p>What was queried and how each source was used.</p></div></div>
+      ${renderSourceTrail(data)}
+    </section>
+
+    <details><summary>Raw output object</summary><div class="details-body"><pre>${esc(JSON.stringify(stripRaw(data), null, 2))}</pre></div></details>
+  `;
+}
+function renderProjectionTable(projections){
+  return `<table><thead><tr><th>Indicator</th><th>Latest actual</th><th>Latest year</th><th>Trend</th><th>Projected value</th><th>Projection notes</th></tr></thead><tbody>
+  ${projections.map(p=>{
+    if(!p.ok) return `<tr><td>${esc(p.indicator.label)}</td><td colspan="5">Could not project: ${esc(p.reason)}</td></tr>`;
+    const goodDown = p.indicator.code === "SH.DYN.MORT" || p.indicator.code === "EN.ATM.CO2E.PC";
+    return `<tr><td><strong>${esc(p.indicator.label)}</strong><br><span class="muted">${esc(p.indicator.unit)}</span></td><td>${formatValue(p.latest.value,p.indicator)}</td><td>${p.latest.year}</td><td>${esc(direction(p,goodDown))}<br><span class="muted">${fmt.format(p.annualChange)} / year</span></td><td><strong>${formatValue(p.projected,p.indicator)}</strong><br><span class="muted">${esc(p.indicator.unit)}</span></td><td>${esc(p.methodLabel)}${p.clamped?"; clamped to plausible display range":""}<br><span class="muted">${p.points.length} historical values used</span></td></tr>`;
+  }).join("")}</tbody></table>`;
+}
+function renderDerivedCard(d){
+  const value = d.unit === "physicians" || d.unit === "people" ? fmt0.format(d.value) : fmt.format(d.value);
+  return `<article class="card"><span class="badge b-derived">derived</span><h3>${esc(d.label)}</h3><div class="metric">${esc(value)}</div><p class="muted">${esc(d.unit)}</p><p>${esc(d.explanation)}</p></article>`;
+}
+function renderTechnologySection(data){
+  const techIndicators = data.projections.filter(p=>p.ok && p.indicator.type === "technology");
+  const open = data.contexts.openAlex;
+  const gdelt = data.contexts.gdelt;
+  return `<div class="cards">
+    ${techIndicators.map(p=>`<article class="card"><span class="badge b-proj">projected tech indicator</span><h3>${esc(p.indicator.label)}</h3><div class="metric">${formatValue(p.projected,p.indicator)}</div><p>${esc(p.indicator.unit)} in ${data.targetYear}, by simple continuation.</p><p class="muted">Latest actual: ${formatValue(p.latest.value,p.indicator)} (${p.latest.year})</p></article>`).join("")}
+    <article class="card"><span class="badge b-live">GDELT</span><h3>Media/news signal</h3><div class="metric">${gdelt.articles.length}</div><p>Recent records for the selected technology query. This measures attention in available news/article data, not adoption.</p></article>
+    <article class="card"><span class="badge b-meta">OpenAlex</span><h3>Scholarly attention signal</h3><div class="metric">${open.groups?.length || open.works?.length || 0}</div><p>${open.mode === "group_by" ? "Publication-year groups returned" : "Recent works returned"} for the selected technology query.</p></article>
+  </div>${renderOpenAlex(open)}${renderGdelt(gdelt)}`;
+}
+function renderOpenAlex(open){
+  if(!open.ok) return `<div class="status warn">OpenAlex query failed: ${esc(open.error || "unknown error")}</div>`;
+  if(open.groups?.length){
+    const groups = [...open.groups].sort((a,b)=>Number(a.key)-Number(b.key)).filter(g=>Number(g.key));
+    return `<details><summary>OpenAlex publication-year groups</summary><div class="details-body"><table><thead><tr><th>Year</th><th>Count</th></tr></thead><tbody>${groups.map(g=>`<tr><td>${esc(g.key)}</td><td>${fmt0.format(g.count)}</td></tr>`).join("")}</tbody></table><p class="tiny">Search: ${esc(open.search)}</p></div></details>`;
+  }
+  return `<details><summary>OpenAlex works</summary><div class="details-body">${open.works.map(w=>`<div class="source-row"><span>${esc(w.publication_year || "—")}</span><span>work</span><a href="${esc(w.id)}" target="_blank" rel="noreferrer">${esc(w.title || "Untitled")}</a></div>`).join("")}</div></details>`;
+}
+function renderGdelt(gdelt){
+  if(!gdelt.ok) return `<div class="status warn">GDELT query failed: ${esc(gdelt.error || "unknown error")}</div>`;
+  return `<details><summary>GDELT article records</summary><div class="details-body">${gdelt.articles.length ? gdelt.articles.map(a=>`<div class="source-row"><span>${esc(a.seendate || "—")}</span><span>${esc(a.sourceCountry || a.domain || "source")}</span><a href="${esc(a.url)}" target="_blank" rel="noreferrer">${esc(a.title || a.url)}</a></div>`).join("") : "No records returned."}<p class="tiny">Search: ${esc(gdelt.query)}</p></div></details>`;
+}
+function renderHdxDetails(hdx){
+  return `<details open><summary>HDX dataset discovery</summary><div class="details-body">${hdx.map(s=>`<div class="card"><span class="badge b-meta">${esc(s.query)}</span><strong>${s.results.length} datasets</strong>${s.results.slice(0,4).map(r=>`<p><a href="https://data.humdata.org/dataset/${esc(r.name)}" target="_blank" rel="noreferrer">${esc(r.title || r.name)}</a><br><span class="muted">${esc(r.organization?.title || r.organization?.name || "Unknown organisation")}</span></p>`).join("")}</div>`).join("")}</div></details>`;
+}
+function renderEventDetails(contexts){
+  return `<details open><summary>GDACS / UNHCR / NASA context</summary><div class="details-body">
+    <div class="card"><span class="badge b-live">GDACS matches</span>${contexts.gdacs.matches.length ? contexts.gdacs.matches.map(f=>{const p=f.properties||{}; return `<p><strong>${esc(p.eventtype || p.eventType || "event")}</strong> ${esc(p.name || p.country || "")} <span class="muted">${esc(p.alertlevel || p.alertLevel || "")}</span></p>`}).join("") : `<p>No country match in current/recent GDACS list.</p>`}</div>
+    <div class="card"><span class="badge b-live">UNHCR records</span>${contexts.unhcr.items.length ? contexts.unhcr.items.slice(0,8).map(i=>`<p>${esc(i._route)}: ${esc(i.coo_name || i.coa_name || i.country_of_origin || i.country_of_asylum || "record")} ${esc(i.population_type || i.pop_type || "")} ${esc(i.value || i.population || "")}</p>`).join("") : `<p>No records returned by the current UNHCR query attempts.</p>`}</div>
+    <div class="card"><span class="badge b-meta">NASA CMR</span>${contexts.nasa.map(n=>`<p><strong>${esc(n.query)}</strong>: ${n.results.length} collections</p>`).join("")}</div>
+  </div></details>`;
+}
+function renderSourceTrail(data){
+  const rows = [];
+  data.series.forEach(s=> rows.push(["World Bank", s.points.length?"live time series":"failed/sparse", `${s.indicator.label}: ${s.points.length} non-empty values` , s.url]));
+  rows.push(["GDACS", data.contexts.gdacs.ok?"live events":"failed", `${data.contexts.gdacs.matches.length} country matches`, data.contexts.gdacs.url]);
+  rows.push(["UNHCR", data.contexts.unhcr.ok?"live records":"failed/sparse", `${data.contexts.unhcr.items.length} records returned`, data.contexts.unhcr.urls.join(" | ")]);
+  data.contexts.hdx.forEach(h=> rows.push(["HDX", "dataset metadata", `${h.results.length} results for ${h.query}`, h.url]));
+  data.contexts.nasa.forEach(n=> rows.push(["NASA CMR", "collection metadata", `${n.results.length} results for ${n.query}`, n.url]));
+  rows.push(["GDELT", data.contexts.gdelt.ok?"news/media signal":"failed", `${data.contexts.gdelt.articles.length} articles`, data.contexts.gdelt.url]);
+  rows.push(["OpenAlex", data.contexts.openAlex.ok?"scholarly metadata":"failed", `${data.contexts.openAlex.groups?.length || data.contexts.openAlex.works?.length || 0} records/groups`, data.contexts.openAlex.url]);
+  return rows.map(r=>`<div class="source-row"><span>${esc(r[0])}</span><span>${esc(r[1])}</span><a href="${esc(r[3])}" target="_blank" rel="noreferrer">${esc(r[2])}</a></div>`).join("");
+}
+function stripRaw(data){
+  return { country:data.country, targetYear:data.targetYear, method:data.method, techQuery:data.techQuery, projections:data.projections.map(p=>p.ok?{indicator:p.indicator.label, latest:p.latest, annualChange:p.annualChange, projected:p.projected, pctFromLatest:p.pctFromLatest, pointsUsed:p.points.length}:{indicator:p.indicator.label, ok:false, reason:p.reason}), derived:data.derived, contextCounts:{gdacsMatches:data.contexts.gdacs.matches?.length||0, hdxListings:data.contexts.hdx.reduce((s,x)=>s+x.results.length,0), unhcrRecords:data.contexts.unhcr.items.length, nasaCollections:data.contexts.nasa.reduce((s,x)=>s+x.results.length,0), gdeltArticles:data.contexts.gdelt.articles.length, openAlexRecords:data.contexts.openAlex.groups?.length || data.contexts.openAlex.works?.length || 0}, narrative:data.narrative, warnings:data.warnings };
+}
+
+async function compareCountries(){
+  const targetYear = parseInt($("targetYear").value,10);
+  const method = $("methodSelect").value;
+  if(!targetYear || targetYear < 2026 || targetYear > 2100){ setStatus("Choose a target year between 2026 and 2100.", "err"); return; }
+  setStatus(`<span class="loader"></span> Comparing starter countries for ${targetYear} using World Bank projection indicators...`, "warn");
+  const rows = [];
+  for(const country of countries){
+    const series = await Promise.all(wbIndicators.filter(i=>["SP.POP.TOTL","SH.MED.PHYS.ZS","SH.DYN.MORT","IT.NET.USER.ZS","SP.URB.TOTL.IN.ZS"].includes(i.code)).map(ind=>fetchWorldBankSeries(country, ind)));
+    const proj = series.map(s=>projectSeries(s,targetYear,method));
+    const byCode = Object.fromEntries(proj.map(p=>[p.indicator.code,p]));
+    const pop = byCode["SP.POP.TOTL"], phys=byCode["SH.MED.PHYS.ZS"], mort=byCode["SH.DYN.MORT"], internet=byCode["IT.NET.USER.ZS"], urb=byCode["SP.URB.TOTL.IN.ZS"];
+    rows.push({country, pop, phys, mort, internet, urb, completeness:proj.filter(p=>p.ok).length});
+  }
+  rows.sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
+  $("results").innerHTML = `<section class="panel section"><div class="section-head"><div class="section-title"><h2>Starter-country comparison for ${targetYear}</h2><p>Projected values are simple continuations of returned World Bank time series.</p></div><span class="badge b-proj">comparison</span></div><div style="overflow:auto"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${esc(r.country.name)}</strong></td><td>${r.pop?.ok?formatValue(r.pop.projected,r.pop.indicator):"—"}</td><td>${r.pop?.ok?fmt.format(r.pop.pctFromLatest)+"%":"—"}</td><td>${r.phys?.ok?fmt.format(r.phys.projected):"—"}</td><td>${r.phys?.ok?fmt.format(1000/Math.max(r.phys.projected,0.0001)):"—"}</td><td>${r.mort?.ok?fmt.format(r.mort.projected):"—"}</td><td>${r.internet?.ok?fmt.format(r.internet.projected)+"%":"—"}</td><td>${r.urb?.ok?fmt.format(r.urb.projected)+"%":"—"}</td><td>${r.completeness}/5</td></tr>`).join("")}</tbody></table></div></section>`;
+  setStatus(`Compared ${countries.length} countries for ${targetYear}.`, "ok");
+}
+
+init();
+</script>
 </body>
 </html>
