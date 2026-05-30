@@ -360,6 +360,7 @@
     <section class="working-summary" id="workingSummary" aria-live="polite">
       Run the source checks to see which public sources are currently working.
     </section>
+    <p class="note" id="lastChecked">Last checked: not yet checked.</p>
 
     <section class="source-section">
       <h2>Live data sources</h2>
@@ -675,6 +676,9 @@
 
     const developerGrid = document.querySelector("#developerGrid");
     const testAllButton = document.querySelector("#testAllButton");
+    let hasRunTests = false;
+    let isTesting = false;
+    let lastCheckedAt = "";
 
     function escapeHtml(value) {
       return String(value)
@@ -815,15 +819,22 @@
         alternative: working.filter(source => source.type === "alternative").length
       };
 
-      document.querySelector("#workingSummary").textContent =
-        `${counts.live} live data sources, ${counts.discovery} dataset discovery sources, ${counts.alternative} public alternatives are currently working.`;
+      if (isTesting && !hasRunTests) {
+        document.querySelector("#workingSummary").textContent = "Checking public data sources...";
+      } else {
+        document.querySelector("#workingSummary").textContent =
+          `${counts.live} live data sources, ${counts.discovery} dataset discovery sources, ${counts.alternative} public alternatives are currently working.`;
+      }
+      document.querySelector("#lastChecked").textContent = lastCheckedAt
+        ? `Last checked: ${lastCheckedAt}`
+        : "Last checked: not yet checked.";
 
       Object.keys(sourceTypes).forEach(typeKey => {
         const container = document.querySelector(`#${sourceTypes[typeKey].container}`);
         const cards = working.filter(source => source.type === typeKey);
         container.innerHTML = cards.length
           ? cards.map(source => renderPublicCard(source, results.get(source.id))).join("")
-          : `<div class="empty-state">No checked sources in this group yet.</div>`;
+          : `<div class="empty-state">${isTesting && !hasRunTests ? "Checking sources..." : "No checked sources in this group yet."}</div>`;
       });
     }
 
@@ -852,9 +863,14 @@
     }
 
     async function testAllSources() {
+      if (isTesting) {
+        return;
+      }
+      isTesting = true;
       testAllButton.disabled = true;
       testAllButton.textContent = "Testing sources...";
       document.querySelector("#developerStatus").textContent = "Testing...";
+      renderPublicSources();
 
       for (const source of sources) {
         results.set(source.id, {
@@ -874,6 +890,10 @@
       }
 
       const workingCount = Array.from(results.values()).filter(result => result.ok).length;
+      hasRunTests = true;
+      isTesting = false;
+      lastCheckedAt = new Date().toLocaleString();
+      renderPublicSources();
       document.querySelector("#developerStatus").textContent = `${workingCount} working sources`;
       testAllButton.disabled = false;
       testAllButton.textContent = "Test all possible sources";
@@ -882,6 +902,9 @@
     renderPublicSources();
     renderDeveloperDetails();
     testAllButton.addEventListener("click", testAllSources);
+    window.addEventListener("DOMContentLoaded", () => {
+      testAllSources();
+    });
   </script>
 </body>
 </html>
