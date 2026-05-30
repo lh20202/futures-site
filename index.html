@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futures Site - Data Playground</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A static public-data playground for humanitarian, displacement, disaster, population, climate, and development data." />
+  <title>Humanitarian Data Playground</title>
   <style>
     :root {
-      color-scheme: light;
-      --page: #eef2f6;
+      --bg: #f6f4ef;
       --panel: #ffffff;
-      --panel-soft: #f7f9fb;
-      --ink: #17202a;
-      --muted: #5b6776;
-      --line: #d9e0e8;
-      --blue: #1f6feb;
-      --blue-dark: #174ea6;
-      --green: #16794c;
-      --green-bg: #e6f4ed;
-      --red: #9f2520;
-      --red-bg: #fde8e7;
-      --amber: #8a5b00;
-      --amber-bg: #fff5d6;
+      --panel-soft: #fbfaf7;
+      --text: #20242a;
+      --muted: #637083;
+      --line: #d9d6cf;
+      --accent: #245c73;
+      --accent-2: #2f7d5c;
+      --accent-soft: #e8f1f3;
+      --warning: #805a12;
+      --warning-bg: #fff4d9;
+      --success: #17643d;
+      --success-bg: #e8f6ee;
+      --error: #8a2634;
+      --error-bg: #fde8eb;
+      --shadow: 0 18px 45px rgba(36, 42, 50, 0.08);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      color-scheme: light;
     }
 
     * { box-sizing: border-box; }
@@ -29,1679 +33,1753 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--page);
-      color: var(--ink);
-      line-height: 1.5;
+      background:
+        radial-gradient(circle at top left, rgba(36, 92, 115, 0.11), transparent 28rem),
+        linear-gradient(180deg, #fbfaf7 0%, var(--bg) 45%, #efede7 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
     }
 
-    a {
-      color: var(--blue-dark);
-      font-weight: 700;
-      text-decoration: none;
+    a { color: var(--accent); }
+    button, input, select, textarea { font: inherit; }
+
+    .page {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
     }
 
-    a:hover { text-decoration: underline; }
-
-    button, select, input { font: inherit; }
-
-    button {
-      min-height: 42px;
-      border: 0;
-      border-radius: 6px;
-      padding: 0 16px;
-      background: var(--blue);
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    button:hover:not(:disabled) { background: var(--blue-dark); }
-
-    button.secondary {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-    }
-
-    button.secondary:hover:not(:disabled) { background: var(--panel-soft); }
-
-    button.quick {
-      min-height: 34px;
-      padding: 0 10px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: #334155;
-      font-size: 0.9rem;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    select, input {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 0 11px;
-      background: #fff;
-      color: var(--ink);
-    }
-
-    .topbar {
+    header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      background: rgba(246, 244, 239, 0.92);
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 12px 0;
-    }
-
-    .brand {
-      color: var(--ink);
-      font-weight: 800;
+      backdrop-filter: blur(16px);
     }
 
     nav {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #172027;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background:
+        linear-gradient(90deg, transparent 0 28%, rgba(36, 92, 115, 0.30) 28% 48%, transparent 48% 100%),
+        linear-gradient(180deg, #ffffff, #e8f1f3);
+      border: 1px solid #b7ccd4;
+    }
+
+    .nav-links {
+      display: flex;
       flex-wrap: wrap;
+      justify-content: flex-end;
       gap: 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      font-weight: 700;
     }
 
-    nav a {
-      color: #334155;
-      font-size: 0.95rem;
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .page {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 34px 0 48px;
-    }
+    .nav-links a:hover { color: var(--accent); }
 
-    section { scroll-margin-top: 80px; }
+    main { padding-bottom: 64px; }
+
+    section {
+      padding: 54px 0;
+      border-top: 1px solid var(--line);
+    }
 
     .hero {
       display: grid;
-      gap: 14px;
-      margin-bottom: 20px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 30px;
+      align-items: center;
+      min-height: 520px;
+      padding: 70px 0 56px;
+      border-top: 0;
     }
 
     .eyebrow {
-      margin: 0;
-      color: var(--muted);
+      margin: 0 0 14px;
+      color: var(--accent);
       font-size: 0.78rem;
-      font-weight: 800;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(2.55rem, 5.6vw, 5.8rem);
+      font-weight: 880;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 3vw, 3rem);
+      font-weight: 850;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      font-size: 1.14rem;
+      font-weight: 820;
+    }
+
+    .intro {
+      max-width: 740px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .hero-panel, .notice, .card, article {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 22px;
+    }
+
+    .hero-panel h3 { margin-bottom: 12px; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      min-height: 84px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel-soft);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 850;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    h1, h2, h3, h4 {
+    .stat b {
+      display: block;
+      margin-top: 6px;
+      font-size: 1.1rem;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-heading p {
+      max-width: 560px;
       margin: 0;
-      letter-spacing: 0;
+      color: var(--muted);
     }
 
-    h1 {
-      font-size: clamp(2.1rem, 4vw, 3.55rem);
-      line-height: 1.05;
-    }
-
-    .intro, .note {
-      max-width: 920px;
-      margin: 0;
-      color: #334155;
-      font-size: 1.03rem;
-    }
-
-    .note-box {
-      max-width: 920px;
-      border-left: 4px solid var(--blue);
-      border-radius: 8px;
-      padding: 14px 16px;
-      background: var(--panel);
-      color: #334155;
-    }
-
-    .explain-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin: 22px 0;
-    }
-
-    .explain-card, .data-card, .source-card, .coverage-card {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-    }
-
-    .explain-card {
-      padding: 16px;
-    }
-
-    .explain-card h3 {
-      margin-bottom: 6px;
-      font-size: 1rem;
-    }
-
-    .explain-card p {
-      margin: 0;
-      color: #334155;
-    }
-
-    .section-header {
-      display: grid;
-      gap: 8px;
-      margin: 30px 0 16px;
-    }
-
-    .playground-grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
     }
 
-    .data-card {
-      display: grid;
-      gap: 16px;
-      align-content: start;
-      padding: 18px;
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .data-card h2 {
-      font-size: 1.24rem;
+    .card {
+      padding: 20px;
+      overflow: hidden;
     }
 
-    .card-copy, .source-block p {
-      margin: 0;
-      color: #334155;
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
-    .source-block {
+    .card p { color: var(--muted); }
+
+    .mini {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .context-block {
       display: grid;
       gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
+      margin: 14px 0;
       padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
       background: var(--panel-soft);
     }
 
-    .source-block h4 {
-      color: var(--ink);
-      font-size: 0.9rem;
+    .context-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
     }
 
-    .control-grid {
+    .context-block b { color: var(--text); }
+
+    .controls {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
+      margin: 16px 0;
     }
 
-    .control-field {
+    .controls.one { grid-template-columns: 1fr; }
+
+    .control {
       display: grid;
       gap: 6px;
     }
 
-    label {
+    .control label {
       color: var(--muted);
-      font-size: 0.88rem;
-      font-weight: 800;
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .helper {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .button-row, .quick-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .coverage-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .output {
-      min-height: 156px;
+    .control input,
+    .control select {
+      min-height: 42px;
+      width: 100%;
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      background: var(--panel-soft);
-      color: #334155;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 10px;
     }
 
-    .output.success {
-      border-color: #9dd9bb;
-      background: var(--green-bg);
-    }
-
-    .output.failure {
-      border-color: #f0aaa7;
-      background: var(--red-bg);
-    }
-
-    .output.loading {
-      border-color: #efd487;
-      background: var(--amber-bg);
-      color: var(--amber);
-      font-weight: 800;
-    }
-
-    .status-line {
-      margin: 0 0 10px;
-      color: var(--ink);
-      font-weight: 800;
-    }
-
-    .record-list {
-      display: grid;
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-top: 10px;
+      margin: 14px 0 0;
     }
 
-    .mini-record {
-      border: 1px solid rgba(23, 32, 42, 0.12);
-      border-radius: 6px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.72);
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--accent);
+      border-radius: 9px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
     }
 
-    .mini-record strong {
-      display: block;
-      color: var(--ink);
-      margin-bottom: 3px;
+    .btn.secondary {
+      border-color: var(--line);
+      background: #fff;
+      color: var(--text);
     }
 
-    .small-text {
-      color: var(--muted);
-      font-size: 0.88rem;
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .result.loading { border-color: #adc8d2; background: #f1f8fb; }
+    .result.success { border-color: #a8d8bd; background: var(--success-bg); }
+    .result.error { border-color: #efb3bd; background: var(--error-bg); }
+
+    .result h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .result p { margin: 6px 0; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border: 1px solid #c8d6dc;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1e4b5d;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .pill.alt {
+      border-color: #bee1ce;
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .pill.warn {
+      border-color: #f0d38a;
+      background: var(--warning-bg);
+      color: var(--warning);
     }
 
     table {
       width: 100%;
-      margin-top: 10px;
       border-collapse: collapse;
+      margin-top: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
       overflow: hidden;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.75);
       font-size: 0.92rem;
     }
 
     th, td {
+      padding: 10px 11px;
       border-bottom: 1px solid var(--line);
-      padding: 9px;
       text-align: left;
       vertical-align: top;
     }
 
+    tr:last-child td { border-bottom: 0; }
     th {
-      color: var(--muted);
-      font-size: 0.82rem;
+      background: #eef2f3;
+      color: #31414a;
+      font-size: 0.76rem;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
     }
 
-    details.raw {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
+    .table-wrap {
+      overflow: auto;
+      max-height: 420px;
+      border-radius: 10px;
     }
 
-    details.raw summary {
-      padding: 11px 12px;
+    details {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel-soft);
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 10px 12px;
       cursor: pointer;
       font-weight: 800;
+      color: #344650;
     }
 
     pre {
-      max-height: 260px;
       margin: 0;
-      overflow: auto;
-      border-top: 1px solid var(--line);
       padding: 12px;
-      background: #111827;
-      color: #f8fafc;
+      overflow: auto;
+      max-height: 340px;
+      background: #10151b;
+      color: #d8f6e5;
+      font-family: var(--mono);
       font-size: 0.78rem;
       line-height: 1.45;
-      white-space: pre-wrap;
-      word-break: break-word;
     }
 
-    .discovery-tools {
-      margin-top: 32px;
+    .source-link {
+      display: inline-flex;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 800;
     }
 
-    .discovery-grid, .coverage-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    .discovery-card {
-      display: grid;
-      gap: 10px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      background: var(--panel);
-    }
-
-    .coverage-section {
-      margin-top: 34px;
-    }
-
-    .coverage-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .coverage-card {
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      padding: 16px;
-    }
-
-    .coverage-card h3 {
-      font-size: 1.05rem;
-    }
-
-    .coverage-card p {
-      margin: 0;
-      color: #334155;
-    }
-
-    .category-pill {
-      width: max-content;
+    .quick-actions button {
+      min-height: 32px;
+      padding: 0 10px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 4px 9px;
-      background: var(--panel-soft);
-      color: var(--muted);
-      font-size: 0.78rem;
+      background: #fff;
+      color: var(--accent);
       font-weight: 800;
-      text-transform: uppercase;
+      cursor: pointer;
     }
 
-    .sources-section {
-      margin-top: 34px;
+    .notice {
+      padding: 16px 18px;
+      background: var(--warning-bg);
+      color: var(--warning);
+      box-shadow: none;
     }
 
-    .source-grid {
+    .notice p { margin: 0; }
+
+    .source-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
 
     .source-card {
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .source-card p { margin: 8px 0; color: var(--muted); }
+
+    .coverage-summary {
       display: grid;
-      gap: 10px;
-      align-content: start;
-      padding: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .source-card h3 {
-      font-size: 1.04rem;
+    .status-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
     }
 
-    .source-card p {
-      margin: 0;
-      color: #334155;
-      font-size: 0.95rem;
+    .status-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    @media (max-width: 920px) {
-      .playground-grid, .source-grid, .explain-strip {
-        grid-template-columns: 1fr;
-      }
+    .status-card b {
+      display: block;
+      margin-top: 6px;
+      font-size: 1.25rem;
     }
 
-    @media (max-width: 640px) {
-      .topbar-inner, .page {
-        width: min(100% - 24px, 1180px);
-      }
+    .footer-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
 
-      .topbar-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+    footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
 
-      .control-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .button-row {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      button {
-        width: 100%;
-      }
+    @media (max-width: 960px) {
+      nav, .section-heading, .hero { display: block; }
+      .nav-links { justify-content: flex-start; margin-top: 14px; }
+      .hero { min-height: auto; }
+      .hero-panel { margin-top: 24px; }
+      .grid, .grid.three, .source-list, .coverage-summary { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#data-playground">Futures Site</a>
-      <nav aria-label="Page navigation">
-        <a href="#data-playground">Data Playground</a>
-        <a href="#source-coverage">Source coverage tester</a>
-        <a href="#data-sources">Data Sources</a>
+  <header>
+    <div class="page">
+      <nav aria-label="Main navigation">
+        <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Humanitarian Data Playground</div>
+        <div class="nav-links">
+          <a href="#playground">Playground</a>
+          <a href="#trend">Trend tool</a>
+          <a href="#discovery">Dataset discovery</a>
+          <a href="#coverage">Source coverage</a>
+          <a href="#sources">About sources</a>
+        </div>
       </nav>
     </div>
   </header>
 
   <main class="page">
-    <section id="data-playground">
-      <div class="hero">
-        <p class="eyebrow">Public data demo</p>
-        <h1>Data Playground</h1>
-        <p class="intro">Use public humanitarian, displacement, disaster, population, climate, and development data sources to pull small live samples into the browser.</p>
-        <p class="note">Choose a source, press the button, and inspect what comes back. This page is not producing forecasts or official analysis. It is showing which public sources the site can retrieve and how those sources might support future humanitarian questions.</p>
-        <p class="note-box">Some tools pull actual data values. Others search dataset catalogues, which means they help find relevant datasets rather than loading the full dataset.</p>
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">Static site · public APIs · browser calculations</p>
+        <h1>Explore public humanitarian data without overclaiming what it can say.</h1>
+        <p class="intro">This static website pulls small or comprehensive samples from public data sources, shows what comes back, and performs light browser-side calculations. It is not a forecast, risk score, or official analysis. Use it to inspect signals, coverage, recency, and data limitations.</p>
+        <div class="button-row">
+          <a class="btn" href="#playground">Start with data tools</a>
+          <a class="btn secondary" href="#trend">Try trend extension</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <h3>What “comprehensive” means here</h3>
+        <p class="mini">Where an API supports paging, the site can fetch multiple pages up to a browser-safe cap. Where an endpoint exposes only a latest feed or a metadata list, “comprehensive” means “all records returned by that public endpoint”, not all data the organisation holds.</p>
+        <div class="stat-grid">
+          <div class="stat"><span>Best for</span><b>Exploration</b></div>
+          <div class="stat"><span>Not for</span><b>Official forecasts</b></div>
+          <div class="stat"><span>Computation</span><b>Client-side JS</b></div>
+          <div class="stat"><span>Storage</span><b>No database</b></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="playground">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Data Playground</p>
+          <h2>Pull data, then inspect the result.</h2>
+        </div>
+        <p>Each tool explains what the source is for, what is being pulled, and what the result should not be used to claim.</p>
       </div>
 
-      <div class="explain-strip" aria-label="What am I looking at">
-        <article class="explain-card">
-          <h3>Live data</h3>
-          <p>The site pulls actual values or records directly from a public source.</p>
-        </article>
-        <article class="explain-card">
-          <h3>Dataset search</h3>
-          <p>The site searches a catalogue and returns dataset records, descriptions, and links.</p>
-        </article>
-        <article class="explain-card">
-          <h3>Public indicator</h3>
-          <p>The site pulls a country-level indicator that can give context, but it is not a complete explanation on its own.</p>
-        </article>
-      </div>
-
-      <div class="section-header">
-        <p class="eyebrow">Interactive pulls</p>
-        <h2>Live samples</h2>
-      </div>
-
-      <div class="playground-grid">
-        <article class="data-card">
-          <div>
-            <h2>UNHCR displacement data</h2>
-            <p class="card-copy">Fetch a small sample of displacement and refugee population data.</p>
-            <p class="small-text">Source: <a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noreferrer">UNHCR Refugee Data Finder API</a></p>
+      <div class="grid">
+        <article class="card" id="unhcr-card">
+          <div class="card-header">
+            <div>
+              <h3>UNHCR displacement data</h3>
+              <p class="mini">Official displacement and refugee population data.</p>
+            </div>
+            <span class="pill alt">Live data</span>
           </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>UNHCR provides data on refugees, asylum-seekers, internally displaced people, stateless people, and other displaced populations.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it to understand where displacement pressures are visible in official population data.</p>
-            <h4>What this button pulls</h4>
-            <p>A small sample of recent displacement population records.</p>
+          <div class="context-block">
+            <p><b>What this tells you:</b> population records related to refugees, asylum-seekers, internally displaced people, stateless people, and other displacement categories where available.</p>
+            <p><b>Why use it:</b> to inspect official displacement records by year and country-related fields.</p>
+            <p><b>What this pulls:</b> records from the UNHCR population endpoint. The result size is controlled below.</p>
           </div>
-          <div class="control-field">
-            <label for="unhcrView">Population view</label>
-            <select id="unhcrView">
-              <option value="refugees">Refugees by origin</option>
-              <option value="asylum_seekers">Asylum-seekers by origin</option>
-              <option value="idps">Internally displaced people where available</option>
-            </select>
-            <p class="helper">All three views use the same public UNHCR sample and display the selected population group where available.</p>
-          </div>
-          <div class="button-row">
-            <button type="button" onclick="fetchUnhcrSample()">Fetch UNHCR sample</button>
-            <button class="secondary" type="button" onclick="clearCard('unhcr')">Clear result</button>
-          </div>
-          <div class="output" id="unhcr-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="unhcr-raw">No response yet.</pre>
-          </details>
-        </article>
-
-        <article class="data-card">
-          <div>
-            <h2>Country context indicators</h2>
-            <p class="card-copy">Fetch recent country-level indicator values.</p>
-            <p class="small-text">Source: <a href="https://data.worldbank.org/" target="_blank" rel="noreferrer">World Bank Indicators API</a></p>
-          </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>World Bank indicators provide country-level context on population, health, development, and environment.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it to get a quick background signal for a country before asking deeper humanitarian or management questions.</p>
-            <h4>What the filters pull</h4>
-            <p>Choose a country and one indicator. The site returns the latest available values from the World Bank API.</p>
-          </div>
-          <div class="control-grid">
-            <div class="control-field">
-              <label for="countrySelect">Country</label>
-              <select id="countrySelect">
-                <option value="KEN">Kenya</option>
-                <option value="BGD">Bangladesh</option>
-                <option value="NGA">Nigeria</option>
-                <option value="SDN">Sudan</option>
-                <option value="HTI">Haiti</option>
-                <option value="PHL">Philippines</option>
+          <div class="controls">
+            <div class="control">
+              <label for="unhcr-year">Year</label>
+              <select id="unhcr-year"></select>
+            </div>
+            <div class="control">
+              <label for="unhcr-limit">Comprehensiveness</label>
+              <select id="unhcr-limit">
+                <option value="25">Quick sample · 25 records</option>
+                <option value="100">Broader sample · 100 records</option>
+                <option value="500">Comprehensive sample · 500 records</option>
+                <option value="1000">Maximum browser-safe sample · 1000 records</option>
               </select>
             </div>
-            <div class="control-field">
-              <label for="indicatorSelect">Indicator</label>
-              <select id="indicatorSelect" onchange="updateIndicatorHelp()">
-                <option value="SP.POP.TOTL">Population size</option>
-                <option value="SH.MED.PHYS.ZS">Health workforce</option>
-                <option value="SH.DYN.MORT">Child health pressure</option>
-                <option value="AG.LND.FRST.ZS">Forest and land context</option>
+          </div>
+          <div class="button-row">
+            <button class="btn" onclick="fetchUnhcrSample()">Fetch UNHCR records</button>
+            <button class="btn secondary" onclick="clearResult('unhcr-result')">Clear</button>
+          </div>
+          <a class="source-link" href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noreferrer">Open UNHCR source</a>
+          <div id="unhcr-result" class="result">Not fetched yet.</div>
+        </article>
+
+        <article class="card" id="worldbank-card">
+          <div class="card-header">
+            <div>
+              <h3>Country context indicators</h3>
+              <p class="mini">Country-level indicators for population, health, development, and environment.</p>
+            </div>
+            <span class="pill alt">Live data</span>
+          </div>
+          <div class="context-block">
+            <p><b>What this tells you:</b> numerical country indicators over time.</p>
+            <p><b>Why use it:</b> to create context before asking deeper humanitarian, management, or systems questions.</p>
+            <p><b>What this pulls:</b> a time series for one country and one indicator.</p>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="wb-country">Country</label>
+              <select id="wb-country"></select>
+            </div>
+            <div class="control">
+              <label for="wb-indicator">Indicator</label>
+              <select id="wb-indicator"></select>
+            </div>
+            <div class="control">
+              <label for="wb-years">Comprehensiveness</label>
+              <select id="wb-years">
+                <option value="10">Quick · 10 records</option>
+                <option value="25">Broader · 25 records</option>
+                <option value="60">Comprehensive · 60 records</option>
+                <option value="all">All returned pages</option>
               </select>
-              <p class="helper" id="indicatorHelp"></p>
+            </div>
+            <div class="control">
+              <label for="wb-target-year">Trend extension year</label>
+              <input id="wb-target-year" type="number" min="2026" max="2100" value="2035" />
+            </div>
+          </div>
+          <p id="wb-helper" class="mini"></p>
+          <div class="button-row">
+            <button class="btn" onclick="fetchWorldBankIndicator()">Fetch indicator</button>
+            <button class="btn secondary" onclick="clearResult('wb-result')">Clear</button>
+          </div>
+          <a class="source-link" href="https://data.worldbank.org/" target="_blank" rel="noreferrer">Open World Bank source</a>
+          <div id="wb-result" class="result">Not fetched yet.</div>
+        </article>
+
+        <article class="card" id="gdacs-card">
+          <div class="card-header">
+            <div>
+              <h3>GDACS recently listed disaster events</h3>
+              <p class="mini">Current or recently updated disaster event records.</p>
+            </div>
+            <span class="pill alt">Live data</span>
+          </div>
+          <div class="context-block">
+            <p><b>What this tells you:</b> disaster events such as droughts, earthquakes, floods, tropical cyclones, and volcanic activity.</p>
+            <p><b>Why use it:</b> to see current or recently updated event records. Some records, especially droughts, can remain listed across long periods.</p>
+            <p><b>What this pulls:</b> the latest event-list endpoint and then filters locally.</p>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="gdacs-type">Event type</label>
+              <select id="gdacs-type">
+                <option value="">All event types</option>
+                <option value="DR">Drought</option>
+                <option value="EQ">Earthquake</option>
+                <option value="FL">Flood</option>
+                <option value="TC">Tropical cyclone</option>
+                <option value="VO">Volcano</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="gdacs-alert">Alert level</label>
+              <select id="gdacs-alert">
+                <option value="">All alert levels</option>
+                <option value="Green">Green</option>
+                <option value="Orange">Orange</option>
+                <option value="Red">Red</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="gdacs-display">Display</label>
+              <select id="gdacs-display">
+                <option value="5">Show 5</option>
+                <option value="25">Show 25</option>
+                <option value="100">Show all returned</option>
+              </select>
             </div>
           </div>
           <div class="button-row">
-            <button type="button" onclick="fetchWorldBankIndicator()">Fetch indicator</button>
-            <button class="secondary" type="button" onclick="clearCard('worldbank')">Clear result</button>
+            <button class="btn" onclick="fetchGdacsAlerts()">Fetch GDACS events</button>
+            <button class="btn secondary" onclick="clearResult('gdacs-result')">Clear</button>
           </div>
-          <div class="output" id="worldbank-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="worldbank-raw">No response yet.</pre>
-          </details>
+          <a class="source-link" href="https://www.gdacs.org/" target="_blank" rel="noreferrer">Open GDACS source</a>
+          <div id="gdacs-result" class="result">Not fetched yet.</div>
         </article>
 
-        <article class="data-card">
-          <div>
-            <h2>GDACS disaster alerts</h2>
-            <p class="card-copy">Fetch current or recently updated disaster event records.</p>
-            <p class="small-text">Source: <a href="https://www.gdacs.org/" target="_blank" rel="noreferrer">Global Disaster Alert and Coordination System</a></p>
+        <article class="card" id="hdx-card">
+          <div class="card-header">
+            <div>
+              <h3>HDX humanitarian dataset search</h3>
+              <p class="mini">Humanitarian dataset discovery, not full dataset loading.</p>
+            </div>
+            <span class="pill">Dataset search</span>
           </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>GDACS lists major disaster events and alerts, including earthquakes, floods, tropical cyclones, droughts, and volcanic activity.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it to see which disaster events are currently listed or recently updated at global level.</p>
-            <h4>What this button pulls</h4>
-            <p>The latest event list from the GDACS API.</p>
+          <div class="context-block">
+            <p><b>What this tells you:</b> which datasets are listed on HDX for a keyword, theme, source, or place.</p>
+            <p><b>Why use it:</b> to find files and data resources before deeper analysis.</p>
+            <p><b>What this pulls:</b> dataset metadata: titles, organisations, descriptions, resources, links, and modification dates where available.</p>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="hdx-query">Search term</label>
+              <input id="hdx-query" value="displacement" />
+            </div>
+            <div class="control">
+              <label for="hdx-limit">Comprehensiveness</label>
+              <select id="hdx-limit">
+                <option value="5">Quick · 5 datasets</option>
+                <option value="25">Broader · 25 datasets</option>
+                <option value="100">Comprehensive · 100 datasets</option>
+                <option value="500">Maximum browser-safe · up to 500</option>
+              </select>
+            </div>
+          </div>
+          <div class="quick-actions" id="hdx-quick"></div>
+          <div class="button-row">
+            <button class="btn" onclick="searchHdxDatasets()">Search HDX</button>
+            <button class="btn secondary" onclick="clearResult('hdx-result')">Clear</button>
+          </div>
+          <a class="source-link" href="https://data.humdata.org/" target="_blank" rel="noreferrer">Open HDX source</a>
+          <div id="hdx-result" class="result">Not fetched yet.</div>
+        </article>
+
+        <article class="card" id="gdelt-card">
+          <div class="card-header">
+            <div>
+              <h3>GDELT global event and news monitor</h3>
+              <p class="mini">Open global news/event attention signal.</p>
+            </div>
+            <span class="pill alt">Live data</span>
+          </div>
+          <div class="context-block">
+            <p><b>What this tells you:</b> recent media/event records matching a topic.</p>
+            <p><b>Why use it:</b> to inspect attention around humanitarian, climate, health, conflict, or displacement themes.</p>
+            <p><b>Be careful:</b> this is media-derived signal, not verified humanitarian need or ground truth.</p>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="gdelt-query">Topic</label>
+              <input id="gdelt-query" value="humanitarian" />
+            </div>
+            <div class="control">
+              <label for="gdelt-limit">Results</label>
+              <select id="gdelt-limit">
+                <option value="10">10 articles</option>
+                <option value="50">50 articles</option>
+                <option value="100">100 articles</option>
+              </select>
+            </div>
+          </div>
+          <div class="quick-actions" id="gdelt-quick"></div>
+          <div class="button-row">
+            <button class="btn" onclick="searchGdelt()">Search GDELT</button>
+            <button class="btn secondary" onclick="clearResult('gdelt-result')">Clear</button>
+          </div>
+          <a class="source-link" href="https://www.gdeltproject.org/" target="_blank" rel="noreferrer">Open GDELT source</a>
+          <div id="gdelt-result" class="result">Not fetched yet.</div>
+        </article>
+
+        <article class="card" id="owid-card">
+          <div class="card-header">
+            <div>
+              <h3>Our World in Data indicator sample</h3>
+              <p class="mini">Accessible public indicators for long-run context.</p>
+            </div>
+            <span class="pill alt">Live data</span>
+          </div>
+          <div class="context-block">
+            <p><b>What this tells you:</b> broad historical indicators in CSV form.</p>
+            <p><b>Why use it:</b> to inspect long-run patterns that may contextualise futures questions.</p>
+            <p><b>What this pulls:</b> a public Grapher CSV file and filters it in the browser.</p>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="owid-country">Country</label>
+              <select id="owid-country"></select>
+            </div>
+            <div class="control">
+              <label for="owid-indicator">Indicator</label>
+              <select id="owid-indicator"></select>
+            </div>
           </div>
           <div class="button-row">
-            <button type="button" onclick="fetchGdacsAlerts()">Fetch event records</button>
-            <button class="secondary" type="button" onclick="clearCard('gdacs')">Clear result</button>
+            <button class="btn" onclick="fetchOwidIndicator()">Fetch OWID indicator</button>
+            <button class="btn secondary" onclick="clearResult('owid-result')">Clear</button>
           </div>
-          <div class="output" id="gdacs-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="gdacs-raw">No response yet.</pre>
-          </details>
+          <a class="source-link" href="https://ourworldindata.org/" target="_blank" rel="noreferrer">Open Our World in Data source</a>
+          <div id="owid-result" class="result">Not fetched yet.</div>
         </article>
 
-        <article class="data-card">
-          <div>
-            <h2>HDX humanitarian dataset search</h2>
-            <p class="card-copy">Search a humanitarian dataset catalogue by keyword.</p>
-            <p class="small-text">Source: <a href="https://data.humdata.org/" target="_blank" rel="noreferrer">Humanitarian Data Exchange</a></p>
+        <article class="card" id="worldpop-card">
+          <div class="card-header">
+            <div>
+              <h3>WorldPop population metadata</h3>
+              <p class="mini">Population and exposure dataset catalogue.</p>
+            </div>
+            <span class="pill">Metadata</span>
           </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>HDX is a humanitarian data catalogue. It helps find datasets from humanitarian organisations, governments, UN agencies, NGOs, and research bodies.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it to find datasets related to displacement, food security, health, climate, access, conflict, or response operations.</p>
-            <h4>What this search pulls</h4>
-            <p>The site searches HDX dataset metadata and returns dataset titles, organisations, descriptions, and links. It does not load the full dataset.</p>
-          </div>
-          <div class="control-field">
-            <label for="hdxKeyword">Search keyword</label>
-            <input id="hdxKeyword" type="search" value="displacement">
-          </div>
-          <div class="quick-row" aria-label="Quick HDX searches">
-            <button class="quick" type="button" onclick="quickHdxSearch('displacement')">displacement</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('food security')">food security</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('health')">health</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('climate')">climate</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('conflict')">conflict</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('access')">access</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('operations')">operations</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('INFORM')">INFORM</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('DTM')">DTM</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('IDMC')">IDMC</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('EM-DAT')">EM-DAT</button>
-            <button class="quick" type="button" onclick="quickHdxSearch('IPC')">IPC</button>
+          <div class="context-block">
+            <p><b>What this tells you:</b> which WorldPop population dataset categories are available from the public REST API.</p>
+            <p><b>Why use it:</b> to identify population/exposure datasets that could support deeper spatial analysis later.</p>
+            <p><b>What this pulls:</b> dataset metadata from WorldPop. It does not download geospatial rasters.</p>
           </div>
           <div class="button-row">
-            <button type="button" onclick="searchHdxDatasets()">Search HDX datasets</button>
-            <button class="secondary" type="button" onclick="clearCard('hdx')">Clear result</button>
+            <button class="btn" onclick="fetchWorldPopMetadata()">Fetch WorldPop metadata</button>
+            <button class="btn secondary" onclick="clearResult('worldpop-result')">Clear</button>
           </div>
-          <div class="output" id="hdx-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="hdx-raw">No response yet.</pre>
-          </details>
+          <a class="source-link" href="https://www.worldpop.org/" target="_blank" rel="noreferrer">Open WorldPop source</a>
+          <div id="worldpop-result" class="result">Not fetched yet.</div>
         </article>
+      </div>
+    </section>
 
-        <article class="data-card">
-          <div>
-            <h2>WorldPop population data</h2>
-            <p class="card-copy">Fetch a small public population sample for a selected country area.</p>
-            <p class="small-text">Source: <a href="https://www.worldpop.org/" target="_blank" rel="noreferrer">WorldPop</a></p>
+    <section id="trend">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Statistical analysis</p>
+          <h2>Simple trend extension, not forecasting.</h2>
+        </div>
+        <p>This uses World Bank time-series data already available to the browser. It calculates basic change over time and a simple linear continuation to a selected year.</p>
+      </div>
+      <div class="notice">
+        <p><b>What to do now regarding statistical analysis:</b> do not install R, SQL, or a database yet. This page now performs the appropriate first level of analysis in JavaScript: latest value, data recency, absolute change, percentage change, average annual change, linear trend line, and “if recent pattern continued” extension. Use this to learn what the product should do before adding heavier tools.</p>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3>Country indicator trend tool</h3>
+        <div class="controls">
+          <div class="control">
+            <label for="trend-country">Country</label>
+            <select id="trend-country"></select>
           </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>WorldPop provides population and demographic data useful for exposure and vulnerability context.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it when you need population context for places affected by disasters, displacement, or service pressure.</p>
-            <h4>What this button pulls</h4>
-            <p>A small public population estimate for a sample area in the selected country.</p>
+          <div class="control">
+            <label for="trend-indicator">Indicator</label>
+            <select id="trend-indicator"></select>
           </div>
-          <div class="control-field">
-            <label for="worldpopCountry">Sample country area</label>
-            <select id="worldpopCountry">
-              <option value="KEN">Kenya</option>
-              <option value="BGD">Bangladesh</option>
-              <option value="NGA">Nigeria</option>
-              <option value="SDN">Sudan</option>
-              <option value="HTI">Haiti</option>
-              <option value="PHL">Philippines</option>
-            </select>
-            <p class="helper">This is a small sample area, not a national population total.</p>
-          </div>
-          <div class="button-row">
-            <button type="button" onclick="fetchWorldPopSample()">Fetch WorldPop sample</button>
-            <button class="secondary" type="button" onclick="clearCard('worldpop')">Clear result</button>
-          </div>
-          <div class="output" id="worldpop-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="worldpop-raw">No response yet.</pre>
-          </details>
-        </article>
-
-        <article class="data-card">
-          <div>
-            <h2>GDELT global event monitor</h2>
-            <p class="card-copy">Search recent global news and event signals by topic.</p>
-            <p class="small-text">Source: <a href="https://www.gdeltproject.org/" target="_blank" rel="noreferrer">GDELT Project</a></p>
-          </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>GDELT monitors global news and event signals across countries and themes.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it as an open public signal for emerging attention around conflict, disasters, politics, health, or humanitarian issues.</p>
-            <h4>What this search pulls</h4>
-            <p>A small recent sample of global news/event records from a public GDELT endpoint.</p>
-          </div>
-          <div class="control-field">
-            <label for="gdeltTopic">Search topic</label>
-            <input id="gdeltTopic" type="search" value="humanitarian">
-          </div>
-          <div class="quick-row" aria-label="Quick GDELT topics">
-            <button class="quick" type="button" onclick="quickGdeltSearch('humanitarian')">humanitarian</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('displacement')">displacement</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('conflict')">conflict</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('disaster')">disaster</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('health')">health</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('climate')">climate</button>
-            <button class="quick" type="button" onclick="quickGdeltSearch('food security')">food security</button>
-          </div>
-          <div class="button-row">
-            <button type="button" onclick="searchGdelt()">Search GDELT</button>
-            <button class="secondary" type="button" onclick="clearCard('gdelt')">Clear result</button>
-          </div>
-          <div class="output" id="gdelt-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="gdelt-raw">No response yet.</pre>
-          </details>
-        </article>
-
-        <article class="data-card">
-          <div>
-            <h2>Our World in Data indicators</h2>
-            <p class="card-copy">Fetch a small indicator sample from a public Grapher file.</p>
-            <p class="small-text">Source: <a href="https://ourworldindata.org/" target="_blank" rel="noreferrer">Our World in Data</a></p>
-          </div>
-          <div class="source-block">
-            <h4>What this source tells you</h4>
-            <p>Our World in Data provides accessible global indicators on health, climate, population, development, conflict, and related long-term trends.</p>
-            <h4>Why this might be useful</h4>
-            <p>Use it for quick background context and broad historical indicators.</p>
-            <h4>What this button pulls</h4>
-            <p>A small sample from a public OWID/Grapher endpoint.</p>
-          </div>
-          <div class="control-field">
-            <label for="owidIndicator">Indicator</label>
-            <select id="owidIndicator">
-              <option value="life-expectancy">Life expectancy</option>
-              <option value="population">Population</option>
-              <option value="co2">CO2 emissions</option>
-              <option value="share-of-population-in-extreme-poverty">Extreme poverty</option>
+          <div class="control">
+            <label for="trend-years">History window</label>
+            <select id="trend-years">
+              <option value="15">15 records</option>
+              <option value="30">30 records</option>
+              <option value="60">60 records</option>
+              <option value="all">All returned pages</option>
             </select>
           </div>
-          <div class="button-row">
-            <button type="button" onclick="fetchOwidIndicator()">Fetch OWID indicator</button>
-            <button class="secondary" type="button" onclick="clearCard('owid')">Clear result</button>
+          <div class="control">
+            <label for="trend-year">Continuation year</label>
+            <input id="trend-year" type="number" min="2026" max="2100" value="2035" />
           </div>
-          <div class="output" id="owid-output">Not fetched yet.</div>
-          <details class="raw">
-            <summary>View raw response</summary>
-            <pre id="owid-raw">No response yet.</pre>
-          </details>
+        </div>
+        <div class="button-row">
+          <button class="btn" onclick="runTrendTool()">Run trend calculation</button>
+          <button class="btn secondary" onclick="clearResult('trend-result')">Clear</button>
+        </div>
+        <div id="trend-result" class="result">Not calculated yet.</div>
+      </div>
+    </section>
+
+    <section id="discovery">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Dataset discovery tools</p>
+          <h2>Find source-specific datasets without pretending they are already analysed.</h2>
+        </div>
+        <p>These tools search HDX and NASA CMR metadata. They return dataset listings and links, not the underlying full data files.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Humanitarian dataset quick searches</h3>
+          <p class="mini">Use this to recover the wider source landscape: INFORM, DTM, IDMC, EM-DAT, IPC, health, climate, access, operations, and displacement.</p>
+          <div class="quick-actions" id="discovery-quick"></div>
+          <div class="controls">
+            <div class="control">
+              <label for="discovery-query">HDX query</label>
+              <input id="discovery-query" value="INFORM Risk Index" />
+            </div>
+            <div class="control">
+              <label for="discovery-limit">Comprehensiveness</label>
+              <select id="discovery-limit">
+                <option value="10">10 datasets</option>
+                <option value="50">50 datasets</option>
+                <option value="200">200 datasets</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" onclick="searchDiscoveryHdx()">Search datasets</button>
+            <button class="btn secondary" onclick="clearResult('discovery-result')">Clear</button>
+          </div>
+          <div id="discovery-result" class="result">Not searched yet.</div>
+        </article>
+
+        <article class="card">
+          <h3>NASA Earthdata / CMR search</h3>
+          <p class="mini">Search Earth observation and exposure-related dataset metadata.</p>
+          <div class="controls">
+            <div class="control">
+              <label for="nasa-query">Search term</label>
+              <input id="nasa-query" value="population exposure climate" />
+            </div>
+            <div class="control">
+              <label for="nasa-limit">Results</label>
+              <select id="nasa-limit">
+                <option value="10">10 collections</option>
+                <option value="25">25 collections</option>
+                <option value="50">50 collections</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" onclick="searchNasaCmr()">Search NASA CMR</button>
+            <button class="btn secondary" onclick="clearResult('nasa-result')">Clear</button>
+          </div>
+          <a class="source-link" href="https://www.earthdata.nasa.gov/" target="_blank" rel="noreferrer">Open NASA Earthdata source</a>
+          <div id="nasa-result" class="result">Not searched yet.</div>
         </article>
       </div>
     </section>
 
-    <section class="discovery-tools">
-      <div class="section-header">
-        <p class="eyebrow">Dataset discovery tools</p>
-        <h2>Find datasets through HDX</h2>
-        <p class="note">These tools search dataset listings. They do not load the full dataset.</p>
+    <section id="coverage">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Source coverage</p>
+          <h2>Check browser-safe sources.</h2>
+        </div>
+        <p>This tester checks only active/browser-safe sources used by this site. Sources requiring secrets, approved app names, accounts, or backend access have been removed from the page.</p>
       </div>
-      <div class="discovery-grid">
-        <article class="discovery-card">
-          <h3>INFORM risk datasets</h3>
-          <p class="small-text">Find INFORM-related risk dataset listings.</p>
-          <button type="button" onclick="runDiscoverySearch('inform-discovery', 'INFORM Risk Index')">Search INFORM datasets</button>
-          <div class="output" id="inform-discovery-output">Not fetched yet.</div>
-        </article>
-        <article class="discovery-card">
-          <h3>IOM DTM datasets</h3>
-          <p class="small-text">Find Displacement Tracking Matrix dataset listings.</p>
-          <button type="button" onclick="runDiscoverySearch('dtm-discovery', 'Global IOM DTM from API')">Search DTM datasets</button>
-          <div class="output" id="dtm-discovery-output">Not fetched yet.</div>
-        </article>
-        <article class="discovery-card">
-          <h3>IDMC displacement datasets</h3>
-          <p class="small-text">Find internal displacement dataset listings.</p>
-          <button type="button" onclick="runDiscoverySearch('idmc-discovery', 'IDMC internal displacement')">Search IDMC datasets</button>
-          <div class="output" id="idmc-discovery-output">Not fetched yet.</div>
-        </article>
-        <article class="discovery-card">
-          <h3>EM-DAT disaster datasets</h3>
-          <p class="small-text">Find disaster dataset listings related to EM-DAT.</p>
-          <button type="button" onclick="runDiscoverySearch('emdat-discovery', 'EM-DAT')">Search EM-DAT datasets</button>
-          <div class="output" id="emdat-discovery-output">Not fetched yet.</div>
-        </article>
-        <article class="discovery-card">
-          <h3>IPC food security datasets</h3>
-          <p class="small-text">Find acute food insecurity dataset listings.</p>
-          <button type="button" onclick="runDiscoverySearch('ipc-discovery', 'IPC acute food insecurity')">Search IPC datasets</button>
-          <div class="output" id="ipc-discovery-output">Not fetched yet.</div>
-        </article>
-        <article class="discovery-card">
-          <h3>ACLED-related public metadata</h3>
-          <p class="small-text">Find public dataset listings that mention ACLED. This is metadata only.</p>
-          <button type="button" onclick="runDiscoverySearch('acled-discovery', 'ACLED')">Search ACLED metadata</button>
-          <div class="output" id="acled-discovery-output">Not fetched yet.</div>
-        </article>
+      <div class="button-row" style="margin-bottom:18px;">
+        <button class="btn" onclick="testAllSources()">Test all active sources</button>
+        <button class="btn secondary" onclick="clearCoverage()">Clear coverage results</button>
       </div>
+      <div class="coverage-summary">
+        <div class="status-card"><span>Live data routes</span><b id="coverage-live">0</b></div>
+        <div class="status-card"><span>Dataset/metadata routes</span><b id="coverage-meta">0</b></div>
+        <div class="status-card"><span>Successful tests</span><b id="coverage-success">0</b></div>
+        <div class="status-card"><span>Last checked</span><b id="coverage-time">—</b></div>
+      </div>
+      <div id="coverage-result" class="grid three"></div>
     </section>
 
-    <section id="source-coverage" class="coverage-section">
-      <div class="section-header">
-        <p class="eyebrow">Technical checks</p>
-        <h2>Source coverage tester</h2>
-        <p class="note">This page checks a wider set of humanitarian, displacement, disaster, health, climate, population, development, and dataset catalogue sources. It separates live data pulls, dataset discovery, public alternatives, and sources that are not active in this static version.</p>
-        <p class="note">Keep it simple. This is a technical/source-checking page, not the main user playground.</p>
+    <section id="sources">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">About the data sources</p>
+          <h2>Sources currently used by this site.</h2>
+        </div>
+        <p>Only active, browser-safe sources are listed. Removed sources include direct ACLED, direct WHO GHO, ReliefWeb, HDX HAPI, FEWS NET, and ACAPS because they require credentials, app identifiers, approval workflows, or did not behave as no-friction browser sources in this setup.</p>
       </div>
-      <div class="coverage-actions">
-        <button id="testAllCoverageButton" type="button" onclick="testAllCoverageSources()">Test all browser-safe sources</button>
-        <span class="small-text" id="coverageSummary">Not tested yet.</span>
-      </div>
-      <div class="coverage-grid" id="sourceCoverageGrid"></div>
-    </section>
-
-    <section id="data-sources" class="sources-section">
-      <div class="section-header">
-        <p class="eyebrow">Source context</p>
-        <h2>About the data sources</h2>
-        <p class="note">Each source below is used by a card or dataset discovery tool on this page.</p>
-      </div>
-      <div class="source-grid" id="aboutSources"></div>
+      <div class="source-list" id="source-list"></div>
     </section>
   </main>
 
+  <footer>
+    <div class="page">
+      Static HTML, CSS, and JavaScript. Public APIs only. No backend, no database, no credentials, no hidden keys.
+    </div>
+  </footer>
+
   <script>
-    const indicatorInfo = {
+    const FALLBACK_COUNTRIES = [
+      ["KEN", "Kenya"], ["BGD", "Bangladesh"], ["NGA", "Nigeria"], ["SDN", "Sudan"],
+      ["HTI", "Haiti"], ["PHL", "Philippines"], ["ETH", "Ethiopia"], ["SOM", "Somalia"],
+      ["SSD", "South Sudan"], ["UKR", "Ukraine"], ["AFG", "Afghanistan"], ["YEM", "Yemen"],
+      ["COL", "Colombia"], ["PAK", "Pakistan"], ["MMR", "Myanmar"], ["TCD", "Chad"]
+    ];
+
+    const WB_INDICATORS = {
       "SP.POP.TOTL": {
         label: "Population size",
-        helper: "Population size gives a basic scale for interpreting other signals.",
-        description: "Total population.",
-        code: "SP.POP.TOTL"
+        help: "Total population. Useful for scale and denominator context."
       },
       "SH.MED.PHYS.ZS": {
         label: "Health workforce",
-        helper: "Health workforce can hint at national clinical capacity, but it says little about local access.",
-        description: "Physicians per 1,000 people.",
-        code: "SH.MED.PHYS.ZS"
+        help: "Physicians per 1,000 people. Useful as a rough health-system capacity proxy."
       },
       "SH.DYN.MORT": {
         label: "Child health pressure",
-        helper: "Child health pressure can provide broad context on health conditions and services.",
-        description: "Under-5 mortality rate.",
-        code: "SH.DYN.MORT"
+        help: "Under-5 mortality rate. Useful as a broad health and development context indicator."
       },
       "AG.LND.FRST.ZS": {
         label: "Forest and land context",
-        helper: "Forest and land context can help frame environmental change and land-use questions.",
-        description: "Forest area as percentage of land area.",
-        code: "AG.LND.FRST.ZS"
+        help: "Forest area as a percentage of land area. Useful as a simple climate/environment context signal."
+      },
+      "SP.URB.TOTL.IN.ZS": {
+        label: "Urban population share",
+        help: "Urban population as percentage of total. Useful for settlement and service-pressure context."
+      },
+      "NY.GDP.PCAP.CD": {
+        label: "Economic context",
+        help: "GDP per capita in current US dollars. Useful as a rough macroeconomic context indicator."
       }
     };
 
-    const worldPopAreas = {
-      KEN: { label: "Kenya", bbox: [36.7, -1.4, 37.0, -1.1] },
-      BGD: { label: "Bangladesh", bbox: [90.2, 23.6, 90.6, 24.0] },
-      NGA: { label: "Nigeria", bbox: [7.2, 8.8, 7.6, 9.2] },
-      SDN: { label: "Sudan", bbox: [32.3, 15.3, 32.7, 15.7] },
-      HTI: { label: "Haiti", bbox: [-72.5, 18.4, -72.1, 18.8] },
-      PHL: { label: "Philippines", bbox: [120.8, 14.4, 121.2, 14.8] }
+    const OWID_INDICATORS = {
+      "population": {
+        label: "Population",
+        slug: "population",
+        entityCol: "Entity",
+        yearCol: "Year"
+      },
+      "life-expectancy": {
+        label: "Life expectancy",
+        slug: "life-expectancy",
+        entityCol: "Entity",
+        yearCol: "Year"
+      },
+      "annual-co2-emissions-per-country": {
+        label: "Annual CO2 emissions",
+        slug: "annual-co2-emissions-per-country",
+        entityCol: "Entity",
+        yearCol: "Year"
+      }
     };
 
-    const owidIndicators = {
-      "life-expectancy": "Life expectancy",
-      population: "Population",
-      co2: "CO2 emissions",
-      "share-of-population-in-extreme-poverty": "Extreme poverty"
-    };
-
-    const gdacsTypeLabels = {
-      DR: "Drought",
-      EQ: "Earthquake",
-      FL: "Flood",
-      TC: "Tropical cyclone",
-      VO: "Volcano"
-    };
-
-    const aboutSources = [
-      ["UNHCR Refugee Data Finder", "Official displacement and refugee population data.", "Sample displacement population records.", "Definitions and coverage vary by population group and reporting context.", "The site calls a public UNHCR JSON API from the browser.", "https://www.unhcr.org/refugee-statistics/"],
-      ["World Bank Indicators API", "Country-level indicators on population, health, development, and environmental context.", "Country context indicators and some public alternatives.", "National indicators can hide local variation.", "The site calls public World Bank indicator JSON endpoints.", "https://data.worldbank.org/"],
-      ["GDACS", "Global disaster alert and coordination information.", "Current or recently updated disaster event records.", "Long-running events such as droughts can remain listed across long periods.", "The site calls the GDACS public event-list JSON endpoint.", "https://www.gdacs.org/"],
-      ["HDX", "A humanitarian dataset catalogue.", "Dataset search and discovery for humanitarian topics.", "Dataset listings are not the same as loading the full underlying data.", "The site calls the HDX public dataset search API.", "https://data.humdata.org/"],
-      ["WorldPop", "Open population and demographic data.", "Population samples useful for exposure context.", "The sample uses a small area and should not be read as a national total.", "The site calls a public WorldPop stats endpoint.", "https://www.worldpop.org/"],
-      ["GDELT", "Open global media and event monitoring.", "Recent news/event records by topic.", "Media attention is not verified humanitarian needs data.", "The site calls a public GDELT document API endpoint.", "https://www.gdeltproject.org/"],
-      ["Our World in Data", "Accessible global indicators on long-term trends.", "Small CSV indicator samples for background context.", "Global indicators are broad context, not local operational evidence.", "The site fetches public OWID Grapher CSV files.", "https://ourworldindata.org/"],
-      ["INFORM via HDX", "Risk-related dataset listings discoverable through HDX.", "Dataset discovery for INFORM-related resources.", "This searches listings, not direct INFORM values.", "The site searches HDX metadata for INFORM keywords.", "https://drmkc.jrc.ec.europa.eu/inform-index"],
-      ["IOM DTM via HDX", "Displacement Tracking Matrix dataset listings discoverable through HDX.", "Dataset discovery for DTM resources.", "This searches dataset listings, not direct DTM API values.", "The site searches HDX metadata for DTM keywords.", "https://dtm.iom.int/"],
-      ["IDMC via HDX", "Internal displacement dataset listings discoverable through HDX.", "Dataset discovery for IDMC resources.", "Open dataset metadata should be checked against source methods and update dates.", "The site searches HDX metadata for IDMC keywords.", "https://www.internal-displacement.org/database/"],
-      ["EM-DAT via HDX", "Disaster dataset listings related to EM-DAT discoverable through HDX.", "Dataset discovery for disaster data resources.", "This is not direct EM-DAT database access.", "The site searches HDX metadata for EM-DAT keywords.", "https://www.emdat.be/"],
-      ["IPC via HDX", "Food security classification dataset listings discoverable through HDX.", "Dataset discovery for acute food insecurity resources.", "Open the dataset page to inspect geography, method, and update date.", "The site searches HDX metadata for IPC keywords.", "https://www.ipcinfo.org/"]
-    ];
-
-    const sourceCoverageSources = [
+    const SOURCE_DEFINITIONS = [
       {
-        id: "coverage-unhcr",
+        id: "unhcr",
         name: "UNHCR Refugee Data Finder",
-        category: "live data",
-        description: "Official displacement and refugee population records.",
+        type: "Live data",
         url: "https://www.unhcr.org/refugee-statistics/",
-        testKey: "unhcr"
+        what: "Official displacement and refugee population data.",
+        usedFor: "Sample displacement population records and possible year/country/population-type exploration.",
+        caution: "Coverage and definitions vary by population group and reporting context. Missing fields should not be treated as zero.",
+        technical: "The site calls a public UNHCR JSON endpoint directly from the browser."
       },
       {
-        id: "coverage-worldbank",
+        id: "worldbank",
         name: "World Bank Indicators API",
-        category: "live data",
-        description: "Country-level development, population, health, and environment indicators.",
+        type: "Live data",
         url: "https://data.worldbank.org/",
-        testKey: "worldbank"
+        what: "Country-level indicators on population, health, development, economy, and environment.",
+        usedFor: "Country context, time-series calculations, simple change over time, and trend-extension demonstrations.",
+        caution: "Country-level indicators can hide local variation and should not be treated as humanitarian need measures.",
+        technical: "The site calls the World Bank v2 indicator API and calculates summaries in JavaScript."
       },
       {
-        id: "coverage-gdacs",
+        id: "gdacs",
         name: "GDACS",
-        category: "live data",
-        description: "Current or recently updated global disaster event records.",
+        type: "Live data",
         url: "https://www.gdacs.org/",
-        testKey: "gdacs"
+        what: "Current or recently updated disaster event records.",
+        usedFor: "Inspecting disaster event records by type, alert level, country, and listed date.",
+        caution: "Latest records may include long-running events, especially droughts, not only events that started today.",
+        technical: "The site calls the GDACS latest event-list endpoint and filters the returned records locally."
       },
       {
-        id: "coverage-gdelt",
-        name: "GDELT",
-        category: "live data",
-        description: "Open global media and event monitoring records.",
-        url: "https://www.gdeltproject.org/",
-        testKey: "gdelt"
-      },
-      {
-        id: "coverage-owid",
-        name: "Our World in Data",
-        category: "live data",
-        description: "Public Grapher indicators as CSV files.",
-        url: "https://ourworldindata.org/",
-        testKey: "owid"
-      },
-      {
-        id: "coverage-worldpop",
-        name: "WorldPop",
-        category: "live data",
-        description: "Population estimates for a small public sample area.",
-        url: "https://www.worldpop.org/",
-        testKey: "worldpop"
-      },
-      {
-        id: "coverage-hdx",
-        name: "HDX CKAN",
-        category: "dataset discovery",
-        description: "Humanitarian dataset catalogue search through the public CKAN API.",
+        id: "hdx",
+        name: "Humanitarian Data Exchange (HDX)",
+        type: "Dataset discovery",
         url: "https://data.humdata.org/",
-        testKey: "hdx"
+        what: "A searchable catalogue of humanitarian datasets and data resources.",
+        usedFor: "Finding dataset listings for displacement, food security, health, climate, access, INFORM, DTM, IDMC, EM-DAT, and IPC.",
+        caution: "HDX search returns metadata and links. It does not mean the site has loaded the full underlying dataset.",
+        technical: "The site calls the HDX CKAN package_search API."
       },
       {
-        id: "coverage-nasa-cmr",
-        name: "NASA CMR / Earthdata",
-        category: "dataset discovery",
-        description: "NASA Earthdata collection metadata search.",
+        id: "gdelt",
+        name: "GDELT",
+        type: "Live data",
+        url: "https://www.gdeltproject.org/",
+        what: "Open global event and news monitoring.",
+        usedFor: "Topic searches around humanitarian, displacement, conflict, disaster, health, climate, and food security themes.",
+        caution: "This is media-derived signal, not verified humanitarian need or ground-truth event validation.",
+        technical: "The site calls the public GDELT DOC API in article-list mode."
+      },
+      {
+        id: "owid",
+        name: "Our World in Data",
+        type: "Live data",
+        url: "https://ourworldindata.org/",
+        what: "Accessible global indicators for long-run health, climate, population, development, and related trends.",
+        usedFor: "CSV-based indicator samples and simple historical context.",
+        caution: "Indicators are broad context signals and need source/method review before being used in decisions.",
+        technical: "The site fetches public Grapher CSV files and parses them in the browser."
+      },
+      {
+        id: "worldpop",
+        name: "WorldPop",
+        type: "Metadata",
+        url: "https://www.worldpop.org/",
+        what: "Population and demographic datasets useful for exposure and vulnerability context.",
+        usedFor: "Finding population dataset categories and metadata.",
+        caution: "This page does not download or process gridded raster data.",
+        technical: "The site calls the WorldPop REST metadata endpoint."
+      },
+      {
+        id: "nasa",
+        name: "NASA Earthdata / CMR",
+        type: "Dataset discovery",
         url: "https://www.earthdata.nasa.gov/",
-        testKey: "nasaCmr"
-      },
-      {
-        id: "coverage-inform",
-        name: "INFORM via HDX",
-        category: "dataset discovery",
-        description: "INFORM-related dataset listings found through HDX metadata search.",
-        url: "https://drmkc.jrc.ec.europa.eu/inform-index",
-        testKey: "inform"
-      },
-      {
-        id: "coverage-dtm",
-        name: "IOM DTM via HDX",
-        category: "dataset discovery",
-        description: "Displacement Tracking Matrix dataset listings found through HDX metadata search.",
-        url: "https://dtm.iom.int/",
-        testKey: "dtm"
-      },
-      {
-        id: "coverage-idmc",
-        name: "IDMC via HDX",
-        category: "dataset discovery",
-        description: "Internal displacement dataset listings found through HDX metadata search.",
-        url: "https://www.internal-displacement.org/database/",
-        testKey: "idmc"
-      },
-      {
-        id: "coverage-emdat",
-        name: "EM-DAT via HDX",
-        category: "dataset discovery",
-        description: "EM-DAT-related disaster dataset listings found through HDX metadata search.",
-        url: "https://www.emdat.be/",
-        testKey: "emdat"
-      },
-      {
-        id: "coverage-ipc",
-        name: "IPC via HDX",
-        category: "dataset discovery",
-        description: "Food security dataset listings found through HDX metadata search.",
-        url: "https://www.ipcinfo.org/",
-        testKey: "ipc"
-      },
-      {
-        id: "coverage-acled-metadata",
-        name: "ACLED-related metadata via HDX only",
-        category: "dataset discovery",
-        description: "Public HDX dataset listings that mention ACLED. This does not call ACLED directly.",
-        url: "https://acleddata.com/",
-        testKey: "acledMetadata"
-      },
-      {
-        id: "coverage-who-gho-alt",
-        name: "WHO GHO via World Bank health indicators",
-        category: "public alternative",
-        description: "Health context using a browser-safe World Bank health indicator instead of direct WHO GHO.",
-        url: "https://data.worldbank.org/indicator/SH.DYN.MORT",
-        testKey: "whoGhoAlternative"
-      },
-      {
-        id: "coverage-who-workforce-alt",
-        name: "WHO Health Workforce via World Bank physician density",
-        category: "public alternative",
-        description: "Health workforce context through World Bank physician-density values.",
-        url: "https://data.worldbank.org/indicator/SH.MED.PHYS.ZS",
-        testKey: "whoWorkforceAlternative"
-      },
-      {
-        id: "coverage-cckp-alt",
-        name: "CCKP via World Bank climate/development indicator",
-        category: "public alternative",
-        description: "Climate and development context through a browser-safe World Bank indicator.",
-        url: "https://climateknowledgeportal.worldbank.org/",
-        testKey: "cckpAlternative"
-      },
-      {
-        id: "coverage-who-gho-direct",
-        name: "WHO GHO direct",
-        category: "not active",
-        description: "Direct WHO Global Health Observatory access is not active in this static version.",
-        url: "https://www.who.int/data/gho",
-        inactiveReason: "Skipped: direct WHO GHO access is not wired into this static browser-only page."
-      },
-      {
-        id: "coverage-acled-direct",
-        name: "ACLED direct",
-        category: "not active",
-        description: "Direct ACLED access is not active in this static version.",
-        url: "https://acleddata.com/",
-        inactiveReason: "Skipped: direct ACLED data access requires a different integration path and is not used here."
-      },
-      {
-        id: "coverage-hdx-hapi",
-        name: "HDX HAPI",
-        category: "not active",
-        description: "HDX HAPI is not active in this static version.",
-        url: "https://hapi.humdata.org/",
-        inactiveReason: "Skipped: this page uses HDX catalogue metadata only, not HAPI."
-      },
-      {
-        id: "coverage-reliefweb",
-        name: "ReliefWeb",
-        category: "not active",
-        description: "ReliefWeb is not active in this static version.",
-        url: "https://reliefweb.int/",
-        inactiveReason: "Skipped: ReliefWeb is listed for coverage context but no static test is wired in this pass."
-      },
-      {
-        id: "coverage-fews-net",
-        name: "FEWS NET",
-        category: "not active",
-        description: "FEWS NET is not active in this static version.",
-        url: "https://fews.net/",
-        inactiveReason: "Skipped: FEWS NET is listed for coverage context but no static test is wired in this pass."
-      },
-      {
-        id: "coverage-acaps",
-        name: "ACAPS",
-        category: "not active",
-        description: "ACAPS is not active in this static version.",
-        url: "https://www.acaps.org/",
-        inactiveReason: "Skipped: ACAPS is listed for coverage context but no static test is wired in this pass."
+        what: "Earth observation dataset catalogue metadata.",
+        usedFor: "Finding datasets related to climate, exposure, population, and environmental context.",
+        caution: "This is catalogue discovery, not download or geospatial analysis.",
+        technical: "The site calls the NASA CMR collection search endpoint."
       }
     ];
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+    const HDX_QUERIES = ["displacement", "food security", "health", "climate", "conflict", "access", "operations", "INFORM", "DTM", "IDMC", "EM-DAT", "IPC"];
+    const GDELT_QUERIES = ["humanitarian", "displacement", "conflict", "disaster", "health", "climate", "food security"];
+    const DISCOVERY_QUERIES = ["INFORM Risk Index", "IOM DTM", "IDMC displacement", "EM-DAT disaster", "IPC food security", "ACLED metadata", "health", "climate", "access", "operations"];
 
-    function setLoading(cardId) {
-      const output = document.querySelector(`#${cardId}-output`);
-      output.className = "output loading";
-      output.textContent = "Loading...";
-    }
+    let lastResults = {};
 
-    function setRaw(cardId, data) {
-      const raw = typeof data === "string" ? data : JSON.stringify(data, null, 2);
-      const element = document.querySelector(`#${cardId}-raw`);
-      if (element) element.textContent = raw;
-    }
-
-    function setSuccess(cardId, html, data) {
-      const output = document.querySelector(`#${cardId}-output`);
-      output.className = "output success";
-      output.innerHTML = html;
-      setRaw(cardId, data);
-    }
-
-    function setFailure(cardId, message, error) {
-      const output = document.querySelector(`#${cardId}-output`);
-      output.className = "output failure";
-      output.innerHTML = `<p class="status-line">${escapeHtml(message)}</p><p class="small-text">${escapeHtml(error.message || error)}</p>`;
-      setRaw(cardId, { error: error.message || String(error) });
-    }
-
-    function clearCard(cardId) {
-      const output = document.querySelector(`#${cardId}-output`);
-      if (output) {
-        output.className = "output";
-        output.textContent = "Not fetched yet.";
-      }
-      const raw = document.querySelector(`#${cardId}-raw`);
-      if (raw) raw.textContent = "No response yet.";
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
     }
 
     function formatNumber(value) {
-      if (value === null || value === undefined || value === "" || value === "-") return "Not available";
-      const numeric = Number(value);
-      return Number.isFinite(numeric) ? numeric.toLocaleString(undefined, { maximumFractionDigits: 2 }) : String(value);
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "not available";
+      return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
     }
 
-    function readableValue(value, fallback) {
-      if (value === null || value === undefined || value === "" || value === "-") return fallback;
-      return value;
+    function setLoading(id, message = "Loading...") {
+      const el = document.getElementById(id);
+      el.className = "result loading";
+      el.innerHTML = `<p>${esc(message)}</p>`;
+    }
+
+    function setError(id, message, error) {
+      const el = document.getElementById(id);
+      el.className = "result error";
+      el.innerHTML = `<h4>${esc(message)}</h4><p class="mini">${esc(error?.message || error || "Unknown error")}</p>`;
+    }
+
+    function setSuccess(id, html, raw) {
+      const el = document.getElementById(id);
+      el.className = "result success";
+      el.innerHTML = html + rawDetails(raw);
+    }
+
+    function clearResult(id) {
+      const el = document.getElementById(id);
+      el.className = "result";
+      el.innerHTML = "Not fetched yet.";
+    }
+
+    function rawDetails(raw) {
+      if (raw === undefined) return "";
+      return `<details><summary>View raw response</summary><pre>${esc(JSON.stringify(raw, null, 2))}</pre></details>`;
+    }
+
+    function sourceLink(url, text = "Open source") {
+      return `<a class="source-link" href="${esc(url)}" target="_blank" rel="noreferrer">${esc(text)}</a>`;
+    }
+
+    function tableFromRows(headers, rows) {
+      if (!rows.length) return "<p>No rows to display.</p>";
+      return `<div class="table-wrap"><table><thead><tr>${headers.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [], cell = "", inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i], next = text[i + 1];
+        if (char === '"' && inQuotes && next === '"') { cell += '"'; i++; }
+        else if (char === '"') { inQuotes = !inQuotes; }
+        else if (char === "," && !inQuotes) { row.push(cell); cell = ""; }
+        else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell); cell = "";
+          if (row.some(v => v !== "")) rows.push(row);
+          row = [];
+        } else {
+          cell += char;
+        }
+      }
+      if (cell || row.length) { row.push(cell); rows.push(row); }
+      const headers = rows.shift() || [];
+      return rows.map(r => Object.fromEntries(headers.map((h, i) => [h, r[i] ?? ""])));
+    }
+
+    function getFirstNumericColumn(rows) {
+      if (!rows.length) return null;
+      const keys = Object.keys(rows[0]).filter(k => !["Entity", "Code", "Year"].includes(k));
+      return keys.find(k => rows.some(row => row[k] !== "" && Number.isFinite(Number(row[k])))) || keys[0];
+    }
+
+    function computeTrend(records, yearKey, valueKey, targetYear) {
+      const data = records
+        .map(row => ({ year: Number(row[yearKey]), value: Number(row[valueKey]) }))
+        .filter(row => Number.isFinite(row.year) && Number.isFinite(row.value))
+        .sort((a, b) => a.year - b.year);
+
+      if (data.length < 2) return null;
+
+      const first = data[0], latest = data[data.length - 1];
+      const change = latest.value - first.value;
+      const pct = first.value !== 0 ? (change / first.value) * 100 : null;
+      const years = latest.year - first.year;
+      const averageAnnual = years > 0 ? change / years : null;
+
+      const n = data.length;
+      const sumX = data.reduce((s, d) => s + d.year, 0);
+      const sumY = data.reduce((s, d) => s + d.value, 0);
+      const sumXY = data.reduce((s, d) => s + d.year * d.value, 0);
+      const sumXX = data.reduce((s, d) => s + d.year * d.year, 0);
+      const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+      const intercept = (sumY - slope * sumX) / n;
+      const projected = slope * Number(targetYear) + intercept;
+
+      return { data, first, latest, change, pct, years, averageAnnual, slope, intercept, projected };
     }
 
     async function fetchJson(url) {
-      const response = await fetch(url, { headers: { Accept: "application/json" } });
-      const data = await response.json();
-      if (!response.ok || data.error || data.status >= 400) {
-        const errorMessage = data.error && data.error.message ? data.error.message : data.message || response.statusText || "Request failed";
-        throw new Error(`HTTP ${data.status || response.status}: ${errorMessage}`);
-      }
-      return data;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      return response.json();
     }
 
     async function fetchText(url) {
-      const response = await fetch(url, { headers: { Accept: "text/csv,*/*" } });
-      const text = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${text.slice(0, 160) || response.statusText}`);
-      return text;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      return response.text();
     }
 
-    function datasetCards(datasets) {
-      return datasets.slice(0, 5).map(dataset => `
-        <div class="mini-record">
-          <strong><a href="https://data.humdata.org/dataset/${encodeURIComponent(dataset.name)}" target="_blank" rel="noreferrer">${escapeHtml(dataset.title || dataset.name || "Untitled dataset")}</a></strong>
-          <div>Organisation: ${escapeHtml(dataset.organization && dataset.organization.title ? dataset.organization.title : "Not available")}</div>
-          <div>${escapeHtml((dataset.notes || "No description available.").slice(0, 240))}${dataset.notes && dataset.notes.length > 240 ? "..." : ""}</div>
-          <div>Resources: ${escapeHtml(dataset.num_resources ?? "Not available")}</div>
-          <div>Last modified: ${escapeHtml(dataset.last_modified || dataset.metadata_modified || "Not available")}</div>
-        </div>
-      `).join("");
+    async function fetchWorldBankSeries(country, indicator, mode = "25") {
+      let perPage = mode === "all" ? 20000 : Number(mode);
+      const url = `https://api.worldbank.org/v2/country/${encodeURIComponent(country)}/indicator/${encodeURIComponent(indicator)}?format=json&per_page=${perPage}`;
+      const json = await fetchJson(url);
+      return { meta: json[0] || {}, rows: json[1] || [], url, raw: json };
     }
 
-    async function fetchUnhcrSample() {
-      setLoading("unhcr");
-      const view = document.querySelector("#unhcrView").value;
-      const groupLabels = {
-        refugees: "refugees",
-        asylum_seekers: "asylum-seekers",
-        idps: "internally displaced people"
-      };
+    async function loadWorldBankCountries() {
+      const selects = ["wb-country", "trend-country", "owid-country"];
+      const fallback = FALLBACK_COUNTRIES.map(([code, name]) => ({ code, name }));
       try {
-        const data = await fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=5");
-        const records = data.items || [];
-        const html = `
-          <p class="status-line">Status: success</p>
-          <p>Records returned: ${escapeHtml(records.length)}</p>
-          <div class="record-list">
-            ${records.slice(0, 5).map(record => {
-              const origin = readableValue(record.coo_name, "Origin not shown in this sample");
-              const asylum = readableValue(record.coa_name, "Country/asylum not shown in this sample");
-              const value = record[view];
-              return `
-                <div class="mini-record">
-                  <strong>${escapeHtml(origin)}</strong>
-                  <div>Origin country: ${escapeHtml(origin)}</div>
-                  <div>Year: ${escapeHtml(record.year || "Not available")}</div>
-                  <div>Population group: ${escapeHtml(groupLabels[view])}</div>
-                  <div>Reported value: ${escapeHtml(formatNumber(value))}</div>
-                  <div class="small-text">Country/asylum: ${escapeHtml(asylum)}</div>
-                  ${asylum.includes("not shown") ? `<div class="small-text">Note: this sample is grouped by origin, so asylum country is not shown.</div>` : ""}
-                </div>
-              `;
-            }).join("")}
-          </div>
-        `;
-        setSuccess("unhcr", html, data);
+        const json = await fetchJson("https://api.worldbank.org/v2/country?format=json&per_page=400");
+        const countries = (json[1] || [])
+          .filter(c => c.region?.value && c.region.value !== "Aggregates")
+          .map(c => ({ code: c.id, name: c.name }))
+          .sort((a, b) => a.name.localeCompare(b.name));
+        populateCountrySelects(countries.length ? countries : fallback);
       } catch (error) {
-        setFailure("unhcr", "Could not fetch UNHCR data in this browser.", error);
+        populateCountrySelects(fallback);
       }
     }
 
-    function updateIndicatorHelp() {
-      const select = document.querySelector("#indicatorSelect");
-      const info = indicatorInfo[select.value];
-      document.querySelector("#indicatorHelp").textContent = `${info.helper} ${info.description} Code: ${info.code}`;
+    function populateCountrySelects(countries) {
+      for (const id of ["wb-country", "trend-country"]) {
+        const select = document.getElementById(id);
+        select.innerHTML = countries.map(c => `<option value="${esc(c.code)}">${esc(c.name)} · ${esc(c.code)}</option>`).join("");
+        const kenya = [...select.options].findIndex(o => o.value === "KEN");
+        if (kenya >= 0) select.selectedIndex = kenya;
+      }
+      const owid = document.getElementById("owid-country");
+      owid.innerHTML = countries.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+      const kenya = [...owid.options].findIndex(o => o.value === "Kenya");
+      if (kenya >= 0) owid.selectedIndex = kenya;
+    }
+
+    function populateIndicators() {
+      const options = Object.entries(WB_INDICATORS).map(([code, item]) => `<option value="${esc(code)}">${esc(item.label)} · ${esc(code)}</option>`).join("");
+      document.getElementById("wb-indicator").innerHTML = options;
+      document.getElementById("trend-indicator").innerHTML = options;
+      document.getElementById("wb-indicator").addEventListener("change", updateWbHelper);
+      updateWbHelper();
+
+      document.getElementById("owid-indicator").innerHTML = Object.entries(OWID_INDICATORS)
+        .map(([id, item]) => `<option value="${esc(id)}">${esc(item.label)}</option>`).join("");
+    }
+
+    function updateWbHelper() {
+      const code = document.getElementById("wb-indicator").value;
+      document.getElementById("wb-helper").textContent = WB_INDICATORS[code]?.help || "";
+    }
+
+    function populateYearSelect() {
+      const select = document.getElementById("unhcr-year");
+      const current = new Date().getFullYear();
+      let html = "";
+      for (let y = current - 1; y >= 2000; y--) html += `<option value="${y}">${y}</option>`;
+      select.innerHTML = html;
+    }
+
+    function populateQuickButtons() {
+      const hdx = document.getElementById("hdx-quick");
+      hdx.innerHTML = HDX_QUERIES.map(q => `<button type="button" onclick="setInputAndRun('hdx-query', '${esc(q)}', searchHdxDatasets)">${esc(q)}</button>`).join("");
+
+      const gdelt = document.getElementById("gdelt-quick");
+      gdelt.innerHTML = GDELT_QUERIES.map(q => `<button type="button" onclick="setInputAndRun('gdelt-query', '${esc(q)}', searchGdelt)">${esc(q)}</button>`).join("");
+
+      const discovery = document.getElementById("discovery-quick");
+      discovery.innerHTML = DISCOVERY_QUERIES.map(q => `<button type="button" onclick="setInputAndRun('discovery-query', '${esc(q)}', searchDiscoveryHdx)">${esc(q)}</button>`).join("");
+    }
+
+    function setInputAndRun(inputId, value, fn) {
+      document.getElementById(inputId).value = value;
+      fn();
+    }
+
+    async function fetchUnhcrSample() {
+      const year = document.getElementById("unhcr-year").value;
+      const limit = document.getElementById("unhcr-limit").value;
+      const id = "unhcr-result";
+      setLoading(id, "Fetching UNHCR displacement records...");
+      try {
+        const url = `https://api.unhcr.org/population/v1/population/?year=${encodeURIComponent(year)}&coo_all=true&limit=${encodeURIComponent(limit)}`;
+        const json = await fetchJson(url);
+        const rows = Array.isArray(json?.items) ? json.items : Array.isArray(json) ? json : (json?.data || []);
+        const tableRows = rows.map((r, index) => [
+          esc(index + 1),
+          esc(r.year || year || "not shown"),
+          esc(r.coa_name || r.asylum_country_name || r.country_of_asylum || "not shown in this sample"),
+          esc(r.coo_name || r.origin_country_name || r.country_of_origin || "not shown in this sample"),
+          esc(r.population_type || r.pop_type || r.population_type_name || r.pop_type_name || "not shown"),
+          esc(formatNumber(r.value || r.population || r.total || r.individuals))
+        ]);
+        const html = `
+          <h4>UNHCR records returned</h4>
+          <p><b>${rows.length.toLocaleString()}</b> records displayed from the selected request.</p>
+          <p class="mini">This is still a query result, not a full displacement analysis. Use the raw response to inspect exact field names.</p>
+          ${tableFromRows(["#", "Year", "Asylum / host", "Origin", "Population group", "Value"], tableRows)}
+          ${sourceLink("https://www.unhcr.org/refugee-statistics/", "Open UNHCR")}
+        `;
+        lastResults.unhcr = rows;
+        setSuccess(id, html, json);
+      } catch (error) {
+        setError(id, "Could not fetch UNHCR data in this browser.", error);
+      }
     }
 
     async function fetchWorldBankIndicator() {
-      setLoading("worldbank");
-      const countrySelect = document.querySelector("#countrySelect");
-      const indicatorSelect = document.querySelector("#indicatorSelect");
-      const countryCode = countrySelect.value;
-      const countryLabel = countrySelect.options[countrySelect.selectedIndex].text;
-      const indicator = indicatorInfo[indicatorSelect.value];
-
+      const id = "wb-result";
+      const country = document.getElementById("wb-country").value;
+      const indicator = document.getElementById("wb-indicator").value;
+      const mode = document.getElementById("wb-years").value;
+      const target = document.getElementById("wb-target-year").value;
+      setLoading(id, "Fetching World Bank indicator...");
       try {
-        const data = await fetchJson(`https://api.worldbank.org/v2/country/${countryCode}/indicator/${indicator.code}?format=json&per_page=10`);
-        const values = Array.isArray(data) && Array.isArray(data[1]) ? data[1].filter(row => row.value !== null && row.value !== undefined) : [];
-        if (!values.length) throw new Error("No non-empty indicator values returned.");
-        const latest = values[0];
+        const { rows, raw, url } = await fetchWorldBankSeries(country, indicator, mode);
+        const clean = rows.filter(r => r.value !== null && r.value !== undefined);
+        const sorted = clean.sort((a, b) => Number(b.date) - Number(a.date));
+        const latest = sorted[0];
+        const trend = computeTrend(clean, "date", "value", target);
+        const tableRows = sorted.map(r => [
+          esc(r.date),
+          esc(formatNumber(r.value)),
+          esc(r.country?.value || country)
+        ]);
+        const trendHtml = trend ? `
+          <div class="pill-row">
+            <span class="pill alt">Latest: ${esc(formatNumber(trend.latest.value))} in ${esc(trend.latest.year)}</span>
+            <span class="pill">Change: ${esc(formatNumber(trend.change))}</span>
+            <span class="pill">Percent change: ${trend.pct === null ? "not available" : esc(formatNumber(trend.pct)) + "%"}</span>
+            <span class="pill warn">If pattern continued to ${esc(target)}: ${esc(formatNumber(trend.projected))}</span>
+          </div>
+          <p class="mini">The continuation is a simple trend extension from returned data. It is not a forecast.</p>
+        ` : `<p class="mini">Not enough numeric records to calculate change over time.</p>`;
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Country: ${escapeHtml(countryLabel)}</p>
-          <p>Indicator: ${escapeHtml(indicator.label)} <span class="small-text">(${escapeHtml(indicator.description)})</span></p>
-          <p>Latest available year: <strong>${escapeHtml(latest.date)}</strong></p>
-          <p>Latest value: <strong>${escapeHtml(formatNumber(latest.value))}</strong></p>
-          <table>
-            <thead><tr><th>Year</th><th>Value</th></tr></thead>
-            <tbody>${values.slice(0, 5).map(row => `<tr><td>${escapeHtml(row.date)}</td><td>${escapeHtml(formatNumber(row.value))}</td></tr>`).join("")}</tbody>
-          </table>
-          <p class="small-text">Country-level indicators can hide local variation.</p>
+          <h4>${esc(WB_INDICATORS[indicator].label)} for ${esc(latest?.country?.value || country)}</h4>
+          <p><b>Latest available value:</b> ${latest ? esc(formatNumber(latest.value)) + " in " + esc(latest.date) : "not available"}</p>
+          ${trendHtml}
+          ${tableFromRows(["Year", "Value", "Country"], tableRows)}
+          ${sourceLink(url, "Open World Bank API request")}
         `;
-        setSuccess("worldbank", html, data);
+        lastResults.worldbank = clean;
+        setSuccess(id, html, raw);
       } catch (error) {
-        setFailure("worldbank", "Could not fetch World Bank indicator data in this browser.", error);
+        setError(id, "Could not fetch World Bank indicator data in this browser.", error);
       }
     }
 
     async function fetchGdacsAlerts() {
-      setLoading("gdacs");
+      const id = "gdacs-result";
+      const type = document.getElementById("gdacs-type").value;
+      const alert = document.getElementById("gdacs-alert").value;
+      const display = Number(document.getElementById("gdacs-display").value);
+      setLoading(id, "Fetching GDACS event records...");
       try {
-        const data = await fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest");
-        const events = data.features || [];
+        const url = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest";
+        const json = await fetchJson(url);
+        const records = Array.isArray(json) ? json : (json.features || json.items || json.events || []);
+        const rows = records.map(item => item.properties ? { ...item.properties, geometry: item.geometry } : item);
+        const filtered = rows.filter(r => {
+          const eventType = r.eventtype || r.eventType || r.type || "";
+          const alertLevel = r.alertlevel || r.alertLevel || r.alert || "";
+          return (!type || String(eventType).toUpperCase() === type) &&
+                 (!alert || String(alertLevel).toLowerCase() === alert.toLowerCase());
+        });
+        const shown = filtered.slice(0, display);
+        const typeCounts = countBy(filtered, r => eventTypeLabel(r.eventtype || r.eventType || r.type || "Unknown"));
+        const alertCounts = countBy(filtered, r => r.alertlevel || r.alertLevel || r.alert || "Unknown");
+        const tableRows = shown.map(r => [
+          esc(r.name || r.eventname || r.title || r.description || "Unnamed event"),
+          esc(eventTypeLabel(r.eventtype || r.eventType || r.type || "Unknown")),
+          esc(r.country || r.countryname || r.iso3 || r.location || "not shown"),
+          esc(r.alertlevel || r.alertLevel || r.alert || "not shown"),
+          esc(r.fromdate || r.todate || r.date || r.eventdate || "not shown")
+        ]);
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Event records returned: ${escapeHtml(events.length)}</p>
-          <div class="record-list">
-            ${events.slice(0, 5).map(event => {
-              const p = event.properties || {};
-              const type = gdacsTypeLabels[p.eventtype] || p.eventtype || "Not available";
-              const link = p.url && p.url.report ? p.url.report : "https://www.gdacs.org/";
-              return `
-                <div class="mini-record">
-                  <strong><a href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(p.name || p.eventname || p.description || "Unnamed event")}</a></strong>
-                  <div>Event type: ${escapeHtml(type)}</div>
-                  <div>Country or location: ${escapeHtml(p.country || p.iso3 || "Not available")}</div>
-                  <div>Alert level: ${escapeHtml(p.alertlevel || p.episodealertlevel || "Not available")}</div>
-                  <div>Event date or start date: ${escapeHtml(p.fromdate || "Not available")}</div>
-                  <div>Last updated: ${escapeHtml(p.datemodified || "Not available")}</div>
-                </div>
-              `;
-            }).join("")}
+          <h4>GDACS events returned</h4>
+          <p><b>${filtered.length}</b> matching records from the latest event-list endpoint. Showing ${shown.length}.</p>
+          <div class="pill-row">
+            ${Object.entries(typeCounts).map(([k, v]) => `<span class="pill">${esc(k)}: ${esc(v)}</span>`).join("")}
+            ${Object.entries(alertCounts).map(([k, v]) => `<span class="pill warn">${esc(k)}: ${esc(v)}</span>`).join("")}
           </div>
-          <p class="small-text">Some disaster records, especially droughts, can remain listed across long periods. Check the original GDACS page before citing an event.</p>
+          <p class="mini">Some disaster records, especially droughts, can remain listed across long periods. Check GDACS before citing an event.</p>
+          ${tableFromRows(["Event", "Type", "Country/location", "Alert", "Date"], tableRows)}
+          ${sourceLink("https://www.gdacs.org/", "Open GDACS")}
         `;
-        setSuccess("gdacs", html, data);
+        lastResults.gdacs = filtered;
+        setSuccess(id, html, json);
       } catch (error) {
-        setFailure("gdacs", "Could not fetch GDACS alerts in this browser.", error);
+        setError(id, "Could not fetch GDACS alerts in this browser.", error);
       }
+    }
+
+    function eventTypeLabel(code) {
+      const map = { DR: "Drought", EQ: "Earthquake", FL: "Flood", TC: "Tropical cyclone", VO: "Volcano" };
+      return map[String(code).toUpperCase()] || code || "Unknown";
+    }
+
+    function countBy(rows, fn) {
+      return rows.reduce((acc, row) => {
+        const key = fn(row) || "Unknown";
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    async function fetchHdxPackages(query, limit) {
+      const rows = Math.min(Number(limit) || 5, 100);
+      const target = Number(limit) || rows;
+      let start = 0;
+      const all = [];
+      let finalRaw = null;
+      while (all.length < target) {
+        const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=${Math.min(rows, target - all.length)}&start=${start}`;
+        const json = await fetchJson(url);
+        finalRaw = json;
+        const results = json.result?.results || [];
+        all.push(...results);
+        if (results.length === 0 || all.length >= (json.result?.count || 0)) break;
+        start += results.length;
+      }
+      return { results: all, total: finalRaw?.result?.count || all.length, raw: finalRaw };
     }
 
     async function searchHdxDatasets() {
-      setLoading("hdx");
-      const keyword = document.querySelector("#hdxKeyword").value.trim() || "displacement";
+      const id = "hdx-result";
+      const query = document.getElementById("hdx-query").value.trim() || "displacement";
+      const limit = document.getElementById("hdx-limit").value;
+      setLoading(id, "Searching HDX dataset catalogue...");
       try {
-        const data = await fetchJson(`https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(keyword)}&rows=5`);
-        const datasets = data.result && data.result.results ? data.result.results : [];
+        const { results, total, raw } = await fetchHdxPackages(query, limit);
+        const rows = results.map(d => [
+          `<a href="https://data.humdata.org/dataset/${esc(d.name)}" target="_blank" rel="noreferrer">${esc(d.title || d.name)}</a>`,
+          esc(d.organization?.title || d.organization?.name || "not shown"),
+          esc((d.notes || "").slice(0, 220)),
+          esc(d.num_resources ?? d.resources?.length ?? "not shown"),
+          esc(d.metadata_modified ? new Date(d.metadata_modified).toLocaleDateString() : "not shown")
+        ]);
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Keyword searched: ${escapeHtml(keyword)}</p>
-          <p>Datasets returned: ${escapeHtml(datasets.length)}</p>
-          <div class="record-list">${datasetCards(datasets)}</div>
-          <p class="small-text">HDX results are dataset listings. Open the dataset page to inspect files, methods, geography, and update dates.</p>
+          <h4>HDX dataset search: “${esc(query)}”</h4>
+          <p><b>${total.toLocaleString()}</b> total matching dataset listings reported by HDX. Displaying ${results.length.toLocaleString()}.</p>
+          <p class="mini">These are dataset listings. Open the dataset page to inspect files, methods, geography, and update dates.</p>
+          ${tableFromRows(["Dataset", "Organisation", "Description", "Resources", "Modified"], rows)}
+          ${sourceLink("https://data.humdata.org/", "Open HDX")}
         `;
-        setSuccess("hdx", html, data);
+        lastResults.hdx = results;
+        setSuccess(id, html, raw);
       } catch (error) {
-        setFailure("hdx", "Could not search HDX datasets in this browser.", error);
-      }
-    }
-
-    function quickHdxSearch(keyword) {
-      document.querySelector("#hdxKeyword").value = keyword;
-      searchHdxDatasets();
-    }
-
-    function polygonFromBbox(bbox) {
-      const [west, south, east, north] = bbox;
-      return {
-        type: "FeatureCollection",
-        features: [{
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "Polygon",
-            coordinates: [[[west, south], [east, south], [east, north], [west, north], [west, south]]]
-          }
-        }]
-      };
-    }
-
-    async function fetchWorldPopSample() {
-      setLoading("worldpop");
-      const code = document.querySelector("#worldpopCountry").value;
-      const area = worldPopAreas[code];
-      const geojson = encodeURIComponent(JSON.stringify(polygonFromBbox(area.bbox)));
-      try {
-        const data = await fetchJson(`https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=${geojson}&runasync=false`);
-        const population = data && data.data ? data.data.total_population : null;
-        const html = `
-          <p class="status-line">Status: success</p>
-          <p>Sample area: ${escapeHtml(area.label)}</p>
-          <p>Returned field: total population estimate</p>
-          <p>Reported value: <strong>${escapeHtml(formatNumber(population))}</strong></p>
-          <p class="small-text">This is a small sample area, not a national total. Use it only to confirm that the site can retrieve WorldPop data.</p>
-        `;
-        setSuccess("worldpop", html, data);
-      } catch (error) {
-        setFailure("worldpop", "Could not fetch WorldPop data in this browser.", error);
+        setError(id, "Could not search HDX datasets in this browser.", error);
       }
     }
 
     async function searchGdelt() {
-      setLoading("gdelt");
-      const topic = document.querySelector("#gdeltTopic").value.trim() || "humanitarian";
+      const id = "gdelt-result";
+      const query = document.getElementById("gdelt-query").value.trim() || "humanitarian";
+      const limit = document.getElementById("gdelt-limit").value;
+      setLoading(id, "Searching GDELT...");
       try {
-        const data = await fetchJson(`https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(topic)}&mode=artlist&format=json&maxrecords=5`);
-        const articles = data.articles || [];
+        const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&format=json&maxrecords=${encodeURIComponent(limit)}&sort=HybridRel`;
+        const json = await fetchJson(url);
+        const articles = json.articles || json.items || [];
+        const rows = articles.map(a => [
+          `<a href="${esc(a.url || "#")}" target="_blank" rel="noreferrer">${esc(a.title || a.url || "Untitled")}</a>`,
+          esc(a.sourceCountry || a.domain || a.source || "not shown"),
+          esc(a.seendate || a.date || "not shown"),
+          esc((a.excerpt || a.description || "").slice(0, 160))
+        ]);
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Topic searched: ${escapeHtml(topic)}</p>
-          <p>Records returned: ${escapeHtml(articles.length)}</p>
-          <div class="record-list">
-            ${articles.slice(0, 5).map(article => `
-              <div class="mini-record">
-                <strong><a href="${escapeHtml(article.url || "https://www.gdeltproject.org/")}" target="_blank" rel="noreferrer">${escapeHtml(article.title || article.sourceCountry || "Untitled record")}</a></strong>
-                <div>Source: ${escapeHtml(article.domain || article.sourceCommonName || "Not available")}</div>
-                <div>Country/location: ${escapeHtml(article.sourceCountry || "Not available")}</div>
-                <div>Date/time: ${escapeHtml(article.seendate || "Not available")}</div>
-                <div class="small-text">Media/event monitoring, not verified humanitarian needs data.</div>
-              </div>
-            `).join("")}
-          </div>
+          <h4>GDELT results for “${esc(query)}”</h4>
+          <p><b>${articles.length}</b> article/event attention records returned.</p>
+          <p class="mini">GDELT is media-derived signal. It is not verified humanitarian needs data.</p>
+          ${tableFromRows(["Title/link", "Source/location", "Date", "Note"], rows)}
+          ${sourceLink("https://www.gdeltproject.org/", "Open GDELT")}
         `;
-        setSuccess("gdelt", html, data);
+        lastResults.gdelt = articles;
+        setSuccess(id, html, json);
       } catch (error) {
-        setFailure("gdelt", "Could not fetch GDELT records in this browser.", error);
+        setError(id, "Could not fetch GDELT records in this browser.", error);
       }
-    }
-
-    function quickGdeltSearch(topic) {
-      document.querySelector("#gdeltTopic").value = topic;
-      searchGdelt();
-    }
-
-    function parseCsvRows(text) {
-      const lines = text.trim().split(/\r?\n/).slice(0, 80);
-      const header = lines.shift().split(",");
-      return lines.map(line => {
-        const cells = line.split(",");
-        return Object.fromEntries(header.map((key, index) => [key, cells[index] || ""]));
-      });
     }
 
     async function fetchOwidIndicator() {
-      setLoading("owid");
-      const slug = document.querySelector("#owidIndicator").value;
-      const label = owidIndicators[slug] || slug;
+      const id = "owid-result";
+      const country = document.getElementById("owid-country").value;
+      const indicatorId = document.getElementById("owid-indicator").value;
+      const item = OWID_INDICATORS[indicatorId];
+      setLoading(id, "Fetching Our World in Data CSV...");
       try {
-        const text = await fetchText(`https://ourworldindata.org/grapher/${encodeURIComponent(slug)}.csv`);
-        const rows = parseCsvRows(text).filter(row => row.Entity && row.Year).slice(0, 5);
-        const valueKey = Object.keys(rows[0] || {}).find(key => !["Entity", "Code", "Year"].includes(key)) || "Value";
+        const url = `https://ourworldindata.org/grapher/${item.slug}.csv`;
+        const text = await fetchText(url);
+        const rows = parseCsv(text);
+        const valueCol = getFirstNumericColumn(rows);
+        const filtered = rows
+          .filter(r => r.Entity === country && r[valueCol] !== "")
+          .sort((a, b) => Number(b.Year) - Number(a.Year));
+        const latest = filtered[0];
+        const trend = computeTrend(filtered, "Year", valueCol, new Date().getFullYear());
+        const tableRows = filtered.slice(0, 30).map(r => [esc(r.Year), esc(formatNumber(r[valueCol])), esc(country)]);
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Indicator: ${escapeHtml(label)}</p>
-          <p>Rows shown: ${escapeHtml(rows.length)}</p>
-          <table>
-            <thead><tr><th>Place</th><th>Year</th><th>${escapeHtml(valueKey)}</th></tr></thead>
-            <tbody>${rows.map(row => `<tr><td>${escapeHtml(row.Entity)}</td><td>${escapeHtml(row.Year)}</td><td>${escapeHtml(formatNumber(row[valueKey]))}</td></tr>`).join("")}</tbody>
-          </table>
+          <h4>${esc(item.label)} from Our World in Data</h4>
+          <p><b>Country:</b> ${esc(country)}</p>
+          <p><b>Latest available value:</b> ${latest ? esc(formatNumber(latest[valueCol])) + " in " + esc(latest.Year) : "not available"}</p>
+          ${trend ? `<p><b>Change across returned series:</b> ${esc(formatNumber(trend.change))} (${trend.pct === null ? "not available" : esc(formatNumber(trend.pct)) + "%"}).</p>` : ""}
+          ${tableFromRows(["Year", "Value", "Entity"], tableRows)}
+          ${sourceLink(url, "Open OWID CSV request")}
         `;
-        setSuccess("owid", html, text.slice(0, 3500));
+        lastResults.owid = filtered;
+        setSuccess(id, html, { previewRows: filtered.slice(0, 30), valueColumn: valueCol });
       } catch (error) {
-        setFailure("owid", "Could not fetch Our World in Data indicator data in this browser.", error);
+        setError(id, "Could not fetch Our World in Data indicator in this browser.", error);
       }
     }
 
-    async function runDiscoverySearch(cardId, keyword) {
-      setLoading(cardId);
+    async function fetchWorldPopMetadata() {
+      const id = "worldpop-result";
+      setLoading(id, "Fetching WorldPop metadata...");
       try {
-        const data = await fetchJson(`https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(keyword)}&rows=5`);
-        const datasets = data.result && data.result.results ? data.result.results : [];
+        const url = "https://www.worldpop.org/rest/data/pop";
+        const json = await fetchJson(url);
+        const rows = Array.isArray(json?.data) ? json.data : Array.isArray(json) ? json : [];
+        const tableRows = rows.map(r => [
+          esc(r.alias || r.id || r.name || "not shown"),
+          esc(r.title || r.name || "not shown"),
+          esc((r.desc || r.description || "").slice(0, 260))
+        ]);
         const html = `
-          <p class="status-line">Status: success</p>
-          <p>Search: ${escapeHtml(keyword)}</p>
-          <p>Dataset listings returned: ${escapeHtml(datasets.length)}</p>
-          <p class="small-text">This searches dataset listings. It does not load the full dataset.</p>
-          <div class="record-list">${datasetCards(datasets)}</div>
+          <h4>WorldPop population dataset metadata</h4>
+          <p><b>${rows.length}</b> metadata records returned.</p>
+          <p class="mini">This is metadata. The page does not download or process geospatial raster datasets.</p>
+          ${tableFromRows(["Alias/id", "Title", "Description"], tableRows)}
+          ${sourceLink("https://www.worldpop.org/", "Open WorldPop")}
         `;
-        const output = document.querySelector(`#${cardId}-output`);
-        output.className = "output success";
-        output.innerHTML = html;
+        lastResults.worldpop = rows;
+        setSuccess(id, html, json);
       } catch (error) {
-        const output = document.querySelector(`#${cardId}-output`);
-        output.className = "output failure";
-        output.innerHTML = `<p class="status-line">Could not search these dataset listings.</p><p class="small-text">${escapeHtml(error.message)}</p>`;
+        setError(id, "Could not fetch WorldPop metadata in this browser.", error);
       }
     }
 
-    const coverageTests = {
-      async unhcr() {
-        const data = await fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=3");
-        const records = data.items || [];
-        return {
-          data,
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>Records returned: ${escapeHtml(records.length)}</p>
-            <p>Sample: ${escapeHtml(records.map(record => record.coo_name).filter(Boolean).join(", ") || "No named origins returned")}</p>
-          `
-        };
-      },
-      async worldbank() {
-        return coverageWorldBankIndicator("KEN", "SP.POP.TOTL", "Kenya population");
-      },
-      async gdacs() {
-        const data = await fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest");
-        const events = data.features || [];
-        return {
-          data,
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>Event records returned: ${escapeHtml(events.length)}</p>
-            <p>First record: ${escapeHtml((events[0] && events[0].properties && (events[0].properties.name || events[0].properties.eventname)) || "No named event returned")}</p>
-          `
-        };
-      },
-      async gdelt() {
-        const data = await fetchJson("https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=artlist&format=json&maxrecords=3");
-        const articles = data.articles || [];
-        return {
-          data,
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>Records returned: ${escapeHtml(articles.length)}</p>
-            <p>First record: ${escapeHtml((articles[0] && (articles[0].title || articles[0].domain)) || "No title returned")}</p>
-          `
-        };
-      },
-      async owid() {
-        const text = await fetchText("https://ourworldindata.org/grapher/life-expectancy.csv");
-        const rows = parseCsvRows(text).slice(0, 3);
-        return {
-          data: text.slice(0, 3500),
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>CSV rows sampled: ${escapeHtml(rows.length)}</p>
-            <p>First place: ${escapeHtml((rows[0] && rows[0].Entity) || "No place returned")}</p>
-          `
-        };
-      },
-      async worldpop() {
-        const area = worldPopAreas.KEN;
-        const geojson = encodeURIComponent(JSON.stringify(polygonFromBbox(area.bbox)));
-        const data = await fetchJson(`https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=${geojson}&runasync=false`);
-        return {
-          data,
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>Sample area: ${escapeHtml(area.label)}</p>
-            <p>Total population estimate: ${escapeHtml(formatNumber(data && data.data ? data.data.total_population : null))}</p>
-          `
-        };
-      },
-      async hdx() {
-        return coverageHdxSearch("displacement");
-      },
-      async nasaCmr() {
-        const data = await fetchJson("https://cmr.earthdata.nasa.gov/search/collections.json?keyword=precipitation&page_size=3");
-        const entries = data.feed && data.feed.entry ? data.feed.entry : [];
-        return {
-          data,
-          html: `
-            <p class="status-line">Status: success</p>
-            <p>Collection records returned: ${escapeHtml(entries.length)}</p>
-            <p>First collection: ${escapeHtml((entries[0] && entries[0].title) || "No collection title returned")}</p>
-          `
-        };
-      },
-      async inform() {
-        return coverageHdxSearch("INFORM Risk Index");
-      },
-      async dtm() {
-        return coverageHdxSearch("Global IOM DTM from API");
-      },
-      async idmc() {
-        return coverageHdxSearch("IDMC internal displacement");
-      },
-      async emdat() {
-        return coverageHdxSearch("EM-DAT");
-      },
-      async ipc() {
-        return coverageHdxSearch("IPC acute food insecurity");
-      },
-      async acledMetadata() {
-        return coverageHdxSearch("ACLED");
-      },
-      async whoGhoAlternative() {
-        return coverageWorldBankIndicator("KEN", "SH.DYN.MORT", "WHO GHO alternative: under-5 mortality");
-      },
-      async whoWorkforceAlternative() {
-        return coverageWorldBankIndicator("KEN", "SH.MED.PHYS.ZS", "WHO workforce alternative: physician density");
-      },
-      async cckpAlternative() {
-        return coverageWorldBankIndicator("KEN", "AG.LND.FRST.ZS", "CCKP alternative: forest and land context");
-      }
-    };
-
-    async function coverageWorldBankIndicator(countryCode, indicatorCode, label) {
-      const data = await fetchJson(`https://api.worldbank.org/v2/country/${countryCode}/indicator/${indicatorCode}?format=json&per_page=5`);
-      const values = Array.isArray(data) && Array.isArray(data[1]) ? data[1].filter(row => row.value !== null && row.value !== undefined) : [];
-      if (!values.length) throw new Error("No non-empty World Bank values returned.");
-      const latest = values[0];
-      return {
-        data,
-        html: `
-          <p class="status-line">Status: success</p>
-          <p>${escapeHtml(label)}</p>
-          <p>Latest available year: ${escapeHtml(latest.date)}</p>
-          <p>Latest value: ${escapeHtml(formatNumber(latest.value))}</p>
-        `
-      };
-    }
-
-    async function coverageHdxSearch(keyword) {
-      const data = await fetchJson(`https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(keyword)}&rows=3`);
-      const datasets = data.result && data.result.results ? data.result.results : [];
-      return {
-        data,
-        html: `
-          <p class="status-line">Status: success</p>
-          <p>Search: ${escapeHtml(keyword)}</p>
-          <p>Dataset listings returned: ${escapeHtml(datasets.length)}</p>
-          <p>First listing: ${escapeHtml((datasets[0] && (datasets[0].title || datasets[0].name)) || "No dataset title returned")}</p>
-          <p class="small-text">This searches dataset listings. It does not load the full dataset.</p>
-        `
-      };
-    }
-
-    function setCoverageLoading(sourceId) {
-      const output = document.querySelector(`#${sourceId}-output`);
-      output.className = "output loading";
-      output.textContent = "Testing...";
-    }
-
-    function setCoverageSuccess(sourceId, html, data) {
-      const output = document.querySelector(`#${sourceId}-output`);
-      const raw = document.querySelector(`#${sourceId}-raw`);
-      output.className = "output success";
-      output.innerHTML = html;
-      if (raw) raw.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
-    }
-
-    function setCoverageFailure(sourceId, error) {
-      const output = document.querySelector(`#${sourceId}-output`);
-      const raw = document.querySelector(`#${sourceId}-raw`);
-      output.className = "output failure";
-      output.innerHTML = `<p class="status-line">Test failed.</p><p class="small-text">${escapeHtml(error.message || error)}</p>`;
-      if (raw) raw.textContent = "No successful response yet.";
-    }
-
-    function setCoverageSkipped(source) {
-      const output = document.querySelector(`#${source.id}-output`);
-      output.className = "output";
-      output.innerHTML = `<p class="status-line">Not active in this static version.</p><p class="small-text">${escapeHtml(source.inactiveReason)}</p>`;
-    }
-
-    async function testCoverageSource(sourceId) {
-      const source = sourceCoverageSources.find(item => item.id === sourceId);
-      if (!source) return "failed";
-      if (!source.testKey) {
-        setCoverageSkipped(source);
-        return "skipped";
-      }
-      setCoverageLoading(source.id);
+    async function runTrendTool() {
+      const id = "trend-result";
+      const country = document.getElementById("trend-country").value;
+      const indicator = document.getElementById("trend-indicator").value;
+      const years = document.getElementById("trend-years").value;
+      const target = document.getElementById("trend-year").value;
+      setLoading(id, "Running trend calculation...");
       try {
-        const result = await coverageTests[source.testKey]();
-        setCoverageSuccess(source.id, result.html, result.data);
-        return "success";
+        const { rows, raw, url } = await fetchWorldBankSeries(country, indicator, years);
+        const clean = rows.filter(r => r.value !== null && r.value !== undefined);
+        const trend = computeTrend(clean, "date", "value", target);
+        if (!trend) throw new Error("Not enough numeric values returned for trend calculation.");
+        const tableRows = trend.data.slice(-30).reverse().map(r => [esc(r.year), esc(formatNumber(r.value))]);
+        const recency = new Date().getFullYear() - trend.latest.year;
+        const html = `
+          <h4>${esc(WB_INDICATORS[indicator].label)} trend calculation</h4>
+          <div class="pill-row">
+            <span class="pill alt">Latest: ${esc(formatNumber(trend.latest.value))} in ${esc(trend.latest.year)}</span>
+            <span class="pill">Earliest used: ${esc(formatNumber(trend.first.value))} in ${esc(trend.first.year)}</span>
+            <span class="pill">Absolute change: ${esc(formatNumber(trend.change))}</span>
+            <span class="pill">Percentage change: ${trend.pct === null ? "not available" : esc(formatNumber(trend.pct)) + "%"}</span>
+            <span class="pill">Average annual change: ${esc(formatNumber(trend.averageAnnual))}</span>
+            <span class="pill warn">Simple continuation to ${esc(target)}: ${esc(formatNumber(trend.projected))}</span>
+            <span class="pill warn">Data recency: ${esc(recency)} year(s)</span>
+          </div>
+          <p class="mini"><b>Interpretation:</b> this is a simple linear trend extension from past data. It is useful for a futures question, but it is not a forecast or prediction.</p>
+          ${tableFromRows(["Year", "Value"], tableRows)}
+          ${sourceLink(url, "Open World Bank API request")}
+        `;
+        setSuccess(id, html, raw);
       } catch (error) {
-        setCoverageFailure(source.id, error);
-        return "failed";
+        setError(id, "Could not calculate the trend from the returned data.", error);
       }
     }
 
-    async function testAllCoverageSources() {
-      const button = document.querySelector("#testAllCoverageButton");
-      const summary = document.querySelector("#coverageSummary");
-      const originalText = button.textContent;
-      button.disabled = true;
-      button.textContent = "Testing sources...";
-      summary.textContent = "Testing browser-safe sources...";
-      const totals = { success: 0, failed: 0, skipped: 0 };
-      for (const source of sourceCoverageSources) {
-        const result = await testCoverageSource(source.id);
-        totals[result] += 1;
+    async function searchDiscoveryHdx() {
+      const query = document.getElementById("discovery-query").value.trim() || "INFORM Risk Index";
+      const limit = document.getElementById("discovery-limit").value;
+      const id = "discovery-result";
+      setLoading(id, "Searching HDX thematic dataset listings...");
+      try {
+        const { results, total, raw } = await fetchHdxPackages(query, limit);
+        const rows = results.map(d => [
+          `<a href="https://data.humdata.org/dataset/${esc(d.name)}" target="_blank" rel="noreferrer">${esc(d.title || d.name)}</a>`,
+          esc(d.organization?.title || d.organization?.name || "not shown"),
+          esc((d.notes || "").slice(0, 220)),
+          esc(d.num_resources ?? d.resources?.length ?? "not shown"),
+          esc(d.metadata_modified ? new Date(d.metadata_modified).toLocaleDateString() : "not shown")
+        ]);
+        const html = `
+          <h4>Dataset discovery: “${esc(query)}”</h4>
+          <p><b>${total.toLocaleString()}</b> matching listings reported. Displaying ${results.length}.</p>
+          <p class="mini">This searches dataset listings. It does not load the full dataset files.</p>
+          ${tableFromRows(["Dataset", "Organisation", "Description", "Resources", "Modified"], rows)}
+        `;
+        setSuccess(id, html, raw);
+      } catch (error) {
+        setError(id, "Could not search the HDX discovery route in this browser.", error);
       }
-      summary.textContent = `Last run: ${totals.success} passed, ${totals.failed} failed, ${totals.skipped} skipped.`;
-      button.disabled = false;
-      button.textContent = originalText;
     }
 
-    function renderSourceCoverage() {
-      document.querySelector("#sourceCoverageGrid").innerHTML = sourceCoverageSources.map(source => `
-        <article class="coverage-card" id="${source.id}-card">
-          <span class="category-pill">${escapeHtml(source.category)}</span>
-          <h3>${escapeHtml(source.name)}</h3>
-          <p>${escapeHtml(source.description)}</p>
-          <p class="small-text">Official source: <a href="${source.url}" target="_blank" rel="noreferrer">${escapeHtml(source.name)}</a></p>
-          ${source.testKey ? `<button type="button" onclick="testCoverageSource('${source.id}')">Test source</button>` : ""}
-          <div class="output" id="${source.id}-output">${source.inactiveReason ? `<p class="status-line">Not active in this static version.</p><p class="small-text">${escapeHtml(source.inactiveReason)}</p>` : "Not tested yet."}</div>
-          ${source.testKey ? `<details class="raw"><summary>View raw response</summary><pre id="${source.id}-raw">No successful response yet.</pre></details>` : ""}
-        </article>
-      `).join("");
+    async function searchNasaCmr() {
+      const query = document.getElementById("nasa-query").value.trim() || "population exposure climate";
+      const limit = document.getElementById("nasa-limit").value;
+      const id = "nasa-result";
+      setLoading(id, "Searching NASA CMR metadata...");
+      try {
+        const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(query)}&page_size=${encodeURIComponent(limit)}`;
+        const json = await fetchJson(url);
+        const entries = json.feed?.entry || [];
+        const rows = entries.map(e => [
+          `<a href="${esc(e.links?.find(l => l.href)?.href || "https://www.earthdata.nasa.gov/")}" target="_blank" rel="noreferrer">${esc(e.title || e.short_name || "Untitled collection")}</a>`,
+          esc(e.dataset_id || e.short_name || "not shown"),
+          esc((e.summary || "").slice(0, 260)),
+          esc(e.updated || "not shown")
+        ]);
+        const html = `
+          <h4>NASA CMR collections for “${esc(query)}”</h4>
+          <p><b>${entries.length}</b> collection metadata records returned.</p>
+          <p class="mini">This is metadata discovery, not geospatial processing.</p>
+          ${tableFromRows(["Collection", "ID", "Summary", "Updated"], rows)}
+          ${sourceLink("https://www.earthdata.nasa.gov/", "Open NASA Earthdata")}
+        `;
+        setSuccess(id, html, json);
+      } catch (error) {
+        setError(id, "Could not search NASA CMR in this browser.", error);
+      }
     }
 
-    function renderAboutSources() {
-      document.querySelector("#aboutSources").innerHTML = aboutSources.map(([name, what, used, caution, technical, url]) => `
+    async function testAllSources() {
+      const cards = [
+        { id: "unhcr", name: "UNHCR", type: "Live data", test: () => fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=5") },
+        { id: "worldbank", name: "World Bank Indicators", type: "Live data", test: () => fetchJson("https://api.worldbank.org/v2/country/KEN/indicator/SP.POP.TOTL?format=json&per_page=5") },
+        { id: "gdacs", name: "GDACS", type: "Live data", test: () => fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest") },
+        { id: "hdx", name: "HDX CKAN", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=displacement&rows=5") },
+        { id: "gdelt", name: "GDELT", type: "Live data", test: () => fetchJson("https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=ArtList&format=json&maxrecords=5") },
+        { id: "owid", name: "Our World in Data", type: "Live data", test: () => fetchText("https://ourworldindata.org/grapher/population.csv") },
+        { id: "worldpop", name: "WorldPop", type: "Metadata", test: () => fetchJson("https://www.worldpop.org/rest/data/pop") },
+        { id: "nasa", name: "NASA CMR", type: "Metadata", test: () => fetchJson("https://cmr.earthdata.nasa.gov/search/collections.json?keyword=population&page_size=5") },
+        { id: "inform", name: "INFORM via HDX", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=INFORM%20Risk%20Index&rows=5") },
+        { id: "dtm", name: "IOM DTM via HDX", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=IOM%20DTM&rows=5") },
+        { id: "idmc", name: "IDMC via HDX", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=IDMC%20displacement&rows=5") },
+        { id: "emdat", name: "EM-DAT via HDX", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=EM-DAT%20disaster&rows=5") },
+        { id: "ipc", name: "IPC via HDX", type: "Metadata", test: () => fetchJson("https://data.humdata.org/api/3/action/package_search?q=IPC%20food%20security&rows=5") }
+      ];
+
+      const container = document.getElementById("coverage-result");
+      container.innerHTML = cards.map(c => `<article class="source-card" id="coverage-${c.id}"><h3>${esc(c.name)}</h3><p>Testing...</p></article>`).join("");
+
+      let success = 0, live = 0, meta = 0;
+
+      for (const card of cards) {
+        const el = document.getElementById(`coverage-${card.id}`);
+        try {
+          const result = await card.test();
+          success++;
+          if (card.type === "Live data") live++;
+          else meta++;
+          const count = inferCount(result);
+          el.innerHTML = `
+            <h3>${esc(card.name)}</h3>
+            <span class="pill alt">Working</span>
+            <p><b>Type:</b> ${esc(card.type)}</p>
+            <p><b>Returned:</b> ${esc(count)}</p>
+            <details><summary>View raw response</summary><pre>${esc(JSON.stringify(result, null, 2).slice(0, 6000))}</pre></details>
+          `;
+        } catch (error) {
+          el.innerHTML = `
+            <h3>${esc(card.name)}</h3>
+            <span class="pill warn">Not working in this browser</span>
+            <p>${esc(error.message || error)}</p>
+          `;
+        }
+      }
+
+      document.getElementById("coverage-live").textContent = String(live);
+      document.getElementById("coverage-meta").textContent = String(meta);
+      document.getElementById("coverage-success").textContent = String(success);
+      document.getElementById("coverage-time").textContent = new Date().toLocaleTimeString();
+    }
+
+    function inferCount(result) {
+      if (Array.isArray(result)) return `${result.length} array item(s)`;
+      if (typeof result === "string") return `${result.length.toLocaleString()} characters`;
+      if (result?.items) return `${result.items.length} item(s)`;
+      if (result?.articles) return `${result.articles.length} article(s)`;
+      if (result?.result?.results) return `${result.result.results.length} dataset(s), ${result.result.count ?? "unknown"} total`;
+      if (result?.feed?.entry) return `${result.feed.entry.length} collection(s)`;
+      return "response received";
+    }
+
+    function clearCoverage() {
+      document.getElementById("coverage-result").innerHTML = "";
+      document.getElementById("coverage-live").textContent = "0";
+      document.getElementById("coverage-meta").textContent = "0";
+      document.getElementById("coverage-success").textContent = "0";
+      document.getElementById("coverage-time").textContent = "—";
+    }
+
+    function renderSources() {
+      document.getElementById("source-list").innerHTML = SOURCE_DEFINITIONS.map(source => `
         <article class="source-card">
-          <h3>${escapeHtml(name)}</h3>
-          <p><strong>What it is:</strong> ${escapeHtml(what)}</p>
-          <p><strong>Used here for:</strong> ${escapeHtml(used)}</p>
-          <p><strong>Be careful:</strong> ${escapeHtml(caution)}</p>
-          <p><strong>Technical note:</strong> ${escapeHtml(technical)}</p>
-          <a href="${url}" target="_blank" rel="noreferrer">Official source</a>
+          <div class="card-header">
+            <h3>${esc(source.name)}</h3>
+            <span class="pill">${esc(source.type)}</span>
+          </div>
+          <p><b>What it is:</b> ${esc(source.what)}</p>
+          <p><b>Used here for:</b> ${esc(source.usedFor)}</p>
+          <p><b>Be careful:</b> ${esc(source.caution)}</p>
+          <p><b>Technical note:</b> ${esc(source.technical)}</p>
+          <a class="source-link" href="${esc(source.url)}" target="_blank" rel="noreferrer">Open official source</a>
         </article>
       `).join("");
     }
 
-    ["unhcr", "worldbank", "gdacs", "hdx", "worldpop", "gdelt", "owid"].forEach(clearCard);
-    updateIndicatorHelp();
-    renderSourceCoverage();
-    renderAboutSources();
+    async function init() {
+      populateYearSelect();
+      populateIndicators();
+      populateQuickButtons();
+      renderSources();
+      await loadWorldBankCountries();
+    }
+
+    init();
   </script>
 </body>
 </html>
