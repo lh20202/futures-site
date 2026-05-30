@@ -3,28 +3,604 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Static Site</title>
+  <title>Futures Site - Live Data Source Tester</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      text-align: center;
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5b6776;
+      --line: #d9e0e8;
+      --panel: #ffffff;
+      --panel-soft: #f5f7fa;
+      --page: #eef2f6;
+      --blue: #1f6feb;
+      --blue-dark: #174ea6;
+      --green: #16794c;
+      --green-bg: #e6f4ed;
+      --amber: #8a5b00;
+      --amber-bg: #fff5d6;
+      --red: #9f2520;
+      --red-bg: #fde8e7;
+      --slate-bg: #edf1f5;
     }
 
-    main {
-      width: min(720px, calc(100% - 32px));
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--blue-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 48px;
+    }
+
+    header {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 850px;
+      margin: 0;
+      color: #334155;
+      font-size: 1.04rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .toolbar p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    button {
+      min-height: 42px;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 16px;
+      background: var(--blue);
+      color: white;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--blue-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 410px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .card.live {
+      border-top: 4px solid var(--green);
+    }
+
+    .card.pending {
+      border-top: 4px solid #9aa6b2;
+    }
+
+    .card.needs-key,
+    .card.needs-proxy {
+      border-top: 4px solid var(--amber);
+    }
+
+    .card.failed {
+      border-top-color: var(--red);
+    }
+
+    .card-body,
+    .card-actions {
+      padding: 18px;
+    }
+
+    .card-body {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .card-actions {
+      display: grid;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .meta span {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .badge-live {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .badge-key,
+    .badge-proxy,
+    .badge-confirm {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .badge-meta {
+      background: var(--slate-bg);
+      color: #3d4b5c;
+    }
+
+    .note {
+      margin: 0;
+      color: #334155;
+    }
+
+    .result {
+      min-height: 108px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px;
+      background: var(--panel-soft);
+      color: #334155;
+      font-size: 0.9rem;
+    }
+
+    .result strong {
+      color: var(--ink);
+    }
+
+    .result.success {
+      border-color: #9dd9bb;
+      background: var(--green-bg);
+    }
+
+    .result.failed {
+      border-color: #f0aaa7;
+      background: var(--red-bg);
+    }
+
+    .result.pending {
+      border-color: #efd487;
+      background: var(--amber-bg);
+    }
+
+    pre {
+      max-height: 180px;
+      margin: 10px 0 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #111827;
+      color: #f8fafc;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .architecture {
+      margin-top: 28px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .architecture h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      letter-spacing: 0;
+    }
+
+    .architecture p {
+      max-width: 880px;
+      margin: 0;
+      color: #334155;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 28px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .card {
+        min-height: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>My Static Site</h1>
-    <p>This site is live from GitHub and Render.</p>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Humanitarian futures prototype</p>
+      <h1>Futures Site - Live Data Source Tester</h1>
+      <p class="intro">This is a prototype for testing live humanitarian, health, displacement, conflict, climate, disaster, and risk data sources. Each card fetches a small sample from the source and shows whether the connection works.</p>
+    </header>
+
+    <section class="toolbar" aria-label="Available source tests">
+      <p><strong id="availableCount">0</strong> public live fetch tests are wired for this static prototype; browser CORS policy still determines whether each one succeeds.</p>
+      <button id="testAllButton" type="button">Test all available sources</button>
+    </section>
+
+    <section id="sourceGrid" class="grid" aria-label="Data source cards"></section>
+
+    <section class="architecture">
+      <h2>Next architecture step</h2>
+      <p>A static site can test public browser-accessible APIs. For sources requiring API keys or complex downloads, the next step is a small backend/serverless proxy so keys are not exposed in the browser.</p>
+    </section>
   </main>
+
+  <script>
+    const sources = [
+      {
+        id: "inform",
+        name: "INFORM Risk Index",
+        theme: "Risk",
+        connectionType: "Metadata/API available",
+        status: "Endpoint to confirm",
+        statusClass: "badge-confirm",
+        cardClass: "pending",
+        url: "https://drmkc.jrc.ec.europa.eu/inform-index",
+        note: "Official risk index source is linked. A direct browser-safe JSON endpoint still needs confirmation before wiring a live test.",
+        noFetchMessage: "API available, endpoint needs confirmation. Use the official source link to confirm the current JSON/API endpoint before adding a browser fetch."
+      },
+      {
+        id: "who-gho",
+        name: "WHO Global Health Observatory",
+        theme: "Health",
+        connectionType: "Direct public API",
+        status: "Live test available",
+        statusClass: "badge-live",
+        cardClass: "live",
+        url: "https://www.who.int/data/gho",
+        note: "Fetches a small public sample of GHO indicator metadata from the WHO OData API. The endpoint returns JSON, but browser CORS policy may still block this direct static-site call.",
+        endpoint: "https://ghoapi.azureedge.net/api/Indicator?$top=5",
+        likelyReason: "The WHO OData endpoint responds with JSON, but may not send browser CORS headers. A backend proxy may be needed if the browser blocks it.",
+        extractItems: data => data.value || []
+      },
+      {
+        id: "who-workforce",
+        name: "WHO Health Workforce",
+        theme: "Workforce",
+        connectionType: "Metadata/API available",
+        status: "Metadata only",
+        statusClass: "badge-meta",
+        cardClass: "pending",
+        url: "https://www.who.int/data/gho/data/themes/topics/health-workforce",
+        note: "Topic metadata is public, but this card is not wired to a workforce-specific endpoint yet.",
+        noFetchMessage: "Metadata only for now. A future version can query specific workforce indicators through the WHO GHO API once indicator codes are selected."
+      },
+      {
+        id: "unhcr",
+        name: "UNHCR Refugee Data Finder",
+        theme: "Displacement",
+        connectionType: "Direct public API",
+        status: "Live test available",
+        statusClass: "badge-live",
+        cardClass: "live",
+        url: "https://microdata.unhcr.org/index.php/home",
+        note: "Fetches a small public sample from the UNHCR Refugee Statistics API.",
+        endpoint: "https://api.unhcr.org/population/v1/years/?limit=5",
+        likelyReason: "If this fails, the likely cause is CORS policy, endpoint availability, or a network issue.",
+        extractItems: data => data.items || data.data || []
+      },
+      {
+        id: "iom-dtm",
+        name: "IOM Displacement Tracking Matrix",
+        theme: "Displacement",
+        connectionType: "Needs backend/proxy later",
+        status: "Endpoint to confirm",
+        statusClass: "badge-confirm",
+        cardClass: "pending",
+        url: "https://dtm.iom.int/",
+        note: "API access exists, but this static prototype needs a confirmed browser-safe endpoint before calling it.",
+        noFetchMessage: "Needs endpoint confirmation/proxy. No request was made from the browser."
+      },
+      {
+        id: "idmc",
+        name: "IDMC Global Internal Displacement Database",
+        theme: "Displacement",
+        connectionType: "Requires account/API key",
+        status: "Needs API key",
+        statusClass: "badge-key",
+        cardClass: "needs-key",
+        url: "https://www.internal-displacement.org/database/",
+        note: "API exists but may require client ID/API key. Secrets should not be hardcoded in a static site.",
+        noFetchMessage: "Needs API key or client credentials. No browser request was made."
+      },
+      {
+        id: "world-bank-cckp",
+        name: "World Bank Climate Change Knowledge Portal",
+        theme: "Climate",
+        connectionType: "Metadata/API available",
+        status: "Endpoint to confirm",
+        statusClass: "badge-confirm",
+        cardClass: "pending",
+        url: "https://climateknowledgeportal.worldbank.org/",
+        note: "Data portal/API access is available, but no simple browser-safe sample endpoint is confirmed in this static version.",
+        noFetchMessage: "Endpoint to confirm. This placeholder does not call the portal yet."
+      },
+      {
+        id: "nasa-sedac",
+        name: "NASA SEDAC",
+        theme: "Climate and risk",
+        connectionType: "Metadata/API available",
+        status: "Metadata only",
+        statusClass: "badge-meta",
+        cardClass: "pending",
+        url: "https://www.earthdata.nasa.gov/data/catalog",
+        note: "Catalog access requires selecting relevant datasets before a useful data test can be built.",
+        noFetchMessage: "Metadata/catalog placeholder only. Select a dataset before adding a live request."
+      },
+      {
+        id: "emdat",
+        name: "EM-DAT",
+        theme: "Disasters",
+        connectionType: "Requires account/API key",
+        status: "Needs API key",
+        statusClass: "badge-key",
+        cardClass: "needs-key",
+        url: "https://www.emdat.be/",
+        note: "Requires account/download workflow. The static site should not attempt direct calls.",
+        noFetchMessage: "Requires account/download workflow. No browser request was made."
+      },
+      {
+        id: "hdx",
+        name: "HDX - Humanitarian Data Exchange",
+        theme: "Humanitarian data",
+        connectionType: "Direct public API",
+        status: "Live test available",
+        statusClass: "badge-live",
+        cardClass: "live",
+        url: "https://data.humdata.org/",
+        note: "Fetches a small CKAN package search result for the query displacement.",
+        endpoint: "https://data.humdata.org/api/3/action/package_search?q=displacement&rows=3",
+        likelyReason: "If this fails, the likely cause is CORS policy, endpoint availability, or a network issue.",
+        extractItems: data => (data.result && data.result.results) || []
+      },
+      {
+        id: "acled",
+        name: "ACLED",
+        theme: "Conflict",
+        connectionType: "Requires account/API key",
+        status: "Needs API key",
+        statusClass: "badge-key",
+        cardClass: "needs-key",
+        url: "https://acleddata.com/",
+        note: "Requires authentication. Do not call directly from a static browser page.",
+        noFetchMessage: "Requires authentication. No browser request was made."
+      }
+    ];
+
+    const sourceGrid = document.querySelector("#sourceGrid");
+    const availableCount = document.querySelector("#availableCount");
+    const testAllButton = document.querySelector("#testAllButton");
+
+    availableCount.textContent = sources.filter(source => source.endpoint).length;
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function renderCards() {
+      sourceGrid.innerHTML = sources.map(source => `
+        <article class="card ${source.cardClass}" id="card-${source.id}">
+          <div class="card-body">
+            <div>
+              <h2>${escapeHtml(source.name)}</h2>
+              <a href="${source.url}" target="_blank" rel="noreferrer">Official source</a>
+            </div>
+            <div class="badges">
+              <span class="badge ${source.statusClass}">${escapeHtml(source.status)}</span>
+            </div>
+            <div class="meta">
+              <div><span>Theme:</span> ${escapeHtml(source.theme)}</div>
+              <div><span>Connection type:</span> ${escapeHtml(source.connectionType)}</div>
+            </div>
+            <p class="note">${escapeHtml(source.note)}</p>
+          </div>
+          <div class="card-actions">
+            <button type="button" data-source="${source.id}">Test connection</button>
+            <div class="result" id="result-${source.id}" aria-live="polite">Not tested yet.</div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function setResult(source, state, html) {
+      const result = document.querySelector(`#result-${source.id}`);
+      const card = document.querySelector(`#card-${source.id}`);
+      result.className = `result ${state}`;
+      result.innerHTML = html;
+      card.classList.toggle("failed", state === "failed");
+    }
+
+    function getPreview(data) {
+      const preview = JSON.stringify(data, null, 2);
+      return preview.length > 1200 ? `${preview.slice(0, 1200)}\n...` : preview;
+    }
+
+    function countItems(source, data) {
+      try {
+        const items = source.extractItems ? source.extractItems(data) : data;
+        return Array.isArray(items) ? items.length : 1;
+      } catch (error) {
+        return "Unknown";
+      }
+    }
+
+    async function testSource(source) {
+      if (!source.endpoint) {
+        setResult(source, "pending", `
+          <strong>Not wired yet</strong><br>
+          ${escapeHtml(source.noFetchMessage)}
+        `);
+        return;
+      }
+
+      setResult(source, "", "<strong>Loading...</strong>");
+
+      try {
+        const response = await fetch(source.endpoint, {
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json") ? await response.json() : await response.text();
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} ${response.statusText || "Request failed"}`);
+        }
+
+        const itemCount = countItems(source, data);
+        const timestamp = new Date().toLocaleString();
+        setResult(source, "success", `
+          <strong>Success</strong><br>
+          HTTP status: ${response.status}<br>
+          Items returned: ${escapeHtml(itemCount)}<br>
+          Tested: ${escapeHtml(timestamp)}
+          <pre>${escapeHtml(getPreview(data))}</pre>
+        `);
+      } catch (error) {
+        const timestamp = new Date().toLocaleString();
+        setResult(source, "failed", `
+          <strong>Failed</strong><br>
+          Error: ${escapeHtml(error.message)}<br>
+          Likely reason: ${escapeHtml(source.likelyReason || "Authentication, CORS, endpoint availability, or network issue.")}<br>
+          Tested: ${escapeHtml(timestamp)}
+        `);
+      }
+    }
+
+    renderCards();
+
+    sourceGrid.addEventListener("click", event => {
+      const button = event.target.closest("button[data-source]");
+      if (!button) {
+        return;
+      }
+      const source = sources.find(item => item.id === button.dataset.source);
+      testSource(source);
+    });
+
+    testAllButton.addEventListener("click", async () => {
+      const liveSources = sources.filter(source => source.endpoint);
+      testAllButton.disabled = true;
+      testAllButton.textContent = "Testing available sources...";
+      await Promise.all(liveSources.map(source => testSource(source)));
+      testAllButton.disabled = false;
+      testAllButton.textContent = "Test all available sources";
+    });
+  </script>
 </body>
 </html>
