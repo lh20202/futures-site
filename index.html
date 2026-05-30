@@ -3,502 +3,640 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Humanitarian Futures Case Builder</title>
+  <title>Humanitarian Futures Simulator</title>
   <style>
-    :root {
-      --page:#eef2f6; --panel:#fff; --soft:#f7f9fb; --ink:#17202a; --muted:#5b6776;
-      --line:#d9e0e8; --blue:#1f6feb; --blue2:#174ea6; --green:#16794c; --amber:#8a5b00;
-      --red:#9f2520; --purple:#5b35a5; --teal:#0f766e; --shadow:0 12px 32px rgba(17,24,39,.08);
+    :root{
+      --page:#eef2f6;--panel:#fff;--soft:#f7f9fc;--ink:#17202a;--muted:#607085;--line:#d9e2ec;
+      --blue:#1957d2;--blueBg:#eaf1ff;--green:#177245;--greenBg:#e5f5ec;--amber:#805600;--amberBg:#fff4d6;
+      --red:#a82720;--redBg:#fee7e5;--purple:#6036aa;--purpleBg:#efe7ff;--teal:#0f766e;--tealBg:#e4f7f4;
+      --navy:#101827;--shadow:0 15px 35px rgba(15,23,42,.08);
     }
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:var(--page);color:var(--ink);line-height:1.5}
-    a{color:var(--blue2);font-weight:700;text-decoration:none} a:hover{text-decoration:underline}
-    .page{width:min(1220px,calc(100% - 32px));margin:0 auto;padding:34px 0 54px}
-    header{display:grid;gap:14px;margin-bottom:22px}.eyebrow{margin:0;color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    h1{margin:0;max-width:980px;font-size:clamp(2rem,4vw,3.25rem);line-height:1.05} h2,h3,h4{margin:0}.intro{max-width:980px;margin:0;color:#334155;font-size:1.04rem}
-    .notice{border:1px solid var(--line);border-left:4px solid var(--blue);background:var(--panel);padding:16px;border-radius:8px;color:#334155}.notice p{margin:0}
-    .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
-    .controls{padding:18px;display:grid;gap:16px;margin-bottom:18px}.control-grid{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px}
-    label{display:grid;gap:6px;color:#334155;font-size:.9rem;font-weight:800} select,input{min-height:44px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:8px 10px;font:inherit;color:var(--ink)}
-    .button-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button{min-height:44px;border:0;border-radius:8px;padding:0 18px;background:var(--blue);color:#fff;font:inherit;font-weight:800;cursor:pointer}button.secondary{background:#e8f0fe;color:var(--blue2)}button:hover:not(:disabled){filter:brightness(.92)}button:disabled{cursor:not-allowed;opacity:.6}.tiny{font-size:.84rem;color:var(--muted);margin:0}
-    .results{display:grid;gap:16px}.status{padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:10px;color:#334155}.status.ok{border-left:4px solid var(--green)}.status.warn{border-left:4px solid var(--amber)}.status.err{border-left:4px solid var(--red)}
-    .section{padding:18px;display:grid;gap:14px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.section-title{display:grid;gap:4px}.section-title p{margin:0;color:var(--muted)}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:14px;display:grid;gap:8px;align-content:start}.card strong{font-size:1.15rem}.metric{font-size:1.45rem;font-weight:900}.muted{color:var(--muted)}
-    .badge{display:inline-flex;width:fit-content;align-items:center;border-radius:999px;padding:3px 10px;font-size:.74rem;font-weight:900}.b-live{background:#e6f4ed;color:var(--green)}.b-derived{background:#e0f2f1;color:var(--teal)}.b-proj{background:#efe7ff;color:var(--purple)}.b-warn{background:#fff5d6;color:var(--amber)}.b-meta{background:#e8f0fe;color:var(--blue2)}
-    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top;font-size:.92rem}th{background:#f1f5f9;color:#334155;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:0}
-    .narrative{background:#101827;color:#f8fafc;border-radius:12px;padding:18px;display:grid;gap:12px}.narrative h3{color:#fff}.narrative p{margin:0;color:#e5e7eb}.narrative .line{height:1px;background:#334155;margin:2px 0}
-    .split{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.list{display:grid;gap:8px;margin:0;padding-left:18px}.list li{padding-left:2px}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
-    details{border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}summary{padding:13px 14px;font-weight:900;cursor:pointer;background:#f8fafc}.details-body{padding:14px;display:grid;gap:12px}pre{max-height:260px;overflow:auto;background:#111827;color:#f8fafc;padding:12px;border-radius:8px;font-size:.78rem;white-space:pre-wrap;word-break:break-word;margin:0}
-    .source-row{display:grid;grid-template-columns:160px 120px 1fr;gap:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--soft);font-size:.9rem}.source-row span:first-child{font-weight:900}
-    .loader{display:inline-block;width:12px;height:12px;border:2px solid #cbd5e1;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-    @media(max-width:860px){.control-grid,.split{grid-template-columns:1fr}.section-head{display:grid}.page{width:min(100% - 24px,1220px)}.source-row{grid-template-columns:1fr}}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:var(--page);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+    a{color:var(--blue);font-weight:800;text-decoration:none}a:hover{text-decoration:underline}
+    .page{width:min(1280px,calc(100% - 34px));margin:0 auto;padding:32px 0 56px}
+    header{margin-bottom:20px}.eyebrow{margin:0 0 8px;color:var(--muted);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+    h1{margin:0;font-size:clamp(2rem,4vw,3.35rem);line-height:1.04;max-width:1100px}h2,h3,h4{margin:0}.intro{max-width:1120px;color:#334155;font-size:1.05rem;margin:12px 0 0}
+    .notice{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:14px;padding:15px 16px;margin:18px 0;color:#334155;box-shadow:var(--shadow)}
+    .notice p{margin:0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:16px 0}.panel.soft{background:#fbfcfe}.panel.dark{background:var(--navy);color:#f8fafc;border-color:#1f2937}.panel.dark .muted{color:#cbd5e1}.panel.dark hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:20px 0}.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}.section-title p{margin:6px 0 0;color:var(--muted)}
+    .grid{display:grid;gap:16px}.controls{grid-template-columns:repeat(4,minmax(180px,1fr));align-items:end}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+    label{font-size:.78rem;font-weight:900;color:#344155;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:7px}select,input,button{font:inherit}select,input{width:100%;border:1px solid #cdd6e1;border-radius:12px;background:#fff;color:var(--ink);padding:12px 13px;font-weight:700}.helper{font-size:.86rem;color:var(--muted);margin:7px 0 0}.btnrow{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:12px;background:var(--blue);color:#fff;font-weight:900;padding:12px 16px;cursor:pointer}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#eaf1ff;color:#174ea6}.btn.ghost{background:#fff;color:#17202a;border:1px solid var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:900;background:var(--blueBg);color:var(--blue);white-space:nowrap}.pill.green{background:var(--greenBg);color:var(--green)}.pill.amber{background:var(--amberBg);color:var(--amber)}.pill.purple{background:var(--purpleBg);color:var(--purple)}.pill.teal{background:var(--tealBg);color:var(--teal)}.pill.red{background:var(--redBg);color:var(--red)}
+    .status{padding:15px 16px;border-left:5px solid var(--green);background:#fff;border-radius:12px;border:1px solid var(--line);margin:14px 0;color:#334155}.status.warn{border-left-color:#d97706}.status.error{border-left-color:#dc2626}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:14px;padding:16px;min-height:160px}.card h3{font-size:1.02rem;margin:7px 0 8px}.big{font-size:1.7rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
+    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:15px}.source-card p{margin:8px 0 0;color:#334155}.source-card .source-title{display:flex;justify-content:space-between;gap:10px;align-items:start}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}.loading{animation:pulse 1.2s infinite}@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+    @media (max-width:920px){.controls,.two,.three,.four,.five{grid-template-columns:1fr}table{min-width:720px}.page{width:min(100% - 20px,1280px)}}
   </style>
 </head>
 <body>
   <main class="page">
     <header>
-      <p class="eyebrow">Humanitarian futures data playground</p>
-      <h1>Country-year case builder</h1>
-      <p class="intro">Pick a country and target year. The site extends historical public-data trends where that is mathematically possible, then builds a concrete case file from the projected indicators, current disaster signals, humanitarian dataset discovery, Earth-observation catalogue results, and technology trend signals.</p>
-      <section class="notice"><p><strong>Important:</strong> projections here are simple mathematical continuations of past returned data, not forecasts. Disaster, conflict, displacement and technology disruption are not predicted as events. They are used as current/contextual signals or dataset-discovery evidence.</p></section>
+      <p class="eyebrow">public data prototype</p>
+      <h1>Humanitarian Futures Simulator</h1>
+      <p class="intro">Pick a country and a year. The simulator pulls public country-level time-series data, extends usable trends into your chosen year, and builds a transparent case file. It also adds supporting humanitarian and Earth-observation context where the site can retrieve it. It is not an official forecast.</p>
     </header>
 
-    <section class="panel controls">
-      <div class="control-grid">
-        <label>Country
-          <select id="countrySelect"></select>
-        </label>
-        <label>Target year
-          <input id="targetYear" type="number" min="2026" max="2100" value="2052" />
-        </label>
-        <label>Projection method
-          <select id="methodSelect">
-            <option value="regression">Linear regression across returned values</option>
-            <option value="endpoints">Earliest-to-latest average annual change</option>
-          </select>
-        </label>
-        <label>Technology signal query
-          <select id="techQuerySelect">
-            <option value="artificial intelligence humanitarian health">AI + humanitarian health</option>
-            <option value="digital health humanitarian">Digital health + humanitarian</option>
-            <option value="climate technology humanitarian">Climate technology + humanitarian</option>
-            <option value="satellite earth observation disaster response">Satellite / earth observation + disaster response</option>
-            <option value="data governance humanitarian artificial intelligence">Data governance + humanitarian AI</option>
-          </select>
-        </label>
+    <section class="notice">
+      <p><strong>Important:</strong> the simulator only projects indicators that have usable historical numeric data. It does not predict floods, wars, earthquakes, displacement shocks or humanitarian need. Dataset and event listings are included to show what contextual information exists, not to score severity.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <div>
+          <h2>Build a country-year case file</h2>
+          <p>Select a country and target year. One projection approach is used by default to keep the output understandable.</p>
+        </div>
+        <span class="pill purple">case builder</span>
       </div>
-      <div class="button-row">
-        <button id="runButton">Generate country-year case</button>
-        <button id="compareButton" class="secondary">Compare all starter countries</button>
-        <p class="tiny" id="runNote">Uses browser-safe public APIs and catalogue searches. No hidden credentials.</p>
+      <div class="grid controls">
+        <div>
+          <label for="countrySelect">Country</label>
+          <select id="countrySelect"></select>
+        </div>
+        <div>
+          <label for="yearInput">Target year</label>
+          <input id="yearInput" type="number" min="2026" max="2100" value="2052" />
+          <p class="helper">Any year from 2026 to 2100. 2032 and 2052 are useful for the module task, but the tool can test other years.</p>
+        </div>
+        <div>
+          <label>Projection method</label>
+          <div class="explain"><strong>Recommended trend continuation</strong><br><span class="small">Uses the most recent usable historical data. Population and mortality use compound/log trends; percentages are capped between 0 and 100; impossible negative outputs are prevented.</span></div>
+        </div>
+        <div>
+          <label>Actions</label>
+          <div class="btnrow">
+            <button class="btn" id="buildBtn">Generate case file</button>
+            <button class="btn secondary" id="compareBtn">Compare starter countries</button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="status" class="status warn">Choose a country/year and generate a case.</section>
-    <div id="results" class="results"></div>
+    <div id="message"></div>
+    <div id="results"></div>
+
+    <section class="panel soft" id="sourcesSection">
+      <div class="section-title">
+        <div>
+          <h2>Sources used or referenced by the simulator</h2>
+          <p>Some sources provide numeric time series that can be projected. Others provide current events, dataset catalogues, or contextual metadata. They are deliberately kept separate.</p>
+        </div>
+        <span class="pill teal">source notes</span>
+      </div>
+      <div class="grid two" id="sourceCards"></div>
+    </section>
   </main>
 
 <script>
-const countries = [
-  { name: "Kenya", iso2: "KE", iso3: "KEN", wb: "KEN" },
-  { name: "Bangladesh", iso2: "BD", iso3: "BGD", wb: "BGD" },
-  { name: "Nigeria", iso2: "NG", iso3: "NGA", wb: "NGA" },
-  { name: "Sudan", iso2: "SD", iso3: "SDN", wb: "SDN" },
-  { name: "Haiti", iso2: "HT", iso3: "HTI", wb: "HTI" },
-  { name: "Philippines", iso2: "PH", iso3: "PHL", wb: "PHL" }
+const CURRENT_YEAR = new Date().getFullYear();
+const COUNTRIES = [
+  {name:'Bangladesh', iso3:'BGD', iso2:'BD'},
+  {name:'Haiti', iso3:'HTI', iso2:'HT'},
+  {name:'Kenya', iso3:'KEN', iso2:'KE'},
+  {name:'Nigeria', iso3:'NGA', iso2:'NG'},
+  {name:'Philippines', iso3:'PHL', iso2:'PH'},
+  {name:'Sudan', iso3:'SDN', iso2:'SD'}
+].sort((a,b)=>a.name.localeCompare(b.name));
+
+const INDICATORS = [
+  {key:'population', code:'SP.POP.TOTL', label:'Population', unit:'people', type:'compound', decimals:0, role:'scale', source:'World Bank', explain:'Country population. Projected with compound annual change from cleaned World Bank historical values.'},
+  {key:'urbanPct', code:'SP.URB.TOTL.IN.ZS', label:'Urban population', unit:'% of total population', type:'percent', decimals:2, role:'urbanisation', source:'World Bank', explain:'Share of the population living in urban areas. Projected with a capped trend, so values cannot fall below 0% or exceed 100%.'},
+  {key:'physicians', code:'SH.MED.PHYS.ZS', label:'Physicians per 1,000 people', unit:'per 1,000 people', type:'nonnegative', decimals:2, role:'health workforce proxy', source:'World Bank', explain:'Physician density. Used as a broad health-workforce proxy, not a complete workforce measure.'},
+  {key:'u5Mortality', code:'SH.DYN.MORT', label:'Under-5 mortality', unit:'per 1,000 live births', type:'logdecline', decimals:2, role:'child health proxy', source:'World Bank', explain:'Under-5 mortality rate. Projected with a log trend when possible so improving rates approach zero without becoming negative.'},
+  {key:'lifeExpectancy', code:'SP.DYN.LE00.IN', label:'Life expectancy at birth', unit:'years', type:'linear', decimals:1, role:'health outcome proxy', source:'World Bank', explain:'Life expectancy. Projected with recent historical trend continuation.'},
+  {key:'healthSpend', code:'SH.XPD.CHEX.PC.CD', label:'Current health expenditure per capita', unit:'current US$', type:'nonnegative', decimals:2, role:'health system financing proxy', source:'World Bank', explain:'Health expenditure per person. Current US dollars are not inflation-adjusted, so treat long-range continuations cautiously.'},
+  {key:'internetUsers', code:'IT.NET.USER.ZS', label:'Individuals using the Internet', unit:'% of population', type:'percent', decimals:2, role:'digital access proxy', source:'World Bank', explain:'Internet-use share. This is the main country-level technology proxy retained in the simulator.'},
+  {key:'mobileSubs', code:'IT.CEL.SETS.P2', label:'Mobile cellular subscriptions', unit:'per 100 people', type:'capped200', decimals:2, role:'digital infrastructure proxy', source:'World Bank', explain:'Mobile subscriptions per 100 people. Can exceed 100 because people may have multiple subscriptions.'},
+  {key:'secureServers', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', type:'nonnegative', decimals:2, role:'digital infrastructure proxy', source:'World Bank', explain:'Secure internet servers per million people. Used as a rough digital-infrastructure proxy, not a full cyber-capacity measure.'},
+  {key:'forestPct', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', type:'percent', decimals:2, role:'environmental context proxy', source:'World Bank', explain:'Forest area share. It is an environmental land-use proxy, not a climate-risk measure.'},
+  {key:'co2', code:'EN.ATM.CO2E.PC', label:'CO₂ emissions per capita', unit:'metric tons per person', type:'nonnegative', decimals:2, role:'emissions/development proxy', source:'World Bank', explain:'CO₂ emissions per person. Used as context, not as a direct humanitarian-risk indicator.'}
 ];
 
-const wbIndicators = [
-  { code:"SP.POP.TOTL", label:"Population", unit:"people", type:"scale", clamp:null, source:"World Bank" },
-  { code:"SP.URB.TOTL.IN.ZS", label:"Urban population", unit:"% of population", type:"percent", clamp:[0,100], source:"World Bank" },
-  { code:"SH.MED.PHYS.ZS", label:"Physicians", unit:"per 1,000 people", type:"capacity", clamp:[0,null], source:"World Bank" },
-  { code:"SH.DYN.MORT", label:"Under-5 mortality", unit:"per 1,000 live births", type:"health", clamp:[0,null], source:"World Bank" },
-  { code:"SP.DYN.LE00.IN", label:"Life expectancy", unit:"years", type:"health", clamp:[0,120], source:"World Bank" },
-  { code:"SH.XPD.CHEX.PC.CD", label:"Current health expenditure", unit:"US$ per capita", type:"capacity", clamp:[0,null], source:"World Bank" },
-  { code:"IT.NET.USER.ZS", label:"Internet users", unit:"% of population", type:"technology", clamp:[0,100], source:"World Bank" },
-  { code:"IT.CEL.SETS.P2", label:"Mobile cellular subscriptions", unit:"per 100 people", type:"technology", clamp:[0,null], source:"World Bank" },
-  { code:"IT.NET.SECR.P6", label:"Secure internet servers", unit:"per 1m people", type:"technology", clamp:[0,null], source:"World Bank" },
-  { code:"AG.LND.FRST.ZS", label:"Forest area", unit:"% of land area", type:"environment", clamp:[0,100], source:"World Bank" },
-  { code:"EN.ATM.CO2E.PC", label:"CO₂ emissions", unit:"metric tons per capita", type:"environment", clamp:[0,null], source:"World Bank" }
+const SOURCES = [
+  {name:'World Bank Indicators API', url:'https://api.worldbank.org/v2/', status:'Active numeric time series', use:'Provides the projectable country-level indicators in the case file: population, urbanisation, health proxies, internet access, mobile subscriptions, secure servers, forest area and emissions. These are the only indicators the simulator mathematically extends into the selected year.'},
+  {name:'GDACS', url:'https://www.gdacs.org/', status:'Active current/recent event context', use:'Used to look for current or recently listed disaster-event records matching the selected country. These records are not projected and are not treated as future disaster predictions.'},
+  {name:'HDX - Humanitarian Data Exchange', url:'https://data.humdata.org/', status:'Active dataset discovery', use:'Used to search for country-relevant humanitarian dataset listings across health, displacement, disaster, climate, food security, INFORM, DTM, IDMC and EM-DAT terms. A listing count shows data availability, not crisis severity.'},
+  {name:'UNHCR Refugee Data Finder / API', url:'https://www.unhcr.org/refugee-statistics/', status:'Active record check', use:'Used to try to retrieve recent country-related displacement/population records. The current version counts returned records for context; it does not yet create displacement projections.'},
+  {name:'NASA Earthdata / CMR', url:'https://www.earthdata.nasa.gov/', status:'Active Earth-observation collection discovery', use:'Used to find Earth-observation collection listings related to population exposure, flood, drought, precipitation, land surface temperature and night-time lights. It does not download or analyse satellite files.'},
+  {name:'NASA SEDAC', url:'https://sedac.ciesin.columbia.edu/', status:'Referenced via NASA Earthdata ecosystem', use:'Relevant for population, exposure and environmental datasets. In this static prototype, NASA discovery is done through CMR/Earthdata collection search rather than direct SEDAC file analysis.'},
+  {name:'INFORM Risk Index', url:'https://drmkc.jrc.ec.europa.eu/inform-index', status:'Discovered via HDX/search terms', use:'Not directly projected. The simulator searches for INFORM-related datasets through HDX so users can see whether risk-index resources exist for the selected context.'},
+  {name:'WHO Global Health Observatory', url:'https://www.who.int/data/gho', status:'Referenced; not directly queried in this static browser version', use:'WHO is the authoritative health-statistics source, but browser/API constraints can make direct static-site use harder. The simulator currently uses World Bank health indicators as accessible proxies.'},
+  {name:'WHO Global Health Workforce statistics', url:'https://www.who.int/data/gho/data/themes/topics/health-workforce', status:'Referenced; proxied through World Bank where possible', use:'The site uses physician density from World Bank as a basic workforce proxy. This is not a replacement for full WHO workforce analysis.'},
+  {name:'ACLED', url:'https://acleddata.com/', status:'Not directly queried', use:'ACLED requires authenticated access for data downloads/API use. It is not safely called from this static front-end. Do not infer conflict patterns from this prototype.'},
+  {name:'IOM Displacement Tracking Matrix', url:'https://dtm.iom.int/', status:'Discovered via HDX/search terms', use:'The simulator searches for DTM-related dataset listings through HDX. It does not yet load DTM datasets directly.'},
+  {name:'IDMC Global Internal Displacement Database', url:'https://www.internal-displacement.org/database/', status:'Discovered via HDX/search terms', use:'The simulator searches for IDMC-related dataset listings through HDX. It does not yet load IDMC time-series values directly.'},
+  {name:'World Bank Climate Change Knowledge Portal', url:'https://climateknowledgeportal.worldbank.org/', status:'Referenced; not directly projected', use:'Relevant for climate profiles and projections. This prototype does not ingest CCKP climate model outputs; it uses World Bank API and NASA/HDX discovery instead.'},
+  {name:'EM-DAT', url:'https://www.emdat.be/', status:'Discovered via HDX/search terms', use:'The simulator searches for EM-DAT-related dataset listings through HDX. It does not forecast disasters or load EM-DAT event histories directly.'}
 ];
 
-const hdxThemes = ["health", "displacement", "disaster", "climate", "food security", "IOM DTM", "IDMC", "INFORM Risk", "EM-DAT", "technology", "data governance"];
-const nasaKeywords = ["population exposure", "flood", "drought", "land surface temperature", "precipitation", "nighttime lights", "earth observation disaster"];
-
-const $ = id => document.getElementById(id);
-const fmt = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 });
-const fmt0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
-const money = new Intl.NumberFormat("en-GB", { style:"currency", currency:"USD", maximumFractionDigits:0 });
+let lastCalcText = '';
 
 function init(){
-  $("countrySelect").innerHTML = countries.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join("");
-  $("runButton").addEventListener("click", () => runCase(false));
-  $("compareButton").addEventListener("click", compareCountries);
-}
-function countryByIso(iso3){return countries.find(c=>c.iso3===iso3) || countries[0];}
-function setStatus(msg, type="warn"){const el=$("status"); el.className=`status ${type}`; el.innerHTML=msg;}
-function esc(v){return String(v ?? "").replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#039;","\"":"&quot;"}[ch]));}
-function safeNum(v){const n=Number(v); return Number.isFinite(n)?n:null;}
-function yearNum(v){const y=parseInt(v,10); return Number.isFinite(y)?y:null;}
-function formatValue(value, indicator){
-  if(value === null || value === undefined || !Number.isFinite(value)) return "—";
-  if(indicator && indicator.unit === "people") return fmt0.format(value);
-  if(indicator && indicator.unit === "US$ per capita") return money.format(value);
-  if(Math.abs(value) >= 1000) return fmt0.format(value);
-  return fmt.format(value);
-}
-function clampValue(value, clamp){
-  if(value === null || !Number.isFinite(value) || !clamp) return value;
-  let out = value;
-  if(clamp[0] !== null && out < clamp[0]) out = clamp[0];
-  if(clamp[1] !== null && out > clamp[1]) out = clamp[1];
-  return out;
-}
-async function fetchJson(url, opts={}){
-  const controller = new AbortController();
-  const t = setTimeout(()=>controller.abort(), opts.timeout || 16000);
-  try{
-    const res = await fetch(url, { headers:{Accept:"application/json,*/*"}, signal:controller.signal });
-    const text = await res.text();
-    clearTimeout(t);
-    let data;
-    try{ data = JSON.parse(text); } catch(e){ throw new Error(`Non-JSON response from ${url}`); }
-    if(!res.ok || data.error){ throw new Error(data.error?.message || data.message || `HTTP ${res.status}`); }
-    return { ok:true, data, url };
-  }catch(error){ clearTimeout(t); return { ok:false, error:error.message, url }; }
-}
-async function fetchText(url, opts={}){
-  const controller = new AbortController();
-  const t = setTimeout(()=>controller.abort(), opts.timeout || 16000);
-  try{
-    const res = await fetch(url, { signal:controller.signal });
-    const text = await res.text();
-    clearTimeout(t);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    return { ok:true, text, url };
-  }catch(error){ clearTimeout(t); return { ok:false, error:error.message, url }; }
+  const countrySelect = document.getElementById('countrySelect');
+  countrySelect.innerHTML = COUNTRIES.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join('');
+  countrySelect.value = 'BGD';
+  document.getElementById('buildBtn').addEventListener('click', buildCase);
+  document.getElementById('compareBtn').addEventListener('click', compareCountries);
+  renderSources();
 }
 
-async function fetchWorldBankSeries(country, indicator){
-  const url = `https://api.worldbank.org/v2/country/${country.wb}/indicator/${indicator.code}?format=json&per_page=80`;
-  const res = await fetchJson(url);
-  if(!res.ok) return { ...res, indicator, points:[] };
-  const rows = Array.isArray(res.data) ? res.data[1] || [] : [];
-  const points = rows.map(r=>({ year:yearNum(r.date), value:safeNum(r.value) }))
-    .filter(p=>p.year && p.value !== null)
-    .sort((a,b)=>a.year-b.year);
-  return { ok:true, indicator, points, url, raw:rows };
+function renderSources(){
+  document.getElementById('sourceCards').innerHTML = SOURCES.map(s=>`
+    <div class="source-card">
+      <div class="source-title"><h3>${escapeHtml(s.name)}</h3><span class="pill ${s.status.includes('Active')?'green':s.status.includes('Not')?'red':'amber'}">${escapeHtml(s.status)}</span></div>
+      <p>${escapeHtml(s.use)}</p>
+      <p><a href="${s.url}" target="_blank" rel="noopener">Open source</a></p>
+    </div>`).join('');
 }
-function regression(points){
+
+function countryByIso(iso){ return COUNTRIES.find(c=>c.iso3===iso); }
+function setMessage(text, type='ok'){
+  const cls = type==='error'?'status error':type==='warn'?'status warn':'status';
+  document.getElementById('message').innerHTML = `<div class="${cls}">${escapeHtml(text)}</div>`;
+}
+function clearMessage(){ document.getElementById('message').innerHTML=''; }
+function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
+function fmt(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:dec,minimumFractionDigits:dec}).format(n); }
+function fmtSmart(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; const abs=Math.abs(n); const d=abs>=1000?0:dec; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:d,minimumFractionDigits: d===0?0:0}).format(n); }
+function pct(n,dec=1){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return `${fmt(n,dec)}%`; }
+
+async function fetchJson(url, options={}){
+  const res = await fetch(url, options);
+  if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return await res.json();
+}
+
+async function fetchWorldBankSeries(country, ind){
+  const url = `https://api.worldbank.org/v2/country/${country.iso3}/indicator/${ind.code}?format=json&per_page=20000&date=1960:${CURRENT_YEAR}`;
+  const json = await fetchJson(url);
+  const rows = Array.isArray(json) && Array.isArray(json[1]) ? json[1] : [];
+  const rawCount = rows.length;
+  const values = rows.map(r=>({
+      year: Number(r.date),
+      valueRaw: r.value,
+      value: parseValue(r.value)
+    }))
+    .filter(r=>Number.isFinite(r.year) && r.year <= CURRENT_YEAR && r.value !== null)
+    .sort((a,b)=>a.year-b.year);
+  const cleaned = cleanSeries(values, ind);
+  return {indicator: ind, url, rawCount, values: cleaned, removed: values.length-cleaned.length};
+}
+
+function parseValue(v){
+  if(v === null || v === undefined || v === '') return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function cleanSeries(values, ind){
+  // Keep genuine zero values, but remove impossible values and duplicate year rows.
+  const seen = new Set();
+  const out = [];
+  for(const r of values){
+    if(seen.has(r.year)) continue;
+    seen.add(r.year);
+    if(ind.type === 'percent' && (r.value < 0 || r.value > 100)) continue;
+    if(ind.type === 'capped200' && (r.value < 0 || r.value > 250)) continue;
+    if(['compound','nonnegative','logdecline'].includes(ind.type) && r.value < 0) continue;
+    out.push(r);
+  }
+  return out;
+}
+
+function recentValues(series, max=20){
+  if(!series || !series.length) return [];
+  return series.slice(Math.max(0, series.length-max));
+}
+
+function linearRegression(points){
   const n = points.length;
   if(n < 2) return null;
-  const sumX = points.reduce((s,p)=>s+p.year,0);
-  const sumY = points.reduce((s,p)=>s+p.value,0);
-  const sumXY = points.reduce((s,p)=>s+p.year*p.value,0);
-  const sumXX = points.reduce((s,p)=>s+p.year*p.year,0);
-  const denom = n*sumXX - sumX*sumX;
-  if(denom === 0) return null;
-  const slope = (n*sumXY - sumX*sumY) / denom;
-  const intercept = (sumY - slope*sumX) / n;
-  return { slope, intercept, predict:y=>intercept+slope*y };
+  const sx = points.reduce((a,p)=>a+p.year,0), sy = points.reduce((a,p)=>a+p.value,0);
+  const mx = sx/n, my = sy/n;
+  const sxx = points.reduce((a,p)=>a+(p.year-mx)*(p.year-mx),0);
+  const sxy = points.reduce((a,p)=>a+(p.year-mx)*(p.value-my),0);
+  if(sxx === 0) return null;
+  const slope = sxy/sxx;
+  const intercept = my - slope*mx;
+  const ssTot = points.reduce((a,p)=>a+(p.value-my)*(p.value-my),0);
+  const ssRes = points.reduce((a,p)=>a+Math.pow(p.value-(slope*p.year+intercept),2),0);
+  const r2 = ssTot === 0 ? 1 : Math.max(0, 1 - ssRes/ssTot);
+  return {n,slope,intercept,r2};
 }
-function projectSeries(series, targetYear, method){
-  const points = series.points || [];
-  const indicator = series.indicator;
-  if(points.length < 2) return { indicator, ok:false, reason:"Not enough non-empty historical values", points };
-  const latest = points[points.length-1];
-  const earliest = points[0];
-  let annualChange, projectedRaw, methodLabel;
-  if(method === "endpoints"){
-    annualChange = (latest.value - earliest.value) / (latest.year - earliest.year);
-    projectedRaw = latest.value + annualChange * (targetYear - latest.year);
-    methodLabel = "Earliest-to-latest annual change";
-  } else {
-    const reg = regression(points);
-    if(!reg) return { indicator, ok:false, reason:"Could not calculate linear regression", points };
-    annualChange = reg.slope;
-    projectedRaw = reg.predict(targetYear);
-    methodLabel = "Linear regression across returned values";
+
+function logRegression(points){
+  const usable = points.filter(p=>p.value > 0).map(p=>({year:p.year, value:Math.log(p.value)}));
+  const reg = linearRegression(usable);
+  if(!reg) return null;
+  return {...reg, log:true};
+}
+
+function projectSeries(seriesObj, targetYear){
+  const ind = seriesObj.indicator;
+  const values = seriesObj.values;
+  if(values.length < 2){
+    return {ok:false, reason:`Not enough usable historical values for ${ind.label}.`, indicator:ind, seriesObj};
   }
-  const projected = clampValue(projectedRaw, indicator.clamp);
-  const changeFromLatest = projected - latest.value;
-  const pctFromLatest = latest.value !== 0 ? (changeFromLatest / latest.value) * 100 : null;
-  return { indicator, ok:true, points, earliest, latest, annualChange, projectedRaw, projected, targetYear, pctFromLatest, methodLabel, clamped:projected!==projectedRaw };
+  const latest = values[values.length-1];
+  const first = values[0];
+  let method = '', projected = null, model = null, notes = [];
+
+  if(ind.type === 'compound'){
+    const usable = values.filter(v=>v.value > 0);
+    const f = usable[0], l = usable[usable.length-1];
+    if(!f || !l || f.year === l.year){ return {ok:false, reason:`Cannot calculate compound trend for ${ind.label}.`, indicator:ind, seriesObj}; }
+    const years = l.year - f.year;
+    const cagr = Math.pow(l.value / f.value, 1 / years) - 1;
+    projected = l.value * Math.pow(1 + cagr, targetYear - l.year);
+    method = 'compound annual continuation';
+    model = {cagr, n:usable.length, startYear:f.year, startValue:f.value, latestYear:l.year, latestValue:l.value, formula:`projected = latestValue × (1 + CAGR)^(targetYear - latestYear)`};
+  } else if(ind.type === 'logdecline'){
+    const pts = recentValues(values, 30).filter(v=>v.value>0);
+    model = logRegression(pts);
+    if(!model){ return {ok:false, reason:`Cannot calculate log trend for ${ind.label}.`, indicator:ind, seriesObj}; }
+    projected = Math.exp(model.slope * targetYear + model.intercept);
+    method = 'log trend continuation';
+    model.formula = 'projected = exp(intercept + slope × targetYear)';
+  } else {
+    const pts = recentValues(values, 20);
+    model = linearRegression(pts);
+    if(!model){ return {ok:false, reason:`Cannot calculate trend for ${ind.label}.`, indicator:ind, seriesObj}; }
+    projected = model.slope * targetYear + model.intercept;
+    method = 'recent straight-line continuation';
+    model.formula = 'projected = intercept + slope × targetYear';
+  }
+
+  if(ind.type === 'percent'){
+    if(projected < 0){projected = 0; notes.push('capped at 0% because negative percentages are not possible');}
+    if(projected > 100){projected = 100; notes.push('capped at 100% because percentages above 100% are not possible');}
+  }
+  if(ind.type === 'capped200'){
+    if(projected < 0){projected = 0; notes.push('capped at zero because negative subscriptions are not possible');}
+    if(projected > 200){projected = 200; notes.push('capped at 200 per 100 people to avoid implausible runaway continuation');}
+  }
+  if(['nonnegative','logdecline','compound','linear'].includes(ind.type) && projected < 0){projected = 0; notes.push('floored at zero because negative values are not meaningful for this indicator');}
+
+  const changeFromLatest = latest.value !== 0 ? ((projected - latest.value) / Math.abs(latest.value)) * 100 : null;
+  const direction = projected > latest.value*1.02 ? 'increasing' : projected < latest.value*.98 ? 'decreasing' : 'broadly flat';
+  return {ok:true, indicator:ind, latest, first, projected, targetYear, method, model, notes, changeFromLatest, direction, seriesObj};
 }
-function direction(p, goodDown=false){
-  if(!p.ok || Math.abs(p.annualChange) < 0.000001) return "flat/unclear";
-  const rising = p.annualChange > 0;
-  if(goodDown) return rising ? "worsening" : "improving";
-  return rising ? "rising" : "falling";
+
+async function getProjectionBundle(country, targetYear){
+  const out = [];
+  for(const ind of INDICATORS){
+    try{
+      const series = await fetchWorldBankSeries(country, ind);
+      const projection = projectSeries(series, targetYear);
+      out.push(projection);
+    } catch(e){
+      out.push({ok:false, indicator:ind, reason:e.message, error:true});
+    }
+  }
+  return out;
+}
+
+async function fetchContext(country){
+  const context = {gdacs:{count:0, items:[], error:null}, hdx:{count:0, items:[], queries:[], error:null}, unhcr:{count:0, items:[], error:null}, nasa:{count:0, items:[], queries:[], error:null}};
+  await Promise.allSettled([
+    fetchGdacs(country).then(v=>context.gdacs=v).catch(e=>context.gdacs.error=e.message),
+    fetchHdx(country).then(v=>context.hdx=v).catch(e=>context.hdx.error=e.message),
+    fetchUnhcr(country).then(v=>context.unhcr=v).catch(e=>context.unhcr.error=e.message),
+    fetchNasa(country).then(v=>context.nasa=v).catch(e=>context.nasa.error=e.message)
+  ]);
+  return context;
 }
 
 async function fetchGdacs(country){
-  const url = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest";
-  const res = await fetchJson(url, { timeout:16000 });
-  if(!res.ok) return { ok:false, error:res.error, url, matches:[], all:[] };
-  const feats = res.data.features || [];
-  const lname = country.name.toLowerCase();
-  const matches = feats.filter(f=>{
-    const p = f.properties || {};
-    const blob = JSON.stringify(p).toLowerCase();
-    return blob.includes(lname) || blob.includes(country.iso2.toLowerCase()) || blob.includes(country.iso3.toLowerCase());
-  });
-  return { ok:true, url, all:feats, matches };
+  const url = 'https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=';
+  const json = await fetchJson(url);
+  const arr = Array.isArray(json) ? json : (json.features || json.events || []);
+  const name = country.name.toLowerCase();
+  const iso2 = country.iso2.toLowerCase();
+  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`)).slice(0,8);
+  return {count:items.length, items, url, explanation:'Recent/current GDACS event-list records matched by country name/code. These are not future events.'};
 }
-async function hdxSearch(query, rows=6){
-  const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=${rows}`;
-  const res = await fetchJson(url, { timeout:16000 });
-  if(!res.ok) return { ok:false, query, url, results:[], error:res.error };
-  const results = res.data?.result?.results || [];
-  return { ok:true, query, url, results };
+
+async function fetchHdx(country){
+  const terms = ['health','displacement','disaster','climate','food security','INFORM','DTM','IDMC','EM-DAT','digital connectivity'];
+  const items=[]; const queries=[];
+  for(const term of terms){
+    const q = `${country.name} ${term}`;
+    const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(q)}&rows=5`;
+    try{
+      const json = await fetchJson(url);
+      const results = json && json.result && Array.isArray(json.result.results) ? json.result.results : [];
+      queries.push({q,count:results.length,url});
+      results.forEach(r=>items.push({title:r.title || r.name, org:(r.organization&&r.organization.title)||'', notes:r.notes||'', metadata_modified:r.metadata_modified||'', url:`https://data.humdata.org/dataset/${r.name}`, query:q}));
+    }catch(e){queries.push({q,count:0,error:e.message,url});}
+  }
+  const dedup = []; const seen=new Set();
+  for(const item of items){ if(!seen.has(item.url)){ seen.add(item.url); dedup.push(item); } }
+  return {count:dedup.length, items:dedup.slice(0,20), queries, explanation:'HDX dataset listings relevant to the country. This shows available humanitarian datasets, not measured severity.'};
 }
-async function fetchHdxBundle(country){
-  const searches = hdxThemes.map(theme => hdxSearch(`${country.name} ${theme}`, 5));
-  const results = await Promise.all(searches);
-  return results;
-}
+
 async function fetchUnhcr(country){
-  const year = 2024;
-  const urls = [
+  const year = Math.min(CURRENT_YEAR-1, 2024);
+  const queries = [
     `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=10`,
     `https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=10`
   ];
-  const res = await Promise.all(urls.map(u=>fetchJson(u,{timeout:16000})));
-  const items = [];
-  res.forEach((r,i)=>{ if(r.ok){ (r.data.items || r.data.data || []).forEach(x=>items.push({...x, _route:i===0?"origin":"asylum"})); } });
-  return { ok:res.some(r=>r.ok), urls, items, raw:res };
-}
-async function fetchNasaBundle(country){
-  const qs = nasaKeywords.map(k => `${country.name} ${k}`);
-  const calls = qs.map(q=>{
-    const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(q)}&page_size=5`;
-    return fetchJson(url,{timeout:16000}).then(r=>({ ...r, query:q, results:r.ok ? (r.data.feed?.entry || []) : [] }));
-  });
-  return Promise.all(calls);
-}
-async function fetchGdelt(country, techQuery){
-  const query = `${country.name} ${techQuery}`;
-  const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=artlist&format=json&maxrecords=10&sort=hybridrel`;
-  const res = await fetchJson(url,{timeout:20000});
-  return { ok:res.ok, query, url, articles:res.ok ? (res.data.articles || []) : [], error:res.error };
-}
-async function fetchOpenAlex(country, techQuery){
-  const search = `${techQuery} ${country.name}`;
-  const groupUrl = `https://api.openalex.org/works?search=${encodeURIComponent(search)}&filter=from_publication_date:2015-01-01&group_by=publication_year&per-page=1`;
-  const grouped = await fetchJson(groupUrl,{timeout:20000});
-  if(grouped.ok && grouped.data.group_by){
-    return { ok:true, search, url:groupUrl, groups:grouped.data.group_by, works:[], mode:"group_by" };
+  let items=[]; let errors=[];
+  for(const url of queries){
+    try{
+      const json = await fetchJson(url);
+      const rows = Array.isArray(json && json.items) ? json.items : Array.isArray(json) ? json : [];
+      rows.forEach(r=>items.push({...r, sourceUrl:url}));
+    }catch(e){errors.push(e.message);}
   }
-  const fallbackUrl = `https://api.openalex.org/works?search=${encodeURIComponent(search)}&filter=from_publication_date:2015-01-01&per-page=5&sort=publication_year:desc`;
-  const fallback = await fetchJson(fallbackUrl,{timeout:20000});
-  return { ok:fallback.ok, search, url:fallbackUrl, groups:[], works:fallback.ok ? (fallback.data.results||[]) : [], mode:"works", error:fallback.error || grouped.error };
+  return {count:items.length, items:items.slice(0,12), queries, error:errors.length===queries.length?errors.join('; '):null, explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
 }
 
-function deriveMetrics(projections, targetYear){
-  const byCode = Object.fromEntries(projections.map(p=>[p.indicator.code,p]));
-  const pop = byCode["SP.POP.TOTL"];
-  const phys = byCode["SH.MED.PHYS.ZS"];
-  const urb = byCode["SP.URB.TOTL.IN.ZS"];
-  const internet = byCode["IT.NET.USER.ZS"];
-  const derived = [];
-  if(pop?.ok && phys?.ok && phys.projected > 0){
-    const peoplePerPhys = 1000 / phys.projected;
-    const estimatedPhysicians = pop.projected * phys.projected / 1000;
-    derived.push({ label:"Projected people per physician", value:peoplePerPhys, unit:"people per physician", explanation:"Calculated as 1,000 divided by projected physicians per 1,000 people." });
-    derived.push({ label:"Implied physician count", value:estimatedPhysicians, unit:"physicians", explanation:"Projected population × projected physicians per 1,000 / 1,000." });
+async function fetchNasa(country){
+  const terms = ['population exposure','flood','drought','land surface temperature','precipitation','night time lights','disaster'];
+  const items=[]; const queries=[];
+  for(const term of terms){
+    const keyword = `${country.name} ${term}`;
+    const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(keyword)}&page_size=3`;
+    try{
+      const json = await fetchJson(url);
+      const entries = (json.feed && json.feed.entry) || [];
+      queries.push({q:keyword,count:entries.length,url});
+      entries.forEach(e=>items.push({title:e.title, summary:e.summary||'', id:e.id||'', updated:e.updated||'', url:(e.links&&e.links[0]&&e.links[0].href)||'https://search.earthdata.nasa.gov/search', query:keyword}));
+    }catch(e){queries.push({q:keyword,count:0,error:e.message,url});}
   }
-  if(pop?.ok && pop.latest){
-    derived.push({ label:`Population change to ${targetYear}`, value:pop.pctFromLatest, unit:"% from latest actual", explanation:"Projected target-year population compared with latest actual population returned." });
+  const dedup=[]; const seen=new Set();
+  for(const item of items){ const key=item.id||item.title; if(!seen.has(key)){seen.add(key); dedup.push(item);} }
+  return {count:dedup.length, items:dedup.slice(0,14), queries, explanation:'NASA Earthdata collection listings for environmental, exposure and Earth-observation data. These are collection metadata, not analysed satellite outputs.'};
+}
+
+function getProjection(projections,key){ return projections.find(p=>p.indicator && p.indicator.key===key && p.ok); }
+function value(projections,key){ const p=getProjection(projections,key); return p ? p.projected : null; }
+function latestValue(projections,key){ const p=getProjection(projections,key); return p ? p.latest.value : null; }
+
+function deriveImplications(projections, targetYear){
+  const pop = value(projections,'population');
+  const phys = value(projections,'physicians');
+  const urbanPct = value(projections,'urbanPct');
+  const internetPct = value(projections,'internetUsers');
+  const latestPop = latestValue(projections,'population');
+  const items=[];
+  if(Number.isFinite(pop) && Number.isFinite(phys) && phys > 0){
+    items.push({label:'People per physician', value:1000/phys, unit:'people per physician', decimals:2, source:'Derived from World Bank population and physician-density projections', explanation:'Calculated as 1,000 divided by projected physicians per 1,000 people.'});
+    items.push({label:'Implied physician count', value:pop * phys / 1000, unit:'physicians', decimals:0, source:'Derived from projected population and projected physicians per 1,000 people', explanation:'Projected population × projected physicians per 1,000 ÷ 1,000.'});
   }
-  if(pop?.ok && urb?.ok){
-    derived.push({ label:"Projected urban population", value:pop.projected * urb.projected/100, unit:"people", explanation:"Projected population × projected urban population share." });
+  if(Number.isFinite(pop) && Number.isFinite(latestPop) && latestPop !== 0){
+    items.push({label:`Population change to ${targetYear}`, value:((pop-latestPop)/latestPop)*100, unit:'% from latest actual population', decimals:1, source:'Derived from World Bank population projection', explanation:'Projected target-year population compared with latest actual population returned by World Bank.'});
   }
-  if(pop?.ok && internet?.ok){
-    derived.push({ label:"Projected internet users", value:pop.projected * internet.projected/100, unit:"people", explanation:"Projected population × projected internet user share." });
+  if(Number.isFinite(pop) && Number.isFinite(urbanPct)){
+    items.push({label:'Projected urban population', value:pop * urbanPct/100, unit:'people', decimals:0, source:'Derived from World Bank population and urban-share projections', explanation:'Projected population × projected urban population share.'});
   }
-  return derived;
-}
-function buildCaseNarrative(country, targetYear, projections, derived, contexts){
-  const byCode = Object.fromEntries(projections.map(p=>[p.indicator.code,p]));
-  const pop = byCode["SP.POP.TOTL"], phys = byCode["SH.MED.PHYS.ZS"], mort = byCode["SH.DYN.MORT"], internet = byCode["IT.NET.USER.ZS"], urban = byCode["SP.URB.TOTL.IN.ZS"];
-  const lines = [];
-  if(pop?.ok){ lines.push(`If the returned population trend continued, ${country.name} would have an estimated ${formatValue(pop.projected, pop.indicator)} people in ${targetYear}, ${pop.pctFromLatest>=0?"up":"down"} ${fmt.format(Math.abs(pop.pctFromLatest||0))}% from the latest actual value returned for ${pop.latest.year}.`); }
-  if(phys?.ok){ lines.push(`The projected physician-density proxy is ${fmt.format(phys.projected)} per 1,000 people, which translates into roughly ${fmt.format(1000/Math.max(phys.projected,0.0001))} people per physician if the trend continued.`); }
-  if(mort?.ok){ lines.push(`The under-5 mortality trajectory is ${direction(mort,true)}, with a target-year continuation of ${fmt.format(mort.projected)} per 1,000 live births.`); }
-  if(urban?.ok){ lines.push(`The urbanisation trajectory points to ${fmt.format(urban.projected)}% urban population by ${targetYear}, creating a planning case around urban service delivery, infrastructure, and concentrated health/humanitarian demand.`); }
-  if(internet?.ok){ lines.push(`The internet-use trajectory points to ${fmt.format(internet.projected)}% of the population online by ${targetYear}, making digital coordination, health information systems, misinformation risk, and data protection a plausible part of the case.`); }
-  const hdxCount = contexts.hdx.reduce((s,x)=>s+(x.results?.length||0),0);
-  const nasaCount = contexts.nasa.reduce((s,x)=>s+(x.results?.length||0),0);
-  const gdacsCount = contexts.gdacs.matches?.length || 0;
-  const gdeltCount = contexts.gdelt.articles?.length || 0;
-  const openAlexCount = contexts.openAlex.groups?.reduce((s,g)=>s+(g.count||0),0) || contexts.openAlex.works?.length || 0;
-  lines.push(`Context signals add ${gdacsCount} current/recent GDACS country matches, ${hdxCount} HDX dataset listings, ${nasaCount} NASA Earthdata collection matches, ${gdeltCount} GDELT news/article matches, and ${openAlexCount} OpenAlex scholarly trend records/listings for the selected technology query.`);
-  let caseType = "mixed data case";
-  if(pop?.ok && phys?.ok && pop.pctFromLatest > 25 && phys.pctFromLatest < pop.pctFromLatest) caseType = "workforce-lag under population growth";
-  else if(pop?.ok && urban?.ok && urban.projected > 50) caseType = "urban-scale service planning";
-  else if(internet?.ok && internet.projected > 60 && hdxCount > 5) caseType = "digitally mediated coordination and data-governance case";
-  else if(mort?.ok && direction(mort,true)==="improving" && gdacsCount+hdxCount > 5) caseType = "development progress under continuing humanitarian exposure";
-  return { caseType, lines };
-}
-function buildWarnings(projections, contexts){
-  const warnings = [];
-  projections.forEach(p=>{
-    if(!p.ok) warnings.push(`${p.indicator.label}: not projected because ${p.reason}.`);
-    if(p.ok && p.points.length < 6) warnings.push(`${p.indicator.label}: projection uses only ${p.points.length} non-empty values; treat as weak.`);
-    if(p.ok && p.latest.year < new Date().getFullYear()-4) warnings.push(`${p.indicator.label}: latest actual returned is ${p.latest.year}, so the baseline is dated.`);
-    if(p.ok && p.clamped) warnings.push(`${p.indicator.label}: raw projection exceeded plausible bounds and was clamped for display.`);
-  });
-  if(contexts.gdacs.ok) warnings.push("GDACS latest/current records are event listings, not a disaster-frequency forecast.");
-  warnings.push("HDX, NASA CMR, INFORM/DTM/IDMC/EM-DAT via HDX are catalogue/discovery signals unless the underlying data file is loaded separately.");
-  warnings.push("GDELT is a media/news signal, not a verified humanitarian-needs dataset.");
-  warnings.push("OpenAlex tracks scholarly/publication metadata; it can suggest attention to a topic, not actual technology deployment or impact.");
-  return [...new Set(warnings)].slice(0,12);
+  if(Number.isFinite(pop) && Number.isFinite(internetPct)){
+    items.push({label:'Projected internet-user population', value:pop * internetPct/100, unit:'people', decimals:0, source:'Derived from World Bank population and internet-use projections', explanation:'Projected population × projected internet-use share.'});
+  }
+  return items;
 }
 
-async function runCase(returnData=false){
-  const country = countryByIso($("countrySelect").value);
-  const targetYear = parseInt($("targetYear").value,10);
-  const method = $("methodSelect").value;
-  const techQuery = $("techQuerySelect").value;
-  if(!targetYear || targetYear < 2026 || targetYear > 2100){ setStatus("Choose a target year between 2026 and 2100.", "err"); return; }
-  setStatus(`<span class="loader"></span> Pulling time series, projecting indicators, and loading context sources for ${country.name} ${targetYear}...`, "warn");
-  $("results").innerHTML = "";
-
-  const [series, gdacs, hdx, unhcr, nasa, gdelt, openAlex] = await Promise.all([
-    Promise.all(wbIndicators.map(ind=>fetchWorldBankSeries(country, ind))),
-    fetchGdacs(country),
-    fetchHdxBundle(country),
-    fetchUnhcr(country),
-    fetchNasaBundle(country),
-    fetchGdelt(country, techQuery),
-    fetchOpenAlex(country, techQuery)
-  ]);
-  const projections = series.map(s=>projectSeries(s, targetYear, method));
-  const derived = deriveMetrics(projections, targetYear);
-  const contexts = { gdacs, hdx, unhcr, nasa, gdelt, openAlex };
-  const narrative = buildCaseNarrative(country, targetYear, projections, derived, contexts);
-  const warnings = buildWarnings(projections, contexts);
-  const payload = { country, targetYear, method, techQuery, series, projections, derived, contexts, narrative, warnings };
-  if(returnData) return payload;
-  renderCase(payload);
-  setStatus(`Generated a ${targetYear} case file for ${country.name}.`, "ok");
+function scenarioText(country, targetYear, projections, derived, context){
+  const pop = getProjection(projections,'population');
+  const phys = getProjection(projections,'physicians');
+  const u5 = getProjection(projections,'u5Mortality');
+  const urban = getProjection(projections,'urbanPct');
+  const internet = getProjection(projections,'internetUsers');
+  const peoplePerPhys = derived.find(d=>d.label==='People per physician');
+  const lines=[];
+  lines.push(`<h2>${country.name} ${targetYear}: generated country-year case file</h2>`);
+  if(pop){ lines.push(`<p>If the cleaned historical population pattern continued, ${country.name} would have an estimated <strong>${fmtSmart(pop.projected,0)}</strong> people in ${targetYear}. This compares with the latest usable World Bank value of ${fmtSmart(pop.latest.value,0)} in ${pop.latest.year}.</p>`); }
+  if(phys && peoplePerPhys){ lines.push(`<p>The projected physician-density proxy is <strong>${fmtSmart(phys.projected,2)}</strong> physicians per 1,000 people. That translates into roughly <strong>${fmtSmart(peoplePerPhys.value,2)}</strong> people per physician under the same continuation logic.</p>`); }
+  if(u5){ lines.push(`<p>The under-5 mortality trajectory is <strong>${u5.direction}</strong>, with a ${targetYear} continuation of <strong>${fmtSmart(u5.projected,2)}</strong> per 1,000 live births. This is a child-health/system proxy, not a full health-system assessment.</p>`); }
+  if(urban){ lines.push(`<p>The urbanisation continuation points to <strong>${fmtSmart(urban.projected,2)}%</strong> of the population living in urban areas by ${targetYear}, which is relevant for service planning, concentrated infrastructure demand, and urban humanitarian response.</p>`); }
+  if(internet){ lines.push(`<p>Relevant technology context comes from country-level digital-access indicators where valid data exists. The internet-use continuation points to <strong>${fmtSmart(internet.projected,2)}%</strong> of the population online by ${targetYear}. This may matter for digital coordination, public health information systems, misinformation exposure, and data protection.</p>`); }
+  lines.push(`<p>Supporting context adds <strong>${context.gdacs.count||0}</strong> GDACS current/recent disaster-event matches, <strong>${context.hdx.count||0}</strong> HDX humanitarian dataset listings, <strong>${context.nasa.count||0}</strong> NASA Earthdata collection listings, and <strong>${context.unhcr.count||0}</strong> UNHCR country-related population/displacement records. These are context signals, not projections.</p>`);
+  lines.push(`<hr><p><strong>How to use this case file:</strong> treat it as a transparent numeric continuation of selected public indicators plus current/contextual data availability. It can help form a grounded case-study setting, but it cannot prove what will happen.</p>`);
+  return lines.join('\n');
 }
 
-function renderCase(data){
-  const {country,targetYear,projections,derived,contexts,narrative,warnings,techQuery} = data;
-  const goodProj = projections.filter(p=>p.ok).length;
-  const hdxCount = contexts.hdx.reduce((s,x)=>s+(x.results?.length||0),0);
-  const nasaCount = contexts.nasa.reduce((s,x)=>s+(x.results?.length||0),0);
-  const gdacsCount = contexts.gdacs.matches?.length || 0;
-  const openAlexCount = contexts.openAlex.groups?.reduce((s,g)=>s+(g.count||0),0) || contexts.openAlex.works?.length || 0;
+async function buildCase(){
+  clearMessage();
+  const country = countryByIso(document.getElementById('countrySelect').value);
+  const targetYear = Number(document.getElementById('yearInput').value);
+  if(!country || !Number.isFinite(targetYear) || targetYear < 2026 || targetYear > 2100){ setMessage('Choose a valid country and a target year between 2026 and 2100.', 'error'); return; }
+  const results = document.getElementById('results');
+  results.innerHTML = `<section class="panel"><p class="loading"><strong>Pulling data and building ${country.name} ${targetYear} case file...</strong></p></section>`;
+  try{
+    const [projections, context] = await Promise.all([getProjectionBundle(country,targetYear), fetchContext(country)]);
+    const derived = deriveImplications(projections,targetYear);
+    lastCalcText = buildCalcLog(country,targetYear,projections,derived,context);
+    results.innerHTML = renderCase(country,targetYear,projections,derived,context);
+    setMessage(`Generated a ${targetYear} case file for ${country.name}.`);
+  }catch(e){
+    results.innerHTML = '';
+    setMessage(`Could not build the case file: ${e.message}`, 'error');
+  }
+}
 
-  $("results").innerHTML = `
-    <section class="narrative">
-      <h3>${esc(country.name)} ${targetYear}: ${esc(narrative.caseType)}</h3>
-      ${narrative.lines.map(l=>`<p>${esc(l)}</p>`).join("")}
-      <div class="line"></div>
-      <p><strong>Use this as a case file:</strong> a numeric continuation of selected indicators plus current/contextual source signals. It is not an official forecast.</p>
+function renderCase(country,targetYear,projections,derived,context){
+  const okProjs = projections.filter(p=>p.ok);
+  const failed = projections.filter(p=>!p.ok);
+  const indicatorCards = okProjs.map(p=>indicatorCard(p)).join('');
+  const derivedCards = derived.map(d=>derivedCard(d)).join('');
+  return `
+    <section class="panel dark">${scenarioText(country,targetYear,projections,derived,context)}</section>
+
+    <section class="panel">
+      <div class="section-title"><div><h2>Projected indicators from public time-series data</h2><p>These are values mathematically extended from cleaned World Bank historical data. Each card shows the latest real value used and how the target-year estimate was calculated.</p></div><span class="pill">projected values</span></div>
+      <div class="cards">${indicatorCards || '<p>No projectable indicators were returned.</p>'}</div>
+      ${failed.length ? `<details class="details"><summary>Indicators not projected (${failed.length})</summary><div class="mono">${escapeHtml(failed.map(f=>`${f.indicator?f.indicator.label:'Unknown'}: ${f.reason || 'not available'}`).join('\n'))}</div></details>` : ''}
     </section>
 
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Projected indicator table</h2><p>Generated from World Bank time-series values. Percentages and impossible negative values are clamped where appropriate.</p></div><span class="badge b-proj">${goodProj}/${projections.length} projected</span></div>
-      <div style="overflow:auto">${renderProjectionTable(projections)}</div>
+    <section class="panel">
+      <div class="section-title"><div><h2>Calculated implications from the projected indicators</h2><p>These are not separate data sources. They are simple calculations built from the projected indicators above, such as people per physician or projected urban population.</p></div><span class="pill green">calculated implications</span></div>
+      <div class="cards">${derivedCards || '<p>Not enough projected indicators were available to calculate implications.</p>'}</div>
     </section>
 
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Derived case calculations</h2><p>These combine projected indicators into more interpretable service-planning quantities.</p></div><span class="badge b-derived">calculated</span></div>
-      <div class="cards">${derived.length ? derived.map(d=>renderDerivedCard(d)).join("") : `<div class="card"><span class="badge b-warn">not enough data</span><p>No derived calculations could be made from the projected indicators.</p></div>`}</div>
+    <section class="panel">
+      <div class="section-title"><div><h2>Supporting context from sources that are not projected</h2><p>These data points show what current events, displacement records, humanitarian datasets and Earth-observation collections the site can retrieve. They add context around the case, but they are not used as future forecasts.</p></div><span class="pill amber">context only</span></div>
+      ${renderContextCards(context,country)}
     </section>
 
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Current/contextual source signals</h2><p>These sources add context but are not projected into the target year.</p></div></div>
-      <div class="mini-grid">
-        <div class="card"><span class="badge b-live">GDACS</span><strong>${gdacsCount}</strong><p>current/recent disaster records matched to ${esc(country.name)}.</p></div>
-        <div class="card"><span class="badge b-meta">HDX</span><strong>${hdxCount}</strong><p>dataset listings across health, displacement, disaster, climate, food security, technology, INFORM, DTM, IDMC and EM-DAT searches.</p></div>
-        <div class="card"><span class="badge b-live">UNHCR</span><strong>${contexts.unhcr.items.length}</strong><p>country-related 2024 population records returned across origin/asylum query attempts.</p></div>
-        <div class="card"><span class="badge b-meta">NASA CMR</span><strong>${nasaCount}</strong><p>Earthdata collection listings for exposure, flood, drought, temperature, precipitation and observation keywords.</p></div>
-        <div class="card"><span class="badge b-live">GDELT</span><strong>${contexts.gdelt.articles.length}</strong><p>recent article/news records for: ${esc(techQuery)}.</p></div>
-        <div class="card"><span class="badge b-meta">OpenAlex</span><strong>${openAlexCount}</strong><p>scholarly/publication trend records or listings for: ${esc(techQuery)}.</p></div>
-      </div>
+    <section class="panel">
+      <div class="section-title"><div><h2>Dataset and event details</h2><p>This section explains the contextual records listed above. Dataset listings show what data exists for further inspection; event listings show recent/current records. Counts do not mean severity.</p></div><span class="pill teal">details</span></div>
+      ${renderDetails(context)}
     </section>
 
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Technology and data-development signals</h2><p>Technology is treated as a changing operating condition: digital access, infrastructure proxies, media attention, scholarly attention and Earth-observation/data availability.</p></div></div>
-      ${renderTechnologySection(data)}
+    <section class="panel">
+      <div class="section-title"><div><h2>Claims this data cannot support</h2><p>These warnings stop the simulator output being overclaimed. They are generated from the data types used in the case file.</p></div><span class="pill red">do not overclaim</span></div>
+      ${renderBadClaims(context)}
     </section>
 
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Dataset and event details</h2><p>Open these to see what the contextual sources returned.</p></div></div>
-      <div class="split"><div>${renderHdxDetails(contexts.hdx)}</div><div>${renderEventDetails(contexts)}</div></div>
+    <section class="panel soft">
+      <div class="section-title"><div><h2>Data and calculation log</h2><p>This is the transparent source trail: which APIs were queried, which values were projected, which formula was used, and which contextual counts were returned.</p></div><span class="pill purple">transparency</span></div>
+      <div class="btnrow"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
+      <details class="details"><summary>Preview calculation log</summary><div class="mono">${escapeHtml(lastCalcText.slice(0,9000))}${lastCalcText.length>9000?'\n\n[Log truncated in preview. Download for full text.]':''}</div></details>
     </section>
-
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Bad claims to avoid</h2><p>These warnings are part of the output, not fine print.</p></div><span class="badge b-warn">caveats</span></div>
-      <ul class="list">${warnings.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>
-    </section>
-
-    <section class="panel section">
-      <div class="section-head"><div class="section-title"><h2>Source trail</h2><p>What was queried and how each source was used.</p></div></div>
-      ${renderSourceTrail(data)}
-    </section>
-
-    <details><summary>Raw output object</summary><div class="details-body"><pre>${esc(JSON.stringify(stripRaw(data), null, 2))}</pre></div></details>
   `;
 }
-function renderProjectionTable(projections){
-  return `<table><thead><tr><th>Indicator</th><th>Latest actual</th><th>Latest year</th><th>Trend</th><th>Projected value</th><th>Projection notes</th></tr></thead><tbody>
-  ${projections.map(p=>{
-    if(!p.ok) return `<tr><td>${esc(p.indicator.label)}</td><td colspan="5">Could not project: ${esc(p.reason)}</td></tr>`;
-    const goodDown = p.indicator.code === "SH.DYN.MORT" || p.indicator.code === "EN.ATM.CO2E.PC";
-    return `<tr><td><strong>${esc(p.indicator.label)}</strong><br><span class="muted">${esc(p.indicator.unit)}</span></td><td>${formatValue(p.latest.value,p.indicator)}</td><td>${p.latest.year}</td><td>${esc(direction(p,goodDown))}<br><span class="muted">${fmt.format(p.annualChange)} / year</span></td><td><strong>${formatValue(p.projected,p.indicator)}</strong><br><span class="muted">${esc(p.indicator.unit)}</span></td><td>${esc(p.methodLabel)}${p.clamped?"; clamped to plausible display range":""}<br><span class="muted">${p.points.length} historical values used</span></td></tr>`;
-  }).join("")}</tbody></table>`;
+
+function indicatorCard(p){
+  const ind=p.indicator;
+  const title=`${ind.label}: ${p.method}. Latest usable actual: ${fmtSmart(p.latest.value,ind.decimals)} in ${p.latest.year}. ${p.model&&p.model.n ? p.model.n : 'Multiple'} usable historical values after cleaning. ${p.notes.length ? 'Adjustment: '+p.notes.join('; ') : ''}`;
+  const usedText = p.model && p.model.n ? `${p.model.n} usable historical values after cleaning` : `${p.seriesObj.values.length} usable historical values after cleaning`;
+  return `<div class="card">
+    <span class="pill purple">${escapeHtml(ind.role)}</span>
+    <h3>${escapeHtml(ind.label)}</h3>
+    <div class="big">${fmtSmart(p.projected,ind.decimals)}</div>
+    <p class="unit">${escapeHtml(ind.unit)} in ${p.targetYear}</p>
+    <p class="small">Latest usable actual: <strong>${fmtSmart(p.latest.value,ind.decimals)}</strong> (${p.latest.year}).</p>
+    <p class="small">Basis: ${escapeHtml(usedText)}.</p>
+    <span class="calc-help" title="${escapeHtml(title)}">How calculated?</span>
+  </div>`;
 }
-function renderDerivedCard(d){
-  const value = d.unit === "physicians" || d.unit === "people" ? fmt0.format(d.value) : fmt.format(d.value);
-  return `<article class="card"><span class="badge b-derived">derived</span><h3>${esc(d.label)}</h3><div class="metric">${esc(value)}</div><p class="muted">${esc(d.unit)}</p><p>${esc(d.explanation)}</p></article>`;
+
+function derivedCard(d){
+  return `<div class="card">
+    <span class="pill green">calculated from projected values</span>
+    <h3>${escapeHtml(d.label)}</h3>
+    <div class="big">${fmtSmart(d.value,d.decimals)}</div>
+    <p class="unit">${escapeHtml(d.unit)}</p>
+    <p class="small">Source basis: ${escapeHtml(d.source)}.</p>
+    <span class="calc-help" title="${escapeHtml(d.explanation)}">How calculated?</span>
+  </div>`;
 }
-function renderTechnologySection(data){
-  const techIndicators = data.projections.filter(p=>p.ok && p.indicator.type === "technology");
-  const open = data.contexts.openAlex;
-  const gdelt = data.contexts.gdelt;
-  return `<div class="cards">
-    ${techIndicators.map(p=>`<article class="card"><span class="badge b-proj">projected tech indicator</span><h3>${esc(p.indicator.label)}</h3><div class="metric">${formatValue(p.projected,p.indicator)}</div><p>${esc(p.indicator.unit)} in ${data.targetYear}, by simple continuation.</p><p class="muted">Latest actual: ${formatValue(p.latest.value,p.indicator)} (${p.latest.year})</p></article>`).join("")}
-    <article class="card"><span class="badge b-live">GDELT</span><h3>Media/news signal</h3><div class="metric">${gdelt.articles.length}</div><p>Recent records for the selected technology query. This measures attention in available news/article data, not adoption.</p></article>
-    <article class="card"><span class="badge b-meta">OpenAlex</span><h3>Scholarly attention signal</h3><div class="metric">${open.groups?.length || open.works?.length || 0}</div><p>${open.mode === "group_by" ? "Publication-year groups returned" : "Recent works returned"} for the selected technology query.</p></article>
-  </div>${renderOpenAlex(open)}${renderGdelt(gdelt)}`;
+
+function renderContextCards(context,country){
+  const cards = [
+    {name:'GDACS', value:context.gdacs.count||0, text:`recent/current disaster-event records matched to ${country.name}.`, cls:'green', help:'GDACS event records are current/recent alerts and event listings. They are not projected.'},
+    {name:'HDX', value:context.hdx.count||0, text:'humanitarian dataset listings found across health, displacement, disaster, climate, food security, INFORM, DTM, IDMC and EM-DAT searches.', cls:'blue', help:'HDX rows are catalogue records. They point to datasets that may be useful; the site has not analysed the underlying files.'},
+    {name:'UNHCR', value:context.unhcr.count||0, text:'country-related recent population/displacement records returned across origin/asylum query attempts.', cls:'green', help:'UNHCR records add displacement/population context. They are not projected in this version.'},
+    {name:'NASA Earthdata', value:context.nasa.count||0, text:'Earth-observation collection listings for exposure, flood, drought, temperature, precipitation and observation keywords.', cls:'blue', help:'NASA results are collection metadata, not analysed satellite data.'}
+  ];
+  return `<div class="cards">${cards.map(c=>`<div class="card"><span class="pill ${c.cls==='blue'?'':'green'}">${escapeHtml(c.name)}</span><div class="big">${fmtSmart(c.value,0)}</div><p>${escapeHtml(c.text)}</p><span class="calc-help" title="${escapeHtml(c.help)}">What does this mean?</span></div>`).join('')}</div>`;
 }
-function renderOpenAlex(open){
-  if(!open.ok) return `<div class="status warn">OpenAlex query failed: ${esc(open.error || "unknown error")}</div>`;
-  if(open.groups?.length){
-    const groups = [...open.groups].sort((a,b)=>Number(a.key)-Number(b.key)).filter(g=>Number(g.key));
-    return `<details><summary>OpenAlex publication-year groups</summary><div class="details-body"><table><thead><tr><th>Year</th><th>Count</th></tr></thead><tbody>${groups.map(g=>`<tr><td>${esc(g.key)}</td><td>${fmt0.format(g.count)}</td></tr>`).join("")}</tbody></table><p class="tiny">Search: ${esc(open.search)}</p></div></details>`;
+
+function renderDetails(context){
+  let hdxRows = context.hdx.items.map(i=>`<tr><td>HDX dataset</td><td>${escapeHtml(i.title)}</td><td>${escapeHtml(i.org)}</td><td>${escapeHtml(i.query)}</td><td><a href="${i.url}" target="_blank" rel="noopener">Open</a></td></tr>`).join('');
+  let nasaRows = context.nasa.items.map(i=>`<tr><td>NASA collection</td><td>${escapeHtml(i.title)}</td><td>${escapeHtml(i.updated||'')}</td><td>${escapeHtml(i.query)}</td><td><a href="${i.url}" target="_blank" rel="noopener">Open</a></td></tr>`).join('');
+  let eventRows = context.gdacs.items.map(i=>`<tr><td>GDACS event</td><td>${escapeHtml((i.name||i.eventname||i.title||i.eventtype||'Event record'))}</td><td>${escapeHtml(i.country||i.countryname||'')}</td><td>${escapeHtml(i.fromdate||i.todate||i.date||'')}</td><td></td></tr>`).join('');
+  let unhcrRows = context.unhcr.items.map(i=>`<tr><td>UNHCR record</td><td>${escapeHtml(i.coa_name || i.coo_name || i.country_of_asylum || i.country_of_origin || 'Population record')}</td><td>${escapeHtml(i.population_type || i.pop_type || '')}</td><td>${escapeHtml(i.year || '')}</td><td></td></tr>`).join('');
+  const rows = [eventRows,hdxRows,nasaRows,unhcrRows].filter(Boolean).join('');
+  if(!rows) return '<p>No contextual detail rows were returned. This may be because the source did not return country matches or the browser blocked the source request.</p>';
+  return `<p class="explain">The rows below are included so users can see the evidence environment around the generated case. HDX/NASA rows are dataset or collection leads. GDACS rows are recent/current event-list matches. UNHCR rows are displacement/population records. These are not the same kind of evidence and should not be combined as if they were one metric.</p>
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Title / record</th><th>Organisation / country / date</th><th>Query or category</th><th>Link</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderBadClaims(context){
+  const claims = [
+    'Do not claim the simulator predicts the selected country’s future. It extends selected historical indicators using a transparent mathematical continuation.',
+    'Do not claim GDACS event matches predict future floods, storms, earthquakes or disasters. They are current/recent event-list records only.',
+    'Do not treat HDX or NASA dataset counts as crisis severity. A high count means more catalogue records were found, not that need is higher.',
+    'Do not claim the health workforce situation is fully represented by physicians per 1,000 people. It excludes nurses, midwives, community health workers, quality, distribution and retention.',
+    'Do not treat country-level indicators as local operational reality. They can hide major subnational variation.',
+    'Do not infer conflict patterns from this version. ACLED is not directly queried in the static front-end.'
+  ];
+  return `<ul>${claims.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}</ul>`;
+}
+
+function buildCalcLog(country,targetYear,projections,derived,context){
+  const lines=[];
+  lines.push('HUMANITARIAN FUTURES SIMULATOR - FULL CALCULATION LOG');
+  lines.push(`Generated: ${new Date().toISOString()}`);
+  lines.push(`Country: ${country.name} (${country.iso3})`);
+  lines.push(`Target year: ${targetYear}`);
+  lines.push('Projection method: Recommended trend continuation. Indicator-specific rules are used: compound trend for population, log trend for mortality where possible, capped trends for percentages, and non-negative trends for indicators that cannot logically go below zero.');
+  lines.push('');
+  lines.push('What "usable historical values after cleaning" means: rows returned by the source API with a real numeric value, a valid year, and a year not later than the current year. Blank/null values are removed before calculations. Zero is kept only when the source explicitly reports zero.');
+  lines.push('\nPROJECTED INDICATORS');
+  for(const p of projections){
+    lines.push('\n---');
+    if(!p.ok){ lines.push(`${p.indicator?p.indicator.label:'Unknown indicator'}: NOT PROJECTED - ${p.reason||'not available'}`); continue; }
+    const ind=p.indicator;
+    lines.push(`${ind.label} (${ind.code})`);
+    lines.push(`Source: ${ind.source}`);
+    lines.push(`Endpoint: ${p.seriesObj.url}`);
+    lines.push(`Raw rows returned: ${p.seriesObj.rawCount}`);
+    lines.push(`Usable values after cleaning: ${p.seriesObj.values.length}`);
+    lines.push(`First usable value: ${p.first.year} = ${p.first.value}`);
+    lines.push(`Latest usable actual: ${p.latest.year} = ${p.latest.value}`);
+    lines.push(`Projection method: ${p.method}`);
+    if(p.model){
+      lines.push(`Formula: ${p.model.formula}`);
+      if(p.model.slope!==undefined) lines.push(`Slope: ${p.model.slope}`);
+      if(p.model.intercept!==undefined) lines.push(`Intercept: ${p.model.intercept}`);
+      if(p.model.r2!==undefined) lines.push(`R-squared: ${p.model.r2}`);
+      if(p.model.cagr!==undefined) lines.push(`Compound annual growth rate: ${p.model.cagr}`);
+      if(p.model.n!==undefined) lines.push(`Values used in model: ${p.model.n}`);
+    }
+    lines.push(`Projected ${targetYear} value: ${p.projected}`);
+    lines.push(`Direction vs latest actual: ${p.direction}`);
+    if(p.changeFromLatest!==null) lines.push(`Change from latest actual: ${p.changeFromLatest}%`);
+    if(p.notes.length) lines.push(`Adjustments/caps applied: ${p.notes.join('; ')}`);
   }
-  return `<details><summary>OpenAlex works</summary><div class="details-body">${open.works.map(w=>`<div class="source-row"><span>${esc(w.publication_year || "—")}</span><span>work</span><a href="${esc(w.id)}" target="_blank" rel="noreferrer">${esc(w.title || "Untitled")}</a></div>`).join("")}</div></details>`;
+  lines.push('\nCALCULATED IMPLICATIONS');
+  for(const d of derived){ lines.push(`${d.label}: ${d.value} ${d.unit}. ${d.explanation}. Source basis: ${d.source}.`); }
+  lines.push('\nSUPPORTING CONTEXT - NOT PROJECTED');
+  lines.push(`GDACS matched records: ${context.gdacs.count||0}. ${context.gdacs.error ? 'Error: '+context.gdacs.error : ''}`);
+  lines.push(`HDX dataset listings: ${context.hdx.count||0}. ${context.hdx.error ? 'Error: '+context.hdx.error : ''}`);
+  if(context.hdx.queries){ context.hdx.queries.forEach(q=>lines.push(`  HDX query: ${q.q} | count: ${q.count} | ${q.url || ''}${q.error?' | error: '+q.error:''}`)); }
+  lines.push(`UNHCR returned records: ${context.unhcr.count||0}. ${context.unhcr.error ? 'Error: '+context.unhcr.error : ''}`);
+  lines.push(`NASA Earthdata collection listings: ${context.nasa.count||0}. ${context.nasa.error ? 'Error: '+context.nasa.error : ''}`);
+  if(context.nasa.queries){ context.nasa.queries.forEach(q=>lines.push(`  NASA query: ${q.q} | count: ${q.count} | ${q.url || ''}${q.error?' | error: '+q.error:''}`)); }
+  lines.push('\nLIMITS');
+  lines.push('This file documents calculations performed by a static browser prototype. It is not an official forecast, operational assessment, scientific risk model, or humanitarian needs analysis.');
+  return lines.join('\n');
 }
-function renderGdelt(gdelt){
-  if(!gdelt.ok) return `<div class="status warn">GDELT query failed: ${esc(gdelt.error || "unknown error")}</div>`;
-  return `<details><summary>GDELT article records</summary><div class="details-body">${gdelt.articles.length ? gdelt.articles.map(a=>`<div class="source-row"><span>${esc(a.seendate || "—")}</span><span>${esc(a.sourceCountry || a.domain || "source")}</span><a href="${esc(a.url)}" target="_blank" rel="noreferrer">${esc(a.title || a.url)}</a></div>`).join("") : "No records returned."}<p class="tiny">Search: ${esc(gdelt.query)}</p></div></details>`;
-}
-function renderHdxDetails(hdx){
-  return `<details open><summary>HDX dataset discovery</summary><div class="details-body">${hdx.map(s=>`<div class="card"><span class="badge b-meta">${esc(s.query)}</span><strong>${s.results.length} datasets</strong>${s.results.slice(0,4).map(r=>`<p><a href="https://data.humdata.org/dataset/${esc(r.name)}" target="_blank" rel="noreferrer">${esc(r.title || r.name)}</a><br><span class="muted">${esc(r.organization?.title || r.organization?.name || "Unknown organisation")}</span></p>`).join("")}</div>`).join("")}</div></details>`;
-}
-function renderEventDetails(contexts){
-  return `<details open><summary>GDACS / UNHCR / NASA context</summary><div class="details-body">
-    <div class="card"><span class="badge b-live">GDACS matches</span>${contexts.gdacs.matches.length ? contexts.gdacs.matches.map(f=>{const p=f.properties||{}; return `<p><strong>${esc(p.eventtype || p.eventType || "event")}</strong> ${esc(p.name || p.country || "")} <span class="muted">${esc(p.alertlevel || p.alertLevel || "")}</span></p>`}).join("") : `<p>No country match in current/recent GDACS list.</p>`}</div>
-    <div class="card"><span class="badge b-live">UNHCR records</span>${contexts.unhcr.items.length ? contexts.unhcr.items.slice(0,8).map(i=>`<p>${esc(i._route)}: ${esc(i.coo_name || i.coa_name || i.country_of_origin || i.country_of_asylum || "record")} ${esc(i.population_type || i.pop_type || "")} ${esc(i.value || i.population || "")}</p>`).join("") : `<p>No records returned by the current UNHCR query attempts.</p>`}</div>
-    <div class="card"><span class="badge b-meta">NASA CMR</span>${contexts.nasa.map(n=>`<p><strong>${esc(n.query)}</strong>: ${n.results.length} collections</p>`).join("")}</div>
-  </div></details>`;
-}
-function renderSourceTrail(data){
-  const rows = [];
-  data.series.forEach(s=> rows.push(["World Bank", s.points.length?"live time series":"failed/sparse", `${s.indicator.label}: ${s.points.length} non-empty values` , s.url]));
-  rows.push(["GDACS", data.contexts.gdacs.ok?"live events":"failed", `${data.contexts.gdacs.matches.length} country matches`, data.contexts.gdacs.url]);
-  rows.push(["UNHCR", data.contexts.unhcr.ok?"live records":"failed/sparse", `${data.contexts.unhcr.items.length} records returned`, data.contexts.unhcr.urls.join(" | ")]);
-  data.contexts.hdx.forEach(h=> rows.push(["HDX", "dataset metadata", `${h.results.length} results for ${h.query}`, h.url]));
-  data.contexts.nasa.forEach(n=> rows.push(["NASA CMR", "collection metadata", `${n.results.length} results for ${n.query}`, n.url]));
-  rows.push(["GDELT", data.contexts.gdelt.ok?"news/media signal":"failed", `${data.contexts.gdelt.articles.length} articles`, data.contexts.gdelt.url]);
-  rows.push(["OpenAlex", data.contexts.openAlex.ok?"scholarly metadata":"failed", `${data.contexts.openAlex.groups?.length || data.contexts.openAlex.works?.length || 0} records/groups`, data.contexts.openAlex.url]);
-  return rows.map(r=>`<div class="source-row"><span>${esc(r[0])}</span><span>${esc(r[1])}</span><a href="${esc(r[3])}" target="_blank" rel="noreferrer">${esc(r[2])}</a></div>`).join("");
-}
-function stripRaw(data){
-  return { country:data.country, targetYear:data.targetYear, method:data.method, techQuery:data.techQuery, projections:data.projections.map(p=>p.ok?{indicator:p.indicator.label, latest:p.latest, annualChange:p.annualChange, projected:p.projected, pctFromLatest:p.pctFromLatest, pointsUsed:p.points.length}:{indicator:p.indicator.label, ok:false, reason:p.reason}), derived:data.derived, contextCounts:{gdacsMatches:data.contexts.gdacs.matches?.length||0, hdxListings:data.contexts.hdx.reduce((s,x)=>s+x.results.length,0), unhcrRecords:data.contexts.unhcr.items.length, nasaCollections:data.contexts.nasa.reduce((s,x)=>s+x.results.length,0), gdeltArticles:data.contexts.gdelt.articles.length, openAlexRecords:data.contexts.openAlex.groups?.length || data.contexts.openAlex.works?.length || 0}, narrative:data.narrative, warnings:data.warnings };
+
+function downloadCalculationLog(){
+  if(!lastCalcText){ alert('Generate a case or comparison first.'); return; }
+  const blob = new Blob([lastCalcText], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'humanitarian-futures-simulator-calculation-log.txt';
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
 }
 
 async function compareCountries(){
-  const targetYear = parseInt($("targetYear").value,10);
-  const method = $("methodSelect").value;
-  if(!targetYear || targetYear < 2026 || targetYear > 2100){ setStatus("Choose a target year between 2026 and 2100.", "err"); return; }
-  setStatus(`<span class="loader"></span> Comparing starter countries for ${targetYear} using World Bank projection indicators...`, "warn");
-  const rows = [];
-  for(const country of countries){
-    const series = await Promise.all(wbIndicators.filter(i=>["SP.POP.TOTL","SH.MED.PHYS.ZS","SH.DYN.MORT","IT.NET.USER.ZS","SP.URB.TOTL.IN.ZS"].includes(i.code)).map(ind=>fetchWorldBankSeries(country, ind)));
-    const proj = series.map(s=>projectSeries(s,targetYear,method));
-    const byCode = Object.fromEntries(proj.map(p=>[p.indicator.code,p]));
-    const pop = byCode["SP.POP.TOTL"], phys=byCode["SH.MED.PHYS.ZS"], mort=byCode["SH.DYN.MORT"], internet=byCode["IT.NET.USER.ZS"], urb=byCode["SP.URB.TOTL.IN.ZS"];
-    rows.push({country, pop, phys, mort, internet, urb, completeness:proj.filter(p=>p.ok).length});
-  }
-  rows.sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
-  $("results").innerHTML = `<section class="panel section"><div class="section-head"><div class="section-title"><h2>Starter-country comparison for ${targetYear}</h2><p>Projected values are simple continuations of returned World Bank time series.</p></div><span class="badge b-proj">comparison</span></div><div style="overflow:auto"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${esc(r.country.name)}</strong></td><td>${r.pop?.ok?formatValue(r.pop.projected,r.pop.indicator):"—"}</td><td>${r.pop?.ok?fmt.format(r.pop.pctFromLatest)+"%":"—"}</td><td>${r.phys?.ok?fmt.format(r.phys.projected):"—"}</td><td>${r.phys?.ok?fmt.format(1000/Math.max(r.phys.projected,0.0001)):"—"}</td><td>${r.mort?.ok?fmt.format(r.mort.projected):"—"}</td><td>${r.internet?.ok?fmt.format(r.internet.projected)+"%":"—"}</td><td>${r.urb?.ok?fmt.format(r.urb.projected)+"%":"—"}</td><td>${r.completeness}/5</td></tr>`).join("")}</tbody></table></div></section>`;
-  setStatus(`Compared ${countries.length} countries for ${targetYear}.`, "ok");
+  clearMessage();
+  const targetYear = Number(document.getElementById('yearInput').value);
+  if(!Number.isFinite(targetYear) || targetYear < 2026 || targetYear > 2100){ setMessage('Choose a valid target year between 2026 and 2100.', 'error'); return; }
+  const results = document.getElementById('results');
+  results.innerHTML = `<section class="panel"><p class="loading"><strong>Comparing starter countries for ${targetYear}...</strong></p></section>`;
+  try{
+    const rows=[]; const logs=[];
+    for(const c of COUNTRIES){
+      const projections = await getProjectionBundle(c,targetYear);
+      const derived = deriveImplications(projections,targetYear);
+      rows.push({country:c, projections, derived});
+      logs.push(buildCalcLog(c,targetYear,projections,derived,{gdacs:{count:0},hdx:{count:0,queries:[]},unhcr:{count:0},nasa:{count:0,queries:[]}}));
+    }
+    lastCalcText = logs.join('\n\n========================================\n\n');
+    results.innerHTML = renderComparison(rows,targetYear);
+    setMessage(`Compared ${COUNTRIES.length} countries for ${targetYear}.`);
+  }catch(e){ results.innerHTML=''; setMessage(`Could not compare countries: ${e.message}`,'error'); }
+}
+
+function renderComparison(rows,targetYear){
+  const sorted = rows.map(r=>{
+    const p = key=>getProjection(r.projections,key);
+    const d = label=>r.derived.find(x=>x.label===label);
+    const complete = ['population','physicians','u5Mortality','internetUsers','urbanPct'].filter(k=>!!p(k)).length;
+    return {country:r.country.name, pop:p('population'), phys:p('physicians'), u5:p('u5Mortality'), internet:p('internetUsers'), urban:p('urbanPct'), peoplePerPhys:d('People per physician'), complete};
+  }).sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
+  const trs = sorted.map(r=>`<tr>
+    <td><strong>${escapeHtml(r.country)}</strong></td>
+    <td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td>
+    <td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td>
+    <td class="num">${r.phys?fmtSmart(r.phys.projected,2):'NA'}</td>
+    <td class="num">${r.peoplePerPhys?fmtSmart(r.peoplePerPhys.value,2):'NA'}</td>
+    <td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td>
+    <td class="num">${r.internet?fmtSmart(r.internet.projected,2)+'%':'NA'}</td>
+    <td class="num">${r.urban?fmtSmart(r.urban.projected,2)+'%':'NA'}</td>
+    <td>${r.complete}/5</td>
+  </tr>`).join('');
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Starter-country comparison for ${targetYear}</h2><p>Projected values are transparent continuations of returned World Bank time series. Population change compares the projection with the latest usable actual value, not with 1960 or a scenario baseline.</p></div><span class="pill purple">comparison</span></div>
+    <div class="table-wrap"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div>
+    <div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
+    <details class="details"><summary>Preview calculation log</summary><div class="mono">${escapeHtml(lastCalcText.slice(0,9000))}${lastCalcText.length>9000?'\n\n[Log truncated in preview. Download for full text.]':''}</div></details>
+  </section>`;
 }
 
 init();
