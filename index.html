@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futures Site - Source Validation Prototype</title>
+  <title>Futures Site - Data Playground</title>
   <style>
     :root {
       color-scheme: light;
@@ -17,17 +17,18 @@
       --blue-dark: #174ea6;
       --green: #16794c;
       --green-bg: #e6f4ed;
-      --teal: #0f766e;
-      --teal-bg: #e0f2f1;
-      --amber: #8a5b00;
-      --amber-bg: #fff5d6;
       --red: #9f2520;
       --red-bg: #fde8e7;
-      --gray-bg: #edf1f5;
+      --amber: #8a5b00;
+      --amber-bg: #fff5d6;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -49,6 +50,12 @@
       text-decoration: underline;
     }
 
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
     button {
       min-height: 42px;
       border: 0;
@@ -56,7 +63,6 @@
       padding: 0 16px;
       background: var(--blue);
       color: #fff;
-      font: inherit;
       font-weight: 700;
       cursor: pointer;
     }
@@ -65,25 +71,80 @@
       background: var(--blue-dark);
     }
 
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.58;
+    button.secondary {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
     }
 
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.9em;
+    button.secondary:hover:not(:disabled) {
+      background: var(--panel-soft);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    select,
+    input {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 11px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 12px 0;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #334155;
+      font-size: 0.95rem;
     }
 
     .page {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 38px 0 48px;
+      padding: 34px 0 48px;
     }
 
-    header {
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    .hero {
       display: grid;
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 22px;
     }
 
@@ -104,233 +165,244 @@
     }
 
     h1 {
-      max-width: 980px;
-      font-size: clamp(2rem, 4vw, 3.45rem);
+      font-size: clamp(2.1rem, 4vw, 3.55rem);
       line-height: 1.05;
     }
 
     .intro,
     .note {
-      max-width: 940px;
+      max-width: 900px;
       margin: 0;
       color: #334155;
-      font-size: 1.02rem;
+      font-size: 1.03rem;
     }
 
-    .public-note,
-    .source-section,
-    .developer-panel {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-    }
-
-    .public-note {
-      padding: 16px;
+    .note-box {
+      max-width: 900px;
       border-left: 4px solid var(--blue);
-    }
-
-    .public-note p,
-    .developer-panel p {
-      margin: 0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: var(--panel);
       color: #334155;
     }
 
-    .working-summary {
-      margin: 18px 0;
-      padding: 16px;
+    .playground-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .data-card,
+    .source-card {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
-      color: #334155;
-      font-size: 1.02rem;
     }
 
-    .source-section {
-      margin-bottom: 18px;
-      padding: 20px;
-    }
-
-    .source-section h2 {
-      margin-bottom: 8px;
-      font-size: 1.45rem;
-    }
-
-    .source-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .public-card {
-      display: grid;
-      gap: 10px;
-      align-content: start;
-      min-height: 210px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-      background: var(--panel-soft);
-    }
-
-    .public-card h3 {
-      font-size: 1.05rem;
-      line-height: 1.25;
-    }
-
-    .public-card p {
-      margin: 0;
-      color: #334155;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      min-height: 28px;
-      border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-
-    .badge-live {
-      background: var(--green-bg);
-      color: var(--green);
-    }
-
-    .badge-discovery {
-      background: var(--teal-bg);
-      color: var(--teal);
-    }
-
-    .badge-alternative {
-      background: #e8f0fe;
-      color: var(--blue-dark);
-    }
-
-    .badge-success {
-      background: var(--green-bg);
-      color: var(--green);
-    }
-
-    .empty-state {
-      border: 1px dashed #b6c1cd;
-      border-radius: 8px;
-      padding: 16px;
-      color: var(--muted);
-      background: var(--panel-soft);
-    }
-
-    details.developer-panel {
-      margin-top: 26px;
-      overflow: hidden;
-    }
-
-    details.developer-panel summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px 20px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .developer-body {
+    .data-card {
       display: grid;
       gap: 16px;
-      border-top: 1px solid var(--line);
-      padding: 18px 20px 22px;
-    }
-
-    .developer-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel-soft);
-    }
-
-    .developer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 14px;
-    }
-
-    .dev-card {
-      display: grid;
-      gap: 10px;
+      padding: 18px;
       align-content: start;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      background: var(--panel-soft);
     }
 
-    .dev-card h3 {
-      font-size: 1rem;
+    .data-card h2 {
+      font-size: 1.24rem;
     }
 
-    .dev-meta {
+    .card-copy {
+      margin: 0;
+      color: #334155;
+    }
+
+    .control-grid {
       display: grid;
-      gap: 5px;
-      color: var(--muted);
-      font-size: 0.9rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .dev-meta span {
-      color: var(--ink);
+    .control-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 0.88rem;
       font-weight: 800;
     }
 
-    .result {
-      min-height: 120px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 11px;
-      background: #fff;
-      color: #334155;
-      font-size: 0.86rem;
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .result.ok {
+    .output {
+      min-height: 156px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel-soft);
+      color: #334155;
+    }
+
+    .output.success {
       border-color: #9dd9bb;
       background: var(--green-bg);
     }
 
-    .result.fail {
+    .output.failure {
       border-color: #f0aaa7;
       background: var(--red-bg);
     }
 
-    pre {
-      max-height: 180px;
-      margin: 10px 0 0;
-      overflow: auto;
+    .output.loading {
+      border-color: #efd487;
+      background: var(--amber-bg);
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .status-line {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .record-list,
+    .event-list,
+    .dataset-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mini-record {
+      border: 1px solid rgba(23, 32, 42, 0.12);
       border-radius: 6px;
       padding: 10px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .mini-record strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .small-text {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.75);
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    details.raw {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    details.raw summary {
+      padding: 11px 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    pre {
+      max-height: 260px;
+      margin: 0;
+      overflow: auto;
+      border-top: 1px solid var(--line);
+      padding: 12px;
       background: #111827;
       color: #f8fafc;
-      font-size: 0.77rem;
+      font-size: 0.78rem;
       line-height: 1.45;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
+    .sources-section {
+      margin-top: 34px;
+    }
+
+    .sources-header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .source-card {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      padding: 16px;
+    }
+
+    .source-card h3 {
+      font-size: 1.04rem;
+    }
+
+    .source-card p {
+      margin: 0;
+      color: #334155;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      .playground-grid,
+      .source-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 640px) {
+      .topbar-inner,
       .page {
         width: min(100% - 24px, 1180px);
-        padding-top: 28px;
       }
 
-      .developer-toolbar,
-      details.developer-panel summary {
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .control-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
         align-items: stretch;
         flex-direction: column;
       }
@@ -338,347 +410,163 @@
       button {
         width: 100%;
       }
-
-      .source-grid,
-      .developer-grid {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#data-playground">Futures Site</a>
+      <nav aria-label="Page navigation">
+        <a href="#data-playground">Data Playground</a>
+        <a href="#data-sources">Data Sources</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="page">
-    <header>
-      <p class="eyebrow">Humanitarian futures prototype</p>
-      <h1>Data sources this site is currently using</h1>
-      <p class="intro">A source-validation prototype for public humanitarian, displacement, disaster, population, climate, and development data.</p>
-      <section class="public-note">
-        <p>This prototype checks which public data sources can be used directly in a static website. Only sources that successfully return data or dataset listings are shown here. Sources requiring credentials, app approvals, account workflows, or server-side access are left out of the public list.</p>
-      </section>
-    </header>
-
-    <section class="working-summary" id="workingSummary" aria-live="polite">
-      Run the source checks to see which public sources are currently working.
-    </section>
-    <p class="note" id="lastChecked">Last checked: not yet checked.</p>
-
-    <section class="source-section">
-      <h2>Live data sources</h2>
-      <p class="note">These are sources where the site successfully pulls current or usable data directly.</p>
-      <div class="source-grid" id="liveSources"></div>
-    </section>
-
-    <section class="source-section">
-      <h2>Dataset discovery sources</h2>
-      <p class="note">These are catalogues where the site finds datasets or resources, even if it does not load full underlying values yet.</p>
-      <div class="source-grid" id="discoverySources"></div>
-    </section>
-
-    <section class="source-section">
-      <h2>Public alternative sources</h2>
-      <p class="note">These are credible open sources used where direct access to the original source is not available in this static version.</p>
-      <div class="source-grid" id="alternativeSources"></div>
-    </section>
-
-    <details class="developer-panel">
-      <summary>
-        <span>Developer test details</span>
-        <span id="developerStatus">Not tested yet</span>
-      </summary>
-      <div class="developer-body">
-        <div class="developer-toolbar">
-          <p>Use this area to confirm HTTP status, item counts, previews, and sources not used in this version.</p>
-          <button id="testAllButton" type="button">Test all possible sources</button>
-        </div>
-        <div class="developer-grid" id="developerGrid"></div>
+    <section id="data-playground">
+      <div class="hero">
+        <p class="eyebrow">Public data demo</p>
+        <h1>Data Playground</h1>
+        <p class="intro">Use working public data sources to fetch sample humanitarian, displacement, disaster, population, and development data directly in the browser.</p>
+        <p class="note-box">This page shows what the site can retrieve and display from public sources. It does not predict future events, score risk, or provide official analysis.</p>
       </div>
-    </details>
+
+      <div class="playground-grid">
+        <article class="data-card">
+          <div>
+            <h2>UNHCR displacement sample</h2>
+            <p class="card-copy">Fetch a small sample of displacement and refugee population data.</p>
+            <p class="small-text">Source: <a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noreferrer">UNHCR Refugee Data Finder API</a></p>
+          </div>
+          <div class="button-row">
+            <button type="button" onclick="fetchUnhcrSample()">Fetch UNHCR sample</button>
+            <button class="secondary" type="button" onclick="clearCard('unhcr')">Clear result</button>
+          </div>
+          <div class="output" id="unhcr-output">Not fetched yet.</div>
+          <details class="raw">
+            <summary>View raw response</summary>
+            <pre id="unhcr-raw">No response yet.</pre>
+          </details>
+        </article>
+
+        <article class="data-card">
+          <div>
+            <h2>World Bank country indicator</h2>
+            <p class="card-copy">Fetch recent country-level indicator values.</p>
+            <p class="small-text">Source: <a href="https://data.worldbank.org/" target="_blank" rel="noreferrer">World Bank Indicators API</a></p>
+          </div>
+          <div class="control-grid">
+            <div class="control-field">
+              <label for="countrySelect">Country</label>
+              <select id="countrySelect">
+                <option value="KEN">Kenya - KEN</option>
+                <option value="BGD">Bangladesh - BGD</option>
+                <option value="NGA">Nigeria - NGA</option>
+                <option value="SDN">Sudan - SDN</option>
+                <option value="HTI">Haiti - HTI</option>
+                <option value="PHL">Philippines - PHL</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="indicatorSelect">Indicator</label>
+              <select id="indicatorSelect">
+                <option value="SP.POP.TOTL">Total population - SP.POP.TOTL</option>
+                <option value="SH.MED.PHYS.ZS">Physicians per 1,000 people - SH.MED.PHYS.ZS</option>
+                <option value="SH.DYN.MORT">Under-5 mortality - SH.DYN.MORT</option>
+                <option value="AG.LND.FRST.ZS">Forest area percentage - AG.LND.FRST.ZS</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="button" onclick="fetchWorldBankIndicator()">Fetch indicator</button>
+            <button class="secondary" type="button" onclick="clearCard('worldbank')">Clear result</button>
+          </div>
+          <div class="output" id="worldbank-output">Not fetched yet.</div>
+          <details class="raw">
+            <summary>View raw response</summary>
+            <pre id="worldbank-raw">No response yet.</pre>
+          </details>
+        </article>
+
+        <article class="data-card">
+          <div>
+            <h2>GDACS latest disaster alerts</h2>
+            <p class="card-copy">Fetch current disaster and emergency event alerts.</p>
+            <p class="small-text">Source: <a href="https://www.gdacs.org/" target="_blank" rel="noreferrer">Global Disaster Alert and Coordination System</a></p>
+          </div>
+          <div class="button-row">
+            <button type="button" onclick="fetchGdacsAlerts()">Fetch latest alerts</button>
+            <button class="secondary" type="button" onclick="clearCard('gdacs')">Clear result</button>
+          </div>
+          <div class="output" id="gdacs-output">Not fetched yet.</div>
+          <details class="raw">
+            <summary>View raw response</summary>
+            <pre id="gdacs-raw">No response yet.</pre>
+          </details>
+        </article>
+
+        <article class="data-card">
+          <div>
+            <h2>HDX dataset search</h2>
+            <p class="card-copy">Search a humanitarian dataset catalogue by keyword.</p>
+            <p class="small-text">Source: <a href="https://data.humdata.org/" target="_blank" rel="noreferrer">Humanitarian Data Exchange</a></p>
+          </div>
+          <div class="control-field">
+            <label for="hdxKeyword">Search keyword</label>
+            <input id="hdxKeyword" type="search" value="displacement">
+          </div>
+          <div class="button-row">
+            <button type="button" onclick="searchHdxDatasets()">Search HDX datasets</button>
+            <button class="secondary" type="button" onclick="clearCard('hdx')">Clear result</button>
+          </div>
+          <div class="output" id="hdx-output">Not fetched yet.</div>
+          <details class="raw">
+            <summary>View raw response</summary>
+            <pre id="hdx-raw">No response yet.</pre>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="data-sources" class="sources-section">
+      <div class="sources-header">
+        <p class="eyebrow">Source list</p>
+        <h2>Data sources used on this page</h2>
+        <p class="note">These are the only sources used by the four interactive cards above.</p>
+      </div>
+      <div class="source-grid">
+        <article class="source-card">
+          <h3>UNHCR Refugee Data Finder</h3>
+          <p>Provides displacement and refugee population data.</p>
+          <p><strong>Used for:</strong> displacement sample records.</p>
+          <a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noreferrer">Official source</a>
+        </article>
+        <article class="source-card">
+          <h3>World Bank Indicators API</h3>
+          <p>Provides country-level indicators on population, health, development, and climate-related context.</p>
+          <p><strong>Used for:</strong> country indicator values.</p>
+          <a href="https://data.worldbank.org/" target="_blank" rel="noreferrer">Official source</a>
+        </article>
+        <article class="source-card">
+          <h3>GDACS</h3>
+          <p>Provides current disaster alerts and emergency event information.</p>
+          <p><strong>Used for:</strong> latest disaster alert records.</p>
+          <a href="https://www.gdacs.org/" target="_blank" rel="noreferrer">Official source</a>
+        </article>
+        <article class="source-card">
+          <h3>HDX</h3>
+          <p>Provides a searchable catalogue of humanitarian datasets.</p>
+          <p><strong>Used for:</strong> dataset search by keyword.</p>
+          <a href="https://data.humdata.org/" target="_blank" rel="noreferrer">Official source</a>
+        </article>
+      </div>
+    </section>
   </main>
 
   <script>
-    const encodedWorldPopGeojson = "%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B36.7%2C-1.4%5D%2C%5B37.0%2C-1.4%5D%2C%5B37.0%2C-1.1%5D%2C%5B36.7%2C-1.1%5D%2C%5B36.7%2C-1.4%5D%5D%5D%7D%7D%5D%7D";
-    const hdxSearch = query => `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=3`;
-    const worldBankIndicator = code => `https://api.worldbank.org/v2/country/all/indicator/${encodeURIComponent(code)}?format=json&per_page=5`;
-
-    const sourceTypes = {
-      live: {
-        label: "Live data source",
-        badge: "badge-live",
-        container: "liveSources"
-      },
-      discovery: {
-        label: "Dataset catalogue source",
-        badge: "badge-discovery",
-        container: "discoverySources"
-      },
-      alternative: {
-        label: "Alternative public indicator source",
-        badge: "badge-alternative",
-        container: "alternativeSources"
-      }
-    };
-
-    const sources = [
-      {
-        id: "unhcr",
-        name: "UNHCR Refugee Data Finder",
-        publicName: "UNHCR Refugee Data Finder",
-        type: "live",
-        description: "Refugee and displacement reference data.",
-        officialUrl: "https://microdata.unhcr.org/index.php/home",
-        endpoint: "https://api.unhcr.org/population/v1/years/?limit=5",
-        parser: "json",
-        count: data => data.items || []
-      },
-      {
-        id: "world-bank",
-        name: "World Bank Indicators API",
-        publicName: "World Bank Indicators API",
-        type: "live",
-        description: "Population, health, climate, and development indicators.",
-        officialUrl: "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
-        endpoint: worldBankIndicator("SP.POP.TOTL"),
-        parser: "json",
-        count: data => Array.isArray(data) ? data[1] || [] : []
-      },
-      {
-        id: "gdacs",
-        name: "GDACS",
-        publicName: "GDACS - live disaster alerts",
-        type: "live",
-        description: "Current global disaster alerts and event information.",
-        officialUrl: "https://www.gdacs.org/",
-        endpoint: "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest",
-        parser: "json",
-        count: data => data.features || []
-      },
-      {
-        id: "gdelt",
-        name: "GDELT",
-        publicName: "GDELT - live global event/news monitoring",
-        type: "live",
-        description: "Real-time global news and event monitoring used as an open alternative to authenticated conflict-event sources.",
-        officialUrl: "https://www.gdeltproject.org/",
-        endpoint: "https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=artlist&format=json&maxrecords=5",
-        parser: "json",
-        pauseBefore: 5500,
-        count: data => data.articles || []
-      },
-      {
-        id: "owid",
-        name: "Our World in Data",
-        publicName: "Our World in Data - public global indicators",
-        type: "live",
-        description: "Accessible global indicators for health, climate, development, population, and risk context.",
-        officialUrl: "https://ourworldindata.org/",
-        endpoint: "https://ourworldindata.org/grapher/life-expectancy.csv",
-        parser: "csv",
-        count: text => text.trim().split(/\r?\n/).slice(1, 6)
-      },
-      {
-        id: "worldpop",
-        name: "WorldPop",
-        publicName: "WorldPop - population and exposure data",
-        type: "live",
-        description: "Open population and demographic data useful for exposure and vulnerability analysis.",
-        officialUrl: "https://www.worldpop.org/",
-        endpoint: `https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=${encodedWorldPopGeojson}&runasync=false`,
-        parser: "json",
-        count: data => data && data.data && data.data.total_population ? [data.data] : []
-      },
-      {
-        id: "fewsnet",
-        name: "FEWS NET",
-        publicName: "FEWS NET - food security early warning data",
-        type: "live",
-        description: "Food security and early warning data.",
-        officialUrl: "https://fews.net/",
-        endpoint: "https://fdw.fews.net/api/ipcphase/?format=json&scenario=CS&country_code=ET",
-        parser: "json",
-        timeoutMs: 9000,
-        count: data => Array.isArray(data) ? data.slice(0, 5) : []
-      },
-      {
-        id: "hdx",
-        name: "HDX CKAN",
-        publicName: "HDX CKAN",
-        type: "discovery",
-        description: "Humanitarian dataset and resource discovery.",
-        officialUrl: "https://data.humdata.org/",
-        endpoint: hdxSearch("displacement"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "nasa-cmr",
-        name: "NASA CMR / Earthdata",
-        publicName: "NASA CMR / Earthdata",
-        type: "discovery",
-        description: "Earth observation, exposure, climate, and population-related dataset discovery.",
-        officialUrl: "https://www.earthdata.nasa.gov/data/catalog",
-        endpoint: "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=sedac%20population&page_size=5",
-        parser: "json",
-        count: data => data.feed && data.feed.entry
-      },
-      {
-        id: "inform",
-        name: "INFORM via HDX",
-        publicName: "INFORM via HDX",
-        type: "discovery",
-        description: "Risk-related dataset discovery through HDX.",
-        officialUrl: "https://drmkc.jrc.ec.europa.eu/inform-index",
-        endpoint: hdxSearch("INFORM Risk Index"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "iom-dtm",
-        name: "IOM DTM via HDX",
-        publicName: "IOM DTM via HDX",
-        type: "discovery",
-        description: "Displacement Tracking Matrix dataset discovery through HDX.",
-        officialUrl: "https://dtm.iom.int/",
-        endpoint: hdxSearch("Global IOM DTM from API"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "idmc",
-        name: "IDMC via HDX",
-        publicName: "IDMC via HDX",
-        type: "discovery",
-        description: "Internal displacement dataset discovery through HDX.",
-        officialUrl: "https://www.internal-displacement.org/database/",
-        endpoint: hdxSearch("IDMC internal displacement"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "emdat",
-        name: "EM-DAT via HDX",
-        publicName: "EM-DAT via HDX",
-        type: "discovery",
-        description: "Disaster dataset discovery through HDX.",
-        officialUrl: "https://www.emdat.be/",
-        endpoint: hdxSearch("EM-DAT"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "ipc-hdx",
-        name: "IPC via HDX",
-        publicName: "IPC via HDX",
-        type: "discovery",
-        description: "Acute food insecurity dataset discovery through HDX.",
-        officialUrl: "https://www.ipcinfo.org/",
-        endpoint: hdxSearch("IPC acute food insecurity"),
-        parser: "json",
-        count: data => data.result && data.result.results
-      },
-      {
-        id: "who-alt",
-        name: "WHO GHO alternative via World Bank health indicators",
-        publicName: "WHO GHO via World Bank health indicators",
-        type: "alternative",
-        description: "Health indicators from World Bank used as a browser-safe alternative to direct WHO GHO.",
-        officialUrl: "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
-        endpoint: worldBankIndicator("SH.DYN.MORT"),
-        parser: "json",
-        count: data => Array.isArray(data) ? data[1] || [] : []
-      },
-      {
-        id: "who-workforce-alt",
-        name: "WHO Health Workforce alternative via World Bank physician density",
-        publicName: "WHO Health Workforce via World Bank physician density",
-        type: "alternative",
-        description: "Physician density indicator from World Bank used as a browser-safe alternative to direct WHO Health Workforce.",
-        officialUrl: "https://www.who.int/data/gho/data/themes/topics/health-workforce",
-        endpoint: worldBankIndicator("SH.MED.PHYS.ZS"),
-        parser: "json",
-        count: data => Array.isArray(data) ? data[1] || [] : []
-      },
-      {
-        id: "cckp-alt",
-        name: "CCKP alternative via World Bank climate/development indicator",
-        publicName: "CCKP via World Bank climate/development indicator",
-        type: "alternative",
-        description: "World Bank climate/development indicator used as a browser-safe alternative to direct CCKP integration.",
-        officialUrl: "https://climateknowledgeportal.worldbank.org/",
-        endpoint: worldBankIndicator("AG.LND.FRST.ZS"),
-        parser: "json",
-        count: data => Array.isArray(data) ? data[1] || [] : []
-      },
-      {
-        id: "reliefweb",
-        name: "ReliefWeb",
-        type: null,
-        description: "Not used in this version. The v1 endpoint is decommissioned and v2 requires a pre-approved appname.",
-        officialUrl: "https://apidoc.reliefweb.int/",
-        endpoint: "https://api.reliefweb.int/v2/reports?appname=futures-site&limit=5&preset=latest",
-        parser: "json",
-        failureLabel: "Requires approved appname",
-        count: data => data.data || []
-      },
-      {
-        id: "who-direct",
-        name: "WHO GHO direct",
-        type: null,
-        description: "Not used in this version. Static browser fetch failed for direct WHO GHO routes.",
-        officialUrl: "https://www.who.int/data/gho",
-        endpoint: "https://ghoapi.azureedge.net/api/Indicator?$top=5",
-        parser: "json",
-        failureLabel: "Static browser fetch failed",
-        count: data => data.value || []
-      },
-      {
-        id: "acled",
-        name: "ACLED direct",
-        type: null,
-        description: "Not used in this version. Direct ACLED event data requires authentication.",
-        officialUrl: "https://acleddata.com/",
-        skip: true,
-        failureLabel: "Requires credentials"
-      },
-      {
-        id: "hdx-hapi",
-        name: "HDX HAPI",
-        type: null,
-        description: "Not used in this version. HAPI requires an approved app identifier.",
-        officialUrl: "https://data.humdata.org/hapi",
-        endpoint: "https://hapi.humdata.org/api/v1/metadata/sector?output_format=json&offset=0&limit=5",
-        parser: "json",
-        failureLabel: "Requires approved appname",
-        count: data => data.data || data
-      },
-      {
-        id: "acaps",
-        name: "ACAPS API",
-        publicName: "ACAPS - humanitarian analysis datasets",
-        type: "live",
-        description: "Humanitarian needs, access, risk, and crisis-analysis datasets.",
-        officialUrl: "https://www.acaps.org/en/data",
-        endpoint: "https://api.acaps.org/api/v1/",
-        parser: "json",
-        failureLabel: "Requires account/request process",
-        count: data => data.results || data.data || []
-      }
-    ];
-
-    const results = new Map(sources.map(source => [source.id, {
-      status: "pending",
-      ok: false,
-      itemCount: 0,
-      httpStatus: "",
-      preview: "",
-      message: "Not tested yet.",
-      checkedAt: ""
-    }]));
-
-    const developerGrid = document.querySelector("#developerGrid");
-    const testAllButton = document.querySelector("#testAllButton");
-    let hasRunTests = false;
-    let isTesting = false;
-    let lastCheckedAt = "";
+    const cardIds = ["unhcr", "worldbank", "gdacs", "hdx"];
 
     function escapeHtml(value) {
       return String(value)
@@ -689,222 +577,186 @@
         .replace(/'/g, "&#039;");
     }
 
-    function displayText(value) {
-      if (typeof value === "string") {
-        return value.length > 1200 ? `${value.slice(0, 1200)}\n...` : value;
-      }
-      const json = JSON.stringify(value, null, 2);
-      return json.length > 1200 ? `${json.slice(0, 1200)}\n...` : json;
+    function setLoading(cardId) {
+      const output = document.querySelector(`#${cardId}-output`);
+      output.className = "output loading";
+      output.textContent = "Loading...";
     }
 
-    function csvPreview(text) {
-      return text.trim().split(/\r?\n/).slice(0, 7).join("\n");
+    function setRaw(cardId, data) {
+      const raw = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+      document.querySelector(`#${cardId}-raw`).textContent = raw;
     }
 
-    function parseMaybeJson(text, contentType) {
-      const trimmed = text.trim();
-      if (contentType.includes("application/json") || trimmed.startsWith("{") || trimmed.startsWith("[")) {
-        return JSON.parse(trimmed);
-      }
-      throw new Error(`Expected JSON but received ${contentType || "unknown content type"}`);
+    function setSuccess(cardId, html, data) {
+      const output = document.querySelector(`#${cardId}-output`);
+      output.className = "output success";
+      output.innerHTML = html;
+      setRaw(cardId, data);
     }
 
-    function getSourceItems(source, payload) {
-      const items = source.count ? source.count(payload) : payload;
-      if (Array.isArray(items)) {
-        return items;
-      }
-      if (items && typeof items === "object") {
-        return Object.keys(items);
-      }
-      return items ? [items] : [];
+    function setFailure(cardId, message, error) {
+      const output = document.querySelector(`#${cardId}-output`);
+      output.className = "output failure";
+      output.innerHTML = `<p class="status-line">${escapeHtml(message)}</p><p class="small-text">${escapeHtml(error.message || error)}</p>`;
+      setRaw(cardId, { error: error.message || String(error) });
     }
 
-    async function wait(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+    function clearCard(cardId) {
+      const output = document.querySelector(`#${cardId}-output`);
+      output.className = "output";
+      output.textContent = "Not fetched yet.";
+      document.querySelector(`#${cardId}-raw`).textContent = "No response yet.";
     }
 
-    async function runSource(source) {
-      if (source.skip) {
-        return {
-          ok: false,
-          status: "not-used",
-          itemCount: 0,
-          httpStatus: "Skipped",
-          preview: source.description,
-          message: source.failureLabel || "Not used in this version",
-          checkedAt: new Date().toLocaleString()
-        };
+    function formatNumber(value) {
+      if (value === null || value === undefined || value === "") {
+        return "Not available";
       }
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric.toLocaleString(undefined, { maximumFractionDigits: 2 }) : String(value);
+    }
 
-      if (source.pauseBefore) {
-        await wait(source.pauseBefore);
+    function firstValue(record, keys) {
+      for (const key of keys) {
+        if (record[key] !== undefined && record[key] !== null && record[key] !== "") {
+          return record[key];
+        }
       }
+      return "Not available";
+    }
 
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), source.timeoutMs || 14000);
+    async function fetchJson(url) {
+      const response = await fetch(url, { headers: { "Accept": "application/json" } });
+      const data = await response.json();
+      if (!response.ok || data.error || data.status >= 400) {
+        const errorMessage = data.error && data.error.message ? data.error.message : data.message || response.statusText || "Request failed";
+        throw new Error(`HTTP ${data.status || response.status}: ${errorMessage}`);
+      }
+      return data;
+    }
+
+    async function fetchUnhcrSample() {
+      setLoading("unhcr");
+      try {
+        const data = await fetchJson("https://api.unhcr.org/population/v1/population/?year=2024&coo_all=true&limit=5");
+        const records = data.items || data.data || [];
+        const html = `
+          <p class="status-line">Status: success</p>
+          <p>Records returned: ${escapeHtml(records.length)}</p>
+          <div class="record-list">
+            ${records.slice(0, 5).map(record => `
+              <div class="mini-record">
+                <strong>${escapeHtml(firstValue(record, ["coo_name", "origin_name", "country_of_origin", "origin"]))}</strong>
+                <div>Year: ${escapeHtml(firstValue(record, ["year", "date", "reference_period"]))}</div>
+                <div>Country/asylum: ${escapeHtml(firstValue(record, ["asylum_name", "country_of_asylum", "coa_name", "country"]))}</div>
+                <div>Origin: ${escapeHtml(firstValue(record, ["origin_name", "country_of_origin", "coo_name", "origin"]))}</div>
+                <div>Population type: refugees</div>
+                <div>Value: ${escapeHtml(formatNumber(firstValue(record, ["refugees", "individuals", "value", "population", "total"])))}</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+        setSuccess("unhcr", html, data);
+      } catch (error) {
+        setFailure("unhcr", "Could not fetch UNHCR data in this browser.", error);
+      }
+    }
+
+    async function fetchWorldBankIndicator() {
+      setLoading("worldbank");
+      const countrySelect = document.querySelector("#countrySelect");
+      const indicatorSelect = document.querySelector("#indicatorSelect");
+      const countryCode = countrySelect.value;
+      const countryLabel = countrySelect.options[countrySelect.selectedIndex].text;
+      const indicatorCode = indicatorSelect.value;
+      const indicatorLabel = indicatorSelect.options[indicatorSelect.selectedIndex].text;
 
       try {
-        const response = await fetch(source.endpoint, {
-          headers: { "Accept": source.parser === "csv" ? "text/csv,*/*" : "application/json" },
-          signal: controller.signal
-        });
-        const contentType = response.headers.get("content-type") || "";
-        const text = await response.text();
-        clearTimeout(timeout);
-
-        let payload;
-        let preview;
-        if (source.parser === "csv") {
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${text.slice(0, 160) || response.statusText}`);
-          }
-          payload = text;
-          preview = csvPreview(text);
-        } else {
-          payload = parseMaybeJson(text, contentType);
-          if (!response.ok || payload.status >= 400 || payload.error) {
-            const message = payload.error && payload.error.message ? payload.error.message : payload.message || response.statusText || "Request failed";
-            throw new Error(`HTTP ${payload.status || response.status}: ${message}`);
-          }
-          preview = displayText(payload);
+        const data = await fetchJson(`https://api.worldbank.org/v2/country/${countryCode}/indicator/${indicatorCode}?format=json&per_page=10`);
+        const values = Array.isArray(data) && Array.isArray(data[1]) ? data[1].filter(row => row.value !== null && row.value !== undefined) : [];
+        if (!values.length) {
+          throw new Error("No non-empty indicator values returned.");
         }
-
-        const items = getSourceItems(source, payload);
-        if (!items.length) {
-          throw new Error("Response contained zero usable items.");
-        }
-
-        return {
-          ok: true,
-          status: "success",
-          itemCount: items.length,
-          httpStatus: response.status,
-          preview,
-          message: "Checked successfully",
-          checkedAt: new Date().toLocaleString()
-        };
-      } catch (error) {
-        clearTimeout(timeout);
-        return {
-          ok: false,
-          status: "not-used",
-          itemCount: 0,
-          httpStatus: "Failed",
-          preview: "",
-          message: source.failureLabel || (error.name === "AbortError" ? "Static browser fetch failed" : error.message),
-          checkedAt: new Date().toLocaleString()
-        };
-      }
-    }
-
-    function renderPublicCard(source, result) {
-      const type = sourceTypes[source.type];
-      return `
-        <article class="public-card">
-          <span class="badge ${type.badge}">${escapeHtml(type.label)}</span>
-          <h3>${escapeHtml(source.publicName || source.name)}</h3>
-          <p>${escapeHtml(source.description)}</p>
-          <p><strong>Checked successfully</strong></p>
-          <a href="${source.officialUrl}" target="_blank" rel="noreferrer">Official source</a>
-        </article>
-      `;
-    }
-
-    function renderPublicSources() {
-      const working = sources.filter(source => source.type && results.get(source.id).ok);
-      const counts = {
-        live: working.filter(source => source.type === "live").length,
-        discovery: working.filter(source => source.type === "discovery").length,
-        alternative: working.filter(source => source.type === "alternative").length
-      };
-
-      if (isTesting && !hasRunTests) {
-        document.querySelector("#workingSummary").textContent = "Checking public data sources...";
-      } else {
-        document.querySelector("#workingSummary").textContent =
-          `${counts.live} live data sources, ${counts.discovery} dataset discovery sources, ${counts.alternative} public alternatives are currently working.`;
-      }
-      document.querySelector("#lastChecked").textContent = lastCheckedAt
-        ? `Last checked: ${lastCheckedAt}`
-        : "Last checked: not yet checked.";
-
-      Object.keys(sourceTypes).forEach(typeKey => {
-        const container = document.querySelector(`#${sourceTypes[typeKey].container}`);
-        const cards = working.filter(source => source.type === typeKey);
-        container.innerHTML = cards.length
-          ? cards.map(source => renderPublicCard(source, results.get(source.id))).join("")
-          : `<div class="empty-state">${isTesting && !hasRunTests ? "Checking sources..." : "No checked sources in this group yet."}</div>`;
-      });
-    }
-
-    function renderDeveloperDetails() {
-      developerGrid.innerHTML = sources.map(source => {
-        const result = results.get(source.id);
-        const publicType = source.type ? sourceTypes[source.type].label : "Not used in this version";
-        return `
-          <article class="dev-card">
-            <h3>${escapeHtml(source.name)}</h3>
-            <div class="dev-meta">
-              <div><span>Public type:</span> ${escapeHtml(publicType)}</div>
-              <div><span>Endpoint:</span> ${source.endpoint ? `<code>${escapeHtml(source.endpoint)}</code>` : "Skipped"}</div>
-              <div><span>HTTP status:</span> ${escapeHtml(result.httpStatus)}</div>
-              <div><span>Item count:</span> ${escapeHtml(result.itemCount)}</div>
-              <div><span>Checked:</span> ${escapeHtml(result.checkedAt || "Not tested yet")}</div>
-            </div>
-            <div class="result ${result.ok ? "ok" : "fail"}">
-              <strong>${escapeHtml(result.ok ? "Checked successfully" : result.message)}</strong><br>
-              ${escapeHtml(source.description)}
-              ${result.preview ? `<pre>${escapeHtml(result.preview)}</pre>` : ""}
-            </div>
-          </article>
+        const latest = values[0];
+        const html = `
+          <p class="status-line">Status: success</p>
+          <p>Country: ${escapeHtml(countryLabel)}</p>
+          <p>Indicator: ${escapeHtml(indicatorLabel)}</p>
+          <p>Latest available year: <strong>${escapeHtml(latest.date)}</strong></p>
+          <p>Latest available value: <strong>${escapeHtml(formatNumber(latest.value))}</strong></p>
+          <table>
+            <thead>
+              <tr><th>Year</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              ${values.slice(0, 5).map(row => `<tr><td>${escapeHtml(row.date)}</td><td>${escapeHtml(formatNumber(row.value))}</td></tr>`).join("")}
+            </tbody>
+          </table>
         `;
-      }).join("");
+        setSuccess("worldbank", html, data);
+      } catch (error) {
+        setFailure("worldbank", "Could not fetch World Bank indicator data in this browser.", error);
+      }
     }
 
-    async function testAllSources() {
-      if (isTesting) {
-        return;
+    async function fetchGdacsAlerts() {
+      setLoading("gdacs");
+      try {
+        const data = await fetchJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest");
+        const events = data.features || [];
+        const html = `
+          <p class="status-line">Status: success</p>
+          <p>Events returned: ${escapeHtml(events.length)}</p>
+          <div class="event-list">
+            ${events.slice(0, 5).map(event => {
+              const properties = event.properties || {};
+              return `
+                <div class="mini-record">
+                  <strong>${escapeHtml(properties.name || properties.eventname || properties.description || "Unnamed event")}</strong>
+                  <div>Event type: ${escapeHtml(properties.eventtype || "Not available")}</div>
+                  <div>Country/location: ${escapeHtml(properties.country || properties.iso3 || "Not available")}</div>
+                  <div>Alert level: ${escapeHtml(properties.alertlevel || properties.episodealertlevel || "Not available")}</div>
+                  <div>Date: ${escapeHtml(properties.fromdate || properties.datemodified || "Not available")}</div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+        setSuccess("gdacs", html, data);
+      } catch (error) {
+        setFailure("gdacs", "Could not fetch GDACS alerts in this browser.", error);
       }
-      isTesting = true;
-      testAllButton.disabled = true;
-      testAllButton.textContent = "Testing sources...";
-      document.querySelector("#developerStatus").textContent = "Testing...";
-      renderPublicSources();
-
-      for (const source of sources) {
-        results.set(source.id, {
-          status: "pending",
-          ok: false,
-          itemCount: 0,
-          httpStatus: "",
-          preview: "",
-          message: "Testing...",
-          checkedAt: ""
-        });
-        renderDeveloperDetails();
-        const result = await runSource(source);
-        results.set(source.id, result);
-        renderPublicSources();
-        renderDeveloperDetails();
-      }
-
-      const workingCount = Array.from(results.values()).filter(result => result.ok).length;
-      hasRunTests = true;
-      isTesting = false;
-      lastCheckedAt = new Date().toLocaleString();
-      renderPublicSources();
-      document.querySelector("#developerStatus").textContent = `${workingCount} working sources`;
-      testAllButton.disabled = false;
-      testAllButton.textContent = "Test all possible sources";
     }
 
-    renderPublicSources();
-    renderDeveloperDetails();
-    testAllButton.addEventListener("click", testAllSources);
-    window.addEventListener("DOMContentLoaded", () => {
-      testAllSources();
-    });
+    async function searchHdxDatasets() {
+      setLoading("hdx");
+      const keyword = document.querySelector("#hdxKeyword").value.trim() || "displacement";
+      try {
+        const data = await fetchJson(`https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(keyword)}&rows=5`);
+        const datasets = data.result && data.result.results ? data.result.results : [];
+        const html = `
+          <p class="status-line">Status: success</p>
+          <p>Keyword searched: ${escapeHtml(keyword)}</p>
+          <p>Datasets returned: ${escapeHtml(datasets.length)}</p>
+          <div class="dataset-list">
+            ${datasets.slice(0, 5).map(dataset => `
+              <div class="mini-record">
+                <strong>${escapeHtml(dataset.title || dataset.name || "Untitled dataset")}</strong>
+                <div>${escapeHtml((dataset.notes || "No description available.").slice(0, 220))}${dataset.notes && dataset.notes.length > 220 ? "..." : ""}</div>
+                <div>Organisation: ${escapeHtml(dataset.organization && dataset.organization.title ? dataset.organization.title : "Not available")}</div>
+                <a href="https://data.humdata.org/dataset/${encodeURIComponent(dataset.name)}" target="_blank" rel="noreferrer">Open dataset page</a>
+              </div>
+            `).join("")}
+          </div>
+        `;
+        setSuccess("hdx", html, data);
+      } catch (error) {
+        setFailure("hdx", "Could not search HDX datasets in this browser.", error);
+      }
+    }
+
+    cardIds.forEach(clearCard);
   </script>
 </body>
 </html>
