@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futures Site - Live Data Source Tester</title>
+  <title>Futures Site - Data Source Coverage Tester</title>
   <style>
     :root {
       color-scheme: light;
+      --page: #eef2f6;
+      --panel: #ffffff;
+      --panel-soft: #f7f9fb;
       --ink: #17202a;
       --muted: #5b6776;
       --line: #d9e0e8;
-      --panel: #ffffff;
-      --panel-soft: #f5f7fa;
-      --page: #eef2f6;
       --blue: #1f6feb;
       --blue-dark: #174ea6;
       --green: #16794c;
       --green-bg: #e6f4ed;
+      --teal: #0f766e;
+      --teal-bg: #e0f2f1;
       --amber: #8a5b00;
       --amber-bg: #fff5d6;
       --red: #9f2520;
       --red-bg: #fde8e7;
-      --slate-bg: #edf1f5;
+      --gray-bg: #edf1f5;
     }
 
     * {
@@ -47,67 +49,13 @@
       text-decoration: underline;
     }
 
-    .page {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 40px 0 48px;
-    }
-
-    header {
-      display: grid;
-      gap: 18px;
-      margin-bottom: 28px;
-    }
-
-    .eyebrow {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      line-height: 1.05;
-      letter-spacing: 0;
-    }
-
-    .intro {
-      max-width: 850px;
-      margin: 0;
-      color: #334155;
-      font-size: 1.04rem;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px;
-      margin-bottom: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-    }
-
-    .toolbar p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
     button {
       min-height: 42px;
       border: 0;
       border-radius: 6px;
       padding: 0 16px;
       background: var(--blue);
-      color: white;
+      color: #fff;
       font: inherit;
       font-weight: 700;
       cursor: pointer;
@@ -122,37 +70,139 @@
       opacity: 0.58;
     }
 
+    .page {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 38px 0 48px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 960px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.05;
+    }
+
+    .intro {
+      max-width: 900px;
+      margin: 0;
+      color: #334155;
+      font-size: 1.04rem;
+    }
+
+    .toolbar,
+    .summary,
+    .claims,
+    .architecture {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: var(--line);
+    }
+
+    .summary-item {
+      min-height: 96px;
+      padding: 16px;
+      background: var(--panel);
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+
+    .summary-item span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
       gap: 16px;
     }
 
     .card {
       display: grid;
       grid-template-rows: auto 1fr auto;
-      min-height: 410px;
+      min-height: 520px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
       overflow: hidden;
     }
 
-    .card.live {
+    .card[data-claim="direct"] {
       border-top: 4px solid var(--green);
     }
 
-    .card.pending {
-      border-top: 4px solid #9aa6b2;
+    .card[data-claim="metadata"] {
+      border-top: 4px solid var(--teal);
     }
 
-    .card.needs-key,
-    .card.needs-proxy {
+    .card[data-claim="alternative"] {
+      border-top: 4px solid var(--blue);
+    }
+
+    .card[data-claim="proxy"],
+    .card[data-claim="credentials"],
+    .card[data-claim="unconfirmed"] {
       border-top: 4px solid var(--amber);
     }
 
-    .card.failed {
-      border-top-color: var(--red);
+    .card[data-claim="not-usable"] {
+      border-top: 4px solid var(--red);
+    }
+
+    .card[data-claim="untested"] {
+      border-top: 4px solid #9aa6b2;
     }
 
     .card-body,
@@ -166,6 +216,94 @@
       align-content: start;
     }
 
+    .card h2 {
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .source-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .meta span {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .route-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #334155;
+      font-size: 0.92rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .badge-direct {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .badge-metadata {
+      background: var(--teal-bg);
+      color: var(--teal);
+    }
+
+    .badge-alternative {
+      background: #e8f0fe;
+      color: var(--blue-dark);
+    }
+
+    .badge-proxy,
+    .badge-credentials,
+    .badge-unconfirmed,
+    .badge-untested {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .badge-not-usable {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .claim-box {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px;
+      background: var(--panel-soft);
+    }
+
+    .claim-box strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .claim-box p,
+    .note {
+      margin: 0;
+      color: #334155;
+    }
+
     .card-actions {
       display: grid;
       gap: 12px;
@@ -173,75 +311,14 @@
       background: #fbfcfe;
     }
 
-    .card h2 {
-      margin: 0;
-      font-size: 1.18rem;
-      line-height: 1.25;
-      letter-spacing: 0;
-    }
-
-    .meta {
-      display: grid;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .meta span {
-      color: var(--ink);
-      font-weight: 700;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .badge-live {
-      background: var(--green-bg);
-      color: var(--green);
-    }
-
-    .badge-key,
-    .badge-proxy,
-    .badge-confirm {
-      background: var(--amber-bg);
-      color: var(--amber);
-    }
-
-    .badge-meta {
-      background: var(--slate-bg);
-      color: #3d4b5c;
-    }
-
-    .note {
-      margin: 0;
-      color: #334155;
-    }
-
     .result {
-      min-height: 108px;
+      min-height: 150px;
       border: 1px solid var(--line);
       border-radius: 6px;
       padding: 12px;
       background: var(--panel-soft);
       color: #334155;
-      font-size: 0.9rem;
-    }
-
-    .result strong {
-      color: var(--ink);
+      font-size: 0.88rem;
     }
 
     .result.success {
@@ -249,54 +326,111 @@
       background: var(--green-bg);
     }
 
-    .result.failed {
+    .result.metadata {
+      border-color: #8fd5ce;
+      background: var(--teal-bg);
+    }
+
+    .result.alternative {
+      border-color: #a8c6ff;
+      background: #e8f0fe;
+    }
+
+    .result.failed,
+    .result.not-usable {
       border-color: #f0aaa7;
       background: var(--red-bg);
     }
 
+    .result.proxy,
+    .result.credentials,
+    .result.unconfirmed,
     .result.pending {
       border-color: #efd487;
       background: var(--amber-bg);
     }
 
+    .route-log {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
     pre {
-      max-height: 180px;
+      max-height: 190px;
       margin: 10px 0 0;
       overflow: auto;
       border-radius: 6px;
       padding: 10px;
       background: #111827;
       color: #f8fafc;
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       line-height: 1.45;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
+    .claims,
     .architecture {
-      margin-top: 28px;
+      margin-top: 24px;
       padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
     }
 
+    .claims h2,
     .architecture h2 {
-      margin: 0 0 8px;
+      margin-bottom: 8px;
       font-size: 1.35rem;
-      letter-spacing: 0;
+    }
+
+    .claim-groups {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .claim-group {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel-soft);
+    }
+
+    .claim-group h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .claim-group ul {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding-left: 18px;
+      color: #334155;
+      font-size: 0.9rem;
     }
 
     .architecture p {
-      max-width: 880px;
+      max-width: 920px;
       margin: 0;
       color: #334155;
     }
 
+    @media (max-width: 900px) {
+      .summary,
+      .claim-groups {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 640px) {
       .page {
-        width: min(100% - 24px, 1180px);
+        width: min(100% - 24px, 1220px);
         padding-top: 28px;
+      }
+
+      .summary,
+      .claim-groups {
+        grid-template-columns: 1fr;
       }
 
       .toolbar {
@@ -305,6 +439,10 @@
 
       button {
         width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
       }
 
       .card {
@@ -317,170 +455,422 @@
   <main class="page">
     <header>
       <p class="eyebrow">Humanitarian futures prototype</p>
-      <h1>Futures Site - Live Data Source Tester</h1>
-      <p class="intro">This is a prototype for testing live humanitarian, health, displacement, conflict, climate, disaster, and risk data sources. Each card fetches a small sample from the source and shows whether the connection works.</p>
+      <h1>Futures Site - Data Source Coverage Tester</h1>
+      <p class="intro">This static dashboard tests browser-safe routes to humanitarian, health, displacement, conflict, climate, disaster, and risk sources. It separates direct live data pulls from metadata discovery, alternative credible sources, and sources that still need a backend, proxy, account, or confirmed endpoint.</p>
     </header>
 
-    <section class="toolbar" aria-label="Available source tests">
-      <p><strong id="availableCount">0</strong> public live fetch tests are wired for this static prototype; browser CORS policy still determines whether each one succeeds.</p>
-      <button id="testAllButton" type="button">Test all available sources</button>
+    <section class="toolbar" aria-label="Test controls">
+      <p><strong id="sourceCount">0</strong> sources are configured. Tests use plain browser <code>fetch()</code>, no credentials, no <code>no-cors</code>, and no third-party CORS proxies.</p>
+      <button id="testAllButton" type="button">Test all possible sources</button>
+    </section>
+
+    <section class="summary" aria-label="Coverage summary">
+      <div class="summary-item"><strong id="countDirect">0</strong><span>Direct live data pulls</span></div>
+      <div class="summary-item"><strong id="countMetadata">0</strong><span>Metadata/resource discovery</span></div>
+      <div class="summary-item"><strong id="countAlternative">0</strong><span>Alternative credible sources</span></div>
+      <div class="summary-item"><strong id="countProxy">0</strong><span>Needs backend/proxy</span></div>
+      <div class="summary-item"><strong id="countNotUsable">0</strong><span>Not usable yet</span></div>
     </section>
 
     <section id="sourceGrid" class="grid" aria-label="Data source cards"></section>
 
+    <section class="claims" aria-live="polite">
+      <h2>Sources this prototype can currently claim</h2>
+      <p class="note">Run tests to update these lists from the latest browser results.</p>
+      <div class="claim-groups">
+        <div class="claim-group">
+          <h3>A. Safe to claim as live data</h3>
+          <ul id="claimDirect"><li>No tested sources yet.</li></ul>
+        </div>
+        <div class="claim-group">
+          <h3>B. Safe to claim as metadata/resource discovery</h3>
+          <ul id="claimMetadata"><li>No tested sources yet.</li></ul>
+        </div>
+        <div class="claim-group">
+          <h3>C. Safe to claim as alternative credible source</h3>
+          <ul id="claimAlternative"><li>No tested sources yet.</li></ul>
+        </div>
+        <div class="claim-group">
+          <h3>D. Do not claim yet</h3>
+          <ul id="claimNo"><li>Run tests before making public claims.</li></ul>
+        </div>
+      </div>
+    </section>
+
     <section class="architecture">
       <h2>Next architecture step</h2>
-      <p>A static site can test public browser-accessible APIs. For sources requiring API keys or complex downloads, the next step is a small backend/serverless proxy so keys are not exposed in the browser.</p>
+      <p>A static site can test public browser-accessible APIs. For public APIs blocked by CORS, sources requiring app identifiers or keys, and download/account workflows, the next step is a small backend/serverless proxy so credentials are never exposed in the browser and CORS can be handled deliberately.</p>
     </section>
   </main>
 
   <script>
+    const CLAIMS = {
+      direct: {
+        label: "Yes - direct live data",
+        group: "direct",
+        badge: "badge-direct",
+        resultClass: "success"
+      },
+      metadata: {
+        label: "Partial - metadata/resource discovery only",
+        group: "metadata",
+        badge: "badge-metadata",
+        resultClass: "metadata"
+      },
+      alternative: {
+        label: "Partial - alternative credible source",
+        group: "alternative",
+        badge: "badge-alternative",
+        resultClass: "alternative"
+      },
+      proxy: {
+        label: "No - needs backend/proxy",
+        group: "proxy",
+        badge: "badge-proxy",
+        resultClass: "proxy"
+      },
+      credentials: {
+        label: "No - credentials/account required",
+        group: "credentials",
+        badge: "badge-credentials",
+        resultClass: "credentials"
+      },
+      unconfirmed: {
+        label: "No - endpoint not confirmed",
+        group: "unconfirmed",
+        badge: "badge-unconfirmed",
+        resultClass: "unconfirmed"
+      },
+      notUsable: {
+        label: "No - not currently usable",
+        group: "not-usable",
+        badge: "badge-not-usable",
+        resultClass: "not-usable"
+      },
+      untested: {
+        label: "Not tested yet",
+        group: "untested",
+        badge: "badge-untested",
+        resultClass: "pending"
+      }
+    };
+
+    const hdxSearch = query => `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=3`;
+    const worldBankIndicator = code => `https://api.worldbank.org/v2/country/all/indicator/${encodeURIComponent(code)}?format=json&per_page=5`;
+
     const sources = [
       {
-        id: "inform",
-        name: "INFORM Risk Index",
-        theme: "Risk",
-        connectionType: "Metadata/API available",
-        status: "Endpoint to confirm",
-        statusClass: "badge-confirm",
-        cardClass: "pending",
-        url: "https://drmkc.jrc.ec.europa.eu/inform-index",
-        note: "Official risk index source is linked. A direct browser-safe JSON endpoint still needs confirmation before wiring a live test.",
-        noFetchMessage: "API available, endpoint needs confirmation. Use the official source link to confirm the current JSON/API endpoint before adding a browser fetch."
+        id: "unhcr",
+        name: "UNHCR Refugee Data Finder",
+        theme: "Displacement",
+        officialUrl: "https://microdata.unhcr.org/index.php/home",
+        primaryRoute: "UNHCR Refugee Statistics API years endpoint",
+        fallbackRoute: "None needed if direct API succeeds",
+        note: "Tests the public UNHCR API directly from the browser.",
+        failureClaim: "proxy",
+        failureFix: "If it fails, confirm CORS and endpoint availability; a proxy would help only if the API blocks browsers.",
+        routes: [
+          {
+            name: "UNHCR public API",
+            endpoint: "https://api.unhcr.org/population/v1/years/?limit=5",
+            kind: "data values",
+            successClaim: "direct",
+            count: data => data.items || []
+          }
+        ]
+      },
+      {
+        id: "hdx",
+        name: "HDX - Humanitarian Data Exchange",
+        theme: "Humanitarian data catalogue",
+        officialUrl: "https://data.humdata.org/",
+        primaryRoute: "HDX CKAN package_search API",
+        fallbackRoute: "None needed if CKAN succeeds",
+        note: "Searches the HDX CKAN catalogue for displacement datasets and resources.",
+        failureClaim: "proxy",
+        failureFix: "If it fails, check HDX availability or CORS; a proxy can retry and normalize catalogue responses.",
+        routes: [
+          {
+            name: "HDX CKAN package_search",
+            endpoint: hdxSearch("displacement"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
+      },
+      {
+        id: "hdx-hapi",
+        name: "HDX HAPI",
+        theme: "Standardised humanitarian indicators",
+        officialUrl: "https://data.humdata.org/hapi",
+        primaryRoute: "HDX HAPI metadata/sector endpoint",
+        fallbackRoute: "No fallback configured; HAPI requires an app identifier",
+        note: "Attempts a safe HAPI endpoint without credentials. HAPI is public, but the docs require an app identifier generated through HAPI.",
+        failureClaim: "credentials",
+        failureFix: "Generate an approved app identifier and call HAPI through a backend or configuration path that does not expose private details.",
+        routes: [
+          {
+            name: "HDX HAPI metadata sector",
+            endpoint: "https://hapi.humdata.org/api/v1/metadata/sector?output_format=json&offset=0&limit=5",
+            kind: "standardised humanitarian indicator API",
+            successClaim: "direct",
+            count: data => data.data || data
+          }
+        ]
       },
       {
         id: "who-gho",
         name: "WHO Global Health Observatory",
         theme: "Health",
-        connectionType: "Direct public API",
-        status: "Live test available",
-        statusClass: "badge-live",
-        cardClass: "live",
-        url: "https://www.who.int/data/gho",
-        note: "Fetches a small public sample of GHO indicator metadata from the WHO OData API. The endpoint returns JSON, but browser CORS policy may still block this direct static-site call.",
-        endpoint: "https://ghoapi.azureedge.net/api/Indicator?$top=5",
-        likelyReason: "The WHO OData endpoint responds with JSON, but may not send browser CORS headers. A backend proxy may be needed if the browser blocks it.",
-        extractItems: data => data.value || []
+        officialUrl: "https://www.who.int/data/gho",
+        primaryRoute: "WHO GHO OData API",
+        fallbackRoute: "WHO Athena API",
+        note: "Tries OData first, then Athena. If both are browser-blocked or not JSON, this remains a public WHO API that needs a backend proxy.",
+        failureClaim: "proxy",
+        failureFix: "A small backend/serverless proxy can call the public WHO API and return CORS-enabled JSON to the static site.",
+        routes: [
+          {
+            name: "WHO GHO OData indicators",
+            endpoint: "https://ghoapi.azureedge.net/api/Indicator?$top=5",
+            kind: "data values or metadata",
+            successClaim: "direct",
+            count: data => data.value || []
+          },
+          {
+            name: "WHO Athena API",
+            endpoint: "https://apps.who.int/gho/athena/api/GHO?format=json",
+            kind: "data values or metadata",
+            successClaim: "direct",
+            count: data => data.fact || data.dimension || data
+          }
+        ]
       },
       {
         id: "who-workforce",
         name: "WHO Health Workforce",
-        theme: "Workforce",
-        connectionType: "Metadata/API available",
-        status: "Metadata only",
-        statusClass: "badge-meta",
-        cardClass: "pending",
-        url: "https://www.who.int/data/gho/data/themes/topics/health-workforce",
-        note: "Topic metadata is public, but this card is not wired to a workforce-specific endpoint yet.",
-        noFetchMessage: "Metadata only for now. A future version can query specific workforce indicators through the WHO GHO API once indicator codes are selected."
+        theme: "Health workforce",
+        officialUrl: "https://www.who.int/data/gho/data/themes/topics/health-workforce",
+        primaryRoute: "WHO GHO health workforce indicator search",
+        fallbackRoute: "World Bank Indicators API physician density indicator",
+        note: "Treats workforce as a WHO GHO theme. If WHO is blocked by CORS, it falls back to clearly labelled World Bank workforce-related data.",
+        failureClaim: "proxy",
+        failureFix: "Use a backend proxy for WHO GHO, or keep the World Bank route labelled as an alternative source.",
+        routes: [
+          {
+            name: "WHO GHO OData workforce metadata",
+            endpoint: "https://ghoapi.azureedge.net/api/Indicator?$filter=contains(IndicatorName,%27nurs%27)&$top=5",
+            kind: "WHO workforce metadata",
+            successClaim: "direct",
+            count: data => data.value || []
+          },
+          {
+            name: "Alternative source: World Bank physician density",
+            endpoint: worldBankIndicator("SH.MED.PHYS.ZS"),
+            kind: "alternative-source data values",
+            successClaim: "alternative",
+            count: data => Array.isArray(data) ? data[1] || [] : []
+          }
+        ]
       },
       {
-        id: "unhcr",
-        name: "UNHCR Refugee Data Finder",
-        theme: "Displacement",
-        connectionType: "Direct public API",
-        status: "Live test available",
-        statusClass: "badge-live",
-        cardClass: "live",
-        url: "https://microdata.unhcr.org/index.php/home",
-        note: "Fetches a small public sample from the UNHCR Refugee Statistics API.",
-        endpoint: "https://api.unhcr.org/population/v1/years/?limit=5",
-        likelyReason: "If this fails, the likely cause is CORS policy, endpoint availability, or a network issue.",
-        extractItems: data => data.items || data.data || []
+        id: "world-bank",
+        name: "World Bank Indicators API",
+        theme: "Health, population, climate, development",
+        officialUrl: "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+        primaryRoute: "World Bank Indicators API",
+        fallbackRoute: "None needed if indicator endpoint succeeds",
+        note: "Fetches a small population indicator sample as a general credible fallback source.",
+        failureClaim: "proxy",
+        failureFix: "If it fails, check CORS and World Bank API availability; a proxy can normalize or cache responses.",
+        routes: [
+          {
+            name: "World Bank population indicator",
+            endpoint: worldBankIndicator("SP.POP.TOTL"),
+            kind: "data values",
+            successClaim: "direct",
+            count: data => Array.isArray(data) ? data[1] || [] : []
+          }
+        ]
+      },
+      {
+        id: "inform",
+        name: "INFORM Risk Index",
+        theme: "Risk",
+        officialUrl: "https://drmkc.jrc.ec.europa.eu/inform-index",
+        primaryRoute: "Official direct JSON endpoint not confirmed",
+        fallbackRoute: "HDX CKAN search for INFORM Risk Index resources",
+        note: "Does not claim full INFORM data integration unless actual values are fetched. This route only discovers public datasets/resources through HDX.",
+        failureClaim: "unconfirmed",
+        failureFix: "Confirm an official browser-safe INFORM JSON endpoint, or use a backend to ingest official downloadable data.",
+        routes: [
+          {
+            name: "HDX metadata search for INFORM Risk Index",
+            endpoint: hdxSearch("INFORM Risk Index"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
       },
       {
         id: "iom-dtm",
         name: "IOM Displacement Tracking Matrix",
         theme: "Displacement",
-        connectionType: "Needs backend/proxy later",
-        status: "Endpoint to confirm",
-        statusClass: "badge-confirm",
-        cardClass: "pending",
-        url: "https://dtm.iom.int/",
-        note: "API access exists, but this static prototype needs a confirmed browser-safe endpoint before calling it.",
-        noFetchMessage: "Needs endpoint confirmation/proxy. No request was made from the browser."
+        officialUrl: "https://dtm.iom.int/",
+        primaryRoute: "Official DTM API v3 requires developer portal/subscription key",
+        fallbackRoute: "HDX CKAN search for Global IOM DTM from API",
+        note: "The direct DTM API path now points to a developer portal/subscription-key flow, so this static pass uses HDX metadata discovery only.",
+        failureClaim: "credentials",
+        failureFix: "Use a backend to hold any DTM subscription key, or confirm a public browser-safe DTM endpoint.",
+        routes: [
+          {
+            name: "Official DTM API direct call",
+            skip: true,
+            skipReason: "Skipped: current DTM API v3 flow requires developer portal account/subscription key.",
+            backendSolves: true
+          },
+          {
+            name: "HDX metadata search for Global IOM DTM from API",
+            endpoint: hdxSearch("Global IOM DTM from API"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
       },
       {
         id: "idmc",
         name: "IDMC Global Internal Displacement Database",
-        theme: "Displacement",
-        connectionType: "Requires account/API key",
-        status: "Needs API key",
-        statusClass: "badge-key",
-        cardClass: "needs-key",
-        url: "https://www.internal-displacement.org/database/",
-        note: "API exists but may require client ID/API key. Secrets should not be hardcoded in a static site.",
-        noFetchMessage: "Needs API key or client credentials. No browser request was made."
+        theme: "Internal displacement",
+        officialUrl: "https://www.internal-displacement.org/database/",
+        primaryRoute: "Direct IDMC API not called because it may require client ID/API key",
+        fallbackRoute: "HDX CKAN search for IDMC displacement datasets",
+        note: "No client ID, API key, or secret is exposed. HDX metadata discovery is safe if it returns datasets.",
+        failureClaim: "credentials",
+        failureFix: "Use a backend if direct IDMC credentials are required; HDX metadata can remain browser-side.",
+        routes: [
+          {
+            name: "IDMC direct API",
+            skip: true,
+            skipReason: "Skipped: direct API may require client ID/API key. No secrets are used in this static site.",
+            backendSolves: true
+          },
+          {
+            name: "HDX metadata search for IDMC",
+            endpoint: hdxSearch("IDMC internal displacement"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
       },
       {
         id: "world-bank-cckp",
         name: "World Bank Climate Change Knowledge Portal",
         theme: "Climate",
-        connectionType: "Metadata/API available",
-        status: "Endpoint to confirm",
-        statusClass: "badge-confirm",
-        cardClass: "pending",
-        url: "https://climateknowledgeportal.worldbank.org/",
-        note: "Data portal/API access is available, but no simple browser-safe sample endpoint is confirmed in this static version.",
-        noFetchMessage: "Endpoint to confirm. This placeholder does not call the portal yet."
+        officialUrl: "https://climateknowledgeportal.worldbank.org/",
+        primaryRoute: "Direct CCKP endpoint not confirmed",
+        fallbackRoute: "Alternative source: World Bank Indicators API CO2 emissions",
+        note: "Labels the fallback clearly as World Bank Indicators data, not full CCKP integration.",
+        failureClaim: "unconfirmed",
+        failureFix: "Confirm a browser-safe CCKP endpoint or use a backend proxy; keep Indicators API labelled as alternative until then.",
+        routes: [
+          {
+            name: "Alternative source: World Bank forest area indicator",
+            endpoint: worldBankIndicator("AG.LND.FRST.ZS"),
+            kind: "alternative-source climate/development data values",
+            successClaim: "alternative",
+            count: data => Array.isArray(data) ? data[1] || [] : []
+          }
+        ]
       },
       {
-        id: "nasa-sedac",
-        name: "NASA SEDAC",
-        theme: "Climate and risk",
-        connectionType: "Metadata/API available",
-        status: "Metadata only",
-        statusClass: "badge-meta",
-        cardClass: "pending",
-        url: "https://www.earthdata.nasa.gov/data/catalog",
-        note: "Catalog access requires selecting relevant datasets before a useful data test can be built.",
-        noFetchMessage: "Metadata/catalog placeholder only. Select a dataset before adding a live request."
+        id: "nasa-cmr",
+        name: "NASA SEDAC / NASA Earthdata",
+        theme: "Climate, exposure, vulnerability catalogue",
+        officialUrl: "https://www.earthdata.nasa.gov/data/catalog",
+        primaryRoute: "NASA CMR collection search",
+        fallbackRoute: "None needed if CMR metadata succeeds",
+        note: "Uses NASA CMR catalogue metadata for SEDAC/population-related collections. It does not fetch dataset values.",
+        failureClaim: "proxy",
+        failureFix: "If CMR is blocked, confirm CORS or use a backend catalogue proxy.",
+        routes: [
+          {
+            name: "NASA CMR collections search",
+            endpoint: "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=sedac%20population&page_size=5",
+            kind: "metadata/catalogue discovery",
+            successClaim: "metadata",
+            count: data => data.feed && data.feed.entry
+          }
+        ]
       },
       {
         id: "emdat",
         name: "EM-DAT",
         theme: "Disasters",
-        connectionType: "Requires account/API key",
-        status: "Needs API key",
-        statusClass: "badge-key",
-        cardClass: "needs-key",
-        url: "https://www.emdat.be/",
-        note: "Requires account/download workflow. The static site should not attempt direct calls.",
-        noFetchMessage: "Requires account/download workflow. No browser request was made."
-      },
-      {
-        id: "hdx",
-        name: "HDX - Humanitarian Data Exchange",
-        theme: "Humanitarian data",
-        connectionType: "Direct public API",
-        status: "Live test available",
-        statusClass: "badge-live",
-        cardClass: "live",
-        url: "https://data.humdata.org/",
-        note: "Fetches a small CKAN package search result for the query displacement.",
-        endpoint: "https://data.humdata.org/api/3/action/package_search?q=displacement&rows=3",
-        likelyReason: "If this fails, the likely cause is CORS policy, endpoint availability, or a network issue.",
-        extractItems: data => (data.result && data.result.results) || []
+        officialUrl: "https://www.emdat.be/",
+        primaryRoute: "Direct EM-DAT account/download workflow not attempted",
+        fallbackRoute: "HDX CKAN search for aggregated EM-DAT resources",
+        note: "Does not attempt login or account access. HDX search is metadata/resource discovery only.",
+        failureClaim: "credentials",
+        failureFix: "Use EM-DAT account/download workflow outside the static browser, or a backend if license terms permit.",
+        routes: [
+          {
+            name: "EM-DAT direct database",
+            skip: true,
+            skipReason: "Skipped: EM-DAT requires account/download workflow.",
+            backendSolves: false
+          },
+          {
+            name: "HDX metadata search for EM-DAT",
+            endpoint: hdxSearch("EM-DAT"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
       },
       {
         id: "acled",
         name: "ACLED",
         theme: "Conflict",
-        connectionType: "Requires account/API key",
-        status: "Needs API key",
-        statusClass: "badge-key",
-        cardClass: "needs-key",
-        url: "https://acleddata.com/",
-        note: "Requires authentication. Do not call directly from a static browser page.",
-        noFetchMessage: "Requires authentication. No browser request was made."
+        officialUrl: "https://acleddata.com/",
+        primaryRoute: "ACLED authenticated API not called",
+        fallbackRoute: "HDX CKAN search for ACLED-related public metadata only",
+        note: "ACLED event data requires authentication. This card never calls ACLED data endpoints from the browser.",
+        failureClaim: "credentials",
+        failureFix: "Use a backend with approved ACLED credentials for event data; HDX metadata does not equal live ACLED integration.",
+        routes: [
+          {
+            name: "ACLED data endpoint",
+            skip: true,
+            skipReason: "Skipped: ACLED requires authentication. No direct ACLED event data call was made.",
+            backendSolves: true
+          },
+          {
+            name: "HDX metadata search for ACLED",
+            endpoint: hdxSearch("ACLED"),
+            kind: "metadata/resource discovery",
+            successClaim: "metadata",
+            count: data => data.result && data.result.results
+          }
+        ]
       }
     ];
 
-    const sourceGrid = document.querySelector("#sourceGrid");
-    const availableCount = document.querySelector("#availableCount");
-    const testAllButton = document.querySelector("#testAllButton");
+    const state = new Map(sources.map(source => [source.id, {
+      claim: "untested",
+      detail: "Not tested yet.",
+      routeName: "",
+      kind: "",
+      itemCount: 0,
+      testedAt: ""
+    }]));
 
-    availableCount.textContent = sources.filter(source => source.endpoint).length;
+    const sourceGrid = document.querySelector("#sourceGrid");
+    const testAllButton = document.querySelector("#testAllButton");
+    document.querySelector("#sourceCount").textContent = sources.length;
 
     function escapeHtml(value) {
       return String(value)
@@ -491,37 +881,8 @@
         .replace(/'/g, "&#039;");
     }
 
-    function renderCards() {
-      sourceGrid.innerHTML = sources.map(source => `
-        <article class="card ${source.cardClass}" id="card-${source.id}">
-          <div class="card-body">
-            <div>
-              <h2>${escapeHtml(source.name)}</h2>
-              <a href="${source.url}" target="_blank" rel="noreferrer">Official source</a>
-            </div>
-            <div class="badges">
-              <span class="badge ${source.statusClass}">${escapeHtml(source.status)}</span>
-            </div>
-            <div class="meta">
-              <div><span>Theme:</span> ${escapeHtml(source.theme)}</div>
-              <div><span>Connection type:</span> ${escapeHtml(source.connectionType)}</div>
-            </div>
-            <p class="note">${escapeHtml(source.note)}</p>
-          </div>
-          <div class="card-actions">
-            <button type="button" data-source="${source.id}">Test connection</button>
-            <div class="result" id="result-${source.id}" aria-live="polite">Not tested yet.</div>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    function setResult(source, state, html) {
-      const result = document.querySelector(`#result-${source.id}`);
-      const card = document.querySelector(`#card-${source.id}`);
-      result.className = `result ${state}`;
-      result.innerHTML = html;
-      card.classList.toggle("failed", state === "failed");
+    function getClaimInfo(claim) {
+      return CLAIMS[claim] || CLAIMS.notUsable;
     }
 
     function getPreview(data) {
@@ -529,60 +890,235 @@
       return preview.length > 1200 ? `${preview.slice(0, 1200)}\n...` : preview;
     }
 
-    function countItems(source, data) {
-      try {
-        const items = source.extractItems ? source.extractItems(data) : data;
-        return Array.isArray(items) ? items.length : 1;
-      } catch (error) {
-        return "Unknown";
+    function getItemCount(route, data) {
+      const items = route.count ? route.count(data) : data;
+      if (Array.isArray(items)) {
+        return items.length;
       }
+      if (items && typeof items === "object") {
+        return Object.keys(items).length;
+      }
+      return items ? 1 : 0;
+    }
+
+    function parseJsonOrThrow(text, contentType) {
+      const trimmed = text.trim();
+      if (contentType.includes("application/json") || trimmed.startsWith("{") || trimmed.startsWith("[")) {
+        return JSON.parse(trimmed);
+      }
+      throw new Error(`Expected JSON but received ${contentType || "unknown content type"}`);
+    }
+
+    async function runFetchRoute(route) {
+      const response = await fetch(route.endpoint, {
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+      const contentType = response.headers.get("content-type") || "";
+      const text = await response.text();
+      let data;
+
+      try {
+        data = parseJsonOrThrow(text, contentType);
+      } catch (error) {
+        if (response.ok) {
+          throw error;
+        }
+        throw new Error(`HTTP ${response.status}: ${text.slice(0, 180) || response.statusText}`);
+      }
+
+      if (!response.ok) {
+        const message = data.message || data.error || data.detail || response.statusText || "Request failed";
+        throw new Error(`HTTP ${response.status}: ${typeof message === "string" ? message : JSON.stringify(message)}`);
+      }
+
+      const itemCount = getItemCount(route, data);
+      if (itemCount === 0) {
+        throw new Error("Response contained zero usable items.");
+      }
+
+      return {
+        data,
+        status: response.status,
+        itemCount
+      };
+    }
+
+    function renderCards() {
+      sourceGrid.innerHTML = sources.map(source => {
+        const current = state.get(source.id);
+        const claim = getClaimInfo(current.claim);
+        const routeNames = source.routes.map(route => route.skip ? `${route.name} (skipped)` : route.name);
+
+        return `
+          <article class="card" id="card-${source.id}" data-claim="${claim.group}">
+            <div class="card-body">
+              <div class="source-head">
+                <div>
+                  <h2>${escapeHtml(source.name)}</h2>
+                  <a href="${source.officialUrl}" target="_blank" rel="noreferrer">Official source</a>
+                </div>
+                <span class="badge ${claim.badge}" id="badge-${source.id}">${escapeHtml(claim.label)}</span>
+              </div>
+              <div class="meta">
+                <div><span>Sector/theme:</span> ${escapeHtml(source.theme)}</div>
+                <div><span>Primary route attempted:</span> ${escapeHtml(source.primaryRoute)}</div>
+                <div><span>Fallback route attempted:</span> ${escapeHtml(source.fallbackRoute)}</div>
+              </div>
+              <div>
+                <strong>Route sequence</strong>
+                <ol class="route-list">${routeNames.map(name => `<li>${escapeHtml(name)}</li>`).join("")}</ol>
+              </div>
+              <p class="note">${escapeHtml(source.note)}</p>
+              <div class="claim-box" id="claim-${source.id}">
+                <strong>Can this prototype claim to use this source?</strong>
+                <p>${escapeHtml(claim.label)}</p>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button type="button" data-source="${source.id}">Test source</button>
+              <div class="result ${claim.resultClass}" id="result-${source.id}" aria-live="polite">${escapeHtml(current.detail)}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function updateCard(source) {
+      const current = state.get(source.id);
+      const claim = getClaimInfo(current.claim);
+      const card = document.querySelector(`#card-${source.id}`);
+      const badge = document.querySelector(`#badge-${source.id}`);
+      const claimBox = document.querySelector(`#claim-${source.id} p`);
+
+      card.dataset.claim = claim.group;
+      badge.className = `badge ${claim.badge}`;
+      badge.textContent = claim.label;
+      claimBox.textContent = claim.label;
+    }
+
+    function setResult(source, claimKey, html, resultClass) {
+      const claim = getClaimInfo(claimKey);
+      const result = document.querySelector(`#result-${source.id}`);
+      result.className = `result ${resultClass || claim.resultClass}`;
+      result.innerHTML = html;
+      updateCard(source);
+      updateSummaryAndClaims();
+    }
+
+    function routeLogHtml(log) {
+      if (!log.length) {
+        return "";
+      }
+      return `<ol class="route-log">${log.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ol>`;
     }
 
     async function testSource(source) {
-      if (!source.endpoint) {
-        setResult(source, "pending", `
-          <strong>Not wired yet</strong><br>
-          ${escapeHtml(source.noFetchMessage)}
-        `);
-        return;
-      }
+      const started = new Date();
+      const log = [];
+      state.set(source.id, {
+        claim: "untested",
+        detail: "Loading...",
+        routeName: "",
+        kind: "",
+        itemCount: 0,
+        testedAt: started.toLocaleString()
+      });
+      setResult(source, "untested", "<strong>Loading...</strong>", "pending");
 
-      setResult(source, "", "<strong>Loading...</strong>");
-
-      try {
-        const response = await fetch(source.endpoint, {
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-        const contentType = response.headers.get("content-type") || "";
-        const data = contentType.includes("application/json") ? await response.json() : await response.text();
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status} ${response.statusText || "Request failed"}`);
+      for (const route of source.routes) {
+        if (route.skip) {
+          log.push(`${route.name}: ${route.skipReason}`);
+          continue;
         }
 
-        const itemCount = countItems(source, data);
-        const timestamp = new Date().toLocaleString();
-        setResult(source, "success", `
-          <strong>Success</strong><br>
-          HTTP status: ${response.status}<br>
-          Items returned: ${escapeHtml(itemCount)}<br>
-          Tested: ${escapeHtml(timestamp)}
-          <pre>${escapeHtml(getPreview(data))}</pre>
-        `);
-      } catch (error) {
-        const timestamp = new Date().toLocaleString();
-        setResult(source, "failed", `
-          <strong>Failed</strong><br>
-          Error: ${escapeHtml(error.message)}<br>
-          Likely reason: ${escapeHtml(source.likelyReason || "Authentication, CORS, endpoint availability, or network issue.")}<br>
-          Tested: ${escapeHtml(timestamp)}
-        `);
+        try {
+          const result = await runFetchRoute(route);
+          const testedAt = new Date().toLocaleString();
+          const claimKey = route.successClaim;
+          const detail = `${route.name} succeeded (${route.kind}).`;
+          state.set(source.id, {
+            claim: claimKey,
+            detail,
+            routeName: route.name,
+            kind: route.kind,
+            itemCount: result.itemCount,
+            testedAt
+          });
+          log.push(`${route.name}: Success, HTTP ${result.status}, ${result.itemCount} item(s).`);
+          setResult(source, claimKey, `
+            <strong>Success</strong><br>
+            Route: ${escapeHtml(route.name)}<br>
+            Result type: ${escapeHtml(route.kind)}<br>
+            HTTP status: ${escapeHtml(result.status)}<br>
+            Item count: ${escapeHtml(result.itemCount)}<br>
+            Tested: ${escapeHtml(testedAt)}
+            ${routeLogHtml(log)}
+            <pre>${escapeHtml(getPreview(result.data))}</pre>
+          `);
+          return;
+        } catch (error) {
+          log.push(`${route.name}: Failed - ${error.message}`);
+        }
       }
+
+      const testedAt = new Date().toLocaleString();
+      state.set(source.id, {
+        claim: source.failureClaim,
+        detail: source.failureFix,
+        routeName: "No route succeeded",
+        kind: "failed/skipped",
+        itemCount: 0,
+        testedAt
+      });
+      setResult(source, source.failureClaim, `
+        <strong>Failed or skipped</strong><br>
+        Reason: no configured browser-safe route returned usable JSON/data.<br>
+        Likely fix: ${escapeHtml(source.failureFix)}<br>
+        Backend/proxy would solve it: ${source.failureClaim === "proxy" || source.failureClaim === "credentials" ? "Likely yes, depending on source terms." : "Only after endpoint confirmation."}<br>
+        Tested: ${escapeHtml(testedAt)}
+        ${routeLogHtml(log)}
+      `);
+    }
+
+    function updateSummaryAndClaims() {
+      const values = Array.from(state.values());
+      const counts = {
+        direct: values.filter(item => item.claim === "direct").length,
+        metadata: values.filter(item => item.claim === "metadata").length,
+        alternative: values.filter(item => item.claim === "alternative").length,
+        proxy: values.filter(item => item.claim === "proxy").length,
+        notUsable: values.filter(item => ["credentials", "unconfirmed", "notUsable", "untested"].includes(item.claim)).length
+      };
+
+      document.querySelector("#countDirect").textContent = counts.direct;
+      document.querySelector("#countMetadata").textContent = counts.metadata;
+      document.querySelector("#countAlternative").textContent = counts.alternative;
+      document.querySelector("#countProxy").textContent = counts.proxy;
+      document.querySelector("#countNotUsable").textContent = counts.notUsable;
+
+      renderClaimList("claimDirect", sources.filter(source => state.get(source.id).claim === "direct"));
+      renderClaimList("claimMetadata", sources.filter(source => state.get(source.id).claim === "metadata"));
+      renderClaimList("claimAlternative", sources.filter(source => state.get(source.id).claim === "alternative"));
+      renderClaimList("claimNo", sources.filter(source => ["proxy", "credentials", "unconfirmed", "notUsable", "untested"].includes(state.get(source.id).claim)));
+    }
+
+    function renderClaimList(id, list) {
+      const element = document.querySelector(`#${id}`);
+      if (!list.length) {
+        element.innerHTML = "<li>No tested sources yet.</li>";
+        return;
+      }
+      element.innerHTML = list.map(source => {
+        const current = state.get(source.id);
+        const suffix = current.routeName ? ` - ${current.routeName}` : "";
+        return `<li><strong>${escapeHtml(source.name)}</strong>${escapeHtml(suffix)}</li>`;
+      }).join("");
     }
 
     renderCards();
+    updateSummaryAndClaims();
 
     sourceGrid.addEventListener("click", event => {
       const button = event.target.closest("button[data-source]");
@@ -594,12 +1130,13 @@
     });
 
     testAllButton.addEventListener("click", async () => {
-      const liveSources = sources.filter(source => source.endpoint);
       testAllButton.disabled = true;
-      testAllButton.textContent = "Testing available sources...";
-      await Promise.all(liveSources.map(source => testSource(source)));
+      testAllButton.textContent = "Testing possible sources...";
+      for (const source of sources) {
+        await testSource(source);
+      }
       testAllButton.disabled = false;
-      testAllButton.textContent = "Test all available sources";
+      testAllButton.textContent = "Test all possible sources";
     });
   </script>
 </body>
