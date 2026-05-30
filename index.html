@@ -130,8 +130,11 @@ const SOURCES = [
 ];
 
 let lastCalcText = '';
+<<<<<<< HEAD
 let lastCaseData = null;
 let lastBlackSwanText = '';
+=======
+>>>>>>> ca7cb3d5213a4913e0cbd1d4e27a2aa38aefde42
 
 function init(){
   const countrySelect = document.getElementById('countrySelect');
@@ -428,8 +431,11 @@ async function buildCase(){
     const [projections, context] = await Promise.all([getProjectionBundle(country,targetYear), fetchContext(country)]);
     const derived = deriveImplications(projections,targetYear);
     lastCalcText = buildCalcLog(country,targetYear,projections,derived,context);
+<<<<<<< HEAD
     lastCaseData = {country, targetYear, projections, derived, context};
     lastBlackSwanText = '';
+=======
+>>>>>>> ca7cb3d5213a4913e0cbd1d4e27a2aa38aefde42
     results.innerHTML = renderCase(country,targetYear,projections,derived,context);
     setMessage(`Generated a ${targetYear} case file for ${country.name}.`);
   }catch(e){
@@ -468,6 +474,7 @@ function renderCase(country,targetYear,projections,derived,context){
     </section>
 
     <section class="panel">
+<<<<<<< HEAD
       <div class="section-title"><div><h2>Beta testing - Black Swan Stress-Test</h2><p>This is an experimental stress-test. It injects a rare, high-impact disruption into the generated country-year case to show which assumptions become fragile. It does not predict the disruption.</p></div><span class="pill red">experimental</span></div>
       <div class="explain"><strong>How it works:</strong> the simulator reads the projected indicators and contextual counts above, tags the case for structural sensitivities such as digital dependency, workforce fragility, urban concentration or data-density, then randomly selects a stress-test shock weighted toward those tags.</div>
       <div class="btnrow" style="margin-top:14px"><button class="btn" onclick="generateBlackSwanStressTest()">Generate Black Swan stress-test</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear stress-test</button></div>
@@ -484,6 +491,17 @@ function renderCase(country,targetYear,projections,derived,context){
       <div class="btnrow"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
       <details class="details"><summary>Preview calculation log</summary><div class="mono">${escapeHtml(lastCalcText.slice(0,9000))}${lastCalcText.length>9000?'\n\n[Log truncated in preview. Download for full text.]':''}</div></details>
     </section>
+=======
+      <div class="section-title"><div><h2>Claims this data cannot support</h2><p>These warnings stop the simulator output being overclaimed. They are generated from the data types used in the case file.</p></div><span class="pill red">do not overclaim</span></div>
+      ${renderBadClaims(context)}
+    </section>
+
+    <section class="panel soft">
+      <div class="section-title"><div><h2>Data and calculation log</h2><p>This is the transparent source trail: which APIs were queried, which values were projected, which formula was used, and which contextual counts were returned.</p></div><span class="pill purple">transparency</span></div>
+      <div class="btnrow"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
+      <details class="details"><summary>Preview calculation log</summary><div class="mono">${escapeHtml(lastCalcText.slice(0,9000))}${lastCalcText.length>9000?'\n\n[Log truncated in preview. Download for full text.]':''}</div></details>
+    </section>
+>>>>>>> ca7cb3d5213a4913e0cbd1d4e27a2aa38aefde42
   `;
 }
 
@@ -534,6 +552,7 @@ function renderDetails(context){
   <div class="table-wrap"><table><thead><tr><th>Type</th><th>Title / record</th><th>Organisation / country / date</th><th>Query or category</th><th>Link</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+<<<<<<< HEAD
 
 function getDerivedValue(derived, label){
   const d = derived.find(x=>x.label===label);
@@ -762,6 +781,69 @@ function buildCalcLog(country,targetYear,projections,derived,context){
   return lines.join('\n');
 }
 
+=======
+function renderBadClaims(context){
+  const claims = [
+    'Do not claim the simulator predicts the selected country’s future. It extends selected historical indicators using a transparent mathematical continuation.',
+    'Do not claim GDACS event matches predict future floods, storms, earthquakes or disasters. They are current/recent event-list records only.',
+    'Do not treat HDX or NASA dataset counts as crisis severity. A high count means more catalogue records were found, not that need is higher.',
+    'Do not claim the health workforce situation is fully represented by physicians per 1,000 people. It excludes nurses, midwives, community health workers, quality, distribution and retention.',
+    'Do not treat country-level indicators as local operational reality. They can hide major subnational variation.',
+    'Do not infer conflict patterns from this version. ACLED is not directly queried in the static front-end.'
+  ];
+  return `<ul>${claims.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}</ul>`;
+}
+
+function buildCalcLog(country,targetYear,projections,derived,context){
+  const lines=[];
+  lines.push('HUMANITARIAN FUTURES SIMULATOR - FULL CALCULATION LOG');
+  lines.push(`Generated: ${new Date().toISOString()}`);
+  lines.push(`Country: ${country.name} (${country.iso3})`);
+  lines.push(`Target year: ${targetYear}`);
+  lines.push('Projection method: Recommended trend continuation. Indicator-specific rules are used: compound trend for population, log trend for mortality where possible, capped trends for percentages, and non-negative trends for indicators that cannot logically go below zero.');
+  lines.push('');
+  lines.push('What "usable historical values after cleaning" means: rows returned by the source API with a real numeric value, a valid year, and a year not later than the current year. Blank/null values are removed before calculations. Zero is kept only when the source explicitly reports zero.');
+  lines.push('\nPROJECTED INDICATORS');
+  for(const p of projections){
+    lines.push('\n---');
+    if(!p.ok){ lines.push(`${p.indicator?p.indicator.label:'Unknown indicator'}: NOT PROJECTED - ${p.reason||'not available'}`); continue; }
+    const ind=p.indicator;
+    lines.push(`${ind.label} (${ind.code})`);
+    lines.push(`Source: ${ind.source}`);
+    lines.push(`Endpoint: ${p.seriesObj.url}`);
+    lines.push(`Raw rows returned: ${p.seriesObj.rawCount}`);
+    lines.push(`Usable values after cleaning: ${p.seriesObj.values.length}`);
+    lines.push(`First usable value: ${p.first.year} = ${p.first.value}`);
+    lines.push(`Latest usable actual: ${p.latest.year} = ${p.latest.value}`);
+    lines.push(`Projection method: ${p.method}`);
+    if(p.model){
+      lines.push(`Formula: ${p.model.formula}`);
+      if(p.model.slope!==undefined) lines.push(`Slope: ${p.model.slope}`);
+      if(p.model.intercept!==undefined) lines.push(`Intercept: ${p.model.intercept}`);
+      if(p.model.r2!==undefined) lines.push(`R-squared: ${p.model.r2}`);
+      if(p.model.cagr!==undefined) lines.push(`Compound annual growth rate: ${p.model.cagr}`);
+      if(p.model.n!==undefined) lines.push(`Values used in model: ${p.model.n}`);
+    }
+    lines.push(`Projected ${targetYear} value: ${p.projected}`);
+    lines.push(`Direction vs latest actual: ${p.direction}`);
+    if(p.changeFromLatest!==null) lines.push(`Change from latest actual: ${p.changeFromLatest}%`);
+    if(p.notes.length) lines.push(`Adjustments/caps applied: ${p.notes.join('; ')}`);
+  }
+  lines.push('\nCALCULATED IMPLICATIONS');
+  for(const d of derived){ lines.push(`${d.label}: ${d.value} ${d.unit}. ${d.explanation}. Source basis: ${d.source}.`); }
+  lines.push('\nSUPPORTING CONTEXT - NOT PROJECTED');
+  lines.push(`GDACS matched records: ${context.gdacs.count||0}. ${context.gdacs.error ? 'Error: '+context.gdacs.error : ''}`);
+  lines.push(`HDX dataset listings: ${context.hdx.count||0}. ${context.hdx.error ? 'Error: '+context.hdx.error : ''}`);
+  if(context.hdx.queries){ context.hdx.queries.forEach(q=>lines.push(`  HDX query: ${q.q} | count: ${q.count} | ${q.url || ''}${q.error?' | error: '+q.error:''}`)); }
+  lines.push(`UNHCR returned records: ${context.unhcr.count||0}. ${context.unhcr.error ? 'Error: '+context.unhcr.error : ''}`);
+  lines.push(`NASA Earthdata collection listings: ${context.nasa.count||0}. ${context.nasa.error ? 'Error: '+context.nasa.error : ''}`);
+  if(context.nasa.queries){ context.nasa.queries.forEach(q=>lines.push(`  NASA query: ${q.q} | count: ${q.count} | ${q.url || ''}${q.error?' | error: '+q.error:''}`)); }
+  lines.push('\nLIMITS');
+  lines.push('This file documents calculations performed by a static browser prototype. It is not an official forecast, operational assessment, scientific risk model, or humanitarian needs analysis.');
+  return lines.join('\n');
+}
+
+>>>>>>> ca7cb3d5213a4913e0cbd1d4e27a2aa38aefde42
 function downloadCalculationLog(){
   if(!lastCalcText){ alert('Generate a case or comparison first.'); return; }
   const blob = new Blob([lastCalcText], {type:'text/plain'});
