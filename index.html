@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Country and theme data snapshots using public humanitarian and contextual data sources." />
-  <title>Data Snapshot Builder</title>
+  <meta name="description" content="A static public-data focus finder for health and humanitarian futures." />
+  <title>Humanitarian Futures Focus Finder</title>
   <style>
     :root {
-      --bg: #f7f5ef;
+      --bg: #f6f4ef;
       --panel: #ffffff;
-      --panel-soft: #fbfaf7;
-      --text: #20242a;
-      --muted: #637083;
+      --soft: #fbfaf7;
+      --text: #1f252b;
+      --muted: #647180;
       --line: #d8d3c9;
       --accent: #245c73;
-      --accent-dark: #173d4d;
-      --accent-soft: #e7f1f3;
+      --accent-dark: #183f50;
+      --accent-soft: #e8f1f3;
       --green: #17643d;
       --green-bg: #e8f6ee;
       --amber: #805a12;
       --amber-bg: #fff4d9;
       --red: #8a2634;
       --red-bg: #fde8eb;
-      --shadow: 0 18px 45px rgba(37, 42, 49, 0.08);
+      --shadow: 0 18px 48px rgba(38, 43, 49, 0.08);
       --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
       color-scheme: light;
     }
@@ -42,28 +42,28 @@
     }
 
     a { color: var(--accent); }
-    button, input, select { font: inherit; }
+    button, select, input { font: inherit; }
 
     .page {
-      width: min(1220px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
     }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(247, 245, 239, 0.94);
+      z-index: 30;
+      background: rgba(246, 244, 239, 0.94);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(16px);
     }
 
     nav {
+      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 70px;
-      gap: 20px;
+      gap: 18px;
     }
 
     .brand {
@@ -81,9 +81,9 @@
       width: 28px;
       height: 28px;
       border: 1px solid #b7ccd4;
-      border-radius: 7px;
+      border-radius: 8px;
       background:
-        linear-gradient(90deg, transparent 0 25%, rgba(36, 92, 115, 0.32) 25% 48%, transparent 48% 100%),
+        linear-gradient(90deg, transparent 0 24%, rgba(36,92,115,.32) 24% 48%, transparent 48% 100%),
         linear-gradient(180deg, #fff, #e8f1f3);
     }
 
@@ -93,7 +93,7 @@
       justify-content: flex-end;
       gap: 14px;
       color: var(--muted);
-      font-size: 0.93rem;
+      font-size: .92rem;
       font-weight: 750;
     }
 
@@ -112,21 +112,21 @@
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
-      gap: 28px;
-      align-items: end;
       min-height: 470px;
-      padding-top: 70px;
       border-top: 0;
+      padding-top: 72px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .65fr);
+      gap: 30px;
+      align-items: end;
     }
 
     .eyebrow {
       margin: 0 0 12px;
       color: var(--accent);
-      font-size: 0.78rem;
+      font-size: .78rem;
       font-weight: 850;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
     }
 
@@ -137,18 +137,18 @@
 
     h1 {
       max-width: 850px;
-      font-size: clamp(2.6rem, 5.4vw, 5.6rem);
+      font-size: clamp(2.55rem, 5.2vw, 5.4rem);
       font-weight: 880;
-      letter-spacing: -0.045em;
+      letter-spacing: -.045em;
     }
 
     h2 {
       font-size: clamp(1.75rem, 3vw, 3rem);
       font-weight: 850;
-      letter-spacing: -0.03em;
+      letter-spacing: -.03em;
     }
 
-    h3 { font-size: 1.14rem; font-weight: 820; }
+    h3 { font-size: 1.12rem; font-weight: 820; }
     h4 { font-size: 1rem; font-weight: 820; }
 
     .intro {
@@ -183,7 +183,7 @@
 
     .builder {
       display: grid;
-      grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+      grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr);
       gap: 18px;
       align-items: start;
     }
@@ -201,14 +201,14 @@
 
     .control label {
       color: var(--muted);
-      font-size: 0.77rem;
+      font-size: .77rem;
       font-weight: 850;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .control input,
-    .control select {
+    .control select,
+    .control input {
       width: 100%;
       min-height: 42px;
       padding: 0 10px;
@@ -226,10 +226,10 @@
     }
 
     .btn {
+      min-height: 42px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
       padding: 0 16px;
       border: 1px solid var(--accent);
       border-radius: 9px;
@@ -246,7 +246,10 @@
       border-color: var(--line);
     }
 
-    .btn:disabled { opacity: 0.6; cursor: wait; }
+    .btn:disabled {
+      cursor: wait;
+      opacity: .62;
+    }
 
     .result-shell {
       display: grid;
@@ -257,7 +260,7 @@
       padding: 18px;
       border: 1px dashed #bdb7ad;
       border-radius: 12px;
-      background: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,.7);
       color: var(--muted);
     }
 
@@ -269,7 +272,7 @@
 
     .status-card {
       padding: 14px;
-      background: var(--panel-soft);
+      background: var(--soft);
       border: 1px solid var(--line);
       border-radius: 11px;
     }
@@ -277,22 +280,27 @@
     .status-card span {
       display: block;
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: .72rem;
       font-weight: 850;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
     .status-card b {
       display: block;
       margin-top: 6px;
-      font-size: 1.2rem;
+      font-size: 1.18rem;
     }
 
     .snapshot-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
+    }
+
+    .focus-grid {
+      display: grid;
+      gap: 12px;
     }
 
     .card {
@@ -307,7 +315,7 @@
 
     .mini {
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: .9rem;
     }
 
     .pill-row {
@@ -318,15 +326,15 @@
     }
 
     .pill {
+      min-height: 27px;
       display: inline-flex;
       align-items: center;
-      min-height: 27px;
       padding: 4px 9px;
       border: 1px solid #c8d6dc;
       border-radius: 999px;
       background: var(--accent-soft);
       color: #1e4b5d;
-      font-size: 0.77rem;
+      font-size: .77rem;
       font-weight: 850;
     }
 
@@ -356,7 +364,7 @@
       border-radius: 10px;
       overflow: hidden;
       background: #fff;
-      font-size: 0.9rem;
+      font-size: .9rem;
     }
 
     th, td {
@@ -367,11 +375,12 @@
     }
 
     tr:last-child td { border-bottom: 0; }
+
     th {
       background: #eef2f3;
       color: #31414a;
-      font-size: 0.74rem;
-      letter-spacing: 0.07em;
+      font-size: .74rem;
+      letter-spacing: .07em;
       text-transform: uppercase;
     }
 
@@ -385,7 +394,7 @@
       margin-top: 12px;
       border: 1px solid var(--line);
       border-radius: 10px;
-      background: var(--panel-soft);
+      background: var(--soft);
       overflow: hidden;
     }
 
@@ -404,14 +413,14 @@
       background: #111820;
       color: #d8f6e5;
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: .78rem;
       line-height: 1.45;
     }
 
-    .source-list {
+    .source-list, .coverage-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
     }
 
     .source-card {
@@ -437,13 +446,7 @@
       display: inline-flex;
       margin-top: 8px;
       font-weight: 800;
-      font-size: 0.9rem;
-    }
-
-    .coverage-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      font-size: .9rem;
     }
 
     .loading {
@@ -454,8 +457,8 @@
     .loading::after {
       content: "";
       display: inline-block;
-      width: 0.8em;
-      animation: dots 1.2s steps(4, end) infinite;
+      width: .8em;
+      animation: dots 1.1s steps(4, end) infinite;
     }
 
     @keyframes dots {
@@ -470,7 +473,7 @@
       padding: 28px 0 40px;
       border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: .92rem;
     }
 
     @media (max-width: 980px) {
@@ -486,9 +489,9 @@
   <header>
     <div class="page">
       <nav aria-label="Main navigation">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Data Snapshot Builder</div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Futures Focus Finder</div>
         <div class="nav-links">
-          <a href="#builder">Builder</a>
+          <a href="#finder">Finder</a>
           <a href="#coverage">Source checks</a>
           <a href="#sources">Sources</a>
         </div>
@@ -499,35 +502,34 @@
   <main class="page">
     <section class="hero">
       <div>
-        <p class="eyebrow">Country · Theme · Time view</p>
-        <h1>Build a country data snapshot from public sources.</h1>
-        <p class="intro">Select a country and theme. The site pulls live values where possible, searches dataset catalogues where needed, and shows caveats with the result.</p>
+        <p class="eyebrow">Public data · Focus suggestions · Caveats</p>
+        <h1>Find a futures focus from visible humanitarian data.</h1>
+        <p class="intro">Choose a country, theme, time view and lens. The site pulls public signals, applies transparent rules, and suggests focus areas worth exploring.</p>
       </div>
       <aside class="panel">
-        <h3>Snapshot outputs</h3>
+        <h3>Output</h3>
         <div class="pill-row">
-          <span class="pill green">Live indicators</span>
-          <span class="pill green">Event records</span>
-          <span class="pill">Dataset listings</span>
-          <span class="pill amber">Data visibility</span>
-          <span class="pill amber">Questions</span>
-          <span class="pill amber">Caveats</span>
+          <span class="pill green">Focus areas</span>
+          <span class="pill green">Why this appears</span>
+          <span class="pill">Data signals</span>
+          <span class="pill amber">Time angle</span>
+          <span class="pill amber">Caution</span>
         </div>
       </aside>
     </section>
 
-    <section id="builder">
+    <section id="finder">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Builder</p>
-          <h2>Build data snapshot</h2>
+          <p class="eyebrow">Finder</p>
+          <h2>Find focus areas</h2>
         </div>
-        <p>Uses active browser-safe sources only. No backend. No hidden credentials.</p>
+        <p>Works with public browser-safe sources only. If sources fail, the page still returns useful focus areas based on what did and did not come back.</p>
       </div>
 
       <div class="builder">
         <article class="card">
-          <h3>Snapshot settings</h3>
+          <h3>Settings</h3>
           <div class="controls">
             <div class="control">
               <label for="country">Country</label>
@@ -540,20 +542,21 @@
             <div class="control">
               <label for="timeview">Time view</label>
               <select id="timeview">
-                <option value="now">Now</option>
-                <option value="2032">2032</option>
-                <option value="2052">2052</option>
-                <option value="beyond">Beyond</option>
+                <option value="now">Current pattern</option>
+                <option value="2032">2032 near future</option>
+                <option value="2052">2052 structural future</option>
+                <option value="beyond">Beyond 2052 edge future</option>
               </select>
             </div>
             <div class="control">
-              <label for="lens">Management lens</label>
+              <label for="lens">Lens</label>
               <select id="lens">
                 <option value="project">Project management</option>
+                <option value="self">Self-management</option>
                 <option value="team">Team management</option>
                 <option value="relationships">Relationship management</option>
-                <option value="technology">Technology</option>
                 <option value="macro">Macro trends</option>
+                <option value="technology">Technology</option>
                 <option value="health">Health / humanitarian impact</option>
               </select>
             </div>
@@ -567,13 +570,13 @@
             </div>
           </div>
           <div class="button-row">
-            <button class="btn" id="build-btn" onclick="buildSnapshot()">Build snapshot</button>
-            <button class="btn secondary" onclick="clearSnapshot()">Clear</button>
+            <button class="btn" id="build-btn" onclick="buildFocus()">Find focus areas</button>
+            <button class="btn secondary" onclick="clearFocus()">Clear</button>
           </div>
         </article>
 
-        <div id="snapshot" class="result-shell">
-          <div class="empty">No snapshot yet.</div>
+        <div id="output" class="result-shell">
+          <div class="empty">No focus areas yet.</div>
         </div>
       </div>
     </section>
@@ -582,9 +585,9 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">Source checks</p>
-          <h2>Active source coverage</h2>
+          <h2>Active source checks</h2>
         </div>
-        <p>Checks the sources used in this site. Inactive sources are not listed.</p>
+        <p>Checks the active routes used by the site.</p>
       </div>
       <div class="button-row" style="margin-bottom:16px;">
         <button class="btn" onclick="testSources()">Test active sources</button>
@@ -596,9 +599,9 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">Sources</p>
-          <h2>Active data sources</h2>
+          <h2>Active sources</h2>
         </div>
-        <p>Only sources used by this static site are shown.</p>
+        <p>Inactive sources requiring credentials, app approval, server access or non-browser access are not listed.</p>
       </div>
       <div id="source-list" class="source-list"></div>
     </section>
@@ -610,100 +613,88 @@
 
   <script>
     const COUNTRIES = [
-      ["KEN", "Kenya"],
-      ["BGD", "Bangladesh"],
-      ["NGA", "Nigeria"],
-      ["SDN", "Sudan"],
-      ["HTI", "Haiti"],
-      ["PHL", "Philippines"],
-      ["ETH", "Ethiopia"],
-      ["SOM", "Somalia"],
-      ["SSD", "South Sudan"],
-      ["UKR", "Ukraine"],
-      ["AFG", "Afghanistan"],
-      ["YEM", "Yemen"],
-      ["COL", "Colombia"],
-      ["PAK", "Pakistan"],
-      ["MMR", "Myanmar"],
-      ["TCD", "Chad"]
+      ["KEN", "Kenya"], ["BGD", "Bangladesh"], ["NGA", "Nigeria"], ["SDN", "Sudan"],
+      ["HTI", "Haiti"], ["PHL", "Philippines"], ["ETH", "Ethiopia"], ["SOM", "Somalia"],
+      ["SSD", "South Sudan"], ["UKR", "Ukraine"], ["AFG", "Afghanistan"], ["YEM", "Yemen"],
+      ["COL", "Colombia"], ["PAK", "Pakistan"], ["MMR", "Myanmar"], ["TCD", "Chad"]
     ];
 
     const THEMES = {
-      risk: {
-        label: "Risk and vulnerability",
-        hdx: ["INFORM Risk Index", "risk vulnerability humanitarian"],
-        nasa: "risk population exposure",
-        wb: ["SP.POP.TOTL", "SH.DYN.MORT", "NY.GDP.PCAP.CD"],
-        gdacs: false,
-        unhcr: false,
-        gdelt: "humanitarian risk vulnerability"
-      },
       health: {
-        label: "Health systems and workforce",
-        hdx: ["health workforce", "health facilities humanitarian"],
-        nasa: "health population exposure",
+        label: "Health workforce",
         wb: ["SP.POP.TOTL", "SH.MED.PHYS.ZS", "SH.DYN.MORT"],
+        hdx: ["health workforce", "health facilities humanitarian", "health system"],
+        nasa: "health population exposure",
+        gdelt: "health humanitarian",
         gdacs: false,
-        unhcr: false,
-        gdelt: "health humanitarian"
+        unhcr: false
       },
       displacement: {
-        label: "Displacement and migration",
+        label: "Displacement",
+        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
         hdx: ["IOM DTM displacement", "IDMC displacement", "refugees displacement"],
         nasa: "population displacement exposure",
-        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
+        gdelt: "displacement refugees migration",
         gdacs: false,
-        unhcr: true,
-        gdelt: "displacement refugees migration"
-      },
-      conflict: {
-        label: "Conflict and access",
-        hdx: ["access constraints humanitarian", "conflict humanitarian"],
-        nasa: "population conflict exposure",
-        wb: ["SP.POP.TOTL", "NY.GDP.PCAP.CD"],
-        gdacs: false,
-        unhcr: true,
-        gdelt: "conflict humanitarian access"
+        unhcr: true
       },
       climate: {
-        label: "Climate and disasters",
+        label: "Climate / disasters",
+        wb: ["SP.POP.TOTL", "AG.LND.FRST.ZS", "SP.URB.TOTL.IN.ZS"],
         hdx: ["disaster climate flood", "EM-DAT disaster", "climate humanitarian"],
         nasa: "climate disaster flood exposure population",
-        wb: ["SP.POP.TOTL", "AG.LND.FRST.ZS", "SP.URB.TOTL.IN.ZS"],
+        gdelt: "climate disaster humanitarian",
         gdacs: true,
-        unhcr: false,
-        gdelt: "climate disaster humanitarian"
+        unhcr: false
       },
-      operations: {
-        label: "Humanitarian operations",
-        hdx: ["humanitarian operations", "coordination humanitarian", "3W humanitarian"],
-        nasa: "humanitarian operations population exposure",
+      conflict: {
+        label: "Conflict / access",
         wb: ["SP.POP.TOTL", "NY.GDP.PCAP.CD"],
-        gdacs: true,
-        unhcr: true,
-        gdelt: "humanitarian operations"
+        hdx: ["access constraints humanitarian", "conflict humanitarian", "security access"],
+        nasa: "population conflict exposure",
+        gdelt: "conflict humanitarian access",
+        gdacs: false,
+        unhcr: true
+      },
+      food: {
+        label: "Food security",
+        wb: ["SP.POP.TOTL", "NY.GDP.PCAP.CD"],
+        hdx: ["IPC food security", "food security humanitarian", "nutrition"],
+        nasa: "food security climate agriculture",
+        gdelt: "food security humanitarian",
+        gdacs: false,
+        unhcr: false
       },
       population: {
-        label: "Population and exposure",
+        label: "Population / exposure",
+        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
         hdx: ["population exposure", "WorldPop population", "settlements humanitarian"],
         nasa: "population exposure settlements",
-        wb: ["SP.POP.TOTL", "SP.URB.TOTL.IN.ZS"],
+        gdelt: "population exposure humanitarian",
         gdacs: false,
-        unhcr: false,
-        gdelt: "population exposure humanitarian"
+        unhcr: false
       },
       technology: {
-        label: "Technology and data visibility",
-        hdx: ["data digital humanitarian", "information management humanitarian"],
-        nasa: "earth observation data",
+        label: "Humanitarian data / technology",
         wb: ["SP.POP.TOTL", "IT.NET.USER.ZS"],
+        hdx: ["data digital humanitarian", "information management humanitarian", "humanitarian technology"],
+        nasa: "earth observation data",
+        gdelt: "humanitarian technology data",
         gdacs: false,
-        unhcr: false,
-        gdelt: "humanitarian technology data"
+        unhcr: false
+      },
+      compound: {
+        label: "Compound pressure",
+        wb: ["SP.POP.TOTL", "SH.MED.PHYS.ZS", "SH.DYN.MORT", "AG.LND.FRST.ZS"],
+        hdx: ["humanitarian needs", "displacement disaster health", "INFORM Risk Index"],
+        nasa: "population climate exposure",
+        gdelt: "humanitarian crisis displacement disaster health",
+        gdacs: true,
+        unhcr: true
       }
     };
 
-    const WB_INDICATORS = {
+    const WB_LABELS = {
       "SP.POP.TOTL": "Population",
       "SH.MED.PHYS.ZS": "Physicians per 1,000 people",
       "SH.DYN.MORT": "Under-5 mortality",
@@ -714,54 +705,12 @@
     };
 
     const SOURCES = [
-      {
-        id: "worldbank",
-        name: "World Bank Indicators",
-        type: "Live values",
-        url: "https://data.worldbank.org/",
-        description: "Country-level population, health, development and environment indicators.",
-        use: "Used for indicator snapshots and simple trend calculations."
-      },
-      {
-        id: "unhcr",
-        name: "UNHCR Refugee Data Finder",
-        type: "Live records",
-        url: "https://www.unhcr.org/refugee-statistics/",
-        description: "Displacement and refugee population records.",
-        use: "Used when displacement or access themes are selected."
-      },
-      {
-        id: "gdacs",
-        name: "GDACS",
-        type: "Live event records",
-        url: "https://www.gdacs.org/",
-        description: "Current or recently updated disaster event records.",
-        use: "Used for climate, disaster and operations snapshots."
-      },
-      {
-        id: "hdx",
-        name: "HDX",
-        type: "Dataset discovery",
-        url: "https://data.humdata.org/",
-        description: "Humanitarian dataset catalogue.",
-        use: "Used to find datasets by country and theme."
-      },
-      {
-        id: "nasa",
-        name: "NASA CMR / Earthdata",
-        type: "Dataset discovery",
-        url: "https://www.earthdata.nasa.gov/",
-        description: "Earth observation dataset catalogue.",
-        use: "Used to find climate, exposure and population datasets."
-      },
-      {
-        id: "gdelt",
-        name: "GDELT",
-        type: "Live media/event signal",
-        url: "https://www.gdeltproject.org/",
-        description: "Open global media and event monitoring.",
-        use: "Used as a topic-attention signal, not verified humanitarian needs data."
-      }
+      { id: "worldbank", name: "World Bank Indicators", type: "Live values", url: "https://data.worldbank.org/", description: "Country-level population, health, development, economy and environment indicators." },
+      { id: "unhcr", name: "UNHCR Refugee Data Finder", type: "Live records", url: "https://www.unhcr.org/refugee-statistics/", description: "Displacement and refugee population records." },
+      { id: "gdacs", name: "GDACS", type: "Live events", url: "https://www.gdacs.org/", description: "Current or recently updated disaster event records." },
+      { id: "hdx", name: "HDX", type: "Dataset discovery", url: "https://data.humdata.org/", description: "Humanitarian dataset catalogue." },
+      { id: "nasa", name: "NASA CMR / Earthdata", type: "Dataset discovery", url: "https://www.earthdata.nasa.gov/", description: "Earth observation dataset catalogue." },
+      { id: "gdelt", name: "GDELT", type: "Media/event signal", url: "https://www.gdeltproject.org/", description: "Open global media and event monitoring." }
     ];
 
     function esc(value) {
@@ -782,20 +731,26 @@
     }
 
     function rawDetails(label, data) {
-      return `<details><summary>${esc(label)}</summary><pre>${esc(JSON.stringify(data, null, 2).slice(0, 12000))}</pre></details>`;
+      return `<details><summary>${esc(label)}</summary><pre>${esc(JSON.stringify(data, null, 2).slice(0, 16000))}</pre></details>`;
+    }
+
+    function timeoutFetch(url, options = {}, ms = 14000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), ms);
+      return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
     }
 
     async function fetchJson(url) {
-      const res = await fetch(url);
+      const res = await timeoutFetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
       return res.json();
     }
 
-    function depthSettings() {
+    function settings() {
       const depth = document.getElementById("depth").value;
-      if (depth === "quick") return { wb: 10, hdx: 5, gdelt: 10, nasa: 5, unhcr: 25 };
-      if (depth === "comprehensive") return { wb: 60, hdx: 100, gdelt: 100, nasa: 50, unhcr: 500 };
-      return { wb: 25, hdx: 25, gdelt: 50, nasa: 20, unhcr: 100 };
+      if (depth === "quick") return { wb: 10, hdx: 5, nasa: 5, gdelt: 10, unhcr: 25 };
+      if (depth === "comprehensive") return { wb: 60, hdx: 100, nasa: 50, gdelt: 100, unhcr: 500 };
+      return { wb: 25, hdx: 25, nasa: 20, gdelt: 50, unhcr: 100 };
     }
 
     function init() {
@@ -804,177 +759,404 @@
       renderSources();
     }
 
-    async function buildSnapshot() {
+    async function buildFocus() {
       const button = document.getElementById("build-btn");
-      const out = document.getElementById("snapshot");
+      const out = document.getElementById("output");
       const countryCode = document.getElementById("country").value;
       const countryName = COUNTRIES.find(c => c[0] === countryCode)?.[1] || countryCode;
       const themeId = document.getElementById("theme").value;
       const theme = THEMES[themeId];
       const timeview = document.getElementById("timeview").value;
       const lens = document.getElementById("lens").value;
-      const depth = depthSettings();
+      const depth = settings();
 
       button.disabled = true;
-      out.innerHTML = `<div class="empty loading">Building snapshot</div>`;
+      out.innerHTML = `<div class="empty loading">Finding focus areas</div>`;
 
       const tasks = [
-        runTask("World Bank", "live", () => fetchWorldBankBundle(countryCode, theme.wb, depth.wb)),
-        runTask("HDX", "metadata", () => fetchHdxBundle(countryName, theme.hdx, depth.hdx)),
-        runTask("NASA CMR", "metadata", () => fetchNasa(theme.nasa, depth.nasa)),
-        runTask("GDELT", "signal", () => fetchGdelt(`${countryName} ${theme.gdelt}`, depth.gdelt))
+        task("World Bank", "live", () => fetchWorldBank(countryCode, theme.wb, depth.wb)),
+        task("HDX", "metadata", () => fetchHdx(countryName, theme.hdx, depth.hdx)),
+        task("NASA CMR", "metadata", () => fetchNasa(theme.nasa, depth.nasa)),
+        task("GDELT", "signal", () => fetchGdelt(`${countryName} ${theme.gdelt}`, depth.gdelt))
       ];
-
-      if (theme.gdacs) tasks.push(runTask("GDACS", "live", () => fetchGdacs(countryName)));
-      if (theme.unhcr) tasks.push(runTask("UNHCR", "live", () => fetchUnhcr(countryCode, depth.unhcr)));
+      if (theme.gdacs) tasks.push(task("GDACS", "live", () => fetchGdacs(countryName)));
+      if (theme.unhcr) tasks.push(task("UNHCR", "live", () => fetchUnhcr(countryCode, depth.unhcr)));
 
       const results = await Promise.all(tasks);
-      renderSnapshot({ countryCode, countryName, theme, themeId, timeview, lens, depth, results });
+      const analysis = analyse({ countryCode, countryName, themeId, theme, timeview, lens, results });
+      renderOutput(analysis);
       button.disabled = false;
     }
 
-    async function runTask(name, category, fn) {
+    async function task(name, category, fn) {
       try {
         const data = await fn();
         return { name, category, ok: true, data };
       } catch (error) {
-        return { name, category, ok: false, error: error.message || String(error) };
+        return { name, category, ok: false, error: error.name === "AbortError" ? "Timed out" : (error.message || String(error)) };
       }
     }
 
-    async function fetchWorldBankBundle(country, indicators, perPage) {
+    async function fetchWorldBank(country, indicators, perPage) {
       const series = [];
       for (const indicator of indicators) {
         const url = `https://api.worldbank.org/v2/country/${encodeURIComponent(country)}/indicator/${encodeURIComponent(indicator)}?format=json&per_page=${encodeURIComponent(perPage)}`;
-        const json = await fetchJson(url);
-        const rows = (json[1] || []).filter(r => r.value !== null && r.value !== undefined);
-        series.push({ indicator, label: WB_INDICATORS[indicator] || indicator, rows, url, raw: json });
+        const raw = await fetchJson(url);
+        const rows = (raw[1] || []).filter(r => r.value !== null && r.value !== undefined);
+        series.push({ indicator, label: WB_LABELS[indicator] || indicator, rows, url, raw });
       }
       return { series };
     }
 
-    async function fetchHdxBundle(countryName, queries, rows) {
-      const output = [];
+    async function fetchHdx(countryName, queries, rows) {
+      const searches = [];
       for (const query of queries) {
         const q = `${countryName} ${query}`;
         const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(q)}&rows=${encodeURIComponent(rows)}`;
-        const json = await fetchJson(url);
-        output.push({ query: q, count: json.result?.count || 0, results: json.result?.results || [], url, raw: json });
+        const raw = await fetchJson(url);
+        searches.push({ query: q, count: raw.result?.count || 0, results: raw.result?.results || [], url, raw });
       }
-      return { searches: output };
+      return { searches };
     }
 
     async function fetchNasa(query, pageSize) {
       const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(query)}&page_size=${encodeURIComponent(pageSize)}`;
-      const json = await fetchJson(url);
-      return { query, results: json.feed?.entry || [], url, raw: json };
+      const raw = await fetchJson(url);
+      return { query, results: raw.feed?.entry || [], url, raw };
     }
 
     async function fetchGdelt(query, maxRecords) {
       const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&format=json&maxrecords=${encodeURIComponent(maxRecords)}&sort=HybridRel`;
-      const json = await fetchJson(url);
-      return { query, articles: json.articles || [], url, raw: json };
+      const raw = await fetchJson(url);
+      return { query, articles: raw.articles || [], url, raw };
     }
 
     async function fetchGdacs(countryName) {
       const url = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/latest";
-      const json = await fetchJson(url);
-      const records = Array.isArray(json) ? json : (json.features || json.items || json.events || []);
+      const raw = await fetchJson(url);
+      const records = Array.isArray(raw) ? raw : (raw.features || raw.items || raw.events || []);
       const rows = records.map(item => item.properties ? { ...item.properties, geometry: item.geometry } : item);
-      const lower = countryName.toLowerCase();
-      const matching = rows.filter(r => JSON.stringify(r).toLowerCase().includes(lower));
-      return { all: rows, matching, url, raw: json };
+      const countryLower = countryName.toLowerCase();
+      const matching = rows.filter(r => JSON.stringify(r).toLowerCase().includes(countryLower));
+      return { all: rows, matching, url, raw };
     }
 
     async function fetchUnhcr(countryCode, limit) {
       const year = new Date().getFullYear() - 1;
       const url = `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${encodeURIComponent(countryCode)}&limit=${encodeURIComponent(limit)}`;
-      const json = await fetchJson(url);
-      const rows = Array.isArray(json?.items) ? json.items : Array.isArray(json) ? json : (json?.data || []);
-      return { year, rows, url, raw: json };
+      const raw = await fetchJson(url);
+      const rows = Array.isArray(raw?.items) ? raw.items : Array.isArray(raw) ? raw : (raw?.data || []);
+      return { year, rows, url, raw };
     }
 
-    function renderSnapshot(ctx) {
-      const { countryName, countryCode, theme, timeview, lens, results } = ctx;
-      const out = document.getElementById("snapshot");
-      const working = results.filter(r => r.ok);
-      const live = working.filter(r => r.category === "live").length;
-      const metadata = working.filter(r => r.category === "metadata").length;
-      const signal = working.filter(r => r.category === "signal").length;
-      const visibility = visibilityLabel(working.length, results.length, live, metadata);
+    function analyse(ctx) {
+      const byName = Object.fromEntries(ctx.results.map(r => [r.name, r]));
+      const wb = byName["World Bank"]?.ok ? byName["World Bank"].data : null;
+      const hdx = byName["HDX"]?.ok ? byName["HDX"].data : null;
+      const nasa = byName["NASA CMR"]?.ok ? byName["NASA CMR"].data : null;
+      const gdelt = byName["GDELT"]?.ok ? byName["GDELT"].data : null;
+      const gdacs = byName["GDACS"]?.ok ? byName["GDACS"].data : null;
+      const unhcr = byName["UNHCR"]?.ok ? byName["UNHCR"].data : null;
 
-      const wb = results.find(r => r.name === "World Bank" && r.ok)?.data;
-      const hdx = results.find(r => r.name === "HDX" && r.ok)?.data;
-      const nasa = results.find(r => r.name === "NASA CMR" && r.ok)?.data;
-      const gdelt = results.find(r => r.name === "GDELT" && r.ok)?.data;
-      const gdacs = results.find(r => r.name === "GDACS" && r.ok)?.data;
-      const unhcr = results.find(r => r.name === "UNHCR" && r.ok)?.data;
+      const metrics = {
+        working: ctx.results.filter(r => r.ok).length,
+        attempted: ctx.results.length,
+        live: ctx.results.filter(r => r.ok && r.category === "live").length,
+        metadata: ctx.results.filter(r => r.ok && r.category === "metadata").length,
+        signal: ctx.results.filter(r => r.ok && r.category === "signal").length,
+        failed: ctx.results.filter(r => !r.ok).length,
+        hdxDatasets: hdx ? hdx.searches.reduce((sum, s) => sum + s.count, 0) : 0,
+        nasaCollections: nasa ? nasa.results.length : 0,
+        gdeltArticles: gdelt ? gdelt.articles.length : 0,
+        gdacsMatches: gdacs ? gdacs.matching.length : 0,
+        gdacsReturned: gdacs ? gdacs.all.length : 0,
+        unhcrRecords: unhcr ? unhcr.rows.length : 0,
+        wbSeries: wb ? wb.series.filter(s => s.rows.length).length : 0,
+        wbLatest: wb ? latestIndicators(wb.series) : [],
+        wbTrends: wb ? indicatorTrends(wb.series) : []
+      };
+
+      metrics.visibility = visibility(metrics);
+      const focuses = generateFocuses(ctx, metrics);
+      return { ...ctx, sources: { wb, hdx, nasa, gdelt, gdacs, unhcr }, metrics, focuses };
+    }
+
+    function latestIndicators(series) {
+      return series.map(item => {
+        const sorted = [...item.rows].sort((a,b) => Number(b.date) - Number(a.date));
+        const latest = sorted[0];
+        return { indicator: item.indicator, label: item.label, latest };
+      }).filter(x => x.latest);
+    }
+
+    function indicatorTrends(series) {
+      return series.map(item => {
+        const clean = item.rows.map(r => ({ year: Number(r.date), value: Number(r.value) }))
+          .filter(r => Number.isFinite(r.year) && Number.isFinite(r.value))
+          .sort((a,b) => a.year - b.year);
+        if (clean.length < 2) return null;
+        const first = clean[0], latest = clean[clean.length - 1];
+        const change = latest.value - first.value;
+        const pct = first.value !== 0 ? (change / first.value) * 100 : null;
+        return { indicator: item.indicator, label: item.label, first, latest, change, pct };
+      }).filter(Boolean);
+    }
+
+    function visibility(m) {
+      if (m.working === 0) return "No useful data returned";
+      if (m.live >= 2 && m.metadata >= 2 && m.working / m.attempted >= .75) return "Strong";
+      if (m.working / m.attempted >= .45) return "Partial";
+      return "Limited";
+    }
+
+    function generateFocuses(ctx, m) {
+      const list = [];
+      const signals = signalList(ctx, m);
+      const time = timeAngle(ctx.timeview);
+      const lens = lensText(ctx.lens);
+
+      function add(title, why, caution, localSignals = signals) {
+        list.push({ title, why, signals: localSignals, time, caution, lens });
+      }
+
+      if (ctx.themeId === "climate" && (m.gdacsMatches > 0 || m.hdxDatasets > 0)) {
+        add(
+          "Recurrent disaster response as adaptive management",
+          `This appears because disaster/event monitoring and disaster-climate dataset discovery returned visible signals for ${ctx.countryName}.`,
+          "This does not estimate future disaster frequency or impact.",
+          compact(["GDACS event records", "HDX disaster/climate datasets", "World Bank population/context indicators"])
+        );
+      }
+
+      if (ctx.themeId === "displacement" && (m.unhcrRecords > 0 || m.hdxDatasets > 0)) {
+        add(
+          "Managing mobility as a long-term coordination challenge",
+          `This appears because displacement records or displacement-related dataset listings were visible for ${ctx.countryName}.`,
+          "Formal records may miss informal, temporary, circular or unregistered movement.",
+          compact(["UNHCR displacement records", "HDX displacement datasets", "World Bank population context"])
+        );
+      }
+
+      if (ctx.themeId === "health" && m.wbSeries > 0) {
+        add(
+          "Health workforce pressure and team capacity",
+          "This appears because the selected indicators include population scale, health workforce proxy data, and child-health pressure indicators where available.",
+          "Country-level health indicators do not show local staffing gaps, workload, service quality or burnout.",
+          compact(["World Bank health workforce indicator", "World Bank population indicator", "World Bank under-5 mortality indicator", "HDX health datasets"])
+        );
+      }
+
+      if (ctx.themeId === "conflict" && (m.hdxDatasets > 0 || m.gdeltArticles > 0 || m.unhcrRecords > 0)) {
+        add(
+          "Access, relationships and negotiated operating space",
+          "This appears because access/conflict dataset discovery, media/event signals, or displacement records returned visible context.",
+          "Media attention and dataset availability do not prove access conditions on the ground.",
+          compact(["HDX access/conflict datasets", "GDELT topic signal", "UNHCR records where returned"])
+        );
+      }
+
+      if (ctx.themeId === "food" && (m.hdxDatasets > 0 || m.gdeltArticles > 0)) {
+        add(
+          "Food security as a coordination and monitoring problem",
+          "This appears because food-security dataset discovery or topic signals returned results that can support further inspection.",
+          "Dataset listings do not show current household-level food security conditions unless the underlying data is loaded and validated.",
+          compact(["HDX IPC/food-security datasets", "GDELT food-security signal", "World Bank population/economic context"])
+        );
+      }
+
+      if (ctx.themeId === "technology" || m.metadata > m.live) {
+        add(
+          "Data visibility versus decision-readiness",
+          "This appears because dataset catalogues or metadata sources returned more visibility than direct live values.",
+          "More datasets do not automatically create better decisions. Methods, freshness, coverage and usability still need review.",
+          compact(["HDX dataset listings", "NASA CMR metadata", "source status results"])
+        );
+      }
+
+      if (ctx.themeId === "population" && m.wbSeries > 0) {
+        add(
+          "Population exposure and service pressure",
+          "This appears because population and exposure-related indicators or dataset listings are visible for the selected country.",
+          "National population indicators do not show who is exposed, where they live, or what services they can access.",
+          compact(["World Bank population/urban indicators", "NASA exposure metadata", "HDX population datasets"])
+        );
+      }
+
+      if (ctx.themeId === "compound" && m.live + m.metadata >= 3) {
+        add(
+          "Compound pressure across systems",
+          "This appears because multiple source types returned data or metadata across humanitarian, health, displacement, disaster or development routes.",
+          "This is a signal combination, not a severity score or causal explanation.",
+          compact(["World Bank indicators", "HDX datasets", "GDACS events", "UNHCR records", "GDELT signal"])
+        );
+      }
+
+      if (m.failed > 0) {
+        add(
+          "Planning with partial visibility",
+          `This appears because ${m.failed} of ${m.attempted} attempted source routes did not return usable data in the browser.`,
+          "A failed browser route is not proof that the data does not exist. It may require a different access route, backend, download or manual review.",
+          compact(["Source status", "failed routes", "returned routes"])
+        );
+      }
+
+      if (m.wbTrends.some(t => Math.abs(t.pct || 0) > 10)) {
+        const strongest = [...m.wbTrends].sort((a,b) => Math.abs(b.pct || 0) - Math.abs(a.pct || 0))[0];
+        add(
+          "Historical change as a futures prompt",
+          `${strongest.label} changed by ${formatNumber(strongest.pct)}% across the returned World Bank series.`,
+          "Extending a past pattern is not a prediction. It is a prompt for questioning assumptions.",
+          compact(["World Bank time series", strongest.label])
+        );
+      }
+
+      if (!list.length) {
+        add(
+          "Data availability as the first focus",
+          "The selected combination returned too little direct signal for a stronger thematic suggestion.",
+          "The useful next step may be source review rather than interpretation.",
+          compact(["Source status", "metadata results", "failed routes"])
+        );
+        add(
+          "Decision-making under uncertainty",
+          "The query produced limited visibility, which makes uncertainty itself a relevant management focus.",
+          "This should not be treated as a finding about the country context.",
+          compact(["source coverage", "missing values", "available metadata"])
+        );
+      }
+
+      return list.slice(0, 5);
+    }
+
+    function compact(arr) {
+      return arr.filter(Boolean);
+    }
+
+    function signalList(ctx, m) {
+      const list = [];
+      if (m.wbSeries) list.push(`${m.wbSeries} World Bank indicator series`);
+      if (m.hdxDatasets) list.push(`${m.hdxDatasets.toLocaleString()} HDX dataset matches`);
+      if (m.nasaCollections) list.push(`${m.nasaCollections} NASA catalogue records`);
+      if (m.gdeltArticles) list.push(`${m.gdeltArticles} GDELT article records`);
+      if (m.gdacsMatches) list.push(`${m.gdacsMatches} GDACS country-matched events`);
+      if (m.unhcrRecords) list.push(`${m.unhcrRecords} UNHCR records`);
+      if (!list.length) list.push("limited returned data");
+      return list;
+    }
+
+    function timeAngle(view) {
+      return {
+        now: "Current pattern: focus on what is visible now and what still needs checking.",
+        "2032": "2032: use this as a near-future planning lens, not a prediction.",
+        "2052": "2052: use this as a structural future lens for slow pressures and institutional capacity.",
+        beyond: "Beyond 2052: use this to test assumptions that could fail under long-term change."
+      }[view];
+    }
+
+    function lensText(lens) {
+      return {
+        project: "project design, portfolio pressure and delivery model",
+        self: "personal workload, judgement and decision pressure",
+        team: "team capacity, roles and duty of care",
+        relationships: "coordination, trust, legitimacy and negotiation",
+        macro: "structural change and institutional constraints",
+        technology: "data systems, automation and accountability",
+        health: "service pressure, access and humanitarian impact"
+      }[lens];
+    }
+
+    function renderOutput(a) {
+      const out = document.getElementById("output");
+      const m = a.metrics;
 
       out.innerHTML = `
         <div class="status-grid">
-          <div class="status-card"><span>Country</span><b>${esc(countryName)}</b></div>
-          <div class="status-card"><span>Theme</span><b>${esc(theme.label)}</b></div>
-          <div class="status-card"><span>Data visibility</span><b>${esc(visibility)}</b></div>
-          <div class="status-card"><span>Sources working</span><b>${working.length}/${results.length}</b></div>
+          <div class="status-card"><span>Country</span><b>${esc(a.countryName)}</b></div>
+          <div class="status-card"><span>Theme</span><b>${esc(a.theme.label)}</b></div>
+          <div class="status-card"><span>Visibility</span><b>${esc(m.visibility)}</b></div>
+          <div class="status-card"><span>Sources</span><b>${m.working}/${m.attempted}</b></div>
         </div>
+
+        <article class="card">
+          <h3>Suggested focus areas</h3>
+          <div class="focus-grid">
+            ${a.focuses.map(renderFocusCard).join("")}
+          </div>
+        </article>
 
         <div class="snapshot-grid">
           <article class="card">
-            <h3>What was found</h3>
-            ${renderSourceStatus(results)}
+            <h3>Data signals</h3>
+            ${renderSignalSummary(a)}
           </article>
 
           <article class="card">
-            <h3>Live indicator snapshot</h3>
-            ${renderWorldBank(wb)}
-            ${renderGdacsSummary(gdacs)}
-            ${renderUnhcrSummary(unhcr)}
+            <h3>Source status</h3>
+            ${renderSourceStatus(a.results)}
+          </article>
+
+          <article class="card">
+            <h3>Indicator snapshot</h3>
+            ${renderIndicators(a.sources.wb)}
+            ${renderGdacs(a.sources.gdacs)}
+            ${renderUnhcr(a.sources.unhcr)}
           </article>
 
           <article class="card">
             <h3>Dataset discovery</h3>
-            ${renderHdx(hdx)}
-            ${renderNasa(nasa)}
-          </article>
-
-          <article class="card">
-            <h3>Signal summary</h3>
-            ${renderCombinedSummary(ctx, { wb, hdx, nasa, gdelt, gdacs, unhcr, live, metadata, signal, visibility })}
-          </article>
-
-          <article class="card">
-            <h3>${timeLabel(timeview)} questions</h3>
-            ${renderQuestions(theme.label, timeview, lens)}
-          </article>
-
-          <article class="card">
-            <h3>Caveats</h3>
-            ${renderCaveats(theme.label)}
+            ${renderHdx(a.sources.hdx)}
+            ${renderNasa(a.sources.nasa)}
           </article>
         </div>
 
         <article class="card">
-          <h3>Raw test details</h3>
-          ${rawDetails("View source responses", results)}
+          <h3>Raw details</h3>
+          ${rawDetails("View responses and derived metrics", { metrics: a.metrics, results: a.results })}
         </article>
       `;
     }
 
-    function visibilityLabel(working, total, live, metadata) {
-      if (working === 0) return "No useful result";
-      if (live >= 2 && metadata >= 2 && working / total >= 0.75) return "Strong";
-      if (working / total >= 0.45) return "Partial";
-      return "Limited";
+    function renderFocusCard(focus) {
+      return `
+        <article class="source-card">
+          <h4>${esc(focus.title)}</h4>
+          <p><b>Why this appears:</b> ${esc(focus.why)}</p>
+          <p><b>Data signals:</b> ${esc(focus.signals.join("; "))}</p>
+          <p><b>Time angle:</b> ${esc(focus.time)}</p>
+          <p><b>Lens:</b> ${esc(focus.lens)}</p>
+          <p><b>Caution:</b> ${esc(focus.caution)}</p>
+        </article>
+      `;
+    }
+
+    function renderSignalSummary(a) {
+      const m = a.metrics;
+      return `
+        <div class="pill-row">
+          <span class="pill ${m.visibility === "Strong" ? "green" : m.visibility === "Partial" ? "amber" : "red"}">Visibility: ${esc(m.visibility)}</span>
+          <span class="pill">Live routes: ${m.live}</span>
+          <span class="pill">Metadata routes: ${m.metadata}</span>
+          <span class="pill">Media signal routes: ${m.signal}</span>
+          <span class="pill amber">Failed routes: ${m.failed}</span>
+        </div>
+        ${table(["Signal", "Value"], [
+          ["World Bank series", esc(m.wbSeries)],
+          ["HDX dataset matches", esc(m.hdxDatasets.toLocaleString())],
+          ["NASA collection records", esc(m.nasaCollections)],
+          ["GDELT article records", esc(m.gdeltArticles)],
+          ["GDACS country-matched events", esc(m.gdacsMatches)],
+          ["UNHCR records", esc(m.unhcrRecords)]
+        ])}
+      `;
     }
 
     function renderSourceStatus(results) {
-      const rows = results.map(r => [
+      return table(["Source", "Type", "Status", "Result"], results.map(r => [
         esc(r.name),
         esc(r.category),
         r.ok ? `<span class="pill green">Returned</span>` : `<span class="pill red">Failed</span>`,
         esc(r.ok ? countResult(r) : r.error)
-      ]);
-      return table(["Source", "Type", "Status", "Result"], rows);
+      ]));
     }
 
     function countResult(r) {
@@ -982,30 +1164,29 @@
       if (r.name === "HDX") return `${r.data.searches.reduce((s, q) => s + q.count, 0).toLocaleString()} dataset matches`;
       if (r.name === "NASA CMR") return `${r.data.results.length} collections`;
       if (r.name === "GDELT") return `${r.data.articles.length} articles`;
-      if (r.name === "GDACS") return `${r.data.matching.length} country matches / ${r.data.all.length} returned`;
+      if (r.name === "GDACS") return `${r.data.matching.length} country matches / ${r.data.all.length} feed records`;
       if (r.name === "UNHCR") return `${r.data.rows.length} records`;
       return "response";
     }
 
-    function renderWorldBank(wb) {
+    function renderIndicators(wb) {
       if (!wb) return `<p class="mini">No World Bank values returned.</p>`;
-      const rows = [];
-      for (const item of wb.series) {
+      const rows = wb.series.map(item => {
         const sorted = [...item.rows].sort((a,b) => Number(b.date) - Number(a.date));
         const latest = sorted[0];
-        const trend = calcTrend(sorted);
-        rows.push([
+        const trend = trendFromRows(sorted);
+        return [
           esc(item.label),
           esc(latest ? latest.date : "—"),
           esc(latest ? formatNumber(latest.value) : "—"),
           esc(trend ? formatNumber(trend.change) : "—"),
           esc(trend && trend.pct !== null ? `${formatNumber(trend.pct)}%` : "—")
-        ]);
-      }
+        ];
+      });
       return table(["Indicator", "Latest year", "Latest value", "Change", "% change"], rows);
     }
 
-    function calcTrend(rows) {
+    function trendFromRows(rows) {
       const clean = rows.map(r => ({ year: Number(r.date), value: Number(r.value) }))
         .filter(r => Number.isFinite(r.year) && Number.isFinite(r.value))
         .sort((a,b) => a.year - b.year);
@@ -1016,33 +1197,31 @@
       return { first, latest, change, pct };
     }
 
-    function renderGdacsSummary(gdacs) {
+    function renderGdacs(gdacs) {
       if (!gdacs) return "";
-      const byType = countBy(gdacs.matching, r => eventTypeLabel(r.eventtype || r.eventType || r.type || "Unknown"));
       return `
         <h4 style="margin-top:14px;">GDACS</h4>
         <div class="pill-row">
           <span class="pill green">${gdacs.matching.length} country-matched events</span>
-          <span class="pill">${gdacs.all.length} events returned by feed</span>
-          ${Object.entries(byType).slice(0, 6).map(([k,v]) => `<span class="pill">${esc(k)}: ${esc(v)}</span>`).join("")}
+          <span class="pill">${gdacs.all.length} feed records</span>
         </div>
       `;
     }
 
-    function renderUnhcrSummary(unhcr) {
+    function renderUnhcr(unhcr) {
       if (!unhcr) return "";
       const total = unhcr.rows.reduce((sum, r) => sum + numeric(r.value || r.population || r.total || r.individuals), 0);
       return `
         <h4 style="margin-top:14px;">UNHCR</h4>
         <div class="pill-row">
           <span class="pill green">${unhcr.rows.length} records</span>
-          <span class="pill">Sum of readable values: ${formatNumber(total)}</span>
+          <span class="pill">Readable value sum: ${formatNumber(total)}</span>
         </div>
       `;
     }
 
     function renderHdx(hdx) {
-      if (!hdx) return `<p class="mini">No HDX dataset listings returned.</p>`;
+      if (!hdx) return `<p class="mini">No HDX listings returned.</p>`;
       const all = hdx.searches.flatMap(search => search.results.map(d => ({ ...d, search: search.query })));
       const rows = all.slice(0, 12).map(d => [
         `<a href="https://data.humdata.org/dataset/${esc(d.name)}" target="_blank" rel="noreferrer">${esc(d.title || d.name)}</a>`,
@@ -1051,7 +1230,7 @@
         esc(d.metadata_modified ? new Date(d.metadata_modified).toLocaleDateString() : "—")
       ]);
       return `
-        <p><b>${hdx.searches.reduce((s, q) => s + q.count, 0).toLocaleString()}</b> HDX dataset matches across ${hdx.searches.length} searches.</p>
+        <p><b>${hdx.searches.reduce((s, q) => s + q.count, 0).toLocaleString()}</b> HDX matches across ${hdx.searches.length} searches.</p>
         ${table(["Dataset", "Organisation", "Resources", "Modified"], rows)}
       `;
     }
@@ -1070,102 +1249,13 @@
       `;
     }
 
-    function renderCombinedSummary(ctx, data) {
-      const { countryName, theme, timeview } = ctx;
-      const parts = [];
-      if (data.wb) parts.push("country indicators");
-      if (data.gdacs) parts.push("disaster event records");
-      if (data.unhcr) parts.push("displacement records");
-      if (data.hdx) parts.push("dataset listings");
-      if (data.nasa) parts.push("earth-observation catalogue results");
-      if (data.gdelt) parts.push("media/event signal records");
-
-      const frame = {
-        now: "current visible signals",
-        "2032": "near-term planning pressure",
-        "2052": "longer-term system pressure",
-        beyond: "assumptions that may break"
-      }[timeview];
-
-      return `
-        <p>For <b>${esc(countryName)}</b> and <b>${esc(theme.label)}</b>, the site returned ${esc(parts.join(", ") || "no usable source output")}.</p>
-        <div class="pill-row">
-          <span class="pill ${data.visibility === "Strong" ? "green" : data.visibility === "Partial" ? "amber" : "red"}">Data visibility: ${esc(data.visibility)}</span>
-          <span class="pill">Live: ${esc(data.live)}</span>
-          <span class="pill">Metadata: ${esc(data.metadata)}</span>
-          <span class="pill">Frame: ${esc(frame)}</span>
-        </div>
-      `;
-    }
-
-    function renderQuestions(themeLabel, timeview, lens) {
-      const lensText = {
-        project: ["scope, timelines and resources", "planning assumptions", "delivery model"],
-        team: ["staff capacity", "role pressure", "duty of care"],
-        relationships: ["coordination", "legitimacy", "partners and communities"],
-        technology: ["data systems", "automation", "accountability"],
-        macro: ["structural pressure", "political economy", "institutional capacity"],
-        health: ["service pressure", "health access", "humanitarian impact"]
-      }[lens];
-
-      const frame = {
-        now: "What current signal is visible",
-        "2032": "What could become harder to manage by 2032",
-        "2052": "What could become a structural issue by 2052",
-        beyond: "What assumption might fail"
-      }[timeview];
-
-      const questions = [
-        `${frame} for ${lensText[0]} if ${themeLabel.toLowerCase()} pressures increase?`,
-        `Which source here would need checking before changing ${lensText[1]}?`,
-        `What is still invisible in this snapshot for ${lensText[2]}?`
-      ];
-
-      return `<ul>${questions.map(q => `<li>${esc(q)}</li>`).join("")}</ul>`;
-    }
-
-    function renderCaveats(themeLabel) {
-      const caveats = [
-        "Data visibility is not the same as need, severity or truth.",
-        "Dataset listings are metadata unless the underlying file is loaded and analysed.",
-        "Country-level indicators can hide local variation.",
-        "Different sources use different update cycles and definitions.",
-        "The time view changes the questions; it does not create a forecast."
-      ];
-      if (themeLabel.includes("Displacement")) caveats.push("Displacement records may miss informal or unregistered movement.");
-      if (themeLabel.includes("Climate")) caveats.push("Disaster event records may include long-running monitored events.");
-      return `<ul>${caveats.map(c => `<li>${esc(c)}</li>`).join("")}</ul>`;
-    }
-
-    function countBy(rows, fn) {
-      return rows.reduce((acc, row) => {
-        const key = fn(row) || "Unknown";
-        acc[key] = (acc[key] || 0) + 1;
-        return acc;
-      }, {});
-    }
-
-    function eventTypeLabel(code) {
-      const map = { DR: "Drought", EQ: "Earthquake", FL: "Flood", TC: "Tropical cyclone", VO: "Volcano" };
-      return map[String(code).toUpperCase()] || code || "Unknown";
-    }
-
     function numeric(value) {
       const n = Number(value);
       return Number.isFinite(n) ? n : 0;
     }
 
-    function timeLabel(timeview) {
-      return {
-        now: "Now",
-        "2032": "2032",
-        "2052": "2052",
-        beyond: "Beyond"
-      }[timeview];
-    }
-
-    function clearSnapshot() {
-      document.getElementById("snapshot").innerHTML = `<div class="empty">No snapshot yet.</div>`;
+    function clearFocus() {
+      document.getElementById("output").innerHTML = `<div class="empty">No focus areas yet.</div>`;
     }
 
     async function testSources() {
@@ -1187,7 +1277,7 @@
           const result = await tests[source.id]();
           el.innerHTML = `<div class="top"><h3>${esc(source.name)}</h3><span class="pill green">Working</span></div><p>${esc(source.type)}</p>${rawDetails("View response", result)}`;
         } catch (error) {
-          el.innerHTML = `<div class="top"><h3>${esc(source.name)}</h3><span class="pill red">Failed</span></div><p>${esc(error.message || error)}</p>`;
+          el.innerHTML = `<div class="top"><h3>${esc(source.name)}</h3><span class="pill red">Failed</span></div><p>${esc(error.name === "AbortError" ? "Timed out" : error.message || error)}</p>`;
         }
       }
     }
@@ -1200,7 +1290,6 @@
             <span class="pill">${esc(source.type)}</span>
           </div>
           <p>${esc(source.description)}</p>
-          <p><b>Used for:</b> ${esc(source.use)}</p>
           <a class="source-link" href="${esc(source.url)}" target="_blank" rel="noreferrer">Open source</a>
         </article>
       `).join("");
