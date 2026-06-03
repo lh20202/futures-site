@@ -1,0 +1,169 @@
+{
+  "slug": "owid",
+  "name": "Our World in Data",
+  "site": "https://ourworldindata.org/",
+  "contains": "Reusable country-level datasets and chart data on health, development, climate and access.",
+  "matters": "Broad social, health and climate indicators help frame humanitarian futures context.",
+  "uses": "Prepared country rows from selected OWID Grapher CSV endpoints.",
+  "description": "Our World in Data publishes reusable country-level datasets and chart data. This site uses selected OWID indicators as prepared public data for social, health, climate, development and resilience context.",
+  "limitations": "Prepared sample is limited to selected Grapher indicators and starter countries.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:24.113Z",
+  "endpoint": "https://ourworldindata.org/grapher/population.csv | https://ourworldindata.org/grapher/life-expectancy.csv | https://ourworldindata.org/grapher/co2.csv | https://ourworldindata.org/grapher/share-of-population-in-extreme-poverty.csv",
+  "rowCount": 18,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 171466986,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 11637402,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 55339007,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 227882949,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Philippines",
+      "iso3": "PHL",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 114891199,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Sudan",
+      "iso3": "SDN",
+      "indicator": "Population",
+      "year": 2023,
+      "value": 50042800,
+      "sourceColumn": "Population"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 74.6723,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 64.9356,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 63.6459,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 54.4623,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Philippines",
+      "iso3": "PHL",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 69.8327,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Sudan",
+      "iso3": "SDN",
+      "indicator": "Life expectancy",
+      "year": 2023,
+      "value": 66.331,
+      "sourceColumn": "Life expectancy"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 0,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 0,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 0,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 0,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    },
+    {
+      "country": "Philippines",
+      "iso3": "PHL",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 11.531732976436615,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    },
+    {
+      "country": "Sudan",
+      "iso3": "SDN",
+      "indicator": "Extreme poverty",
+      "year": 2023,
+      "value": 0,
+      "sourceColumn": "Share of population in poverty ($3 a day)"
+    }
+  ],
+  "fieldNotes": "Prepared from selected OWID Grapher CSV files; latest starter-country rows are retained. Skipped endpoints are listed in skippedIndicators.",
+  "skippedIndicators": [
+    {
+      "indicator": "CO2 emissions",
+      "slug": "co2",
+      "endpoint": "https://ourworldindata.org/grapher/co2.csv",
+      "reason": "HTTP 404: {\"status\":404,\"error\":\"Not found\"}"
+    }
+  ]
+}

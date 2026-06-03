@@ -1,0 +1,177 @@
+{
+  "slug": "who-gho",
+  "name": "WHO Global Health Observatory",
+  "site": "https://www.who.int/data/gho",
+  "contains": "Health indicators across countries, including mortality and public health topics.",
+  "matters": "Health-system and mortality context can reveal baseline resilience and service pressure.",
+  "uses": "Prepared WHO life-expectancy records where direct browser fetch is unreliable.",
+  "description": "WHO Global Health Observatory is WHO's central health statistics repository. It contains health indicators across countries, including mortality, disease, health systems, public health and workforce topics. This site uses prepared WHO records where direct browser fetch is unreliable.",
+  "limitations": "Prepared from one confirmed WHO GHO indicator in this build; broader GHO themes were attempted through indicator probing but only records with usable numeric values are retained.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:20.396Z",
+  "endpoint": "https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27BGD%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27HTI%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KEN%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27NGA%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8",
+  "rowCount": 20,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy at birth",
+      "year": 2008,
+      "value": 69.03267464,
+      "displayValue": "69.0 [68.6-69.5]"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy at birth",
+      "year": 2006,
+      "value": 68.09324389,
+      "displayValue": "68.1 [67.7-68.6]"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy at birth",
+      "year": 2021,
+      "value": 73.10251672,
+      "displayValue": "73.1 [72.4-73.8]"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy at birth",
+      "year": 2016,
+      "value": 73.44362068,
+      "displayValue": "73.4 [72.9-74.0]"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Life expectancy at birth",
+      "year": 2009,
+      "value": 69.60483119,
+      "displayValue": "69.6 [69.2-70.1]"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy at birth",
+      "year": 2005,
+      "value": 58.63996581,
+      "displayValue": "58.6 [57.8-59.6]"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy at birth",
+      "year": 2015,
+      "value": 62.5149437,
+      "displayValue": "62.5 [61.6-63.6]"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy at birth",
+      "year": 2011,
+      "value": 61.10474412,
+      "displayValue": "61.1 [60.2-62.0]"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy at birth",
+      "year": 2002,
+      "value": 57.58049169,
+      "displayValue": "57.6 [56.6-58.6]"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Life expectancy at birth",
+      "year": 2007,
+      "value": 59.85463205,
+      "displayValue": "59.9 [59.0-60.9]"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy at birth",
+      "year": 2007,
+      "value": 58.55063756,
+      "displayValue": "58.6 [57.7-59.2]"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy at birth",
+      "year": 2001,
+      "value": 54.33283599,
+      "displayValue": "54.3 [53.2-55.4]"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy at birth",
+      "year": 2002,
+      "value": 54.58698847,
+      "displayValue": "54.6 [53.5-55.6]"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy at birth",
+      "year": 2013,
+      "value": 63.11575218,
+      "displayValue": "63.1 [62.5-63.7]"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Life expectancy at birth",
+      "year": 2000,
+      "value": 54.09203911,
+      "displayValue": "54.1 [53.2-55.2]"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy at birth",
+      "year": 2011,
+      "value": 60.1981229,
+      "displayValue": "60.2 [59.2-61.3]"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy at birth",
+      "year": 2006,
+      "value": 57.55220397,
+      "displayValue": "57.6 [56.8-58.5]"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy at birth",
+      "year": 2002,
+      "value": 54.96389545,
+      "displayValue": "55.0 [54.2-56.0]"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy at birth",
+      "year": 2013,
+      "value": 61.04119261,
+      "displayValue": "61.0 [59.8-62.1]"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Life expectancy at birth",
+      "year": 2012,
+      "value": 60.64324912,
+      "displayValue": "60.6 [59.7-61.6]"
+    }
+  ],
+  "fieldNotes": "NumericValue is WHO's numeric life-expectancy value; Value preserves WHO display text and uncertainty interval."
+}

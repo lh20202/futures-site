@@ -1,0 +1,329 @@
+{
+  "slug": "usgs-earthquakes",
+  "name": "USGS Earthquake API",
+  "site": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
+  "contains": "Recent earthquake event records as GeoJSON.",
+  "matters": "Seismic event records add current hazard monitoring context.",
+  "uses": "Prepared recent magnitude 4.5+ earthquake events.",
+  "description": "USGS Earthquake API provides recent and historical earthquake event records. This site uses selected events for seismic hazard and disaster context.",
+  "limitations": "Prepared sample is a recent global feed and is not country-filtered.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:48.632Z",
+  "endpoint": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson",
+  "rowCount": 24,
+  "sampleRows": [
+    {
+      "id": "nc75370191",
+      "title": "M 4.5 - 65 km W of Petrolia, CA",
+      "magnitude": 4.47,
+      "place": "65 km W of Petrolia, CA",
+      "time": "2026-06-03T13:11:33.830Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75370191",
+      "coordinates": [
+        -125.045669555664,
+        40.3621673583984,
+        0.469999998807907
+      ]
+    },
+    {
+      "id": "nc75370186",
+      "title": "M 5.1 - 64 km W of Petrolia, CA",
+      "magnitude": 5.08,
+      "place": "64 km W of Petrolia, CA",
+      "time": "2026-06-03T12:45:35.090Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75370186",
+      "coordinates": [
+        -125.044502258301,
+        40.3601684570312,
+        0.150000005960464
+      ]
+    },
+    {
+      "id": "us7000sq9k",
+      "title": "M 4.6 - Izu Islands, Japan region",
+      "magnitude": 4.6,
+      "place": "Izu Islands, Japan region",
+      "time": "2026-06-03T12:29:44.696Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq9k",
+      "coordinates": [
+        142.1149,
+        29.2221,
+        10
+      ]
+    },
+    {
+      "id": "us7000sq93",
+      "title": "M 5.7 - 154 km WSW of Pistol River, Oregon",
+      "magnitude": 5.7,
+      "place": "154 km WSW of Pistol River, Oregon",
+      "time": "2026-06-03T10:53:54.074Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq93",
+      "coordinates": [
+        -126.1861,
+        41.8967,
+        10
+      ]
+    },
+    {
+      "id": "us7000sq90",
+      "title": "M 5.6 - Vanuatu region",
+      "magnitude": 5.6,
+      "place": "Vanuatu region",
+      "time": "2026-06-03T10:20:37.618Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq90",
+      "coordinates": [
+        173.0405,
+        -20.4457,
+        10
+      ]
+    },
+    {
+      "id": "us7000sq8p",
+      "title": "M 4.6 - 77 km SE of Ozernovskiy, Russia",
+      "magnitude": 4.6,
+      "place": "77 km SE of Ozernovskiy, Russia",
+      "time": "2026-06-03T09:18:19.459Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq8p",
+      "coordinates": [
+        157.2585,
+        50.9824,
+        62.18
+      ]
+    },
+    {
+      "id": "us7000sq8i",
+      "title": "M 4.7 - 142 km SSE of Vilyuchinsk, Russia",
+      "magnitude": 4.7,
+      "place": "142 km SSE of Vilyuchinsk, Russia",
+      "time": "2026-06-03T08:42:53.174Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq8i",
+      "coordinates": [
+        159.2052,
+        51.7493,
+        61.892
+      ]
+    },
+    {
+      "id": "us7000sq7x",
+      "title": "M 5.1 - 76 km S of Daroot-Korgon, Kyrgyzstan",
+      "magnitude": 5.1,
+      "place": "76 km S of Daroot-Korgon, Kyrgyzstan",
+      "time": "2026-06-03T06:58:56.791Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq7x",
+      "coordinates": [
+        72.278,
+        38.8658,
+        10
+      ]
+    },
+    {
+      "id": "hv74975297",
+      "title": "M 4.6 - 6 km WNW of Kahaluu-Keauhou, Hawaii",
+      "magnitude": 4.57,
+      "place": "6 km WNW of Kahaluu-Keauhou, Hawaii",
+      "time": "2026-06-03T03:58:53.210Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/hv74975297",
+      "coordinates": [
+        -156.016333333333,
+        19.5881666666667,
+        34.01
+      ]
+    },
+    {
+      "id": "us7000sq6g",
+      "title": "M 4.9 - Pitcairn Islands region",
+      "magnitude": 4.9,
+      "place": "Pitcairn Islands region",
+      "time": "2026-06-03T00:42:17.711Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq6g",
+      "coordinates": [
+        -129.4552,
+        -25.0893,
+        10
+      ]
+    },
+    {
+      "id": "us7000sq6f",
+      "title": "M 4.6 - 6 km NW of El Cortezo, Panama",
+      "magnitude": 4.6,
+      "place": "6 km NW of El Cortezo, Panama",
+      "time": "2026-06-03T00:41:41.378Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq6f",
+      "coordinates": [
+        -80.6784,
+        7.4667,
+        10
+      ]
+    },
+    {
+      "id": "us7000sq2c",
+      "title": "M 4.6 - 232 km E of Levuka, Fiji",
+      "magnitude": 4.6,
+      "place": "232 km E of Levuka, Fiji",
+      "time": "2026-06-02T13:57:47.568Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq2c",
+      "coordinates": [
+        -178.4887,
+        -17.9822,
+        617.751
+      ]
+    },
+    {
+      "id": "us7000sq0j",
+      "title": "M 4.5 - 30 km WNW of Titahi Bay, New Zealand",
+      "magnitude": 4.5,
+      "place": "30 km WNW of Titahi Bay, New Zealand",
+      "time": "2026-06-02T06:38:08.128Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq0j",
+      "coordinates": [
+        174.4781,
+        -41.036,
+        66.66
+      ]
+    },
+    {
+      "id": "us7000sq0g",
+      "title": "M 4.5 - 68 km NNE of La Serena, Chile",
+      "magnitude": 4.5,
+      "place": "68 km NNE of La Serena, Chile",
+      "time": "2026-06-02T06:13:42.141Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sq0g",
+      "coordinates": [
+        -70.9171,
+        -29.3593,
+        66.861
+      ]
+    },
+    {
+      "id": "us7000spzv",
+      "title": "M 4.6 - northern Mid-Atlantic Ridge",
+      "magnitude": 4.6,
+      "place": "northern Mid-Atlantic Ridge",
+      "time": "2026-06-02T04:18:26.939Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spzv",
+      "coordinates": [
+        -41.9946,
+        30.0538,
+        10
+      ]
+    },
+    {
+      "id": "us7000spzq",
+      "title": "M 4.7 - 48 km E of Farkhār, Afghanistan",
+      "magnitude": 4.7,
+      "place": "48 km E of Farkhār, Afghanistan",
+      "time": "2026-06-02T04:02:45.853Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spzq",
+      "coordinates": [
+        70.3954,
+        36.5648,
+        200.185
+      ]
+    },
+    {
+      "id": "us7000spz7",
+      "title": "M 4.9 - 278 km WNW of Houma, Tonga",
+      "magnitude": 4.9,
+      "place": "278 km WNW of Houma, Tonga",
+      "time": "2026-06-02T00:49:50.226Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spz7",
+      "coordinates": [
+        -177.6992,
+        -20.0547,
+        543.651
+      ]
+    },
+    {
+      "id": "us7000spz4",
+      "title": "M 4.6 - 69 km WNW of Macabuboni, Philippines",
+      "magnitude": 4.6,
+      "place": "69 km WNW of Macabuboni, Philippines",
+      "time": "2026-06-02T00:33:51.038Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spz4",
+      "coordinates": [
+        119.1494,
+        16.3396,
+        10
+      ]
+    },
+    {
+      "id": "us7000spya",
+      "title": "M 5.4 - 207 km WNW of Abepura, Indonesia",
+      "magnitude": 5.4,
+      "place": "207 km WNW of Abepura, Indonesia",
+      "time": "2026-06-01T23:01:17.102Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spya",
+      "coordinates": [
+        138.8427,
+        -2.0575,
+        29.55
+      ]
+    },
+    {
+      "id": "us7000spxm",
+      "title": "M 6.2 - 22 km WSW of Scarcelli, Italy",
+      "magnitude": 6.2,
+      "place": "22 km WSW of Scarcelli, Italy",
+      "time": "2026-06-01T22:12:36.284Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spxm",
+      "coordinates": [
+        15.7796,
+        39.325,
+        243
+      ]
+    },
+    {
+      "id": "us7000sput",
+      "title": "M 4.6 - 111 km SSW of Intipucá, El Salvador",
+      "magnitude": 4.6,
+      "place": "111 km SSW of Intipucá, El Salvador",
+      "time": "2026-06-01T15:58:58.394Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sput",
+      "coordinates": [
+        -88.375,
+        12.2374,
+        35
+      ]
+    },
+    {
+      "id": "us7000spti",
+      "title": "M 4.9 - Macquarie Island region",
+      "magnitude": 4.9,
+      "place": "Macquarie Island region",
+      "time": "2026-06-01T10:32:50.126Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spti",
+      "coordinates": [
+        157.7638,
+        -57.8585,
+        10
+      ]
+    },
+    {
+      "id": "us7000spt1",
+      "title": "M 4.7 - 189 km ESE of Alo, Wallis and Futuna",
+      "magnitude": 4.7,
+      "place": "189 km ESE of Alo, Wallis and Futuna",
+      "time": "2026-06-01T06:26:16.415Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000spt1",
+      "coordinates": [
+        -176.5027,
+        -15.0145,
+        10
+      ]
+    },
+    {
+      "id": "us7000sps9",
+      "title": "M 5.0 - 264 km E of Levuka, Fiji",
+      "magnitude": 5,
+      "place": "264 km E of Levuka, Fiji",
+      "time": "2026-06-01T05:16:15.532Z",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sps9",
+      "coordinates": [
+        -178.1836,
+        -18.1208,
+        567.977
+      ]
+    }
+  ],
+  "fieldNotes": "Recent magnitude 4.5+ earthquake features from the USGS GeoJSON feed."
+}

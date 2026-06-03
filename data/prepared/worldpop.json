@@ -1,0 +1,53 @@
+{
+  "slug": "worldpop",
+  "name": "WorldPop",
+  "site": "https://www.worldpop.org/",
+  "contains": "Open spatial demographic data and population estimates.",
+  "matters": "Population exposure and planning questions need demographic context beyond national totals.",
+  "uses": "Prepared population estimates for small sample areas around starter-country coordinates.",
+  "description": "WorldPop provides open spatial demographic data. This site uses prepared WorldPop data where useful population values can be retrieved for exposure, planning and preparedness context.",
+  "limitations": "Values are sample-area estimates, not national totals.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:43.473Z",
+  "endpoint": "https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B90.2063%2C23.535%5D%2C%5B90.50630000000001%2C23.535%5D%2C%5B90.50630000000001%2C23.834999999999997%5D%2C%5B90.2063%2C23.834999999999997%5D%2C%5B90.2063%2C23.535%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-72.43520000000001%2C18.8212%5D%2C%5B-72.1352%2C18.8212%5D%2C%5B-72.1352%2C19.121199999999998%5D%2C%5B-72.43520000000001%2C19.121199999999998%5D%2C%5B-72.43520000000001%2C18.8212%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B36.6672%2C-1.4364%5D%2C%5B36.9672%2C-1.4364%5D%2C%5B36.9672%2C-1.1364%5D%2C%5B36.6672%2C-1.1364%5D%2C%5B36.6672%2C-1.4364%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B8.5253%2C8.932%5D%2C%5B8.8253%2C8.932%5D%2C%5B8.8253%2C9.232000000000001%5D%2C%5B8.5253%2C9.232000000000001%5D%2C%5B8.5253%2C8.932%5D%5D%5D%7D%7D%5D%7D&runasync=false",
+  "rowCount": 4,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "year": 2020,
+      "value": 14951563,
+      "metric": "sample area total population",
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "year": 2020,
+      "value": 242098.8,
+      "metric": "sample area total population",
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "year": 2020,
+      "value": 5781640.61,
+      "metric": "sample area total population",
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "year": 2020,
+      "value": 127162.48,
+      "metric": "sample area total population",
+      "latitude": 9.082,
+      "longitude": 8.6753
+    }
+  ],
+  "fieldNotes": "Values are WorldPop total_population for small sample polygons around starter-country coordinates."
+}

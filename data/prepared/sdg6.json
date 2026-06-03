@@ -1,0 +1,16 @@
+{
+  "slug": "sdg6",
+  "name": "SDG6 Data",
+  "site": "https://www.sdg6data.org/",
+  "contains": "Water, sanitation and hygiene indicators.",
+  "matters": "WASH indicators are central to public health and resilience context.",
+  "uses": "No records are used unless a no-secret API route returns WASH data rows.",
+  "description": "SDG6 Data provides water, sanitation and hygiene indicators. This site uses selected records to support WASH, public health and resilience context.",
+  "limitations": "Tested route returned a 4xx HTML page rather than usable JSON rows.",
+  "status": "failure",
+  "retrievalTimestamp": "2026-06-03T15:23:48.196Z",
+  "endpoint": "endpoint not reached before failure",
+  "rowCount": 0,
+  "sampleRows": [],
+  "failureReason": "Parsing failed: expected JSON but received <!DOCTYPE html>\n<html  lang=\"en\" dir=\"ltr\">\n  <head>\n    <meta charset=\"utf-8\" />\n<script async src=\"https://www.googlet"
+}

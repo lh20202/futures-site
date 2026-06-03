@@ -1,0 +1,16 @@
+{
+  "slug": "inform",
+  "name": "INFORM Risk Index",
+  "site": "https://drmkc.jrc.ec.europa.eu/inform-index",
+  "contains": "Comparative crisis and disaster risk indicators where public machine-readable values are available.",
+  "matters": "Risk values can help compare vulnerability and coping-capacity context.",
+  "uses": "No values are used unless a public machine-readable route returns actual INFORM values.",
+  "description": "INFORM Risk Index provides comparative crisis and disaster risk indicators. This site uses INFORM values where a public machine-readable route returns actual risk data.",
+  "limitations": "No stable no-secret JSON value endpoint was confirmed in this build.",
+  "status": "failure",
+  "retrievalTimestamp": "2026-06-03T15:23:50.473Z",
+  "endpoint": "https://drmkc.jrc.ec.europa.eu/inform-index/API/InformAPI/Countries",
+  "rowCount": 0,
+  "sampleRows": [],
+  "failureReason": "returned location rows but no risk score or component values"
+}

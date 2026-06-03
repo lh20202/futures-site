@@ -1,0 +1,16 @@
+{
+  "slug": "emdat",
+  "name": "EM-DAT",
+  "site": "https://www.emdat.be/",
+  "contains": "International disaster database records where public aggregated rows are accessible.",
+  "matters": "Disaster history can inform context if actual rows can be retrieved.",
+  "uses": "No rows are used unless actual public aggregated data rows are fetched and parsed.",
+  "description": "EM-DAT is an international disaster database. This site uses publicly accessible aggregated rows where they can be retrieved and parsed.",
+  "limitations": "No no-secret row endpoint was confirmed in this build; metadata searches are not treated as data.",
+  "status": "failure",
+  "retrievalTimestamp": "2026-06-03T15:23:49.098Z",
+  "endpoint": "https://data.humdata.org/api/3/action/package_search?q=EM-DAT&rows=1",
+  "rowCount": 0,
+  "sampleRows": [],
+  "failureReason": "returned HDX package metadata only, not public aggregated EM-DAT data rows"
+}

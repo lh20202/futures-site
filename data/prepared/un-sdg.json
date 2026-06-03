@@ -1,0 +1,177 @@
+{
+  "slug": "un-sdg",
+  "name": "UN SDG API",
+  "site": "https://unstats.un.org/sdgs/dataportal",
+  "contains": "Official Sustainable Development Goal indicator data.",
+  "matters": "SDG indicators describe poverty, health, water, energy, climate and institutional resilience.",
+  "uses": "Prepared SDG poverty indicator rows for starter countries where values are returned.",
+  "description": "The UN SDG API provides official Sustainable Development Goal data reported through the global SDG indicator framework. This site uses selected SDG records for development, resilience and preparedness context.",
+  "limitations": "Prepared sample uses selected indicators and starter countries with returned values.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:47.604Z",
+  "endpoint": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=50&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=332&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=404&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=566&page=1&pageSize=8",
+  "rowCount": 20,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1983,
+      "value": 47.1,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1985,
+      "value": 41.4,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1988,
+      "value": 51.1,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1991,
+      "value": 51.2,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1995,
+      "value": 43.4,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2001,
+      "value": 75.1,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2012,
+      "value": 40.4,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2012,
+      "value": 39.60818,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2012,
+      "value": 38.63025,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2012,
+      "value": 48.40312,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1992,
+      "value": 32,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1994,
+      "value": 32,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1997,
+      "value": 32.6,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2005,
+      "value": 44.6,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2005,
+      "value": 51.91838,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1985,
+      "value": 51.1,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1992,
+      "value": 55.2,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 1996,
+      "value": 60.9,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2003,
+      "value": 51.1,
+      "unit": "PERCENT"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "indicator": "Proportion of population below international poverty line (%)",
+      "year": 2010,
+      "value": 38.5,
+      "unit": "PERCENT"
+    }
+  ],
+  "fieldNotes": "Prepared from UN SDG indicator 1.1.1 rows where numeric values are returned."
+}

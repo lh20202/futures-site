@@ -1,0 +1,16 @@
+{
+  "slug": "hdx-hapi",
+  "name": "HDX HAPI",
+  "site": "https://hapi.humdata.org/",
+  "contains": "Standardised humanitarian indicators from HDX HAPI when anonymous access is accepted.",
+  "matters": "Common humanitarian rows can add needs, population and operational context.",
+  "uses": "No working rows are used unless the HAPI endpoint returns actual indicator rows.",
+  "description": "HDX HAPI provides standardised humanitarian indicators from the Humanitarian Data Exchange. This site uses it only where actual indicator rows are retrieved, not dataset listings.",
+  "limitations": "Anonymous request was tested; failure means no prepared HAPI rows are exposed as working data.",
+  "status": "failure",
+  "retrievalTimestamp": "2026-06-03T15:23:20.786Z",
+  "endpoint": "https://hapi.humdata.org/api/v1/metadata/location?limit=3",
+  "rowCount": 0,
+  "sampleRows": [],
+  "failureReason": "HTTP 403: {\"error\":\"Invalid app identifier\"}\n"
+}

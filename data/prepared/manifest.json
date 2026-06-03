@@ -1,0 +1,189 @@
+{
+  "generatedAt": "2026-06-03T15:23:50.475Z",
+  "nodeRequirement": "Node 18+ with built-in fetch",
+  "summary": {
+    "attempted": 12,
+    "successful": 6,
+    "failed": 6
+  },
+  "successfulSources": [
+    {
+      "slug": "who-gho",
+      "name": "WHO Global Health Observatory",
+      "file": "who-gho.json",
+      "status": "success",
+      "rowCount": 20,
+      "retrievalTimestamp": "2026-06-03T15:23:20.396Z",
+      "endpoint": "https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27BGD%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27HTI%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KEN%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27NGA%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8",
+      "site": "https://www.who.int/data/gho"
+    },
+    {
+      "slug": "owid",
+      "name": "Our World in Data",
+      "file": "owid.json",
+      "status": "success",
+      "rowCount": 18,
+      "retrievalTimestamp": "2026-06-03T15:23:24.113Z",
+      "endpoint": "https://ourworldindata.org/grapher/population.csv | https://ourworldindata.org/grapher/life-expectancy.csv | https://ourworldindata.org/grapher/co2.csv | https://ourworldindata.org/grapher/share-of-population-in-extreme-poverty.csv",
+      "site": "https://ourworldindata.org/"
+    },
+    {
+      "slug": "worldpop",
+      "name": "WorldPop",
+      "file": "worldpop.json",
+      "status": "success",
+      "rowCount": 4,
+      "retrievalTimestamp": "2026-06-03T15:23:43.473Z",
+      "endpoint": "https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B90.2063%2C23.535%5D%2C%5B90.50630000000001%2C23.535%5D%2C%5B90.50630000000001%2C23.834999999999997%5D%2C%5B90.2063%2C23.834999999999997%5D%2C%5B90.2063%2C23.535%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-72.43520000000001%2C18.8212%5D%2C%5B-72.1352%2C18.8212%5D%2C%5B-72.1352%2C19.121199999999998%5D%2C%5B-72.43520000000001%2C19.121199999999998%5D%2C%5B-72.43520000000001%2C18.8212%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B36.6672%2C-1.4364%5D%2C%5B36.9672%2C-1.4364%5D%2C%5B36.9672%2C-1.1364%5D%2C%5B36.6672%2C-1.1364%5D%2C%5B36.6672%2C-1.4364%5D%5D%5D%7D%7D%5D%7D&runasync=false | https://api.worldpop.org/v1/services/stats?dataset=wpgppop&year=2020&geojson=%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B8.5253%2C8.932%5D%2C%5B8.8253%2C8.932%5D%2C%5B8.8253%2C9.232000000000001%5D%2C%5B8.5253%2C9.232000000000001%5D%2C%5B8.5253%2C8.932%5D%5D%5D%7D%7D%5D%7D&runasync=false",
+      "site": "https://www.worldpop.org/"
+    },
+    {
+      "slug": "un-sdg",
+      "name": "UN SDG API",
+      "file": "un-sdg.json",
+      "status": "success",
+      "rowCount": 20,
+      "retrievalTimestamp": "2026-06-03T15:23:47.604Z",
+      "endpoint": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=50&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=332&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=404&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=566&page=1&pageSize=8",
+      "site": "https://unstats.un.org/sdgs/dataportal"
+    },
+    {
+      "slug": "open-meteo",
+      "name": "Open-Meteo",
+      "file": "open-meteo.json",
+      "status": "success",
+      "rowCount": 4,
+      "retrievalTimestamp": "2026-06-03T15:23:48.420Z",
+      "endpoint": "https://api.open-meteo.com/v1/forecast?latitude=23.685&longitude=90.3563&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=18.9712&longitude=-72.2852&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=-1.2864&longitude=36.8172&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=9.082&longitude=8.6753&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC",
+      "site": "https://open-meteo.com/"
+    },
+    {
+      "slug": "usgs-earthquakes",
+      "name": "USGS Earthquake API",
+      "file": "usgs-earthquakes.json",
+      "status": "success",
+      "rowCount": 24,
+      "retrievalTimestamp": "2026-06-03T15:23:48.632Z",
+      "endpoint": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson",
+      "site": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
+    }
+  ],
+  "failedSources": [
+    {
+      "slug": "hdx-hapi",
+      "name": "HDX HAPI",
+      "file": "hdx-hapi.json",
+      "status": "failure",
+      "reason": "HTTP 403: {\"error\":\"Invalid app identifier\"}\n",
+      "retrievalTimestamp": "2026-06-03T15:23:20.786Z",
+      "site": "https://hapi.humdata.org/"
+    },
+    {
+      "slug": "faostat",
+      "name": "FAOSTAT",
+      "file": "faostat.json",
+      "status": "failure",
+      "reason": "HTTP 401: Missing Authorization Header",
+      "retrievalTimestamp": "2026-06-03T15:23:24.266Z",
+      "site": "https://www.fao.org/faostat/"
+    },
+    {
+      "slug": "reliefweb",
+      "name": "ReliefWeb",
+      "file": "reliefweb.json",
+      "status": "failure",
+      "reason": "HTTP 400: {\"status\":400,\"time\":33,\"error\":{\"type\":\"BadRequestHttpException\",\"message\":\"Missing appname parameter\"}}",
+      "retrievalTimestamp": "2026-06-03T15:23:43.861Z",
+      "site": "https://reliefweb.int/"
+    },
+    {
+      "slug": "sdg6",
+      "name": "SDG6 Data",
+      "file": "sdg6.json",
+      "status": "failure",
+      "reason": "Parsing failed: expected JSON but received <!DOCTYPE html>\n<html  lang=\"en\" dir=\"ltr\">\n  <head>\n    <meta charset=\"utf-8\" />\n<script async src=\"https://www.googlet",
+      "retrievalTimestamp": "2026-06-03T15:23:48.196Z",
+      "site": "https://www.sdg6data.org/"
+    },
+    {
+      "slug": "emdat",
+      "name": "EM-DAT",
+      "file": "emdat.json",
+      "status": "failure",
+      "reason": "returned HDX package metadata only, not public aggregated EM-DAT data rows",
+      "retrievalTimestamp": "2026-06-03T15:23:49.098Z",
+      "site": "https://www.emdat.be/"
+    },
+    {
+      "slug": "inform",
+      "name": "INFORM Risk Index",
+      "file": "inform.json",
+      "status": "failure",
+      "reason": "returned location rows but no risk score or component values",
+      "retrievalTimestamp": "2026-06-03T15:23:50.473Z",
+      "site": "https://drmkc.jrc.ec.europa.eu/inform-index"
+    }
+  ],
+  "attemptedSources": [
+    {
+      "slug": "who-gho",
+      "file": "who-gho.json",
+      "status": "success"
+    },
+    {
+      "slug": "hdx-hapi",
+      "file": "hdx-hapi.json",
+      "status": "failure"
+    },
+    {
+      "slug": "owid",
+      "file": "owid.json",
+      "status": "success"
+    },
+    {
+      "slug": "faostat",
+      "file": "faostat.json",
+      "status": "failure"
+    },
+    {
+      "slug": "worldpop",
+      "file": "worldpop.json",
+      "status": "success"
+    },
+    {
+      "slug": "reliefweb",
+      "file": "reliefweb.json",
+      "status": "failure"
+    },
+    {
+      "slug": "un-sdg",
+      "file": "un-sdg.json",
+      "status": "success"
+    },
+    {
+      "slug": "sdg6",
+      "file": "sdg6.json",
+      "status": "failure"
+    },
+    {
+      "slug": "open-meteo",
+      "file": "open-meteo.json",
+      "status": "success"
+    },
+    {
+      "slug": "usgs-earthquakes",
+      "file": "usgs-earthquakes.json",
+      "status": "success"
+    },
+    {
+      "slug": "emdat",
+      "file": "emdat.json",
+      "status": "failure"
+    },
+    {
+      "slug": "inform",
+      "file": "inform.json",
+      "status": "failure"
+    }
+  ]
+}

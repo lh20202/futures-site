@@ -1,0 +1,65 @@
+{
+  "slug": "open-meteo",
+  "name": "Open-Meteo",
+  "site": "https://open-meteo.com/",
+  "contains": "No-key weather and historical weather values.",
+  "matters": "Recent weather and precipitation context can help frame environmental stress and preparedness.",
+  "uses": "Prepared current and daily weather values for starter-country coordinates.",
+  "description": "Open-Meteo provides no-key weather and historical weather data. This site uses selected climate and weather values for environmental stress and preparedness context.",
+  "limitations": "Prepared sample uses capital-area coordinates, not national gridded coverage.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T15:23:48.420Z",
+  "endpoint": "https://api.open-meteo.com/v1/forecast?latitude=23.685&longitude=90.3563&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=18.9712&longitude=-72.2852&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=-1.2864&longitude=36.8172&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=9.082&longitude=8.6753&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC",
+  "rowCount": 4,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "time": "2026-06-03T15:15",
+      "temperatureC": 29.9,
+      "precipitationMm": 0,
+      "dailyPrecipitationSample": [
+        0,
+        6.3,
+        4.4
+      ]
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "time": "2026-06-03T15:15",
+      "temperatureC": 30.8,
+      "precipitationMm": 0,
+      "dailyPrecipitationSample": [
+        1,
+        1,
+        5.5
+      ]
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "time": "2026-06-03T15:15",
+      "temperatureC": 19.7,
+      "precipitationMm": 0.2,
+      "dailyPrecipitationSample": [
+        6.8,
+        2.6,
+        1.7
+      ]
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "time": "2026-06-03T15:15",
+      "temperatureC": 26.3,
+      "precipitationMm": 0.2,
+      "dailyPrecipitationSample": [
+        7.4,
+        23.8,
+        1.5
+      ]
+    }
+  ],
+  "fieldNotes": "Current values and short daily samples are prepared for starter-country coordinates."
+}
