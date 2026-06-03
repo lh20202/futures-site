@@ -1,0 +1,200 @@
+{
+  "slug": "ifrc-go",
+  "name": "IFRC GO",
+  "category": "Displacement and humanitarian context",
+  "sourceType": "Prepared data",
+  "site": "https://go.ifrc.org/",
+  "contains": "IFRC event records and emergency-response information.",
+  "matters": "Recent event records add operational and humanitarian context.",
+  "uses": "Prepared event identifiers, names, dates and public URLs only.",
+  "description": "IFRC GO provides event and emergency-response records. This site stores concise public event fields and excludes contact details from prepared output.",
+  "limitations": "Prepared rows are recent global event samples and are not country-filtered in this build.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T16:08:15.841Z",
+  "endpoint": "https://goadmin.ifrc.org/api/v2/event/?limit=20",
+  "rowCount": 20,
+  "sampleRows": [
+    {
+      "id": 7964,
+      "name": "CRI: Drought - 06-2026 - ENSO Phenomenon - El Niño Phase 2026-2027 ",
+      "eventType": "Drought",
+      "countries": [
+        "Costa Rica"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7964"
+    },
+    {
+      "id": 7968,
+      "name": "TLS: Landslide - 06-2026 - Covalima-Landslide Response ",
+      "eventType": "Landslide",
+      "countries": [
+        "Timor-Leste"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7968"
+    },
+    {
+      "id": 7967,
+      "name": "NGA: Storm Surge - 05-2026 - Rainstorm - Riyom, Plateau state ",
+      "eventType": "Storm Surge",
+      "countries": [
+        "Nigeria"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7967"
+    },
+    {
+      "id": 7954,
+      "name": "AFG: Flood - 05-2026 - Afghanistan Flash Floods- May-2026 ",
+      "eventType": "Flood",
+      "countries": [
+        "Afghanistan"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7954"
+    },
+    {
+      "id": 7956,
+      "name": "MNG: Biological Emergency - 05-2026 - Foot and mouth disease (FDM) ",
+      "eventType": "Biological Emergency",
+      "countries": [
+        "Mongolia"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7956"
+    },
+    {
+      "id": 7957,
+      "name": "KGZ: Pluvial/Flash Flood - 05-2026 - Mudflows in Jalal-Abad and Osh ",
+      "eventType": "Pluvial/Flash Flood",
+      "countries": [
+        "Kyrgyzstan"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7957"
+    },
+    {
+      "id": 7959,
+      "name": "CHL: Earthquake - 05-2026 - MEDIUM INTENSITY EARTHQUAKE CALAMA - ANTOFAGASTA ",
+      "eventType": "Earthquake",
+      "countries": [
+        "Chile"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7959"
+    },
+    {
+      "id": 7960,
+      "name": "BEN: Population displacement - 05-2026 - Population movement in Koulou Koualou (Matéri) ",
+      "eventType": "Population Movement",
+      "countries": [
+        "Benin"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7960"
+    },
+    {
+      "id": 7955,
+      "name": "TLS: Flood - 05-2026 - Flood Response-Covalima ",
+      "eventType": "Flood",
+      "countries": [
+        "Timor-Leste"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7955"
+    },
+    {
+      "id": 7958,
+      "name": "CHL: Volcanic eruption - 05-2026 - VOLCANIC ACTIVITY NEVADOS DE LONGAVI ",
+      "eventType": "Volcanic Eruption",
+      "countries": [
+        "Chile"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7958"
+    },
+    {
+      "id": 7963,
+      "name": "MDA: Pluvial/Flash Flood - 05-2026 - Flood Disaster in Ungheni and Călărași ",
+      "eventType": "Pluvial/Flash Flood",
+      "countries": [
+        "Moldova, Republic of"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7963"
+    },
+    {
+      "id": 7937,
+      "name": "Africa - Ebola BVD -  Outbreak 2026",
+      "eventType": "Epidemic",
+      "countries": [
+        "Democratic Republic of Congo",
+        "Uganda"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7937"
+    },
+    {
+      "id": 7962,
+      "name": "BULL: Civil unrest - 05-2026 - Civil unrest ",
+      "eventType": "Civil Unrest",
+      "countries": [
+        "Bolivia"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7962"
+    },
+    {
+      "id": 7934,
+      "name": "ATG: Earthquake - 05-2026 - 6.5 Magnitude ",
+      "eventType": "Earthquake",
+      "countries": [
+        "Antigua and Barbuda"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7934"
+    },
+    {
+      "id": 7935,
+      "name": "BDI: Other - 05-2026 - Bdi-Epidemic-2026 ",
+      "eventType": "Other",
+      "countries": [
+        "Burundi"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7935"
+    },
+    {
+      "id": 7948,
+      "name": "PER: Biological Emergency - 05-2026 - EMERGENCIA SANITARIA POR EL BROTE DE SARAMPIÓN ",
+      "eventType": "Biological Emergency",
+      "countries": [
+        "Peru"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7948"
+    },
+    {
+      "id": 7947,
+      "name": "URY: Cold Wave - 05-2026 - Red Alert for Cold Wave ",
+      "eventType": "Cold Wave",
+      "countries": [
+        "Uruguay"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7947"
+    },
+    {
+      "id": 7924,
+      "name": "TLS: Flood - 05-2026 - Early Action for Flood in Manufahi - TLS ",
+      "eventType": "Flood",
+      "countries": [
+        "Timor-Leste"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7924"
+    },
+    {
+      "id": 7922,
+      "name": "UGA: Flood - 05-2026 - Floods - Bukedea District - Kamutur Subcounty ",
+      "eventType": "Flood",
+      "countries": [
+        "Uganda"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7922"
+    },
+    {
+      "id": 7914,
+      "name": "LBY: Complex Emergency - 05-2026 - Armed Conflicts in Zawiya",
+      "eventType": "Complex Emergency",
+      "countries": [
+        "Libya"
+      ],
+      "publicUrl": "https://go.ifrc.org/emergencies/7914"
+    }
+  ],
+  "fieldNotes": "Prepared output keeps event identifiers, names, dates, countries and public URLs only."
+}

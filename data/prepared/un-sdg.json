@@ -1,6 +1,8 @@
 {
   "slug": "un-sdg",
   "name": "UN SDG API",
+  "category": "Development and vulnerability",
+  "sourceType": "Prepared data",
   "site": "https://unstats.un.org/sdgs/dataportal",
   "contains": "Official Sustainable Development Goal indicator data.",
   "matters": "SDG indicators describe poverty, health, water, energy, climate and institutional resilience.",
@@ -8,7 +10,7 @@
   "description": "The UN SDG API provides official Sustainable Development Goal data reported through the global SDG indicator framework. This site uses selected SDG records for development, resilience and preparedness context.",
   "limitations": "Prepared sample uses selected indicators and starter countries with returned values.",
   "status": "success",
-  "retrievalTimestamp": "2026-06-03T15:23:47.604Z",
+  "retrievalTimestamp": "2026-06-03T16:08:09.985Z",
   "endpoint": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=50&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=332&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=404&page=1&pageSize=8 | https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=1.1.1&areaCode=566&page=1&pageSize=8",
   "rowCount": 20,
   "sampleRows": [

@@ -1,6 +1,8 @@
 {
   "slug": "who-gho",
   "name": "WHO Global Health Observatory",
+  "category": "Health and population",
+  "sourceType": "Prepared data",
   "site": "https://www.who.int/data/gho",
   "contains": "Health indicators across countries, including mortality and public health topics.",
   "matters": "Health-system and mortality context can reveal baseline resilience and service pressure.",
@@ -8,7 +10,7 @@
   "description": "WHO Global Health Observatory is WHO's central health statistics repository. It contains health indicators across countries, including mortality, disease, health systems, public health and workforce topics. This site uses prepared WHO records where direct browser fetch is unreliable.",
   "limitations": "Prepared from one confirmed WHO GHO indicator in this build; broader GHO themes were attempted through indicator probing but only records with usable numeric values are retained.",
   "status": "success",
-  "retrievalTimestamp": "2026-06-03T15:23:20.396Z",
+  "retrievalTimestamp": "2026-06-03T16:07:45.631Z",
   "endpoint": "https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27BGD%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27HTI%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KEN%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8 | https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27NGA%27%20and%20Dim1%20eq%20%27SEX_BTSX%27&$top=8",
   "rowCount": 20,
   "sampleRows": [

@@ -1,6 +1,8 @@
 {
   "slug": "usgs-earthquakes",
   "name": "USGS Earthquake API",
+  "category": "Disaster and hazard history",
+  "sourceType": "Prepared data",
   "site": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
   "contains": "Recent earthquake event records as GeoJSON.",
   "matters": "Seismic event records add current hazard monitoring context.",
@@ -8,7 +10,7 @@
   "description": "USGS Earthquake API provides recent and historical earthquake event records. This site uses selected events for seismic hazard and disaster context.",
   "limitations": "Prepared sample is a recent global feed and is not country-filtered.",
   "status": "success",
-  "retrievalTimestamp": "2026-06-03T15:23:48.632Z",
+  "retrievalTimestamp": "2026-06-03T16:08:11.027Z",
   "endpoint": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson",
   "rowCount": 24,
   "sampleRows": [

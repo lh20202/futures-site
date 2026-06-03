@@ -1,14 +1,16 @@
 {
   "slug": "owid",
   "name": "Our World in Data",
+  "category": "Development and vulnerability",
+  "sourceType": "Prepared data",
   "site": "https://ourworldindata.org/",
   "contains": "Reusable country-level datasets and chart data on health, development, climate and access.",
   "matters": "Broad social, health and climate indicators help frame humanitarian futures context.",
   "uses": "Prepared country rows from selected OWID Grapher CSV endpoints.",
-  "description": "Our World in Data publishes reusable country-level datasets and chart data. This site uses selected OWID indicators as prepared public data for social, health, climate, development and resilience context.",
+  "description": "Our World in Data publishes reusable country-level datasets and chart data. This site uses selected OWID indicators as prepared data for social, health, climate, development and resilience context.",
   "limitations": "Prepared sample is limited to selected Grapher indicators and starter countries.",
   "status": "success",
-  "retrievalTimestamp": "2026-06-03T15:23:24.113Z",
+  "retrievalTimestamp": "2026-06-03T16:07:46.992Z",
   "endpoint": "https://ourworldindata.org/grapher/population.csv | https://ourworldindata.org/grapher/life-expectancy.csv | https://ourworldindata.org/grapher/co2.csv | https://ourworldindata.org/grapher/share-of-population-in-extreme-poverty.csv",
   "rowCount": 18,
   "sampleRows": [

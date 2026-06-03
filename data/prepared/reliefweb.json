@@ -1,6 +1,8 @@
 {
   "slug": "reliefweb",
   "name": "ReliefWeb",
+  "category": "Displacement and humanitarian context",
+  "sourceType": "Prepared data",
   "site": "https://reliefweb.int/",
   "contains": "Humanitarian reports, disaster records and crisis information.",
   "matters": "Recent reporting can add situational awareness to numeric indicators.",
@@ -8,9 +10,9 @@
   "description": "ReliefWeb provides humanitarian reports, disaster records and crisis information. This site uses selected records to add recent humanitarian situation context.",
   "limitations": "ReliefWeb requires an approved app name parameter; this static prototype does not place app identifiers in source code.",
   "status": "failure",
-  "retrievalTimestamp": "2026-06-03T15:23:43.861Z",
+  "retrievalTimestamp": "2026-06-03T16:08:05.832Z",
   "endpoint": "https://api.reliefweb.int/v2/reports?limit=3&profile=list&preset=latest",
   "rowCount": 0,
   "sampleRows": [],
-  "failureReason": "HTTP 400: {\"status\":400,\"time\":33,\"error\":{\"type\":\"BadRequestHttpException\",\"message\":\"Missing appname parameter\"}}"
+  "failureReason": "HTTP 400: {\"status\":400,\"time\":38,\"error\":{\"type\":\"BadRequestHttpException\",\"message\":\"Missing appname parameter\"}}"
 }

@@ -1,6 +1,8 @@
 {
   "slug": "faostat",
   "name": "FAOSTAT",
+  "category": "Development and vulnerability",
+  "sourceType": "Prepared data",
   "site": "https://www.fao.org/faostat/",
   "contains": "International food and agriculture statistics.",
   "matters": "Food-system and agriculture indicators can reveal production and resource pressures.",
@@ -8,7 +10,7 @@
   "description": "FAOSTAT provides international food and agriculture statistics. This site uses selected public rows for food-system, agriculture and resource-risk context.",
   "limitations": "Tested endpoint rejected unauthenticated access in this build.",
   "status": "failure",
-  "retrievalTimestamp": "2026-06-03T15:23:24.266Z",
+  "retrievalTimestamp": "2026-06-03T16:07:47.163Z",
   "endpoint": "https://faostatservices.fao.org/api/v1/Definitions/Domains",
   "rowCount": 0,
   "sampleRows": [],

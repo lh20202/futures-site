@@ -1,0 +1,211 @@
+{
+  "slug": "imf-datamapper",
+  "name": "IMF DataMapper",
+  "category": "Conflict, economic and operational context",
+  "sourceType": "Prepared data",
+  "site": "https://www.imf.org/external/datamapper/",
+  "contains": "IMF country-level macroeconomic indicators.",
+  "matters": "Economic growth context can affect fiscal space, vulnerability and operational conditions.",
+  "uses": "Prepared real GDP growth values for starter countries where returned by the public endpoint.",
+  "description": "IMF DataMapper provides public macroeconomic indicator values. This site uses selected GDP-growth values as economic context.",
+  "limitations": "Prepared sample uses one IMF indicator and starter-country rows.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T16:08:17.787Z",
+  "endpoint": "https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH?periods=2024,2025,2026",
+  "rowCount": 300,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1981,
+      "value": 3.8,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1982,
+      "value": 2.4,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1983,
+      "value": 4,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1984,
+      "value": 5.2,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1985,
+      "value": 3.2,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1986,
+      "value": 4.2,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1987,
+      "value": 3.7,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1988,
+      "value": 2.2,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1989,
+      "value": 2.6,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1990,
+      "value": 5.9,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1991,
+      "value": 3.3,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1992,
+      "value": 5,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1993,
+      "value": 4.6,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1994,
+      "value": 4.1,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1995,
+      "value": 4.9,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1996,
+      "value": 4.6,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1997,
+      "value": 4.5,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1998,
+      "value": 5.2,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 1999,
+      "value": 4.7,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 2000,
+      "value": 5.3,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 2001,
+      "value": 5.1,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 2002,
+      "value": 3.8,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 2003,
+      "value": 4.7,
+      "unit": "annual percent change"
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "indicator": "Real GDP growth",
+      "year": 2004,
+      "value": 5.2,
+      "unit": "annual percent change"
+    }
+  ],
+  "fieldNotes": "NGDP_RPCH values returned by IMF DataMapper for starter countries."
+}

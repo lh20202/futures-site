@@ -1,6 +1,8 @@
 {
   "slug": "open-meteo",
   "name": "Open-Meteo",
+  "category": "Climate and environmental stress",
+  "sourceType": "Prepared data",
   "site": "https://open-meteo.com/",
   "contains": "No-key weather and historical weather values.",
   "matters": "Recent weather and precipitation context can help frame environmental stress and preparedness.",
@@ -8,15 +10,15 @@
   "description": "Open-Meteo provides no-key weather and historical weather data. This site uses selected climate and weather values for environmental stress and preparedness context.",
   "limitations": "Prepared sample uses capital-area coordinates, not national gridded coverage.",
   "status": "success",
-  "retrievalTimestamp": "2026-06-03T15:23:48.420Z",
+  "retrievalTimestamp": "2026-06-03T16:08:10.813Z",
   "endpoint": "https://api.open-meteo.com/v1/forecast?latitude=23.685&longitude=90.3563&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=18.9712&longitude=-72.2852&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=-1.2864&longitude=36.8172&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC | https://api.open-meteo.com/v1/forecast?latitude=9.082&longitude=8.6753&current=temperature_2m,precipitation&daily=precipitation_sum,temperature_2m_max&timezone=UTC",
   "rowCount": 4,
   "sampleRows": [
     {
       "country": "Bangladesh",
       "iso3": "BGD",
-      "time": "2026-06-03T15:15",
-      "temperatureC": 29.9,
+      "time": "2026-06-03T16:00",
+      "temperatureC": 29.5,
       "precipitationMm": 0,
       "dailyPrecipitationSample": [
         0,
@@ -27,8 +29,8 @@
     {
       "country": "Haiti",
       "iso3": "HTI",
-      "time": "2026-06-03T15:15",
-      "temperatureC": 30.8,
+      "time": "2026-06-03T16:00",
+      "temperatureC": 31.7,
       "precipitationMm": 0,
       "dailyPrecipitationSample": [
         1,
@@ -39,8 +41,8 @@
     {
       "country": "Kenya",
       "iso3": "KEN",
-      "time": "2026-06-03T15:15",
-      "temperatureC": 19.7,
+      "time": "2026-06-03T16:00",
+      "temperatureC": 18.1,
       "precipitationMm": 0.2,
       "dailyPrecipitationSample": [
         6.8,
@@ -51,8 +53,8 @@
     {
       "country": "Nigeria",
       "iso3": "NGA",
-      "time": "2026-06-03T15:15",
-      "temperatureC": 26.3,
+      "time": "2026-06-03T16:00",
+      "temperatureC": 25.4,
       "precipitationMm": 0.2,
       "dailyPrecipitationSample": [
         7.4,

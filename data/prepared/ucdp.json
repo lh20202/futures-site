@@ -1,0 +1,18 @@
+{
+  "slug": "ucdp",
+  "name": "UCDP",
+  "category": "Conflict, economic and operational context",
+  "sourceType": "Prepared data",
+  "site": "https://ucdp.uu.se/",
+  "contains": "Conflict event and conflict data resources.",
+  "matters": "Conflict-event data can add violence and insecurity context when available without credentials.",
+  "uses": "No rows are used unless a no-secret endpoint returns actual conflict rows.",
+  "description": "UCDP provides conflict event and conflict data. This build tests only no-secret access routes.",
+  "limitations": "The tested API route requires an access token, so no rows are exposed as working data.",
+  "status": "failure",
+  "retrievalTimestamp": "2026-06-03T16:08:25.290Z",
+  "endpoint": "https://ucdpapi.pcr.uu.se/api/gedevents/23.1?pagesize=5",
+  "rowCount": 0,
+  "sampleRows": [],
+  "failureReason": "HTTP 401: \"API token required. Add header: x-ucdp-access-token: <your-token>\""
+}

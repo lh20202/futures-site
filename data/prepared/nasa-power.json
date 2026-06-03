@@ -1,0 +1,235 @@
+{
+  "slug": "nasa-power",
+  "name": "NASA POWER",
+  "category": "Climate and environmental stress",
+  "sourceType": "Prepared data",
+  "site": "https://power.larc.nasa.gov/",
+  "contains": "NASA meteorological and solar data for coordinates.",
+  "matters": "Temperature and precipitation records add environmental stress context.",
+  "uses": "Prepared short daily temperature and precipitation samples for starter-country coordinates.",
+  "description": "NASA POWER provides browser-independent no-key meteorological values. This site uses short coordinate samples as climate and environmental context.",
+  "limitations": "Prepared samples use capital-area coordinates and a short date window.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T16:08:15.317Z",
+  "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=90.3563&latitude=23.685&start=20260101&end=20260107&format=JSON | https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=-72.2852&latitude=18.9712&start=20260101&end=20260107&format=JSON | https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=36.8172&latitude=-1.2864&start=20260101&end=20260107&format=JSON | https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=8.6753&latitude=9.082&start=20260101&end=20260107&format=JSON",
+  "rowCount": 28,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260101",
+      "temperatureC": 15.77,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260102",
+      "temperatureC": 15.73,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260103",
+      "temperatureC": 16.14,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260104",
+      "temperatureC": 15.24,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260105",
+      "temperatureC": 14.18,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260106",
+      "temperatureC": 13.91,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "date": "20260107",
+      "temperatureC": 14.86,
+      "precipitationMm": 0,
+      "latitude": 23.685,
+      "longitude": 90.3563
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260101",
+      "temperatureC": 24.12,
+      "precipitationMm": 3.42,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260102",
+      "temperatureC": 24.52,
+      "precipitationMm": 0.58,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260103",
+      "temperatureC": 25.09,
+      "precipitationMm": 0.56,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260104",
+      "temperatureC": 25.4,
+      "precipitationMm": 1.09,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260105",
+      "temperatureC": 24.91,
+      "precipitationMm": 5.03,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260106",
+      "temperatureC": 24.7,
+      "precipitationMm": 0.12,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "date": "20260107",
+      "temperatureC": 24.48,
+      "precipitationMm": 0,
+      "latitude": 18.9712,
+      "longitude": -72.2852
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260101",
+      "temperatureC": 19.12,
+      "precipitationMm": 0.33,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260102",
+      "temperatureC": 19.66,
+      "precipitationMm": 0,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260103",
+      "temperatureC": 20.68,
+      "precipitationMm": 0,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260104",
+      "temperatureC": 21.18,
+      "precipitationMm": 0.06,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260105",
+      "temperatureC": 20.54,
+      "precipitationMm": 0,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260106",
+      "temperatureC": 19.61,
+      "precipitationMm": 0,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "date": "20260107",
+      "temperatureC": 20.52,
+      "precipitationMm": 0,
+      "latitude": -1.2864,
+      "longitude": 36.8172
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "date": "20260101",
+      "temperatureC": 28.47,
+      "precipitationMm": 0,
+      "latitude": 9.082,
+      "longitude": 8.6753
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "date": "20260102",
+      "temperatureC": 28.53,
+      "precipitationMm": 0,
+      "latitude": 9.082,
+      "longitude": 8.6753
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "date": "20260103",
+      "temperatureC": 28.35,
+      "precipitationMm": 0,
+      "latitude": 9.082,
+      "longitude": 8.6753
+    }
+  ],
+  "fieldNotes": "Daily T2M and PRECTOTCORR values from NASA POWER for starter-country coordinates."
+}

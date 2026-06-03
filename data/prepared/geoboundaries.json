@@ -1,0 +1,63 @@
+{
+  "slug": "geoboundaries",
+  "name": "geoBoundaries",
+  "category": "Development and vulnerability",
+  "sourceType": "Prepared data",
+  "site": "https://www.geoboundaries.org/",
+  "contains": "Open administrative-boundary metadata and downloads.",
+  "matters": "Administrative boundary coverage helps locate and compare subnational data when paired with other indicators.",
+  "uses": "Prepared boundary metadata and official download links for starter countries.",
+  "description": "geoBoundaries publishes open administrative boundaries. This site uses metadata and download links to document useful geographic context.",
+  "limitations": "Boundary metadata is not a humanitarian indicator and is not projected.",
+  "status": "success",
+  "retrievalTimestamp": "2026-06-03T16:08:17.207Z",
+  "endpoint": "https://www.geoboundaries.org/api/current/gbOpen/BGD/ADM1/ | https://www.geoboundaries.org/api/current/gbOpen/HTI/ADM1/ | https://www.geoboundaries.org/api/current/gbOpen/KEN/ADM1/ | https://www.geoboundaries.org/api/current/gbOpen/NGA/ADM1/",
+  "rowCount": 4,
+  "sampleRows": [
+    {
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "boundaryType": "ADM1",
+      "boundaryName": "Bangladesh",
+      "boundaryYearRepresented": "2015",
+      "admUnitCount": "8",
+      "license": "nan",
+      "downloadUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/BGD/ADM1/geoBoundaries-BGD-ADM1.geojson",
+      "sourceDataUpdateDate": "Thu Jan 19 07:31:04 2023"
+    },
+    {
+      "country": "Haiti",
+      "iso3": "HTI",
+      "boundaryType": "ADM1",
+      "boundaryName": "Haiti",
+      "boundaryYearRepresented": "2017",
+      "admUnitCount": "10",
+      "license": "nan",
+      "downloadUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/HTI/ADM1/geoBoundaries-HTI-ADM1.geojson",
+      "sourceDataUpdateDate": "Thu Jan 19 07:31:04 2023"
+    },
+    {
+      "country": "Kenya",
+      "iso3": "KEN",
+      "boundaryType": "ADM1",
+      "boundaryName": "Kenya",
+      "boundaryYearRepresented": "2020",
+      "admUnitCount": "47",
+      "license": "nan",
+      "downloadUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/KEN/ADM1/geoBoundaries-KEN-ADM1.geojson",
+      "sourceDataUpdateDate": "Thu Jan 19 07:31:04 2023"
+    },
+    {
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "boundaryType": "ADM1",
+      "boundaryName": "Nigeria",
+      "boundaryYearRepresented": "2022",
+      "admUnitCount": "37",
+      "license": "nan",
+      "downloadUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/NGA/ADM1/geoBoundaries-NGA-ADM1.geojson",
+      "sourceDataUpdateDate": "Sun Feb 26 12:26:14 2023"
+    }
+  ],
+  "fieldNotes": "ADM1 metadata and official GeoJSON download links from geoBoundaries."
+}

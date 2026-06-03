@@ -18,6 +18,8 @@ const countries = [
 const sourceInfo = {
   "who-gho": {
     name: "WHO Global Health Observatory",
+    category: "Health and population",
+    sourceType: "Prepared data",
     site: "https://www.who.int/data/gho",
     contains: "Health indicators across countries, including mortality and public health topics.",
     matters: "Health-system and mortality context can reveal baseline resilience and service pressure.",
@@ -27,6 +29,8 @@ const sourceInfo = {
   },
   "hdx-hapi": {
     name: "HDX HAPI",
+    category: "Displacement and humanitarian context",
+    sourceType: "Prepared data",
     site: "https://hapi.humdata.org/",
     contains: "Standardised humanitarian indicators from HDX HAPI when anonymous access is accepted.",
     matters: "Common humanitarian rows can add needs, population and operational context.",
@@ -36,15 +40,19 @@ const sourceInfo = {
   },
   owid: {
     name: "Our World in Data",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
     site: "https://ourworldindata.org/",
     contains: "Reusable country-level datasets and chart data on health, development, climate and access.",
     matters: "Broad social, health and climate indicators help frame humanitarian futures context.",
     uses: "Prepared country rows from selected OWID Grapher CSV endpoints.",
-    description: "Our World in Data publishes reusable country-level datasets and chart data. This site uses selected OWID indicators as prepared public data for social, health, climate, development and resilience context.",
+    description: "Our World in Data publishes reusable country-level datasets and chart data. This site uses selected OWID indicators as prepared data for social, health, climate, development and resilience context.",
     limitations: "Prepared sample is limited to selected Grapher indicators and starter countries."
   },
   faostat: {
     name: "FAOSTAT",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
     site: "https://www.fao.org/faostat/",
     contains: "International food and agriculture statistics.",
     matters: "Food-system and agriculture indicators can reveal production and resource pressures.",
@@ -54,6 +62,8 @@ const sourceInfo = {
   },
   worldpop: {
     name: "WorldPop",
+    category: "Health and population",
+    sourceType: "Prepared data",
     site: "https://www.worldpop.org/",
     contains: "Open spatial demographic data and population estimates.",
     matters: "Population exposure and planning questions need demographic context beyond national totals.",
@@ -63,6 +73,8 @@ const sourceInfo = {
   },
   reliefweb: {
     name: "ReliefWeb",
+    category: "Displacement and humanitarian context",
+    sourceType: "Prepared data",
     site: "https://reliefweb.int/",
     contains: "Humanitarian reports, disaster records and crisis information.",
     matters: "Recent reporting can add situational awareness to numeric indicators.",
@@ -72,6 +84,8 @@ const sourceInfo = {
   },
   "un-sdg": {
     name: "UN SDG API",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
     site: "https://unstats.un.org/sdgs/dataportal",
     contains: "Official Sustainable Development Goal indicator data.",
     matters: "SDG indicators describe poverty, health, water, energy, climate and institutional resilience.",
@@ -81,6 +95,8 @@ const sourceInfo = {
   },
   sdg6: {
     name: "SDG6 Data",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
     site: "https://www.sdg6data.org/",
     contains: "Water, sanitation and hygiene indicators.",
     matters: "WASH indicators are central to public health and resilience context.",
@@ -90,6 +106,8 @@ const sourceInfo = {
   },
   "open-meteo": {
     name: "Open-Meteo",
+    category: "Climate and environmental stress",
+    sourceType: "Prepared data",
     site: "https://open-meteo.com/",
     contains: "No-key weather and historical weather values.",
     matters: "Recent weather and precipitation context can help frame environmental stress and preparedness.",
@@ -99,6 +117,8 @@ const sourceInfo = {
   },
   "usgs-earthquakes": {
     name: "USGS Earthquake API",
+    category: "Disaster and hazard history",
+    sourceType: "Prepared data",
     site: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
     contains: "Recent earthquake event records as GeoJSON.",
     matters: "Seismic event records add current hazard monitoring context.",
@@ -107,22 +127,92 @@ const sourceInfo = {
     limitations: "Prepared sample is a recent global feed and is not country-filtered."
   },
   emdat: {
-    name: "EM-DAT",
+    name: "EM-DAT International Disaster Database",
+    category: "Disaster and hazard history",
+    sourceType: "Local prepared data",
     site: "https://www.emdat.be/",
-    contains: "International disaster database records where public aggregated rows are accessible.",
-    matters: "Disaster history can inform context if actual rows can be retrieved.",
-    uses: "No rows are used unless actual public aggregated data rows are fetched and parsed.",
-    description: "EM-DAT is an international disaster database. This site uses publicly accessible aggregated rows where they can be retrieved and parsed.",
-    limitations: "No no-secret row endpoint was confirmed in this build; metadata searches are not treated as data."
+    contains: "Major disaster events and impacts by country, year and hazard type.",
+    matters: "Historical disaster patterns help users understand exposure, repeated shocks and previously recorded impacts.",
+    uses: "Aggregated disaster-history summaries prepared from a local EM-DAT download.",
+    description: "EM-DAT is an international disaster database maintained by CRED/UCLouvain. This site uses locally prepared summaries to add disaster-history context.",
+    limitations: "The raw EM-DAT download is not committed. The public site uses aggregated summaries only."
   },
   inform: {
     name: "INFORM Risk Index",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
     site: "https://drmkc.jrc.ec.europa.eu/inform-index",
     contains: "Comparative crisis and disaster risk indicators where public machine-readable values are available.",
     matters: "Risk values can help compare vulnerability and coping-capacity context.",
     uses: "No values are used unless a public machine-readable route returns actual INFORM values.",
     description: "INFORM Risk Index provides comparative crisis and disaster risk indicators. This site uses INFORM values where a public machine-readable route returns actual risk data.",
     limitations: "No stable no-secret JSON value endpoint was confirmed in this build."
+  },
+  "nasa-power": {
+    name: "NASA POWER",
+    category: "Climate and environmental stress",
+    sourceType: "Prepared data",
+    site: "https://power.larc.nasa.gov/",
+    contains: "NASA meteorological and solar data for coordinates.",
+    matters: "Temperature and precipitation records add environmental stress context.",
+    uses: "Prepared short daily temperature and precipitation samples for starter-country coordinates.",
+    description: "NASA POWER provides browser-independent no-key meteorological values. This site uses short coordinate samples as climate and environmental context.",
+    limitations: "Prepared samples use capital-area coordinates and a short date window."
+  },
+  "ifrc-go": {
+    name: "IFRC GO",
+    category: "Displacement and humanitarian context",
+    sourceType: "Prepared data",
+    site: "https://go.ifrc.org/",
+    contains: "IFRC event records and emergency-response information.",
+    matters: "Recent event records add operational and humanitarian context.",
+    uses: "Prepared event identifiers, names, dates and public URLs only.",
+    description: "IFRC GO provides event and emergency-response records. This site stores concise public event fields and excludes contact details from prepared output.",
+    limitations: "Prepared rows are recent global event samples and are not country-filtered in this build."
+  },
+  geoboundaries: {
+    name: "geoBoundaries",
+    category: "Development and vulnerability",
+    sourceType: "Prepared data",
+    site: "https://www.geoboundaries.org/",
+    contains: "Open administrative-boundary metadata and downloads.",
+    matters: "Administrative boundary coverage helps locate and compare subnational data when paired with other indicators.",
+    uses: "Prepared boundary metadata and official download links for starter countries.",
+    description: "geoBoundaries publishes open administrative boundaries. This site uses metadata and download links to document useful geographic context.",
+    limitations: "Boundary metadata is not a humanitarian indicator and is not projected."
+  },
+  "imf-datamapper": {
+    name: "IMF DataMapper",
+    category: "Conflict, economic and operational context",
+    sourceType: "Prepared data",
+    site: "https://www.imf.org/external/datamapper/",
+    contains: "IMF country-level macroeconomic indicators.",
+    matters: "Economic growth context can affect fiscal space, vulnerability and operational conditions.",
+    uses: "Prepared real GDP growth values for starter countries where returned by the public endpoint.",
+    description: "IMF DataMapper provides public macroeconomic indicator values. This site uses selected GDP-growth values as economic context.",
+    limitations: "Prepared sample uses one IMF indicator and starter-country rows."
+  },
+  gdelt: {
+    name: "GDELT",
+    category: "Conflict, economic and operational context",
+    sourceType: "Prepared data",
+    site: "https://www.gdeltproject.org/",
+    contains: "Global news and event-monitoring records.",
+    matters: "Returned public articles can add broad situational context.",
+    uses: "Prepared article titles, domains, dates and URLs when the no-key endpoint responds.",
+    description: "GDELT monitors global media and event signals. This site uses concise public article metadata only where the endpoint returns records.",
+    limitations: "Media records are context signals, not verified incident counts."
+  },
+  ucdp: {
+    name: "UCDP",
+    category: "Conflict, economic and operational context",
+    sourceType: "Prepared data",
+    site: "https://ucdp.uu.se/",
+    contains: "Conflict event and conflict data resources.",
+    matters: "Conflict-event data can add violence and insecurity context when available without credentials.",
+    uses: "No rows are used unless a no-secret endpoint returns actual conflict rows.",
+    description: "UCDP provides conflict event and conflict data. This build tests only no-secret access routes.",
+    limitations: "The tested API route requires an access token, so no rows are exposed as working data."
   }
 };
 
@@ -419,15 +509,26 @@ async function buildUsgsEarthquakes() {
 }
 
 async function buildEmdat() {
-  const endpoint = "https://data.humdata.org/api/3/action/package_search?q=EM-DAT&rows=1";
-  const json = await fetchJson(endpoint);
-  const results = json && json.result && Array.isArray(json.result.results) ? json.result.results : [];
-  if (results.length) {
-    const error = new Error("returned HDX package metadata only, not public aggregated EM-DAT data rows");
-    error.endpoint = endpoint;
+  const file = path.join(OUT_DIR, "emdat.json");
+  const text = await fs.readFile(file, "utf8");
+  const data = JSON.parse(text);
+  const byCountry = data.aggregates && Array.isArray(data.aggregates.byCountry) ? data.aggregates.byCountry : [];
+  if (data.status !== "success" || !byCountry.length) {
+    const error = new Error("local EM-DAT aggregate file exists but does not contain usable country aggregates");
+    error.endpoint = "data/prepared/emdat.json";
     throw error;
   }
-  return success("emdat", endpoint, [], "Expected aggregated EM-DAT data rows.");
+  return {
+    slug: "emdat",
+    ...sourceInfo.emdat,
+    status: "success",
+    retrievalTimestamp: data.generatedAt || now(),
+    endpoint: "data/prepared/emdat.json",
+    rowCount: data.rowsProcessed || byCountry.length,
+    sampleRows: byCountry.slice(0, 5),
+    fieldNotes: data.citationNote,
+    localPreparedFile: "emdat.json"
+  };
 }
 
 async function buildInform() {
@@ -443,6 +544,117 @@ async function buildInform() {
   return success("inform", endpoint, valueRows, "Machine-readable INFORM rows with numeric risk or component values.");
 }
 
+async function buildNasaPower() {
+  const rows = [];
+  const endpoints = [];
+  for (const country of countries.slice(0, 4)) {
+    const endpoint = `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=${country.lon}&latitude=${country.lat}&start=20260101&end=20260107&format=JSON`;
+    endpoints.push(endpoint);
+    const json = await fetchJson(endpoint);
+    const parameters = json && json.properties && json.properties.parameter ? json.properties.parameter : {};
+    const t2m = parameters.T2M || {};
+    const precip = parameters.PRECTOTCORR || {};
+    const dates = Object.keys(t2m).slice(0, 7);
+    dates.forEach(date => {
+      rows.push({
+        country: country.name,
+        iso3: country.iso3,
+        date,
+        temperatureC: Number(t2m[date]),
+        precipitationMm: Number(precip[date]),
+        latitude: country.lat,
+        longitude: country.lon
+      });
+    });
+  }
+  return success("nasa-power", endpoints.join(" | "), rows, "Daily T2M and PRECTOTCORR values from NASA POWER for starter-country coordinates.");
+}
+
+async function buildIfrcGo() {
+  const endpoint = "https://goadmin.ifrc.org/api/v2/event/?limit=20";
+  const json = await fetchJson(endpoint);
+  const records = Array.isArray(json.results) ? json.results : Array.isArray(json.data) ? json.data : [];
+  const rows = records.slice(0, 20).map(item => ({
+    id: item.id,
+    name: item.name,
+    eventType: item.dtype && item.dtype.name ? item.dtype.name : item.dtype_name,
+    disasterType: item.disaster_type && item.disaster_type.name ? item.disaster_type.name : item.disaster_type_name,
+    startDate: item.start_date,
+    endDate: item.end_date,
+    countries: Array.isArray(item.countries) ? item.countries.map(country => country.name || country.iso3 || country.iso).filter(Boolean).slice(0, 8) : [],
+    publicUrl: item.ifrc_severity_level_display ? `https://go.ifrc.org/emergencies/${item.id}` : `https://go.ifrc.org/emergencies/${item.id}`
+  }));
+  return success("ifrc-go", endpoint, rows, "Prepared output keeps event identifiers, names, dates, countries and public URLs only.");
+}
+
+async function buildGeoBoundaries() {
+  const rows = [];
+  const endpoints = [];
+  for (const country of countries.slice(0, 4)) {
+    const endpoint = `https://www.geoboundaries.org/api/current/gbOpen/${country.iso3}/ADM1/`;
+    endpoints.push(endpoint);
+    const json = await fetchJson(endpoint);
+    rows.push({
+      country: country.name,
+      iso3: country.iso3,
+      boundaryType: json.boundaryType,
+      boundaryName: json.boundaryName,
+      boundaryYearRepresented: json.boundaryYearRepresented,
+      admUnitCount: json.admUnitCount,
+      license: json.licenseDetail,
+      downloadUrl: json.gjDownloadURL,
+      sourceDataUpdateDate: json.sourceDataUpdateDate
+    });
+  }
+  return success("geoboundaries", endpoints.join(" | "), rows, "ADM1 metadata and official GeoJSON download links from geoBoundaries.");
+}
+
+async function buildImfDataMapper() {
+  const endpoint = "https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH?periods=2024,2025,2026";
+  const json = await fetchJson(endpoint);
+  const values = json && json.values && json.values.NGDP_RPCH ? json.values.NGDP_RPCH : {};
+  const rows = [];
+  countries.forEach(country => {
+    const series = values[country.iso3] || {};
+    Object.keys(series).sort().forEach(year => {
+      const value = Number(series[year]);
+      if (Number.isFinite(value)) {
+        rows.push({
+          country: country.name,
+          iso3: country.iso3,
+          indicator: "Real GDP growth",
+          year: Number(year),
+          value,
+          unit: "annual percent change"
+        });
+      }
+    });
+  });
+  return success("imf-datamapper", endpoint, rows, "NGDP_RPCH values returned by IMF DataMapper for starter countries.");
+}
+
+async function buildGdelt() {
+  const endpoint = "https://api.gdeltproject.org/api/v2/doc/doc?query=humanitarian&mode=artlist&format=json&maxrecords=10";
+  const json = await fetchJson(endpoint, { timeoutMs: 18000 });
+  const articles = Array.isArray(json.articles) ? json.articles : [];
+  const rows = articles.slice(0, 10).map(article => ({
+    title: article.title,
+    url: article.url,
+    domain: article.domain,
+    sourceCountry: article.sourcecountry,
+    seenDate: article.seendate,
+    language: article.language
+  }));
+  return success("gdelt", endpoint, rows, "Prepared article metadata returned by GDELT.");
+}
+
+async function buildUcdp() {
+  const endpoint = "https://ucdpapi.pcr.uu.se/api/gedevents/23.1?pagesize=5";
+  const json = await fetchJson(endpoint);
+  const rows = Array.isArray(json.Result) ? json.Result : Array.isArray(json.result) ? json.result : Array.isArray(json) ? json : [];
+  return success("ucdp", endpoint, rows, "Expected conflict event rows from UCDP.");
+}
+
 const builders = [
   ["who-gho", buildWhoGho],
   ["hdx-hapi", buildHdxHapi],
@@ -455,10 +667,17 @@ const builders = [
   ["open-meteo", buildOpenMeteo],
   ["usgs-earthquakes", buildUsgsEarthquakes],
   ["emdat", buildEmdat],
-  ["inform", buildInform]
+  ["inform", buildInform],
+  ["nasa-power", buildNasaPower],
+  ["ifrc-go", buildIfrcGo],
+  ["geoboundaries", buildGeoBoundaries],
+  ["imf-datamapper", buildImfDataMapper],
+  ["gdelt", buildGdelt],
+  ["ucdp", buildUcdp]
 ];
 
 async function writeSourceFile(result) {
+  if (result.localPreparedFile) return result.localPreparedFile;
   const file = `${result.slug}.json`;
   await fs.writeFile(path.join(OUT_DIR, file), JSON.stringify(result, null, 2));
   return file;
@@ -481,6 +700,8 @@ async function main() {
         name: result.name,
         file: result.file,
         status: result.status,
+        category: result.category,
+        sourceType: result.sourceType,
         rowCount: result.rowCount,
         retrievalTimestamp: result.retrievalTimestamp,
         endpoint: result.endpoint,
@@ -495,6 +716,8 @@ async function main() {
         name: result.name,
         file: result.file,
         status: result.status,
+        category: result.category,
+        sourceType: result.sourceType,
         reason: result.failureReason,
         retrievalTimestamp: result.retrievalTimestamp,
         site: result.site
