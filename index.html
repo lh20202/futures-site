@@ -37,9 +37,39 @@
     .loading-panel h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.05;margin-bottom:10px}.loading-panel p{color:#dbeafe;font-size:1.05rem;margin:0}.loaderbar{height:10px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin-top:24px}.loaderbar span{display:block;height:100%;width:45%;border-radius:999px;background:#93c5fd;animation:loadmove 1.2s ease-in-out infinite}@keyframes loadmove{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}
     .grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:18px;min-height:150px}.card h3{font-size:1.04rem;margin:7px 0 8px}.big{font-size:1.8rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
-    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-group{margin:18px 0 12px}.source-group h3{font-size:1.05rem}.source-group p{margin:5px 0 0}.source-category{margin:18px 0 10px;color:#334155;font-size:1rem}.source-card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:17px}.source-card p{margin:8px 0 0;color:#334155}.source-card .source-title{display:flex;justify-content:space-between;gap:10px;align-items:start}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}.source-note{margin-top:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
+    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-group{margin:18px 0 12px}.source-group h3{font-size:1.05rem}.source-group p{margin:5px 0 0}.source-category{margin:18px 0 10px;color:#334155;font-size:1rem}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}.source-note{margin-top:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
     .spacer{height:28px}.footnote{color:var(--muted);font-size:.92rem;max-width:850px}.simple-list{padding-left:20px;color:#334155}.simple-list li{margin:7px 0}
-    @media (max-width:920px){.controls,.two,.three,.four{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}}
+    .source-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:stretch;margin-bottom:18px}
+    .source-intro .explain{height:100%}
+    .source-theme{margin:26px 0 12px;padding-top:4px;border-top:1px solid var(--line)}
+    .source-theme:first-child{border-top:0;margin-top:8px}
+    .source-theme h3{font-size:1.08rem;margin:0}
+    .source-theme p{margin:5px 0 0;color:var(--muted)}
+    .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:stretch}
+    .source-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:360px}
+    .source-card p{margin:8px 0 0;color:#334155}
+    .source-card .source-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:2px}
+    .source-card h3{font-size:1.08rem;line-height:1.2}
+    .source-card .source-output{margin-top:auto}
+    .source-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+    .case-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;align-items:stretch}
+    .case-summary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px}
+    .case-summary .big{color:#fff}
+    .lens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .lens-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:170px}
+    .lens-card h3{font-size:1.05rem;margin:8px 0}
+    .lens-card strong{display:block;font-size:1.3rem;margin-top:8px}
+    .action-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}
+    .action-card h3{font-size:1.04rem;margin-bottom:8px}
+    .action-card ul{margin:10px 0 0;padding-left:18px;color:#334155}
+    .signal-table table{min-width:760px}
+    .context-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .context-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px}
+    .context-card h3{font-size:1.04rem;margin:8px 0}
+    .priority-list{display:grid;gap:10px;margin-top:12px}
+    .priority-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px;color:#334155}
+
+    @media (max-width:920px){.controls,.two,.three,.four{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}.source-intro,.case-hero{grid-template-columns:1fr}.source-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -92,27 +122,23 @@
         <p class="intro">These sources provide the evidence base for the simulator. Some are pulled live from public data services. Others are prepared into static data files so the site can use them reliably. Each source can be checked from this page.</p>
       </header>
       <section class="panel soft">
-        <div class="section-title">
+        <div class="source-intro">
           <div>
             <h2>Working sources</h2>
-            <p>Only sources that return real values, records or prepared aggregates appear here.</p>
+            <p class="muted">The simulator uses the sources below as its evidence base. They are grouped by planning theme rather than by technical access method. Each card explains what the source is, what it contains, and how the simulator uses it.</p>
+          </div>
+          <div class="explain">
+            <strong>Check the data before using a case file.</strong>
+            <p>Use the check button to confirm that the live services respond and that prepared source files are available. Everyday users see a plain-English status; technical details stay inside each card.</p>
           </div>
         </div>
         <div class="btnrow" style="margin-bottom:16px">
           <button class="btn" id="checkDataSourcesBtn">Check data sources</button>
         </div>
         <div id="sourceTestSummary" class="status hidden"></div>
-        <div class="source-group">
-          <h3>Live data</h3>
-          <p class="muted">These checks pull directly from public browser-safe services.</p>
-        </div>
-        <div id="sourceCards"></div>
-        <div class="source-group">
-          <h3>Prepared data</h3>
-          <p class="muted">These sources are generated into static JSON files and loaded from <span class="mono">data/prepared/</span>.</p>
-        </div>
         <div id="preparedStatus" class="status hidden"></div>
-        <div id="preparedSourceCards"></div>
+        <div id="sourceCards"></div>
+        <div id="preparedSourceCards" class="hidden"></div>
       </section>
       <section class="panel soft">
         <p class="footnote source-note">Some relevant sources are not included in this version because they require authentication, an app identifier, a manual download, or did not return usable rows during the prepared-data build.</p>
@@ -271,6 +297,7 @@ function init(){
   document.getElementById('checkDataSourcesBtn').addEventListener('click', checkDataSources);
   document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>showView(btn.dataset.view)));
   renderSources();
+  loadPreparedData({silent:true});
 }
 
 function showView(viewId){
@@ -281,23 +308,45 @@ function showView(viewId){
 }
 
 function renderSources(){
-  document.getElementById('sourceCards').innerHTML = renderSourceGroups(SOURCES, renderLiveCard);
+  renderAllSourceCards();
   renderNotIncludedSources();
+}
+
+function allWorkingSources(){
+  return [...SOURCES, ...preparedSources];
+}
+
+function renderAllSourceCards(){
+  document.getElementById('sourceCards').innerHTML = renderSourceGroups(allWorkingSources(), source => source.key ? renderLiveCard(source) : renderPreparedCard(source));
 }
 
 function renderSourceGroups(sources, renderer){
   return SOURCE_CATEGORIES.map(category => {
     const items = sources.filter(source => (source.category || SOURCE_CATEGORY_BY_SLUG[source.slug || source.id || source.key]) === category);
     if(!items.length) return '';
-    return `<div class="source-category"><strong>${escapeHtml(category)}</strong></div><div class="grid two">${items.map(renderer).join('')}</div>`;
+    return `<section class="source-theme"><h3>${escapeHtml(category)}</h3><p>${escapeHtml(sourceCategoryDescription(category))}</p><div class="source-grid">${items.map(renderer).join('')}</div></section>`;
   }).join('');
+}
+
+function sourceCategoryDescription(category){
+  const descriptions = {
+    'Development and vulnerability':'Development, poverty, SDG, administrative and structural signals that shape long-term vulnerability.',
+    'Health and population':'Population scale, demographic exposure and health-system context.',
+    'Displacement and humanitarian context':'Displacement, emergency and operational records relevant to humanitarian planning.',
+    'Disaster and hazard history':'Historical and current hazard records used to understand repeated shocks and recent events.',
+    'Climate and environmental stress':'Weather and climate variables that support seasonal and environmental stress analysis.',
+    'Conflict, economic and operational context':'Macroeconomic and wider operating-environment signals used to frame feasibility and pressure.'
+  };
+  return descriptions[category] || 'Relevant planning context.';
 }
 
 function renderLiveCard(s){
   return `<div class="source-card">
       <div class="source-title"><h3>${escapeHtml(s.name)}</h3><span class="pill green">${escapeHtml(s.status)}</span></div>
+      <div class="source-meta"><span class="pill">${escapeHtml(s.category)}</span></div>
       <p>${escapeHtml(s.plain)}</p>
-      <p><strong>What the simulator pulls:</strong> ${escapeHtml(s.pulls)}</p>
+      <p><strong>What it contains:</strong> ${escapeHtml(s.pulls)}</p>
+      <p><strong>How the simulator uses it:</strong> live country context and indicator checks.</p>
       <p><a href="${s.url}" target="_blank" rel="noopener">Visit site</a></p>
       <div class="source-actions"><button class="btn secondary" onclick="testWorkingSource('${s.key}')">Check this source</button></div>
       <div class="source-output" id="sourceTest-${s.key}">Ready to check.</div>
@@ -314,17 +363,22 @@ function renderNotIncludedSources(){
   document.getElementById('notIncludedSourceList').innerHTML = `<ul class="simple-list">${combined.map(([name,reason])=>`<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(reason)}</li>`).join('')}</ul>`;
 }
 
-async function loadPreparedData(){
+async function loadPreparedData(options={}){
+  const silent = !!options.silent;
   const status = document.getElementById('preparedStatus');
   const grid = document.getElementById('preparedSourceCards');
-  status.className = 'status';
-  status.textContent = 'Loading prepared data...';
-  grid.innerHTML = '';
+  if(!silent){
+    status.className = 'status';
+    status.textContent = 'Loading prepared data...';
+  } else {
+    status.className = 'status hidden';
+  }
+  if(grid) grid.innerHTML = '';
   try{
     const manifest = await fetchJson('data/prepared/manifest.json');
     preparedManifest = manifest;
     const successful = Array.isArray(manifest.successfulSources) ? manifest.successfulSources : [];
-    if(!successful.length) throw new Error('Prepared data files have not been generated. Run `node scripts/build-data.js`, then refresh.');
+    if(!successful.length) throw new Error('Prepared source files are not available yet.');
     const loaded = [];
     for(const entry of successful){
       const data = await fetchJson(`data/prepared/${entry.file}`);
@@ -334,13 +388,17 @@ async function loadPreparedData(){
       }
     }
     preparedSources = loaded;
-    grid.innerHTML = renderSourceGroups(loaded, renderPreparedCard);
-    status.className = 'status';
-    status.textContent = `Loaded ${loaded.length} prepared data sources. Generated: ${manifest.generatedAt || 'timestamp not shown'}.`;
+    renderAllSourceCards();
+    if(!silent){
+      status.className = 'status';
+      status.textContent = `Prepared sources loaded: ${loaded.length}. Last prepared: ${manifest.generatedAt || 'timestamp not shown'}.`;
+    }
     renderNotIncludedSources();
   }catch(e){
-    status.className = 'status warn';
-    status.textContent = e.message && e.message.includes('manifest') ? 'Prepared data files have not been generated. Run `node scripts/build-data.js`, then refresh.' : e.message;
+    if(!silent){
+      status.className = 'status warn';
+      status.textContent = 'Prepared source files are not available. Live sources can still be checked.';
+    }
   }
 }
 
@@ -370,7 +428,7 @@ function renderPreparedCard(source){
   const technical = {
     endpoint: source.endpoint || 'data/prepared/' + (source.slug || source.id) + '.json',
     sourceFile: source.sourceFile,
-    outputPath: source.slug === 'emdat' ? 'data/prepared/emdat.json' : undefined,
+    preparedFile: 'data/prepared/' + (source.slug || source.id) + '.json',
     buildScript: source.slug === 'emdat' ? 'scripts/build-emdat.js and scripts/build-data.js' : 'scripts/build-data.js',
     retrievalTimestamp: source.retrievalTimestamp || source.generatedAt,
     rowCount: source.rowCount,
@@ -381,14 +439,15 @@ function renderPreparedCard(source){
   };
   return `<div class="source-card">
     <div class="source-title"><h3>${escapeHtml(source.name)}</h3><span class="pill ${pillClass}">${escapeHtml(statusLabel)}</span></div>
+    <div class="source-meta"><span class="pill">${escapeHtml(source.category || 'Planning context')}</span></div>
     <p>${escapeHtml(source.description || source.contains || '')}</p>
-    <p><strong>What it contains:</strong> ${escapeHtml(source.contains || 'Prepared records.')}</p>
-    <p><strong>Why it matters:</strong> ${escapeHtml(source.matters || 'Relevant humanitarian futures context.')}</p>
-    <p><strong>What this site uses:</strong> ${escapeHtml(source.uses || 'Prepared rows.')}</p>
+    <p><strong>What it contains:</strong> ${escapeHtml(source.contains || 'Prepared records and indicators.')}</p>
+    <p><strong>Why it matters:</strong> ${escapeHtml(source.matters || 'It adds context for humanitarian futures analysis.')}</p>
+    <p><strong>How the simulator uses it:</strong> ${escapeHtml(source.uses || 'Prepared rows are loaded as supporting context.')}</p>
     <p><a href="${escapeHtml(source.site || '#')}" target="_blank" rel="noopener">Visit site</a></p>
     <div class="source-output success">
-      <p><strong>Working.</strong> ${escapeHtml(source.rowCount)} rows or source records are available to the simulator.</p>
-      <p class="small">Last checked: ${escapeHtml(source.retrievalTimestamp || 'timestamp not shown')}</p>
+      <p><strong>Working.</strong> ${escapeHtml(source.rowCount)} rows or source records are available.</p>
+      <p class="small">Last prepared: ${escapeHtml(source.retrievalTimestamp || 'timestamp not shown')}</p>
     </div>
     <details class="details"><summary>See technical details</summary><pre class="mono">${escapeHtml(JSON.stringify(technical, null, 2))}</pre></details>
   </div>`;
@@ -470,7 +529,7 @@ async function checkDataSources(){
     const preparedCount = preparedSources.length;
     const failed = preparedManifest && preparedManifest.summary ? preparedManifest.summary.failed : 0;
     summary.className = live.failed || failed ? 'status warn' : 'status';
-    summary.textContent = `Last checked: ${new Date().toLocaleString()}. Working sources: ${live.passed} live data, ${preparedCount} prepared data.`;
+    summary.textContent = `Last checked: ${new Date().toLocaleString()}. ${live.passed} live checks responded and ${preparedCount} prepared sources are available.`;
   }finally{
     button.disabled = false;
     button.textContent = 'Check data sources';
@@ -574,7 +633,7 @@ function linearRegression(points){
   const sx = points.reduce((a,p)=>a+p.year,0), sy = points.reduce((a,p)=>a+p.value,0);
   const mx = sx/n, my = sy/n;
   const sxx = points.reduce((a,p)=>a+(p.year-mx)*(p.year-mx),0);
-  const sxy = points.reduce((a,p)=>a+(p.year-mx)*(p.value-my),0);
+  const sxy = points.reduce((a,p)=>a+((p.year-mx)*(p.value-my)),0);
   if(sxx === 0) return null;
   const slope = sxy/sxx, intercept = my - slope*mx;
   const ssTot = points.reduce((a,p)=>a+(p.value-my)*(p.value-my),0);
@@ -707,22 +766,193 @@ function deriveImplications(projections,targetYear){
 function scenarioText(country,targetYear,projections,derived,context){
   const pop=getProjection(projections,'population'), phys=getProjection(projections,'physicians'), u5=getProjection(projections,'u5Mortality'), urban=getProjection(projections,'urbanPct'), internet=getProjection(projections,'internetUsers');
   const emdat = emdatCountrySummary(country);
-  const lines=[];
-  const title = `${country.name} ${targetYear}: country-year case file`;
-  lines.push(`<h2>${escapeHtml(title)}</h2>`);
-  if(pop) lines.push(`<p>If returned historical population patterns continued, ${country.name} would have an estimated <strong>${fmtSmart(pop.projected,0)}</strong> people in ${targetYear}, ${pop.changeFromLatest!==null?`a change of <strong>${pct(pop.changeFromLatest,1)}</strong> from the latest usable actual returned for ${pop.latest.year}`:`with no percentage change calculated from the latest actual value`}.</p>`);
-  if(phys) lines.push(`<p>The projected physician-density proxy is <strong>${fmtSmart(phys.projected,2)}</strong> per 1,000 people. This is a broad workforce proxy, not a complete staffing assessment.</p>`);
-  if(u5) lines.push(`<p>The under-5 mortality trajectory is <strong>${escapeHtml(u5.direction)}</strong>, with a target-year continuation of <strong>${fmtSmart(u5.projected,2)}</strong> per 1,000 live births.</p>`);
-  if(urban) lines.push(`<p>The urbanisation trajectory points to <strong>${fmtSmart(urban.projected,2)}%</strong> urban population by ${targetYear}.</p>`);
-  if(internet) lines.push(`<p>The internet-use trajectory points to <strong>${fmtSmart(internet.projected,2)}%</strong> of the population online by ${targetYear}. This is included as a digital access condition inside the case file, not as a separate technology scenario.</p>`);
-  lines.push(`<p>Supporting context found <strong>${context.gdacs.count||0}</strong> GDACS current/recent event matches and <strong>${context.unhcr.count||0}</strong> UNHCR country-related population/displacement records.</p>`);
-  if(emdat){
-    const topTypes = (emdat.row.topDisasterTypes || []).slice(0,3).map(item => `${item.disasterType} (${item.count})`).join(', ');
-    lines.push(`<p><strong>Historical disaster context:</strong> EM-DAT prepared aggregates include <strong>${fmtSmart(emdat.row.eventCount,0)}</strong> recorded historical disaster events for ${country.name} from ${emdat.row.firstYear || 'year not shown'} to ${emdat.row.lastYear || 'year not shown'}. Top recorded disaster types: ${escapeHtml(topTypes || 'not recorded')}. Recorded totals include ${fmtSmart(emdat.row.totalDeaths || 0,0)} deaths, ${fmtSmart(emdat.row.totalAffected || 0,0)} people affected and ${fmtSmart(emdat.row.totalDamageUsd000 || 0,0)} thousand US dollars in reported damage where fields were available. These are historical records, not projections.</p>`);
+  const pressure = buildStrategicProfile(country,targetYear,projections,context);
+  const popText = pop ? fmtSmart(pop.projected,0) : 'not available';
+  const urbanText = urban ? pct(urban.projected,1) : 'not available';
+  const healthText = phys ? fmtSmart(1000 / phys.projected,0) + ' people per physician' : 'health workforce proxy not available';
+  const disasterText = emdat ? `${fmtSmart(emdat.row.eventCount || 0,0)} historical disaster records` : 'historical disaster summary not loaded';
+  return `<div class="case-hero">
+    <div>
+      <p class="eyebrow">country-year case file</p>
+      <h2>${escapeHtml(country.name)} ${targetYear}</h2>
+      <p class="muted">This case file turns structural trends and contextual records into planning questions for preparedness, investment and programme design. It is not a forecast and it does not predict disasters, displacement or conflict.</p>
+      <hr>
+      <p><strong>Main reading:</strong> ${escapeHtml(pressure.headline)}</p>
+      <p>${escapeHtml(pressure.summary)}</p>
+    </div>
+    <div class="case-summary">
+      <span class="pill green">Planning snapshot</span>
+      <div class="big">${escapeHtml(popText)}</div>
+      <p class="muted">Projected population scale</p>
+      <p><strong>Urbanisation:</strong> ${escapeHtml(urbanText)}</p>
+      <p><strong>Health capacity proxy:</strong> ${escapeHtml(healthText)}</p>
+      <p><strong>Historical shock memory:</strong> ${escapeHtml(disasterText)}</p>
+      <p><strong>Live context:</strong> ${fmtSmart(context.gdacs.count || 0,0)} recent hazard matches; ${fmtSmart(context.unhcr.count || 0,0)} UNHCR records.</p>
+    </div>
+  </div>`;
+}
+
+function buildStrategicProfile(country,targetYear,projections,context){
+  const pop=getProjection(projections,'population');
+  const urban=getProjection(projections,'urbanPct');
+  const phys=getProjection(projections,'physicians');
+  const u5=getProjection(projections,'u5Mortality');
+  const internet=getProjection(projections,'internetUsers');
+  const emdat=emdatCountrySummary(country);
+  const signals=[];
+  if(pop && pop.changeFromLatest !== null && pop.changeFromLatest > 25) signals.push('population scale is rising materially');
+  if(urban && urban.projected > 50) signals.push('urban systems are central to preparedness');
+  if(phys && phys.projected < 1) signals.push('health workforce capacity appears thin');
+  if(u5 && u5.projected > 40) signals.push('child-health fragility remains a concern');
+  if(internet && internet.projected < 60) signals.push('digital-only communication would be risky');
+  if(emdat && (emdat.row.eventCount || 0) > 30) signals.push('historical disaster recurrence is material');
+  if((context.unhcr.count || 0) > 0) signals.push('displacement records are present');
+  const headline = signals.length ? signals.slice(0,3).join('; ') + '.' : 'The case file has enough signals for a structured planning discussion, but no single dominant pressure stands out from the selected indicators.';
+  const summary = 'Use this output to decide which assumptions need testing, which preparedness investments are no-regrets, and which data gaps should be resolved before making operational commitments.';
+  return {headline, summary};
+}
+
+function renderStrategicLens(country,targetYear,projections,context){
+  const pop=getProjection(projections,'population');
+  const urban=getProjection(projections,'urbanPct');
+  const phys=getProjection(projections,'physicians');
+  const internet=getProjection(projections,'internetUsers');
+  const emdat=emdatCountrySummary(country);
+  const gdacs=context.gdacs.count || 0;
+  const unhcr=context.unhcr.count || 0;
+  const lenses=[
+    {
+      label:'Exposure',
+      value:pop ? fmtSmart(pop.projected,0)+' people' : 'Not available',
+      text:urban ? `${fmtSmart(urban.projected,1)}% urban continuation. Test whether services, WASH, shelter and local administration can absorb this scale.` : 'Population/urban signals are incomplete. Use caution before making area-level assumptions.'
+    },
+    {
+      label:'Service fragility',
+      value:phys ? fmtSmart(1000/phys.projected,0)+' people per physician' : 'Not available',
+      text:'Use health workforce and health outcome proxies to test whether essential services could continue during a shock.'
+    },
+    {
+      label:'Shock memory',
+      value:emdat ? fmtSmart(emdat.row.eventCount || 0,0)+' events' : 'Not loaded',
+      text:emdat ? 'Historical disaster records point to the kinds of hazards that have previously overwhelmed people, systems or infrastructure.' : 'EM-DAT prepared data is not loaded for this country.'
+    },
+    {
+      label:'Mobility pressure',
+      value:unhcr ? fmtSmart(unhcr,0)+' records' : 'No records found',
+      text:'UNHCR records are contextual. They should trigger questions about host communities, service access and mobile populations, not automatic projections.'
+    },
+    {
+      label:'Operating environment',
+      value:internet ? fmtSmart(internet.projected,1)+'% online' : 'Not available',
+      text:'Digital access, macroeconomic and administrative signals affect feasibility, communication, cash delivery and accountability.'
+    },
+    {
+      label:'Current hazard context',
+      value:gdacs ? fmtSmart(gdacs,0)+' matches' : 'No matches found',
+      text:'GDACS and USGS-style records show recent hazard context. They are alerts and events, not future-risk predictions.'
+    }
+  ];
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Planning lens</h2><p>A compact reading of the country-year case for preparedness and decision-making.</p></div></div>
+    <div class="lens-grid">${lenses.map(item=>`<div class="lens-card"><span class="pill teal">${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong><p>${escapeHtml(item.text)}</p></div>`).join('')}</div>
+  </section>`;
+}
+
+function renderSignalDashboard(projections,targetYear){
+  const selected = ['population','urbanPct','physicians','u5Mortality','lifeExpectancy','healthSpend','internetUsers','mobileSubs','forestPct','co2'];
+  const rows = selected.map(key => getProjection(projections,key)).filter(Boolean);
+  return `<section class="panel signal-table">
+    <div class="section-title"><div><h2>Key signals</h2><p>Selected projected indicators that drive the planning reading. Full calculation detail remains available in the downloadable log.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Target-year continuation</th><th>Direction</th><th>Why it matters</th></tr></thead><tbody>
+      ${rows.map(p=>`<tr><td><strong>${escapeHtml(p.indicator.label)}</strong><br><span class="small">${escapeHtml(p.indicator.unit)}</span></td><td class="num">${fmtSmart(p.projected,p.indicator.decimals)}</td><td>${escapeHtml(p.direction || 'not assessed')}</td><td>${escapeHtml(signalMeaning(p.indicator.key))}</td></tr>`).join('')}
+    </tbody></table></div>
+  </section>`;
+}
+
+function signalMeaning(key){
+  const meanings={
+    population:'Scale affects service demand, staffing needs, logistics and financing assumptions.',
+    urbanPct:'Urban concentration changes access, shelter, WASH, health and local-government pressure.',
+    physicians:'A thin workforce proxy suggests weak surge capacity and fragile continuity of care.',
+    u5Mortality:'Child-health trajectories help flag deeper service and public-health fragility.',
+    lifeExpectancy:'A broad outcome proxy for long-run health and living conditions.',
+    healthSpend:'Financing context for health-system resilience and affordability.',
+    internetUsers:'Digital access affects feedback, cash, communication, protection and accountability design.',
+    mobileSubs:'Mobile infrastructure proxy for digital reach, not proof of effective access.',
+    forestPct:'Environmental and land-use context for exposure, livelihoods and resource pressure.',
+    co2:'Development and emissions context, not a direct humanitarian-risk measure.'
+  };
+  return meanings[key] || 'Relevant planning context.';
+}
+
+function renderPreparednessActions(country,targetYear,projections,derived,context){
+  const actions = generatePreparednessActions(country,targetYear,projections,context);
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Preparedness and investment prompts</h2><p>Practical decisions this case file should help a team discuss.</p></div></div>
+    <div class="grid two">${actions.map(action=>`<div class="action-card"><h3>${escapeHtml(action.title)}</h3><p>${escapeHtml(action.reason)}</p><ul>${action.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('')}</ul></div>`).join('')}</div>
+  </section>`;
+}
+
+function generatePreparednessActions(country,targetYear,projections,context){
+  const pop=getProjection(projections,'population');
+  const urban=getProjection(projections,'urbanPct');
+  const phys=getProjection(projections,'physicians');
+  const internet=getProjection(projections,'internetUsers');
+  const emdat=emdatCountrySummary(country);
+  const actions=[];
+  actions.push({
+    title:'Define the no-regrets preparedness package',
+    reason:'Start with investments that remain useful across several futures rather than betting on one predicted crisis.',
+    steps:['Pre-position decision triggers and minimum stocks for the most plausible shock types.','Map which services must continue during a shock.','Identify what can be funded now without waiting for an emergency appeal.']
+  });
+  if(pop && urban && urban.projected > 45){
+    actions.push({
+      title:'Stress-test urban service continuity',
+      reason:`The ${targetYear} case points to substantial urban pressure. National averages may hide neighbourhood-level overload.`,
+      steps:['Check whether health, WASH, shelter and protection plans are urban-ready.','Avoid assumptions based only on rural access models.','Use subnational/admin data before deciding where to invest.']
+    });
   }
-  if(preparedSources.length) lines.push(`<p>Prepared context loaded from <strong>${preparedSources.length}</strong> sources: ${escapeHtml(preparedSources.map(source=>source.name).join(', '))}. These prepared rows are context only - not projected.</p>`);
-  lines.push('<hr><p><strong>Use this as a case file:</strong> a numeric continuation of selected indicators plus current/contextual source signals. It is not an official forecast.</p>');
-  return lines.join('\n');
+  if(phys && phys.projected < 1.5){
+    actions.push({
+      title:'Protect health-system surge capacity',
+      reason:'The health workforce proxy suggests limited space to absorb additional demand during a shock.',
+      steps:['Plan for referral continuity, staff surge and essential medicine continuity.','Test what happens if facilities lose staff, supplies or access.','Prioritise partnerships that strengthen routine systems before crisis.']
+    });
+  }
+  if(internet && internet.projected < 65){
+    actions.push({
+      title:'Do not design digital-only delivery',
+      reason:'Digital access may not be broad enough for communications, feedback, cash or accountability systems to rely on online channels alone.',
+      steps:['Keep offline and community-based communication routes.','Test digital assumptions with affected groups.','Design feedback and complaints channels that work during power/connectivity disruption.']
+    });
+  }
+  if(emdat && (emdat.row.eventCount || 0) > 0){
+    const types=(emdat.row.topDisasterTypes || []).slice(0,2).map(x=>x.disasterType).filter(Boolean).join(' and ');
+    actions.push({
+      title:'Use disaster memory, not only current alerts',
+      reason:`Historical records show repeated disaster experience${types ? `, especially ${types}` : ''}.`,
+      steps:['Review whether past disaster types are reflected in current preparedness plans.','Use historical impact patterns to choose workshop scenarios.','Do not treat absence of today’s alert as absence of exposure.']
+    });
+  }
+  if((context.unhcr.count || 0) > 0){
+    actions.push({
+      title:'Include mobility and host-community pressure',
+      reason:'Returned displacement records mean planning should avoid treating the resident population as static.',
+      steps:['Check whether services include displaced people, returnees and host communities.','Stress-test registration, referrals and social cohesion assumptions.','Avoid programme designs that count caseloads but ignore system pressure.']
+    });
+  }
+  return actions.slice(0,6);
+}
+
+function renderPriorityBrief(country,targetYear,projections,context){
+  const actions = generatePreparednessActions(country,targetYear,projections,context).slice(0,4);
+  return `<section class="panel soft">
+    <div class="section-title"><div><h2>Suggested workshop questions</h2><p>Use these to turn the case file into a planning conversation.</p></div></div>
+    <div class="priority-list">
+      ${actions.map((action,index)=>`<div class="priority-item"><strong>${index+1}. ${escapeHtml(action.title)}</strong><br>${escapeHtml(action.reason)}</div>`).join('')}
+      <div class="priority-item"><strong>What claim should we avoid?</strong><br>This case file can support preparedness thinking. It cannot prove future humanitarian need, predict disasters or replace country-level judgement.</div>
+    </div>
+  </section>`;
 }
 
 async function buildCase(){
@@ -750,153 +980,119 @@ async function buildCase(){
 }
 
 function renderFailure(country,targetYear,projections,context){
-  return `<section class="panel"><h2>${escapeHtml(country.name)} ${targetYear}: no projectable indicators returned</h2><p class="muted">The site could reach the workflow, but the projectable World Bank indicators did not return enough usable numeric values. This can happen when the API blocks the browser, a country code is not accepted, or specific indicators have no usable series.</p>${renderProjectionErrors(projections)}<div class="spacer"></div>${renderContextSection(context,country)}</section>`;
+  return `<section class="panel"><h2>${escapeHtml(country.name)} ${targetYear}: no projectable indicators returned</h2><p class="muted">The site could reach the workflow, but the projectable World Bank indicators did not return enough usable numeric values. This can happen when the API blocks the browser, a country code fails, or an indicator has sparse data.</p>${renderProjectionErrors(projections.filter(p=>!p.ok))}</section>${renderContextSection(context,country)}`;
 }
 
 function renderCase(country,targetYear,projections,derived,context){
-  const okProjs=projections.filter(p=>p.ok), failed=projections.filter(p=>!p.ok);
+  const failed=projections.filter(p=>!p.ok);
   return `
     <section class="panel dark">${scenarioText(country,targetYear,projections,derived,context)}</section>
-    <section class="panel">
-      <div class="section-title"><div><h2>Projected country-year indicators</h2><p>These are the values extended into ${targetYear} from usable historical numeric data.</p></div></div>
-      <div class="cards">${okProjs.map(renderProjectionCard).join('')}</div>
-      ${failed.length?renderProjectionErrors(failed):''}
-    </section>
-    <section class="panel">
-      <div class="section-title"><div><h2>What the projected indicators imply</h2><p>Simple calculations made from the projected indicators above.</p></div></div>
-      <div class="cards">${derived.length?derived.map(renderDerivedCard).join(''):'<p>No calculated implications could be generated because required projected indicators were unavailable.</p>'}</div>
-    </section>
+    ${renderStrategicLens(country,targetYear,projections,context)}
+    ${renderSignalDashboard(projections,targetYear)}
+    ${renderPreparednessActions(country,targetYear,projections,derived,context)}
     ${renderContextSection(context,country)}
+    ${renderPriorityBrief(country,targetYear,projections,context)}
+    ${failed.length?`<section class="panel soft"><div class="section-title"><div><h2>Data gaps in this case file</h2><p>Signals that could not be projected or retrieved should be checked before making operational commitments.</p></div></div>${renderProjectionErrors(failed)}</section>`:''}
     <section class="panel">
-      <div class="section-title"><div><h2>Beta testing - Black Swan Stress-Test</h2><p>Optional experimental stress-test. It adds a rare, high-impact disruption to the case file to test which assumptions break. It does not predict the disruption.</p></div></div>
+      <div class="section-title"><div><h2>Black Swan stress-test</h2><p>Optional stress-test for assumptions. It does not predict a shock; it shows what would become fragile if a severe disruption occurred.</p></div></div>
       <div id="blackSwanOutput" class="explain"><strong>No stress-test generated yet.</strong> Generate one after reviewing the case file.</div>
       <div class="btnrow" style="margin-top:14px"><button class="btn red" onclick="generateBlackSwanStressTest()">Generate Black Swan stress-test</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear</button></div>
     </section>
     <section class="panel soft">
-      <div class="section-title"><div><h2>Claims this data cannot support</h2><p>These warnings help prevent overclaiming from the simulator output.</p></div></div>
+      <div class="section-title"><div><h2>Use boundaries</h2><p>These warnings prevent the case file being over-read.</p></div></div>
       <ul class="simple-list">
-        <li>This does not prove what will happen in ${targetYear}.</li>
-        <li>UNHCR and GDACS records are context signals, not projected future conditions.</li>
-        <li>GDACS records are current/recent event-list matches, not future disaster predictions.</li>
-        <li>Country-level indicators do not show local variation, informal systems, trust, staff morale or political negotiations.</li>
-        <li>Projected technology indicators show access/infrastructure proxies, not whether technology will improve humanitarian outcomes.</li>
+        <li>This is a transparent planning aid, not an official forecast.</li>
+        <li>It does not predict disasters, conflict, displacement shocks or future humanitarian need.</li>
+        <li>Country-level indicators can hide subnational, political, operational and institutional variation.</li>
+        <li>Context records show what was returned by sources; they are not severity scores.</li>
+        <li>Prepared data adds context, but the date and method of preparation still matter.</li>
       </ul>
       <div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
     </section>`;
 }
 
 function renderProjectionCard(p){
-  const ind=p.indicator;
-  const used = p.model && p.model.n ? p.model.n : p.seriesObj && p.seriesObj.values ? p.seriesObj.values.length : 'several';
-  const title=`Based on World Bank ${ind.label} values from ${p.first.year} to ${p.latest.year}. The simulator used ${used} real year/value rows after removing blanks, then extended that pattern to ${p.targetYear}.${p.notes.length?' Adjustment: '+p.notes.join('; '):''}`;
   return `<div class="card">
-    <span class="pill">${escapeHtml(ind.source)}</span>
-    <h3>${escapeHtml(ind.label)}</h3>
-    <div class="big">${fmtSmart(p.projected,ind.decimals)}</div>
-    <p class="unit">${escapeHtml(ind.unit)} in ${p.targetYear}</p>
-    <p class="small">Latest actual: ${fmtSmart(p.latest.value,ind.decimals)} (${p.latest.year})</p>
-    <span class="calc-help" title="${escapeHtml(title)}">How calculated?</span>
+    <span class="pill">${escapeHtml(p.indicator.role)}</span>
+    <h3>${escapeHtml(p.indicator.label)}</h3>
+    <div class="big">${fmtSmart(p.projected,p.indicator.decimals)}</div>
+    <div class="unit">${escapeHtml(p.indicator.unit)}</div>
+    <p class="small">Latest actual: ${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year}. Direction: ${escapeHtml(p.direction)}.</p>
+    <span class="calc-help" title="${escapeHtml(p.indicator.explain)} ${escapeHtml(p.approach)}.">How calculated</span>
   </div>`;
 }
-function renderDerivedCard(d){
-  const title=`${d.explanation} Source basis: ${d.source}.`;
-  return `<div class="card">
-    <span class="pill green">calculated</span>
-    <h3>${escapeHtml(d.label)}</h3>
-    <div class="big">${fmtSmart(d.value,d.decimals)}</div>
-    <p class="unit">${escapeHtml(d.unit)}</p>
-    <span class="calc-help" title="${escapeHtml(title)}">How calculated?</span>
-  </div>`;
-}
+
 function renderProjectionErrors(failed){
-  if(!failed.length) return '';
-  return `<details class="details"><summary>Indicators not available for this run</summary><div class="mono">${escapeHtml(failed.map(p=>`${p.indicator.label}: ${p.reason||'No usable data returned.'}`).join('\n'))}</div></details>`;
+  return `<details class="details"><summary>Indicators not projected</summary><ul class="simple-list">${failed.map(f=>`<li><strong>${escapeHtml(f.indicator?f.indicator.label:'Indicator')}:</strong> ${escapeHtml(f.reason||'No reason returned')}</li>`).join('')}</ul></details>`;
+}
+
+function renderDerivedCard(d){
+  return `<div class="card"><span class="pill green">calculated</span><h3>${escapeHtml(d.label)}</h3><div class="big">${fmtSmart(d.value,d.decimals)}</div><div class="unit">${escapeHtml(d.unit)}</div><p class="small">${escapeHtml(d.explanation)}</p></div>`;
 }
 
 function renderContextSection(context,country){
   const emdat = emdatCountrySummary(country);
+  const topTypes = emdat && emdat.row.topDisasterTypes ? emdat.row.topDisasterTypes.slice(0,3).map(item=>`${item.disasterType} (${item.count})`).join(', ') : '';
   return `<section class="panel">
-    <div class="section-title"><div><h2>Relevant data found, but not projected</h2><p>These records help describe the surrounding data environment. They do not become future-year predictions.</p></div></div>
-    <div class="cards">
-      ${renderContextCard('GDACS',context.gdacs.count||0,`current/recent disaster-event records matched to ${country.name}.`,context.gdacs.error)}
-      ${renderContextCard('UNHCR',context.unhcr.count||0,'country-related displacement/population records returned from origin/asylum query attempts.',context.unhcr.error)}
-      ${emdat ? renderContextCard('Historical disaster context', emdat.row.eventCount || 0, `EM-DAT historical disaster events for ${country.name}; context only, not projected.`, null) : ''}
-      ${preparedSources.length ? renderContextCard('Prepared data', preparedSources.length, 'prepared health, humanitarian, population, weather, economic, SDG or hazard context loaded from local JSON files.', null) : ''}
+    <div class="section-title"><div><h2>Historical, current and operational context</h2><p>Context signals that should shape preparedness questions without being treated as projections.</p></div></div>
+    <div class="context-strip">
+      <div class="context-card"><span class="pill teal">Historical disaster context</span><h3>${emdat ? fmtSmart(emdat.row.eventCount || 0,0)+' EM-DAT events' : 'Not loaded'}</h3><p>${emdat ? `Top historical disaster types: ${escapeHtml(topTypes || 'not recorded')}. Recorded affected people: ${fmtSmart(emdat.row.totalAffected || 0,0)}.` : 'Prepared EM-DAT summaries are not available for this country.'}</p></div>
+      <div class="context-card"><span class="pill teal">Current hazard context</span><h3>${fmtSmart(context.gdacs.count || 0,0)} GDACS matches</h3><p>${context.gdacs.error ? escapeHtml(context.gdacs.error) : 'Recent/current disaster-event matches help frame immediate awareness, not future probability.'}</p></div>
+      <div class="context-card"><span class="pill teal">Mobility context</span><h3>${fmtSmart(context.unhcr.count || 0,0)} UNHCR records</h3><p>${context.unhcr.error ? escapeHtml(context.unhcr.error) : 'Returned displacement/population records should trigger questions about host communities, returnees and mobile populations.'}</p></div>
+      <div class="context-card"><span class="pill teal">Prepared evidence layer</span><h3>${fmtSmart(preparedSources.length,0)} prepared sources loaded</h3><p>Prepared files add health, climate, population, economic, SDG, hazard and boundary context where available.</p></div>
     </div>
-    <div class="explain" style="margin-top:16px"><strong>What this section is for:</strong> it shows whether the simulator found supporting records for the selected country. A high count means “more returned records were found,” not “the crisis is worse.”</div>
-    <details class="details"><summary>Record details</summary><p class="muted">This list shows examples of returned GDACS and UNHCR records. These details are included so the case file is traceable, not because every record has been analysed.</p>${renderDetailRows(context)}</details>
+    <details class="details"><summary>See returned record examples</summary><p class="muted">Examples are shown for traceability. Counts are not severity scores.</p>${renderDetailRows(context)}</details>
   </section>`;
 }
+
 function renderContextCard(label,count,text,error){
   return `<div class="card"><span class="pill ${error?'red':'teal'}">${escapeHtml(label)}</span><div class="big">${error?'Error':fmtSmart(count,0)}</div><p>${escapeHtml(error || text)}</p></div>`;
 }
 function renderDetailRows(context){
   const rows=[];
-  (context.unhcr.items||[]).slice(0,5).forEach(i=>rows.push({source:'UNHCR record',title:`${i.coo_name||i.coa_name||'Population record'} ${i.year||''}`,detail:JSON.stringify(i).slice(0,180),url:i.sourceUrl}));
-  (context.gdacs.items||[]).slice(0,5).forEach(i=>rows.push({source:'GDACS event',title:(i.name||i.eventname||i.title||'GDACS event'),detail:JSON.stringify(i).slice(0,180),url:'https://www.gdacs.org/'}));
-  if(lastCaseData){
-    const emdat = emdatCountrySummary(lastCaseData.country);
-    if(emdat){
-      emdat.recentEvents.forEach(i=>rows.push({source:'EM-DAT historical event',title:`${i.year || ''} ${i.disasterType || 'Disaster event'}`,detail:`${i.eventName || i.location || 'No event name shown'}; deaths ${i.totalDeaths || 0}; affected ${i.totalAffected || 0}; damage ${i.totalDamageUsd000 || 0} ('000 US$)`,url:'https://www.emdat.be/'}));
-    }
-  }
-  if(!rows.length) return '<p>No contextual detail rows were returned. This can happen if the source does not return country matches or the browser blocks the request.</p>';
-  return `<div class="table-wrap"><table><thead><tr><th>Type</th><th>Title</th><th>Detail</th><th>Link</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(r.source)}</td><td>${escapeHtml(r.title)}</td><td>${escapeHtml(r.detail)}</td><td>${r.url?`<a href="${r.url}" target="_blank" rel="noopener">Open</a>`:'-'}</td></tr>`).join('')}</tbody></table></div>`;
+  (context.unhcr.items||[]).slice(0,8).forEach(item=>rows.push(['UNHCR', item.year || '', item.coo_name || item.coa_name || '', item.population_group || item.population_group_code || '', item.total || item.value || '']));
+  (context.gdacs.items||[]).slice(0,8).forEach(item=>rows.push(['GDACS', item.fromdate || item.datemodified || '', item.country || item.iso3 || '', item.eventtype || item.eventname || item.name || '', item.alertlevel || '']));
+  if(!rows.length) return '<p class="muted">No example records returned for the selected country.</p>';
+  return `<div class="table-wrap"><table><thead><tr><th>Source</th><th>Date/year</th><th>Country/place</th><th>Type</th><th>Value/status</th></tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${escapeHtml(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 
-function buildTags(caseData){
-  const {projections,derived,context}=caseData;
-  const tags=[];
-  const pop=value(projections,'population'), urbanPct=value(projections,'urbanPct'), internetPct=value(projections,'internetUsers'), mobile=value(projections,'mobileSubs'), servers=value(projections,'secureServers');
-  const peoplePerPhys=derived.find(d=>d.label==='People per physician');
-  if(pop && pop > 100000000) tags.push('population-scale');
-  if(urbanPct && urbanPct > 55) tags.push('urban-concentration');
-  if(internetPct && internetPct > 50) tags.push('digital-dependency');
-  if(mobile && mobile > 90) tags.push('mobile-dependency');
-  if(servers && servers > 100) tags.push('digital-infrastructure');
-  if(peoplePerPhys && peoplePerPhys.value > 3000) tags.push('health-workforce-fragility');
-  if(((context.unhcr.count||0) + (context.gdacs.count||0)) > 10) tags.push('data-dense-context');
-  if((context.gdacs.count||0) > 0) tags.push('current-disaster-signal');
-  if((context.unhcr.count||0) > 0) tags.push('displacement-signal');
-  if(tags.length===0) tags.push('thin-signal-context');
-  return tags;
-}
-
-const SHOCKS = [
-  {type:'data-blackout',title:'Data blackout during a response surge',match:['digital-dependency','mobile-dependency','data-dense-context'],event:'A cyberattack or state-level connectivity shutdown disables digital coordination platforms, health reporting dashboards and shared data portals for several weeks.',breaks:'The base case assumes data can be accessed, compared and coordinated. This shock removes digital visibility at the point when coordination is most needed.',holds:'Structural indicators such as population scale, urbanisation and health workforce capacity still matter, even if live systems fail.',challenge:'How would managers maintain accountability, prioritisation and service continuity when the information layer goes dark?'},
-  {type:'health-workforce',title:'Health workforce rupture',match:['health-workforce-fragility','population-scale'],event:'A sudden workforce shock - burnout, strike action, migration, epidemic among staff or training-pipeline disruption - reduces available clinical capacity.',breaks:'The base case treats physician density as a slow structural trend. This shock tests what happens if practical capacity falls faster than the indicator suggests.',holds:'Population scale, people-per-physician and child-health indicators remain useful pressure signals.',challenge:'How would leaders redesign roles, triage, delegation and staff protection when workforce capacity suddenly drops?'},
-  {type:'urban-overload',title:'Urban service overload',match:['urban-concentration','population-scale'],event:'A rapid influx into dense urban areas overwhelms health, water, shelter and coordination systems.',breaks:'The base case shows urbanisation as a gradual trajectory. This shock turns gradual concentration into an acute service-delivery problem.',holds:'Projected urban population remains a useful indicator of scale and concentration.',challenge:'How would managers prioritise services when population density, informal settlements and infrastructure limits converge?'},
-  {type:'compound-climate',title:'Compound climate and infrastructure disruption',match:['earth-observation-relevant','current-disaster-signal','population-scale'],event:'A climate-related hazard coincides with power, transport or supply-chain disruption, producing a multi-system operating problem rather than a single event.',breaks:'The base case does not forecast hazards. This shock tests how fragile the case becomes if a hazard coincides with infrastructure failure.',holds:'Population, health capacity and urbanisation still shape the scale of exposure and response needs.',challenge:'How would coordination change when services, logistics and information systems fail together?'},
-  {type:'displacement-surge',title:'Sudden mobility and displacement surge',match:['displacement-signal','population-scale'],event:'A sudden movement of people changes where services are needed faster than planning, staffing and data systems can adapt.',breaks:'The base case is country-level. This shock tests the weakness of national averages when people move rapidly across localities or borders.',holds:'Population scale and existing displacement data visibility remain relevant context.',challenge:'How would managers maintain service continuity and legitimacy when the population being served is mobile and unevenly counted?'},
-  {type:'funding-cliff',title:'Funding cliff',match:['population-scale','health-workforce-fragility','data-dense-context'],event:'Major donors cut or redirect funding, forcing programmes to shrink despite rising or persistent structural pressures.',breaks:'The base case describes pressures but does not assume financing continuity. This shock removes the resources needed to respond to scale.',holds:'Projected demand and capacity indicators still show the structural shape of the problem.',challenge:'How would leaders make transparent prioritisation decisions when needs persist but the resource envelope contracts?'},
-  {type:'trust-shock',title:'Trust and legitimacy shock',match:['data-dense-context','digital-dependency','displacement-signal'],event:'Communities reject official data collection or humanitarian coordination because of misinformation, surveillance fears, political pressure or previous harm.',breaks:'The base case assumes that data visibility is useful. This shock tests whether being counted and being trusted are the same thing.',holds:'Dataset availability still shows the information ecosystem, but not whether people trust it.',challenge:'How would leaders rebuild legitimacy when the technical data system is visible but socially contested?'},
-  {type:'positive-breakthrough',title:'Positive Black Swan: local capacity breakthrough',match:['health-workforce-fragility','digital-dependency','earth-observation-relevant'],event:'A low-cost diagnostic, offline coordination tool, local manufacturing breakthrough or training innovation sharply improves response capacity.',breaks:'The base case extends past constraints forward. This shock tests the possibility that a new capability changes the constraint itself.',holds:'Population and health indicators still describe the baseline scale, but the response capacity assumption changes.',challenge:'How would managers recognise, govern and scale a positive disruption without losing accountability or local ownership?'}
-];
-
-function weightedShock(tags){
-  const weighted=[];
-  for(const s of SHOCKS){
-    let w=1;
-    for(const t of tags){ if(s.match.includes(t)) w += 3; }
-    for(let i=0;i<w;i++) weighted.push(s);
-  }
-  return weighted[Math.floor(Math.random()*weighted.length)];
-}
 function generateBlackSwanStressTest(){
-  if(!lastCaseData){ alert('Generate a case file first.'); return; }
-  const tags=buildTags(lastCaseData); const shock=weightedShock(tags); const {country,targetYear}=lastCaseData;
-  lastBlackSwanText = `Black Swan Stress-Test\nCountry: ${country.name}\nTarget year: ${targetYear}\nDetected tags: ${tags.join(', ')}\nShock: ${shock.title}\nEvent: ${shock.event}\nWhat breaks: ${shock.breaks}\nWhat still matters: ${shock.holds}\nLeadership challenge: ${shock.challenge}\nWarning: This is a randomised stress-test, not a prediction.`;
-  const html=`<div class="section-title"><div><h2>${escapeHtml(shock.title)}</h2><p>Stress-test for ${escapeHtml(country.name)} ${targetYear}. This is randomised but weighted by the case file.</p></div></div>
-    <p><strong>Shock event:</strong> ${escapeHtml(shock.event)}</p>
-    <p><strong>Why this was selected:</strong> detected case tags include ${escapeHtml(tags.join(', '))}.</p>
-    <p><strong>What breaks:</strong> ${escapeHtml(shock.breaks)}</p>
-    <p><strong>What still matters:</strong> ${escapeHtml(shock.holds)}</p>
-    <p><strong>Leadership / management problem:</strong> ${escapeHtml(shock.challenge)}</p>
-    <p class="small"><strong>Warning:</strong> This is not a prediction. It is a stress-test of assumptions.</p>`;
-  const el=document.getElementById('blackSwanOutput'); if(el) el.innerHTML=html;
-  setLastCalcText(buildCalcLog(lastCaseData.country,lastCaseData.targetYear,lastCaseData.projections,lastCaseData.derived,lastCaseData.context) + '\n\n' + lastBlackSwanText);
+  if(!lastCaseData){ return; }
+  const {country,targetYear,projections,context}=lastCaseData;
+  const pop=getProjection(projections,'population'), phys=getProjection(projections,'physicians'), urban=getProjection(projections,'urbanPct'), internet=getProjection(projections,'internetUsers'), emdat=emdatCountrySummary(country);
+  const shocks=[
+    {
+      title:'Compound urban service shock',
+      trigger:'A severe flood, storm or infrastructure disruption affects a fast-growing urban area while public services are already stretched.',
+      assumptions:['Urban service continuity','Facility access and referral routes','WASH and shelter surge capacity'],
+      action:'Pre-agree urban contingency triggers, local authority roles, minimum stocks and offline communication channels.'
+    },
+    {
+      title:'Health workforce disruption',
+      trigger:'A major hazard occurs while health staffing, supply chains or facility access are constrained.',
+      assumptions:['Routine services can absorb emergency demand','Referral pathways remain functional','Staff availability remains stable'],
+      action:'Map critical health service continuity, surge staffing and referral alternatives before crisis.'
+    },
+    {
+      title:'Digital access failure',
+      trigger:'Connectivity, power or affordability fails during an emergency, limiting feedback, cash, information and accountability systems.',
+      assumptions:['Affected people can be reached digitally','Feedback channels remain online','Cash or registration systems remain usable'],
+      action:'Keep non-digital communication, registration and complaints routes in the operating model.'
+    }
+  ];
+  const chosen = (urban && urban.projected>50) ? shocks[0] : (phys && phys.projected<1.5) ? shocks[1] : (internet && internet.projected<65) ? shocks[2] : shocks[Math.floor(Math.random()*shocks.length)];
+  const disasterMemory = emdat ? `Historical disaster records for ${country.name} show ${fmtSmart(emdat.row.eventCount || 0,0)} recorded events, so the stress-test should use past hazard memory as one scenario input.` : 'Historical disaster context is not loaded, so the stress-test should be treated as a generic assumption test.';
+  const html=`<h3>${escapeHtml(chosen.title)}</h3><p><strong>Stress trigger:</strong> ${escapeHtml(chosen.trigger)}</p><p><strong>Why this belongs in the case file:</strong> ${escapeHtml(disasterMemory)}</p><p><strong>Assumptions to test:</strong></p><ul class="simple-list">${chosen.assumptions.map(a=>`<li>${escapeHtml(a)}</li>`).join('')}</ul><p><strong>No-regrets action:</strong> ${escapeHtml(chosen.action)}</p>`;
+  document.getElementById('blackSwanOutput').innerHTML=html;
+  lastBlackSwanText = `${chosen.title}\nTrigger: ${chosen.trigger}\nAssumptions: ${chosen.assumptions.join('; ')}\nAction: ${chosen.action}\n${disasterMemory}`;
+  setLastCalcText(buildCalcLog(country,targetYear,projections,deriveImplications(projections,targetYear),context) + '\n\n--- Black Swan stress-test ---\n' + lastBlackSwanText);
 }
-function clearBlackSwanStressTest(){ lastBlackSwanText=''; const el=document.getElementById('blackSwanOutput'); if(el) el.innerHTML='<strong>No stress-test generated yet.</strong> Generate one after reviewing the case file.'; if(lastCaseData) setLastCalcText(buildCalcLog(lastCaseData.country,lastCaseData.targetYear,lastCaseData.projections,lastCaseData.derived,lastCaseData.context)); }
+function clearBlackSwanStressTest(){
+  const el=document.getElementById('blackSwanOutput');
+  if(el) el.innerHTML='<strong>No stress-test generated yet.</strong> Generate one after reviewing the case file.';
+  lastBlackSwanText='';
+  if(lastCaseData) setLastCalcText(buildCalcLog(lastCaseData.country,lastCaseData.targetYear,lastCaseData.projections,deriveImplications(lastCaseData.projections,lastCaseData.targetYear),lastCaseData.context));
+}
 
 function buildCalcLog(country,targetYear,projections,derived,context){
   const lines=[];
@@ -924,22 +1120,31 @@ function buildCalcLog(country,targetYear,projections,derived,context){
   lines.push('--- Context source counts, not projections ---');
   lines.push(`GDACS matches: ${context.gdacs.count||0}${context.gdacs.error?' ERROR: '+context.gdacs.error:''}`);
   lines.push(`UNHCR country-related records: ${context.unhcr.count||0}${context.unhcr.error?' ERROR: '+context.unhcr.error:''}`);
-  lines.push(`Prepared data sources loaded: ${preparedSources.length ? preparedSources.map(source=>`${source.name} (${source.rowCount} rows)`).join('; ') : 'none loaded'}`);
-  const emdat = emdatCountrySummary(country);
+  lines.push(`Prepared data sources loaded: ${preparedSources.length ? preparedSources.map(source=>`${source.name} (${source.rowCount || 0} rows/records)`).join('; ') : 'none loaded'}`);
+  const emdat=emdatCountrySummary(country);
   if(emdat){
-    lines.push(`Historical disaster context: EM-DAT recorded ${emdat.row.eventCount || 0} historical disaster events for ${country.name} from ${emdat.row.firstYear || 'year not shown'} to ${emdat.row.lastYear || 'year not shown'}.`);
-    lines.push(`EM-DAT top disaster types: ${(emdat.row.topDisasterTypes || []).map(item=>`${item.disasterType} (${item.count})`).join('; ') || 'not recorded'}`);
-    lines.push(`EM-DAT totals: deaths ${emdat.row.totalDeaths || 0}; affected ${emdat.row.totalAffected || 0}; damage ${emdat.row.totalDamageUsd000 || 0} ('000 US$).`);
+    lines.push(`EM-DAT historical disaster context: ${emdat.row.eventCount || 0} events; total deaths ${emdat.row.totalDeaths || 0}; total affected ${emdat.row.totalAffected || 0}; total damage USD000 ${emdat.row.totalDamageUsd000 || 0}`);
   }
   lines.push('');
-  lines.push('Claims this log cannot support: it cannot predict disasters, conflict, displacement shocks, humanitarian need, local variation, trust, morale, or operational quality.');
+  lines.push('--- Use boundaries ---');
+  lines.push('This is a planning aid, not an official forecast.');
+  lines.push('It does not predict disasters, conflict, displacement shocks or humanitarian need.');
+  lines.push('Country-level indicators can hide local variation.');
+  lines.push('Context source counts are not severity scores.');
   return lines.join('\n');
 }
 
 function downloadCalculationLog(){
-  if(!lastCalcText){ alert('Generate a case or comparison first.'); return; }
-  const blob=new Blob([lastCalcText],{type:'text/plain'}); const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download='humanitarian-futures-simulator-calculation-log.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+  const text = lastCalcText || 'No calculation log has been generated yet.';
+  const blob = new Blob([text], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url;
+  a.download='humanitarian-futures-calculation-log.txt';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 async function compareCountries(){
@@ -958,8 +1163,8 @@ async function compareCountries(){
 
 function renderComparison(rows,targetYear){
   const sorted=rows.map(r=>{ const p=key=>getProjection(r.projections,key); const d=label=>r.derived.find(x=>x.label===label); const complete=['population','physicians','u5Mortality','internetUsers','urbanPct'].filter(k=>!!p(k)).length; return {country:r.country.name,pop:p('population'),phys:p('physicians'),u5:p('u5Mortality'),internet:p('internetUsers'),urban:p('urbanPct'),peoplePerPhys:d('People per physician'),complete}; }).sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
-  const trs=sorted.map(r=>`<tr><td><strong>${escapeHtml(r.country)}</strong></td><td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td><td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td><td class="num">${r.phys?fmtSmart(r.phys.projected,2):'NA'}</td><td class="num">${r.peoplePerPhys?fmtSmart(r.peoplePerPhys.value,2):'NA'}</td><td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td><td class="num">${r.internet?fmtSmart(r.internet.projected,2)+'%':'NA'}</td><td class="num">${r.urban?fmtSmart(r.urban.projected,2)+'%':'NA'}</td><td>${r.complete}/5</td></tr>`).join('');
-  return `<section class="panel"><div class="section-title"><div><h2>Starter-country comparison for ${targetYear}</h2><p>Same calculation logic, applied across the starter countries.</p></div></div><div class="table-wrap"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div><div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div></section>`;
+  const trs=sorted.map(r=>`<tr><td><strong>${escapeHtml(r.country)}</strong></td><td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td><td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td><td class="num">${r.phys?fmtSmart(r.phys.projected,2):'NA'}</td><td class="num">${r.peoplePerPhys?fmtSmart(r.peoplePerPhys.value,0):'NA'}</td><td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td><td class="num">${r.internet?fmtSmart(r.internet.projected,2):'NA'}</td><td class="num">${r.urban?fmtSmart(r.urban.projected,2):'NA'}</td><td class="num">${r.complete}/5</td></tr>`).join('');
+  return `<section class="panel"><div class="section-title"><div><h2>Starter country comparison for ${targetYear}</h2><p>Comparison uses the same country-level indicator continuation method for each starter country. It should support discussion, not ranking as a single score.</p></div></div><div class="table-wrap"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div><div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div></section>`;
 }
 
 init();
