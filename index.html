@@ -22,54 +22,39 @@
     .view{display:none}.view.active{display:block}
     header.hero{padding:22px 0 18px;text-align:left}
     .eyebrow{margin:0 0 10px;color:var(--muted);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
-    h1{margin:0;font-size:clamp(2.2rem,6vw,4.8rem);line-height:.98;letter-spacing:-.055em;max-width:980px}
-    h2,h3,h4{margin:0}.intro{max-width:760px;color:#334155;font-size:1.08rem;margin:16px 0 0}
+    h1{margin:0;font-size:clamp(2.15rem,6vw,4.6rem);line-height:.99;letter-spacing:-.055em;max-width:1000px}
+    h2,h3,h4{margin:0}.intro{max-width:820px;color:#334155;font-size:1.08rem;margin:16px 0 0}
     .builder{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:26px;margin:20px 0 16px}
     .builder h2{font-size:1.55rem;margin-bottom:4px}.builder p{color:var(--muted);margin:0 0 20px}
     .controls{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end}
     label{font-size:.78rem;font-weight:950;color:#344155;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:7px}
-    select,input,button{font:inherit}select,input{width:100%;border:1px solid #cdd6e1;border-radius:14px;background:#fff;color:var(--ink);padding:14px 14px;font-weight:800;font-size:1.02rem}.helper{font-size:.86rem;color:var(--muted);margin:7px 0 0}.btnrow{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:950;padding:14px 18px;cursor:pointer;white-space:nowrap}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#eaf1ff;color:#174ea6}.btn.ghost{background:#fff;color:#17202a;border:1px solid var(--line)}.btn.red{background:#b91c1c}.btn:disabled{opacity:.45;cursor:not-allowed}
+    select,input,button{font:inherit}select,input{width:100%;border:1px solid #cdd6e1;border-radius:14px;background:#fff;color:var(--ink);padding:14px 14px;font-weight:800;font-size:1.02rem}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:950;padding:14px 18px;cursor:pointer;white-space:nowrap}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#eaf1ff;color:#174ea6}.btn.ghost{background:#fff;color:#17202a;border:1px solid var(--line)}.btn.red{background:#b91c1c}.btn:disabled{opacity:.45;cursor:not-allowed}
     .mini-actions{margin-top:12px}.mini-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}
-    .panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;margin:18px 0}.panel.soft{background:#fbfcfe}.panel.dark{background:var(--navy);color:#f8fafc;border-color:#1f2937}.panel.dark .muted{color:#cbd5e1}.panel.dark hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:20px 0}.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}.section-title p{margin:6px 0 0;color:var(--muted)}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;margin:18px 0}.panel.soft{background:#fbfcfe}.panel.dark{background:var(--navy);color:#f8fafc;border-color:#1f2937}.panel.dark .muted{color:#cbd5e1}.panel.dark hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:20px 0}
+    .section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}.section-title p{margin:6px 0 0;color:var(--muted)}
     .pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:900;background:var(--blueBg);color:var(--blue);white-space:nowrap}.pill.green{background:var(--greenBg);color:var(--green)}.pill.amber{background:var(--amberBg);color:var(--amber)}.pill.purple{background:var(--purpleBg);color:var(--purple)}.pill.teal{background:var(--tealBg);color:var(--teal)}.pill.red{background:var(--redBg);color:var(--red)}
     .status{padding:15px 16px;border-left:5px solid var(--green);background:#fff;border-radius:12px;border:1px solid var(--line);margin:14px 0;color:#334155}.status.warn{border-left-color:#d97706}.status.error{border-left-color:#dc2626}
     .loading-panel{background:linear-gradient(135deg,#101827,#16203a);color:#fff;border-radius:26px;padding:46px 30px;margin:24px 0;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)}
     .loading-panel h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.05;margin-bottom:10px}.loading-panel p{color:#dbeafe;font-size:1.05rem;margin:0}.loaderbar{height:10px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin-top:24px}.loaderbar span{display:block;height:100%;width:45%;border-radius:999px;background:#93c5fd;animation:loadmove 1.2s ease-in-out infinite}@keyframes loadmove{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}
     .grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:18px;min-height:150px}.card h3{font-size:1.04rem;margin:7px 0 8px}.big{font-size:1.8rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
-    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-group{margin:18px 0 12px}.source-group h3{font-size:1.05rem}.source-group p{margin:5px 0 0}.source-category{margin:18px 0 10px;color:#334155;font-size:1rem}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}.source-note{margin-top:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
-    .spacer{height:28px}.footnote{color:var(--muted);font-size:.92rem;max-width:850px}.simple-list{padding-left:20px;color:#334155}.simple-list li{margin:7px 0}
-    .source-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:stretch;margin-bottom:18px}
-    .source-intro .explain{height:100%}
-    .source-theme{margin:26px 0 12px;padding-top:4px;border-top:1px solid var(--line)}
-    .source-theme:first-child{border-top:0;margin-top:8px}
-    .source-theme h3{font-size:1.08rem;margin:0}
-    .source-theme p{margin:5px 0 0;color:var(--muted)}
-    .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:stretch}
-    .source-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:360px}
-    .source-card p{margin:8px 0 0;color:#334155}
-    .source-card .source-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:2px}
-    .source-card h3{font-size:1.08rem;line-height:1.2}
-    .source-card .source-output{margin-top:auto}
-    .source-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
-    .case-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;align-items:stretch}
-    .case-summary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px}
-    .case-summary .big{color:#fff}
-    .lens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-    .lens-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:170px}
-    .lens-card h3{font-size:1.05rem;margin:8px 0}
-    .lens-card strong{display:block;font-size:1.3rem;margin-top:8px}
-    .action-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}
-    .action-card h3{font-size:1.04rem;margin-bottom:8px}
-    .action-card ul{margin:10px 0 0;padding-left:18px;color:#334155}
-    .signal-table table{min-width:760px}
-    .context-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-    .context-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px}
-    .context-card h3{font-size:1.04rem;margin:8px 0}
-    .priority-list{display:grid;gap:10px;margin-top:12px}
-    .priority-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px;color:#334155}
-
-    @media (max-width:920px){.controls,.two,.three,.four{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}.source-intro,.case-hero{grid-template-columns:1fr}.source-grid{grid-template-columns:1fr}}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:18px;min-height:132px}.card h3{font-size:1.02rem;margin:7px 0 8px}.big{font-size:1.75rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}
+    .details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
+    .footnote{color:var(--muted);font-size:.92rem;max-width:850px}.simple-list{padding-left:20px;color:#334155}.simple-list li{margin:7px 0}
+    .source-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:stretch;margin-bottom:18px}.source-intro .explain{height:100%}
+    .source-theme{margin:26px 0 12px;padding-top:4px;border-top:1px solid var(--line)}.source-theme:first-child{border-top:0;margin-top:8px}.source-theme h3{font-size:1.08rem;margin:0}.source-theme p{margin:5px 0 0;color:var(--muted)}
+    .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:stretch}.source-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:360px}.source-card p{margin:8px 0 0;color:#334155}.source-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:2px}.source-card h3{font-size:1.08rem;line-height:1.2}.source-card .source-output{margin-top:auto}.source-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}
+    .case-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;align-items:stretch}.case-summary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px}.case-summary .big{color:#fff}
+    .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.metric .icon{font-size:1.5rem}.metric .value{font-size:1.55rem;font-weight:950;display:block;margin:3px 0}.metric .label{font-size:.86rem;font-weight:900;color:#334155;text-transform:none;letter-spacing:0;margin:0}.metric p{margin:7px 0 0;color:var(--muted);font-size:.88rem}
+    .analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.analysis-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.analysis-card h3{font-size:1.03rem;margin:6px 0}.analysis-card p{color:#334155;margin:8px 0 0}
+    .bar-list{display:grid;gap:8px;margin-top:12px}.bar-row-ui{display:grid;grid-template-columns:120px 1fr 80px;gap:10px;align-items:center;font-size:.9rem}.bar-track{height:12px;background:#e7edf5;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:#1957d2;border-radius:999px}.bar-fill.green{background:#177245}.bar-fill.amber{background:#d97706}.bar-fill.red{background:#b91c1c}
+    .filter-row{display:grid;grid-template-columns:180px 180px 1fr;gap:10px;margin:14px 0}.filter-row select,.filter-row input{padding:10px 12px;font-size:.96rem;border-radius:12px}
+    .record-count{font-weight:900;color:#334155;margin:6px 0 12px}.tag-list{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.clicktag{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;cursor:pointer;font-weight:900;color:#334155}.clicktag.active{background:var(--navy);border-color:var(--navy);color:#fff}
+    .spark{display:grid;grid-template-columns:repeat(auto-fit,minmax(18px,1fr));gap:3px;align-items:end;min-height:110px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.spark div{background:#1957d2;border-radius:4px 4px 0 0;min-height:3px;position:relative}.spark div span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%) rotate(-45deg);font-size:.68rem;color:#64748b}
+    .data-section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}.data-source-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.data-source-card h3{font-size:1.02rem;margin:0 0 10px}.inline-records{display:grid;gap:10px}.inline-record{border:1px solid var(--line);border-radius:14px;background:#f8fafc;padding:12px}.inline-record strong{display:block}.inline-record p{margin:6px 0 0;color:#334155}
+    .source-chip{display:inline-flex;margin:0 6px 6px 0;border-radius:999px;background:#eef2ff;color:#3730a3;padding:5px 9px;font-weight:900;font-size:.78rem}
+    @media (max-width:920px){.controls,.two,.three,.four,.filter-row{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}.source-intro,.case-hero{grid-template-columns:1fr}.source-grid{grid-template-columns:1fr}.bar-row-ui{grid-template-columns:90px 1fr 60px}}
   </style>
 </head>
 <body>
@@ -85,14 +70,14 @@
 
     <section id="simulatorView" class="view active">
       <header class="hero">
-        <p class="eyebrow">country-year case builder</p>
+        <p class="eyebrow">country-year data case file</p>
         <h1>Choose a country. Choose a year.</h1>
-        <p class="intro">The simulator pulls public data, extends usable historical patterns into your chosen year, and turns the result into a transparent humanitarian futures case file.</p>
+        <p class="intro">The simulator pulls public records, prepared source files and country indicators into a country-year evidence file. The output is data-first: trends, returned records, historical patterns, and cross-source signals.</p>
       </header>
 
       <section class="builder" aria-label="Build a country-year case file">
         <h2>Build a case file</h2>
-        <p>Start with two choices. The rest of the evidence and calculation detail appears after the case is generated.</p>
+        <p>Start with a country and target year. The case file will show projected indicator continuations, disaster-history patterns, returned records and source-specific evidence.</p>
         <div class="controls">
           <div>
             <label for="countrySelect">Country</label>
@@ -129,7 +114,7 @@
           </div>
           <div class="explain">
             <strong>Check the data before using a case file.</strong>
-            <p>Use the check button to confirm that the live services respond and that prepared source files are available. Everyday users see a plain-English status; technical details stay inside each card.</p>
+            <p>Use the check button to confirm that live services respond and prepared source files are available. Everyday users see a plain-English status; technical details stay inside each card.</p>
           </div>
         </div>
         <div class="btnrow" style="margin-bottom:16px">
@@ -138,7 +123,6 @@
         <div id="sourceTestSummary" class="status hidden"></div>
         <div id="preparedStatus" class="status hidden"></div>
         <div id="sourceCards"></div>
-        <div id="preparedSourceCards" class="hidden"></div>
       </section>
       <section class="panel soft">
         <p class="footnote source-note">Some relevant sources are not included in this version because they require authentication, an app identifier, a manual download, or did not return usable rows during the prepared-data build.</p>
@@ -153,25 +137,25 @@
       <header class="hero">
         <p class="eyebrow">about the calculations</p>
         <h1>How it works</h1>
-        <p class="intro">This page keeps the technical explanation away from the main user flow. The output is a transparent case-building aid, not an official forecast.</p>
+        <p class="intro">This page keeps the technical explanation away from the main user flow. The output is a transparent data case file, not an official forecast.</p>
       </header>
       <section class="panel">
         <h2>In plain terms</h2>
         <ul class="simple-list">
           <li>The simulator retrieves historical country-level indicators from the World Bank.</li>
-          <li>It removes blank, null and future-year rows before calculating anything.</li>
-          <li>It extends each usable historical pattern into the selected year using a built-in calculation chosen for that indicator type.</li>
-          <li>It separately retrieves current/contextual records from GDACS and UNHCR.</li>
+          <li>It removes blank, null and future-year rows before calculating trend continuations.</li>
+          <li>It loads prepared JSON files for sources that are more reliable as static data.</li>
+          <li>It lists returned records and source rows rather than hiding them behind summary counts.</li>
           <li>It does not predict conflict, disasters, displacement shocks or humanitarian need.</li>
         </ul>
       </section>
       <section class="panel">
-        <h2>What “usable historical values” means</h2>
-        <p class="muted">A usable historical value is a source row with a real number and a valid year not later than the current year. Blank values are ignored. Zero is kept only when the source explicitly reports zero.</p>
+        <h2>What “target-year continuation” means</h2>
+        <p class="muted">A target-year continuation is a transparent extension of past numeric values into the chosen year. The method depends on the indicator type: population uses compound annual change, percentage indicators are capped between 0 and 100, mortality uses a decline curve, and other numeric indicators use recent straight-line continuation. It is a trend reading, not a forecast.</p>
       </section>
       <section class="panel">
         <h2>What the Black Swan stress-test does</h2>
-        <p class="muted">The Black Swan section is an experimental stress-test. It injects a rare, high-impact disruption after the numeric case file has been generated, then shows which assumptions become fragile. It is not a prediction engine.</p>
+        <p class="muted">The Black Swan section selects a severe stress event using returned evidence: historical disaster types, recent events, climate samples, service proxies and population scale. It is still a scenario stress-test, but its selection is now evidence-linked.</p>
       </section>
     </section>
   </main>
@@ -179,26 +163,26 @@
 <script>
 const CURRENT_YEAR = new Date().getFullYear();
 const COUNTRIES = [
-  {name:'Bangladesh', iso3:'BGD', iso2:'BD', wb:'bd'},
-  {name:'Haiti', iso3:'HTI', iso2:'HT', wb:'ht'},
-  {name:'Kenya', iso3:'KEN', iso2:'KE', wb:'ke'},
-  {name:'Nigeria', iso3:'NGA', iso2:'NG', wb:'ng'},
-  {name:'Philippines', iso3:'PHL', iso2:'PH', wb:'ph'},
-  {name:'Sudan', iso3:'SDN', iso2:'SD', wb:'sd'}
+  {name:'Bangladesh', iso3:'BGD', iso2:'BD', wb:'bd', lat:23.685, lon:90.3563},
+  {name:'Haiti', iso3:'HTI', iso2:'HT', wb:'ht', lat:18.9712, lon:-72.2852},
+  {name:'Kenya', iso3:'KEN', iso2:'KE', wb:'ke', lat:-1.2864, lon:36.8172},
+  {name:'Nigeria', iso3:'NGA', iso2:'NG', wb:'ng', lat:9.082, lon:8.6753},
+  {name:'Philippines', iso3:'PHL', iso2:'PH', wb:'ph', lat:14.5995, lon:120.9842},
+  {name:'Sudan', iso3:'SDN', iso2:'SD', wb:'sd', lat:15.5007, lon:32.5599}
 ].sort((a,b)=>a.name.localeCompare(b.name));
 
 const INDICATORS = [
-  {key:'population', code:'SP.POP.TOTL', label:'Population', unit:'people', type:'compound', decimals:0, role:'scale', source:'World Bank', explain:'Country population. Extended from cleaned historical values.'},
-  {key:'urbanPct', code:'SP.URB.TOTL.IN.ZS', label:'Urban population', unit:'% of total population', type:'percent', decimals:2, role:'urbanisation', source:'World Bank', explain:'Share of the population living in urban areas. Values are capped between 0 and 100%.'},
-  {key:'physicians', code:'SH.MED.PHYS.ZS', label:'Physicians per 1,000 people', unit:'per 1,000 people', type:'nonnegative', decimals:2, role:'health workforce proxy', source:'World Bank', explain:'Physician density. A broad health-workforce proxy, not a complete workforce measure.'},
-  {key:'u5Mortality', code:'SH.DYN.MORT', label:'Under-5 mortality', unit:'per 1,000 live births', type:'logdecline', decimals:2, role:'child health proxy', source:'World Bank', explain:'Under-5 mortality rate. Improving rates approach zero without becoming negative.'},
-  {key:'lifeExpectancy', code:'SP.DYN.LE00.IN', label:'Life expectancy at birth', unit:'years', type:'linear', decimals:1, role:'health outcome proxy', source:'World Bank', explain:'Life expectancy. A broad health outcome proxy.'},
-  {key:'healthSpend', code:'SH.XPD.CHEX.PC.CD', label:'Current health expenditure per capita', unit:'current US$', type:'nonnegative', decimals:2, role:'health system financing proxy', source:'World Bank', explain:'Health expenditure per person. Current US dollars are not inflation-adjusted.'},
-  {key:'internetUsers', code:'IT.NET.USER.ZS', label:'Individuals using the Internet', unit:'% of population', type:'percent', decimals:2, role:'digital access proxy', source:'World Bank', explain:'Internet-use share. Included as a country-level digital access proxy.'},
-  {key:'mobileSubs', code:'IT.CEL.SETS.P2', label:'Mobile cellular subscriptions', unit:'per 100 people', type:'capped200', decimals:2, role:'digital infrastructure proxy', source:'World Bank', explain:'Mobile subscriptions per 100 people. Can exceed 100 because people may hold multiple subscriptions.'},
-  {key:'secureServers', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', type:'nonnegative', decimals:2, role:'digital infrastructure proxy', source:'World Bank', explain:'Secure internet servers per million people. A rough digital-infrastructure proxy, not a full cyber-capacity measure.'},
-  {key:'forestPct', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', type:'percent', decimals:2, role:'environmental context proxy', source:'World Bank', explain:'Forest area share. Environmental land-use context, not a climate-risk measure.'},
-  {key:'co2', code:'EN.ATM.CO2E.PC', label:'CO₂ emissions per capita', unit:'metric tons per person', type:'nonnegative', decimals:2, role:'emissions/development proxy', source:'World Bank', explain:'CO₂ emissions per person. Context only, not a direct humanitarian-risk indicator.'}
+  {key:'population', icon:'👥', code:'SP.POP.TOTL', label:'Population', unit:'people', type:'compound', decimals:0, role:'Scale', source:'World Bank', explain:'Country population.'},
+  {key:'urbanPct', icon:'🏙️', code:'SP.URB.TOTL.IN.ZS', label:'Urban population', unit:'% of total population', type:'percent', decimals:2, role:'Settlement pattern', source:'World Bank', explain:'Share of population living in urban areas.'},
+  {key:'physicians', icon:'⚕️', code:'SH.MED.PHYS.ZS', label:'Physicians per 1,000 people', unit:'per 1,000 people', type:'nonnegative', decimals:2, role:'Health workforce proxy', source:'World Bank', explain:'Physician density. A proxy, not a full workforce measure.'},
+  {key:'u5Mortality', icon:'🧒', code:'SH.DYN.MORT', label:'Under-5 mortality', unit:'per 1,000 live births', type:'logdecline', decimals:2, role:'Child health proxy', source:'World Bank', explain:'Under-5 mortality rate.'},
+  {key:'lifeExpectancy', icon:'📈', code:'SP.DYN.LE00.IN', label:'Life expectancy at birth', unit:'years', type:'linear', decimals:1, role:'Health outcome proxy', source:'World Bank', explain:'Broad health outcome proxy.'},
+  {key:'healthSpend', icon:'💵', code:'SH.XPD.CHEX.PC.CD', label:'Current health expenditure per capita', unit:'current US$', type:'nonnegative', decimals:2, role:'Health financing proxy', source:'World Bank', explain:'Health expenditure per person in current US dollars.'},
+  {key:'internetUsers', icon:'🌐', code:'IT.NET.USER.ZS', label:'Individuals using the Internet', unit:'% of population', type:'percent', decimals:2, role:'Digital access proxy', source:'World Bank', explain:'Internet-use share.'},
+  {key:'mobileSubs', icon:'📱', code:'IT.CEL.SETS.P2', label:'Mobile cellular subscriptions', unit:'per 100 people', type:'capped200', decimals:2, role:'Digital infrastructure proxy', source:'World Bank', explain:'Mobile subscriptions per 100 people.'},
+  {key:'secureServers', icon:'🔒', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', type:'nonnegative', decimals:2, role:'Digital infrastructure proxy', source:'World Bank', explain:'Secure internet servers per million people.'},
+  {key:'forestPct', icon:'🌳', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', type:'percent', decimals:2, role:'Land-use context', source:'World Bank', explain:'Forest area share.'},
+  {key:'co2', icon:'🏭', code:'EN.ATM.CO2E.PC', label:'CO₂ emissions per capita', unit:'metric tons per person', type:'nonnegative', decimals:2, role:'Emissions/development proxy', source:'World Bank', explain:'CO₂ emissions per person.'}
 ];
 
 const SOURCES = [
@@ -218,9 +202,9 @@ const SOURCES = [
     url:'https://www.unhcr.org/refugee-statistics/',
     status:'Live data',
     category:'Displacement and humanitarian context',
-    plain:'UNHCR Refugee Data Finder provides figures on forcibly displaced and stateless populations, including refugees, asylum-seekers and other population groups. It matters because displacement context is central to many humanitarian questions. This simulator retrieves recent country-related displacement records for context.',
+    plain:'UNHCR Refugee Data Finder provides figures on forcibly displaced and stateless populations, including refugees, asylum-seekers and other population groups. This simulator retrieves recent country-related displacement records for context.',
     pulls:'Recent displacement records where the selected country is queried as origin and asylum country.',
-    technical:'Endpoint pattern: https://api.unhcr.org/population/v1/population/?year={year}&coo={iso3} and coa={iso3}. Data type returned: JSON population records. These are actual records used as context, not future displacement estimates. Limitation: returned fields depend on UNHCR reporting structure for that year and country.'
+    technical:'Endpoint pattern: https://api.unhcr.org/population/v1/population/?year={year}&coo={iso3} and coa={iso3}. Data type returned: JSON population records. These are actual records used as context, not future displacement estimates.'
   },
   {
     key:'gdacs',
@@ -228,9 +212,9 @@ const SOURCES = [
     url:'https://www.gdacs.org/',
     status:'Live data',
     category:'Disaster and hazard history',
-    plain:'GDACS provides alerts and information on current and recent major disasters. It exists to support awareness and coordination around major disaster events. This simulator uses it only for current/recent event context. It does not predict future disasters.',
+    plain:'GDACS provides alerts and information on current and recent major disasters. This simulator uses it only for current/recent event context.',
     pulls:'Current/recent disaster event records matched to the selected country.',
-    technical:'Endpoint used: https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=. Data type returned: GeoJSON event records. The site matches country names and ISO codes in returned event records. Limitation: long-running events can remain listed across extended periods.'
+    technical:'Endpoint used: https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=. Data type returned: GeoJSON event records. The site matches country names and ISO codes in returned event records.'
   }
 ];
 
@@ -275,18 +259,10 @@ const SOURCE_CATEGORY_BY_SLUG = {
   'hdx-hapi':'Displacement and humanitarian context'
 };
 
-let lastCalcText = '';
-let lastCaseData = null;
-let lastBlackSwanText = '';
 let preparedManifest = null;
 let preparedSources = [];
-
-function setLastCalcText(text){
-  lastCalcText = text;
-  window.__lastCalcText = text;
-  document.body.dataset.calcLogReady = text && text.length > 100 ? 'true' : 'false';
-  document.body.dataset.calcLogMentionsPrepared = text && text.includes('Prepared data sources loaded') ? 'true' : 'false';
-}
+let lastCaseData = null;
+let disasterViewState = {years:'10', hazard:'all', query:''};
 
 function init(){
   const countrySelect = document.getElementById('countrySelect');
@@ -366,14 +342,12 @@ function renderNotIncludedSources(){
 async function loadPreparedData(options={}){
   const silent = !!options.silent;
   const status = document.getElementById('preparedStatus');
-  const grid = document.getElementById('preparedSourceCards');
   if(!silent){
     status.className = 'status';
     status.textContent = 'Loading prepared data...';
   } else {
     status.className = 'status hidden';
   }
-  if(grid) grid.innerHTML = '';
   try{
     const manifest = await fetchJson('data/prepared/manifest.json');
     preparedManifest = manifest;
@@ -424,7 +398,6 @@ function normalizePreparedSource(source, manifestEntry){
 function renderPreparedCard(source){
   const statusLabel = source.sourceType || 'Prepared data';
   const pillClass = statusLabel === 'Local prepared data' ? 'teal' : 'purple';
-  const sample = source.technicalSample || [];
   const technical = {
     endpoint: source.endpoint || 'data/prepared/' + (source.slug || source.id) + '.json',
     sourceFile: source.sourceFile,
@@ -435,7 +408,7 @@ function renderPreparedCard(source){
     aggregateGroups: source.aggregates ? Object.keys(source.aggregates) : undefined,
     citationNote: source.citationNote,
     limitations: source.limitations || source.fieldNotes,
-    sample
+    sample: source.technicalSample || []
   };
   return `<div class="source-card">
     <div class="source-title"><h3>${escapeHtml(source.name)}</h3><span class="pill ${pillClass}">${escapeHtml(statusLabel)}</span></div>
@@ -463,16 +436,8 @@ function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g, ch=>({'&':'&amp;
 function fmt(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:dec,minimumFractionDigits:dec}).format(n); }
 function fmtSmart(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; const abs=Math.abs(n); const d=abs>=1000?0:dec; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:d,minimumFractionDigits:0}).format(n); }
 function pct(n,dec=1){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return `${fmt(n,dec)}%`; }
-
-async function fetchJson(url, options={}){
-  const res = await fetch(url, options);
-  if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  return await res.json();
-}
-
-function selectedCountry(){
-  return countryByIso(document.getElementById('countrySelect').value) || COUNTRIES[0];
-}
+async function fetchJson(url, options={}){ const res = await fetch(url, options); if(!res.ok) throw new Error(`${res.status} ${res.statusText}`); return await res.json(); }
+function selectedCountry(){ return countryByIso(document.getElementById('countrySelect').value) || COUNTRIES[0]; }
 
 function sourceOutput(key, cls, html){
   const el = document.getElementById(`sourceTest-${key}`);
@@ -480,14 +445,9 @@ function sourceOutput(key, cls, html){
   el.className = `source-output ${cls}`;
   el.innerHTML = html;
 }
-
 function sourceRaw(key, data){
   const el = document.getElementById(`sourceRaw-${key}`);
   if(el) el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-}
-
-function sampleJson(data, max=900){
-  return JSON.stringify(data, null, 2).slice(0, max);
 }
 
 async function testWorkingSource(key){
@@ -509,7 +469,6 @@ async function testWorkingSource(key){
       <p><strong>Not working in this browser check.</strong></p>
       <p>${escapeHtml(e.message)}</p>
       <p class="small">This source is not shown as working unless a real response returns usable records.</p>
-      <p class="small">Last checked: ${escapeHtml(new Date().toLocaleString())}</p>
     `);
     sourceRaw(key, 'No successful response yet.');
     return false;
@@ -556,36 +515,18 @@ const SOURCE_TESTS = {
     const series = await fetchWorldBankSeries(country, ind);
     if(!series.values.length) throw new Error('No usable World Bank values returned.');
     const latest = series.values[series.values.length-1];
-    return {
-      endpoint: series.url,
-      count: series.values.length,
-      latest: `${latest.year}: ${fmtSmart(latest.value, 0)}`,
-      sample: `${country.name} ${ind.label} returned ${series.values.length} usable numeric year/value rows.`,
-      raw: {endpoint:series.url, rawCount:series.rawCount, latest, sample:series.values.slice(-5)}
-    };
+    return {endpoint: series.url, count: series.values.length, latest: `${latest.year}: ${fmtSmart(latest.value, 0)}`, sample: `${country.name} ${ind.label} returned ${series.values.length} usable numeric year/value rows.`, raw: {endpoint:series.url, rawCount:series.rawCount, latest, sample:series.values.slice(-5)}};
   },
   async unhcr(country){
     const result = await fetchUnhcr(country);
     if(!result.items.length) throw new Error(result.error || 'No UNHCR population records returned for origin/asylum country query.');
     const first = result.items[0];
-    return {
-      endpoint: result.queries.join(' | '),
-      count: result.count,
-      latest: `Selected year ${result.year}`,
-      sample: `${first.coo_name || first.coa_name || country.name} returned displacement or population records for the selected year.`,
-      raw: {queries:result.queries, recordCount:result.count, sample:result.items.slice(0,5)}
-    };
+    return {endpoint: result.queries.join(' | '), count: result.count, latest: `Selected year ${result.year}`, sample: `${first.coo_name || first.coa_name || country.name} returned displacement or population records for the selected year.`, raw: {queries:result.queries, recordCount:result.count, sample:result.items.slice(0,5)}};
   },
   async gdacs(country){
     const result = await fetchGdacs(country);
     const first = result.items[0];
-    return {
-      endpoint: result.url,
-      count: result.count,
-      latest: first ? (first.datemodified || first.fromdate || 'Event date not shown') : 'No country matches in current/recent list',
-      sample: first ? `${first.name || first.eventname || 'GDACS event'} (${first.country || first.iso3 || 'location not shown'})` : `The endpoint returned records, but none matched ${country.name}.`,
-      raw: {endpoint:result.url, matchedRecords:result.count, sample:result.items.slice(0,5)}
-    };
+    return {endpoint: result.url, count: result.count, latest: first ? (first.datemodified || first.fromdate || 'Event date not shown') : 'No country matches in current/recent list', sample: first ? `${first.name || first.eventname || 'GDACS event'} (${first.country || first.iso3 || 'location not shown'})` : `The endpoint returned records, but none matched ${country.name}.`, raw: {endpoint:result.url, matchedRecords:result.count, sample:result.items.slice(0,5)}};
   }
 };
 
@@ -608,11 +549,7 @@ async function fetchWorldBankSeries(country, ind){
   throw lastErr || new Error('World Bank query failed');
 }
 
-function parseValue(v){
-  if(v === null || v === undefined || v === '') return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
-}
+function parseValue(v){ if(v === null || v === undefined || v === '') return null; const n = Number(v); return Number.isFinite(n) ? n : null; }
 
 function cleanSeries(values, ind){
   const seen = new Set(); const out = [];
@@ -626,6 +563,7 @@ function cleanSeries(values, ind){
   }
   return out;
 }
+
 function recentValues(series, max=20){ return series && series.length ? series.slice(Math.max(0,series.length-max)) : []; }
 
 function linearRegression(points){
@@ -706,17 +644,16 @@ async function fetchGdacs(country){
   const url = 'https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=';
   const json = await fetchJson(url);
   const arr = Array.isArray(json) ? json : (json.features || json.events || []);
-  const name = country.name.toLowerCase(), iso2 = country.iso2.toLowerCase();
-  const iso3 = country.iso3.toLowerCase();
-  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`) || JSON.stringify(it).toLowerCase().includes(`"${iso3}"`)).slice(0,8).map(it=>it.properties||it);
+  const name = country.name.toLowerCase(), iso2 = country.iso2.toLowerCase(), iso3 = country.iso3.toLowerCase();
+  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`) || JSON.stringify(it).toLowerCase().includes(`"${iso3}"`)).slice(0,20).map(it=>it.properties||it);
   return {count:items.length,items,allCount:arr.length,allItems:arr.slice(0,5),url,explanation:'Current or recent GDACS event-list records matched by country name/code. These are not future events.'};
 }
 
 async function fetchUnhcr(country){
   const year = Math.min(CURRENT_YEAR-1, 2024);
   const queries = [
-    `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=10`,
-    `https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=10`
+    `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=20`,
+    `https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=20`
   ];
   let items=[]; let errors=[];
   for(const url of queries){
@@ -726,233 +663,43 @@ async function fetchUnhcr(country){
       rows.forEach(r=>items.push({...r,sourceUrl:url}));
     }catch(e){ errors.push(e.message); }
   }
-  return {count:items.length,items:items.slice(0,12),queries,year,error:errors.length===queries.length?errors.join('; '):null,explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
+  return {count:items.length,items:items.slice(0,24),queries,year,error:errors.length===queries.length?errors.join('; '):null,explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
 }
 
 function getProjection(projections,key){ return projections.find(p=>p.indicator && p.indicator.key===key && p.ok); }
 function value(projections,key){ const p=getProjection(projections,key); return p ? p.projected : null; }
 function latestValue(projections,key){ const p=getProjection(projections,key); return p ? p.latest.value : null; }
+function getPrepared(slug){ return preparedSources.find(source => (source.slug || source.id) === slug); }
 
-function getEmdatSource(){
-  return preparedSources.find(source => (source.slug || source.id) === 'emdat' && source.aggregates && Array.isArray(source.aggregates.byCountry));
-}
-
+function getEmdatSource(){ return getPrepared('emdat'); }
 function emdatCountrySummary(country){
   const source = getEmdatSource();
-  if(!source) return null;
+  if(!source || !source.aggregates) return null;
   const byCountry = source.aggregates.byCountry || [];
   const row = byCountry.find(item => String(item.iso || '').toUpperCase() === country.iso3) ||
     byCountry.find(item => String(item.country || '').toLowerCase() === country.name.toLowerCase());
   if(!row) return null;
-  const recentEvents = (source.aggregates.recentEvents || [])
-    .filter(item => String(item.iso || '').toUpperCase() === country.iso3 || String(item.country || '').toLowerCase() === country.name.toLowerCase())
-    .slice(0, 5);
-  return {source, row, recentEvents};
+  const byYear = (source.aggregates.byCountryYear || []).filter(item => String(item.iso || '').toUpperCase() === country.iso3 || String(item.country || '').toLowerCase() === country.name.toLowerCase()).sort((a,b)=>a.year-b.year);
+  const recentEvents = (source.aggregates.recentEvents || []).filter(item => String(item.iso || '').toUpperCase() === country.iso3 || String(item.country || '').toLowerCase() === country.name.toLowerCase()).sort((a,b)=>Number(b.year||0)-Number(a.year||0));
+  return {source, row, byYear, recentEvents};
+}
+
+function countryRows(source, country){
+  const rows = source && Array.isArray(source.sampleRows) ? source.sampleRows : [];
+  return rows.filter(row => String(row.iso3 || row.iso || row.countryCode || '').toUpperCase() === country.iso3 || String(row.country || '').toLowerCase() === country.name.toLowerCase());
 }
 
 function deriveImplications(projections,targetYear){
   const pop=value(projections,'population'), phys=value(projections,'physicians'), urbanPct=value(projections,'urbanPct'), internetPct=value(projections,'internetUsers'), latestPop=latestValue(projections,'population');
   const items=[];
   if(pop && phys && phys>0){
-    items.push({label:'People per physician',value:1000/phys,unit:'people per physician',decimals:2,source:'Projected physicians per 1,000 people from World Bank',explanation:'Calculated as 1,000 divided by projected physicians per 1,000 people.'});
-    items.push({label:'Implied physician count',value:pop*phys/1000,unit:'physicians',decimals:0,source:'Projected population and projected physicians per 1,000 people from World Bank',explanation:'Projected population × projected physicians per 1,000 ÷ 1,000.'});
+    items.push({label:'People per physician',value:1000/phys,unit:'people per physician',decimals:0});
+    items.push({label:'Implied physician count',value:pop*phys/1000,unit:'physicians',decimals:0});
   }
-  if(pop && latestPop){ items.push({label:`Population change to ${targetYear}`,value:((pop-latestPop)/latestPop)*100,unit:'% from latest actual population',decimals:1,source:'World Bank population projection',explanation:'Projected target-year population compared with the latest usable actual population returned by World Bank.'}); }
-  if(pop && urbanPct!==null){ items.push({label:'Projected urban population',value:pop*urbanPct/100,unit:'people',decimals:0,source:'World Bank population and urban-share projections',explanation:'Projected population × projected urban population share.'}); }
-  if(pop && internetPct!==null){ items.push({label:'Projected internet-user population',value:pop*internetPct/100,unit:'people',decimals:0,source:'World Bank population and internet-use projections',explanation:'Projected population × projected internet-use share.'}); }
+  if(pop && latestPop){ items.push({label:'Population change to target year',value:((pop-latestPop)/latestPop)*100,unit:'% from latest actual population',decimals:1}); }
+  if(pop && urbanPct!==null){ items.push({label:'Projected urban population',value:pop*urbanPct/100,unit:'people',decimals:0}); }
+  if(pop && internetPct!==null){ items.push({label:'Projected internet-user population',value:pop*internetPct/100,unit:'people',decimals:0}); }
   return items;
-}
-
-function scenarioText(country,targetYear,projections,derived,context){
-  const pop=getProjection(projections,'population'), phys=getProjection(projections,'physicians'), u5=getProjection(projections,'u5Mortality'), urban=getProjection(projections,'urbanPct'), internet=getProjection(projections,'internetUsers');
-  const emdat = emdatCountrySummary(country);
-  const pressure = buildStrategicProfile(country,targetYear,projections,context);
-  const popText = pop ? fmtSmart(pop.projected,0) : 'not available';
-  const urbanText = urban ? pct(urban.projected,1) : 'not available';
-  const healthText = phys ? fmtSmart(1000 / phys.projected,0) + ' people per physician' : 'health workforce proxy not available';
-  const disasterText = emdat ? `${fmtSmart(emdat.row.eventCount || 0,0)} historical disaster records` : 'historical disaster summary not loaded';
-  return `<div class="case-hero">
-    <div>
-      <p class="eyebrow">country-year case file</p>
-      <h2>${escapeHtml(country.name)} ${targetYear}</h2>
-      <p class="muted">This case file turns structural trends and contextual records into planning questions for preparedness, investment and programme design. It is not a forecast and it does not predict disasters, displacement or conflict.</p>
-      <hr>
-      <p><strong>Main reading:</strong> ${escapeHtml(pressure.headline)}</p>
-      <p>${escapeHtml(pressure.summary)}</p>
-    </div>
-    <div class="case-summary">
-      <span class="pill green">Planning snapshot</span>
-      <div class="big">${escapeHtml(popText)}</div>
-      <p class="muted">Projected population scale</p>
-      <p><strong>Urbanisation:</strong> ${escapeHtml(urbanText)}</p>
-      <p><strong>Health capacity proxy:</strong> ${escapeHtml(healthText)}</p>
-      <p><strong>Historical shock memory:</strong> ${escapeHtml(disasterText)}</p>
-      <p><strong>Live context:</strong> ${fmtSmart(context.gdacs.count || 0,0)} recent hazard matches; ${fmtSmart(context.unhcr.count || 0,0)} UNHCR records.</p>
-    </div>
-  </div>`;
-}
-
-function buildStrategicProfile(country,targetYear,projections,context){
-  const pop=getProjection(projections,'population');
-  const urban=getProjection(projections,'urbanPct');
-  const phys=getProjection(projections,'physicians');
-  const u5=getProjection(projections,'u5Mortality');
-  const internet=getProjection(projections,'internetUsers');
-  const emdat=emdatCountrySummary(country);
-  const signals=[];
-  if(pop && pop.changeFromLatest !== null && pop.changeFromLatest > 25) signals.push('population scale is rising materially');
-  if(urban && urban.projected > 50) signals.push('urban systems are central to preparedness');
-  if(phys && phys.projected < 1) signals.push('health workforce capacity appears thin');
-  if(u5 && u5.projected > 40) signals.push('child-health fragility remains a concern');
-  if(internet && internet.projected < 60) signals.push('digital-only communication would be risky');
-  if(emdat && (emdat.row.eventCount || 0) > 30) signals.push('historical disaster recurrence is material');
-  if((context.unhcr.count || 0) > 0) signals.push('displacement records are present');
-  const headline = signals.length ? signals.slice(0,3).join('; ') + '.' : 'The case file has enough signals for a structured planning discussion, but no single dominant pressure stands out from the selected indicators.';
-  const summary = 'Use this output to decide which assumptions need testing, which preparedness investments are no-regrets, and which data gaps should be resolved before making operational commitments.';
-  return {headline, summary};
-}
-
-function renderStrategicLens(country,targetYear,projections,context){
-  const pop=getProjection(projections,'population');
-  const urban=getProjection(projections,'urbanPct');
-  const phys=getProjection(projections,'physicians');
-  const internet=getProjection(projections,'internetUsers');
-  const emdat=emdatCountrySummary(country);
-  const gdacs=context.gdacs.count || 0;
-  const unhcr=context.unhcr.count || 0;
-  const lenses=[
-    {
-      label:'Exposure',
-      value:pop ? fmtSmart(pop.projected,0)+' people' : 'Not available',
-      text:urban ? `${fmtSmart(urban.projected,1)}% urban continuation. Test whether services, WASH, shelter and local administration can absorb this scale.` : 'Population/urban signals are incomplete. Use caution before making area-level assumptions.'
-    },
-    {
-      label:'Service fragility',
-      value:phys ? fmtSmart(1000/phys.projected,0)+' people per physician' : 'Not available',
-      text:'Use health workforce and health outcome proxies to test whether essential services could continue during a shock.'
-    },
-    {
-      label:'Shock memory',
-      value:emdat ? fmtSmart(emdat.row.eventCount || 0,0)+' events' : 'Not loaded',
-      text:emdat ? 'Historical disaster records point to the kinds of hazards that have previously overwhelmed people, systems or infrastructure.' : 'EM-DAT prepared data is not loaded for this country.'
-    },
-    {
-      label:'Mobility pressure',
-      value:unhcr ? fmtSmart(unhcr,0)+' records' : 'No records found',
-      text:'UNHCR records are contextual. They should trigger questions about host communities, service access and mobile populations, not automatic projections.'
-    },
-    {
-      label:'Operating environment',
-      value:internet ? fmtSmart(internet.projected,1)+'% online' : 'Not available',
-      text:'Digital access, macroeconomic and administrative signals affect feasibility, communication, cash delivery and accountability.'
-    },
-    {
-      label:'Current hazard context',
-      value:gdacs ? fmtSmart(gdacs,0)+' matches' : 'No matches found',
-      text:'GDACS and USGS-style records show recent hazard context. They are alerts and events, not future-risk predictions.'
-    }
-  ];
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Planning lens</h2><p>A compact reading of the country-year case for preparedness and decision-making.</p></div></div>
-    <div class="lens-grid">${lenses.map(item=>`<div class="lens-card"><span class="pill teal">${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong><p>${escapeHtml(item.text)}</p></div>`).join('')}</div>
-  </section>`;
-}
-
-function renderSignalDashboard(projections,targetYear){
-  const selected = ['population','urbanPct','physicians','u5Mortality','lifeExpectancy','healthSpend','internetUsers','mobileSubs','forestPct','co2'];
-  const rows = selected.map(key => getProjection(projections,key)).filter(Boolean);
-  return `<section class="panel signal-table">
-    <div class="section-title"><div><h2>Key signals</h2><p>Selected projected indicators that drive the planning reading. Full calculation detail remains available in the downloadable log.</p></div></div>
-    <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Target-year continuation</th><th>Direction</th><th>Why it matters</th></tr></thead><tbody>
-      ${rows.map(p=>`<tr><td><strong>${escapeHtml(p.indicator.label)}</strong><br><span class="small">${escapeHtml(p.indicator.unit)}</span></td><td class="num">${fmtSmart(p.projected,p.indicator.decimals)}</td><td>${escapeHtml(p.direction || 'not assessed')}</td><td>${escapeHtml(signalMeaning(p.indicator.key))}</td></tr>`).join('')}
-    </tbody></table></div>
-  </section>`;
-}
-
-function signalMeaning(key){
-  const meanings={
-    population:'Scale affects service demand, staffing needs, logistics and financing assumptions.',
-    urbanPct:'Urban concentration changes access, shelter, WASH, health and local-government pressure.',
-    physicians:'A thin workforce proxy suggests weak surge capacity and fragile continuity of care.',
-    u5Mortality:'Child-health trajectories help flag deeper service and public-health fragility.',
-    lifeExpectancy:'A broad outcome proxy for long-run health and living conditions.',
-    healthSpend:'Financing context for health-system resilience and affordability.',
-    internetUsers:'Digital access affects feedback, cash, communication, protection and accountability design.',
-    mobileSubs:'Mobile infrastructure proxy for digital reach, not proof of effective access.',
-    forestPct:'Environmental and land-use context for exposure, livelihoods and resource pressure.',
-    co2:'Development and emissions context, not a direct humanitarian-risk measure.'
-  };
-  return meanings[key] || 'Relevant planning context.';
-}
-
-function renderPreparednessActions(country,targetYear,projections,derived,context){
-  const actions = generatePreparednessActions(country,targetYear,projections,context);
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Preparedness and investment prompts</h2><p>Practical decisions this case file should help a team discuss.</p></div></div>
-    <div class="grid two">${actions.map(action=>`<div class="action-card"><h3>${escapeHtml(action.title)}</h3><p>${escapeHtml(action.reason)}</p><ul>${action.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('')}</ul></div>`).join('')}</div>
-  </section>`;
-}
-
-function generatePreparednessActions(country,targetYear,projections,context){
-  const pop=getProjection(projections,'population');
-  const urban=getProjection(projections,'urbanPct');
-  const phys=getProjection(projections,'physicians');
-  const internet=getProjection(projections,'internetUsers');
-  const emdat=emdatCountrySummary(country);
-  const actions=[];
-  actions.push({
-    title:'Define the no-regrets preparedness package',
-    reason:'Start with investments that remain useful across several futures rather than betting on one predicted crisis.',
-    steps:['Pre-position decision triggers and minimum stocks for the most plausible shock types.','Map which services must continue during a shock.','Identify what can be funded now without waiting for an emergency appeal.']
-  });
-  if(pop && urban && urban.projected > 45){
-    actions.push({
-      title:'Stress-test urban service continuity',
-      reason:`The ${targetYear} case points to substantial urban pressure. National averages may hide neighbourhood-level overload.`,
-      steps:['Check whether health, WASH, shelter and protection plans are urban-ready.','Avoid assumptions based only on rural access models.','Use subnational/admin data before deciding where to invest.']
-    });
-  }
-  if(phys && phys.projected < 1.5){
-    actions.push({
-      title:'Protect health-system surge capacity',
-      reason:'The health workforce proxy suggests limited space to absorb additional demand during a shock.',
-      steps:['Plan for referral continuity, staff surge and essential medicine continuity.','Test what happens if facilities lose staff, supplies or access.','Prioritise partnerships that strengthen routine systems before crisis.']
-    });
-  }
-  if(internet && internet.projected < 65){
-    actions.push({
-      title:'Do not design digital-only delivery',
-      reason:'Digital access may not be broad enough for communications, feedback, cash or accountability systems to rely on online channels alone.',
-      steps:['Keep offline and community-based communication routes.','Test digital assumptions with affected groups.','Design feedback and complaints channels that work during power/connectivity disruption.']
-    });
-  }
-  if(emdat && (emdat.row.eventCount || 0) > 0){
-    const types=(emdat.row.topDisasterTypes || []).slice(0,2).map(x=>x.disasterType).filter(Boolean).join(' and ');
-    actions.push({
-      title:'Use disaster memory, not only current alerts',
-      reason:`Historical records show repeated disaster experience${types ? `, especially ${types}` : ''}.`,
-      steps:['Review whether past disaster types are reflected in current preparedness plans.','Use historical impact patterns to choose workshop scenarios.','Do not treat absence of today’s alert as absence of exposure.']
-    });
-  }
-  if((context.unhcr.count || 0) > 0){
-    actions.push({
-      title:'Include mobility and host-community pressure',
-      reason:'Returned displacement records mean planning should avoid treating the resident population as static.',
-      steps:['Check whether services include displaced people, returnees and host communities.','Stress-test registration, referrals and social cohesion assumptions.','Avoid programme designs that count caseloads but ignore system pressure.']
-    });
-  }
-  return actions.slice(0,6);
-}
-
-function renderPriorityBrief(country,targetYear,projections,context){
-  const actions = generatePreparednessActions(country,targetYear,projections,context).slice(0,4);
-  return `<section class="panel soft">
-    <div class="section-title"><div><h2>Suggested workshop questions</h2><p>Use these to turn the case file into a planning conversation.</p></div></div>
-    <div class="priority-list">
-      ${actions.map((action,index)=>`<div class="priority-item"><strong>${index+1}. ${escapeHtml(action.title)}</strong><br>${escapeHtml(action.reason)}</div>`).join('')}
-      <div class="priority-item"><strong>What claim should we avoid?</strong><br>This case file can support preparedness thinking. It cannot prove future humanitarian need, predict disasters or replace country-level judgement.</div>
-    </div>
-  </section>`;
 }
 
 async function buildCase(){
@@ -961,190 +708,393 @@ async function buildCase(){
   const targetYear=Number(document.getElementById('yearInput').value);
   if(!Number.isFinite(targetYear)||targetYear<2026||targetYear>2100){ setMessage('Choose a valid target year between 2026 and 2100.','error'); return; }
   const results=document.getElementById('results');
-  results.innerHTML = `<section class="loading-panel"><h2>Building ${escapeHtml(country.name)} ${targetYear} case file...</h2><p>Pulling public indicators, cleaning blank values, extending usable trends and gathering supporting context.</p><div class="loaderbar"><span></span></div></section>`;
+  results.innerHTML = `<section class="loading-panel"><h2>Building ${escapeHtml(country.name)} ${targetYear} case file...</h2><p>Pulling indicators, prepared source rows and returned context records.</p><div class="loaderbar"><span></span></div></section>`;
   try{
+    await loadPreparedData({silent:true});
     const [projections,context]=await Promise.all([getProjectionBundle(country,targetYear),fetchContext(country)]);
     const derived=deriveImplications(projections,targetYear);
     const okCount=projections.filter(p=>p.ok).length;
+    lastCaseData={country,targetYear,projections,derived,context};
     if(okCount===0){
       results.innerHTML = renderFailure(country,targetYear,projections,context);
       setMessage(`${country.name} did not return usable projectable indicators. Context sources may still be visible below.`, 'warn');
       return;
     }
-    setLastCalcText(buildCalcLog(country,targetYear,projections,derived,context));
-    lastCaseData={country,targetYear,projections,derived,context};
-    lastBlackSwanText='';
     results.innerHTML=renderCase(country,targetYear,projections,derived,context);
-    setMessage(`Generated a ${targetYear} case file for ${country.name}.`);
+    setMessage(`Generated a data case file for ${country.name} ${targetYear}.`);
+    refreshDisasterExplorer();
   }catch(e){ results.innerHTML=''; setMessage(`Could not build case file: ${e.message}`,'error'); }
 }
 
 function renderFailure(country,targetYear,projections,context){
-  return `<section class="panel"><h2>${escapeHtml(country.name)} ${targetYear}: no projectable indicators returned</h2><p class="muted">The site could reach the workflow, but the projectable World Bank indicators did not return enough usable numeric values. This can happen when the API blocks the browser, a country code fails, or an indicator has sparse data.</p>${renderProjectionErrors(projections.filter(p=>!p.ok))}</section>${renderContextSection(context,country)}`;
+  return `<section class="panel"><h2>${escapeHtml(country.name)} ${targetYear}: no projectable indicators returned</h2><p class="muted">The projectable World Bank indicators did not return enough usable numeric values. Context records are shown where available.</p>${renderProjectionErrors(projections.filter(p=>!p.ok))}</section>${renderReturnedRecords(country,context)}`;
 }
 
 function renderCase(country,targetYear,projections,derived,context){
-  const failed=projections.filter(p=>!p.ok);
   return `
-    <section class="panel dark">${scenarioText(country,targetYear,projections,derived,context)}</section>
-    ${renderStrategicLens(country,targetYear,projections,context)}
-    ${renderSignalDashboard(projections,targetYear)}
-    ${renderPreparednessActions(country,targetYear,projections,derived,context)}
-    ${renderContextSection(context,country)}
-    ${renderPriorityBrief(country,targetYear,projections,context)}
-    ${failed.length?`<section class="panel soft"><div class="section-title"><div><h2>Data gaps in this case file</h2><p>Signals that could not be projected or retrieved should be checked before making operational commitments.</p></div></div>${renderProjectionErrors(failed)}</section>`:''}
-    <section class="panel">
-      <div class="section-title"><div><h2>Black Swan stress-test</h2><p>Optional stress-test for assumptions. It does not predict a shock; it shows what would become fragile if a severe disruption occurred.</p></div></div>
-      <div id="blackSwanOutput" class="explain"><strong>No stress-test generated yet.</strong> Generate one after reviewing the case file.</div>
-      <div class="btnrow" style="margin-top:14px"><button class="btn red" onclick="generateBlackSwanStressTest()">Generate Black Swan stress-test</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear</button></div>
-    </section>
+    <section class="panel dark">${renderCaseHeader(country,targetYear,projections,derived,context)}</section>
+    ${renderTargetYearSignals(projections,targetYear)}
+    ${renderDataCombinations(country,targetYear,projections,derived,context)}
+    ${renderDisasterExplorer(country)}
+    ${renderReturnedRecords(country,context)}
+    ${renderPreparedEvidence(country)}
+    ${renderBlackSwanPanel(country,targetYear,projections,context)}
     <section class="panel soft">
-      <div class="section-title"><div><h2>Use boundaries</h2><p>These warnings prevent the case file being over-read.</p></div></div>
+      <div class="section-title"><div><h2>Data boundaries</h2><p>These are data limits that affect interpretation.</p></div></div>
       <ul class="simple-list">
-        <li>This is a transparent planning aid, not an official forecast.</li>
-        <li>It does not predict disasters, conflict, displacement shocks or future humanitarian need.</li>
-        <li>Country-level indicators can hide subnational, political, operational and institutional variation.</li>
-        <li>Context records show what was returned by sources; they are not severity scores.</li>
-        <li>Prepared data adds context, but the date and method of preparation still matter.</li>
+        <li>Target-year values are continuations of historical country-level series, not official forecasts.</li>
+        <li>EM-DAT row-level records shown here come from the prepared recent-events sample; aggregate totals use the prepared country/year summaries.</li>
+        <li>GDACS, UNHCR and IFRC rows are returned records, not severity scores.</li>
+        <li>Prepared climate/weather samples use selected coordinate samples and should not be read as national coverage.</li>
       </ul>
-      <div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div>
     </section>`;
 }
 
-function renderProjectionCard(p){
-  return `<div class="card">
-    <span class="pill">${escapeHtml(p.indicator.role)}</span>
-    <h3>${escapeHtml(p.indicator.label)}</h3>
-    <div class="big">${fmtSmart(p.projected,p.indicator.decimals)}</div>
-    <div class="unit">${escapeHtml(p.indicator.unit)}</div>
-    <p class="small">Latest actual: ${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year}. Direction: ${escapeHtml(p.direction)}.</p>
-    <span class="calc-help" title="${escapeHtml(p.indicator.explain)} ${escapeHtml(p.approach)}.">How calculated</span>
+function renderCaseHeader(country,targetYear,projections,derived,context){
+  const pop=getProjection(projections,'population'), urban=getProjection(projections,'urbanPct'), phys=getProjection(projections,'physicians'), internet=getProjection(projections,'internetUsers');
+  const emdat=emdatCountrySummary(country);
+  const topHazard=emdat && emdat.row.topDisasterTypes && emdat.row.topDisasterTypes[0] ? emdat.row.topDisasterTypes[0].disasterType : 'not available';
+  return `<div class="case-hero">
+    <div>
+      <p class="eyebrow">data case file</p>
+      <h2>${escapeHtml(country.name)} ${targetYear}</h2>
+      <p class="muted">This file combines projected country indicators with returned disaster, displacement, climate, health, economic and operational records. It is designed for evidence review, not recommendation text.</p>
+      <hr>
+      <div class="tag-list">
+        <span class="source-chip">World Bank trend continuations</span>
+        <span class="source-chip">EM-DAT historical aggregates</span>
+        <span class="source-chip">UNHCR returned records</span>
+        <span class="source-chip">GDACS current/recent events</span>
+        <span class="source-chip">${preparedSources.length} prepared sources loaded</span>
+      </div>
+    </div>
+    <div class="case-summary">
+      <span class="pill green">Snapshot</span>
+      <div class="big">${pop ? fmtSmart(pop.projected,0) : 'Not available'}</div>
+      <p class="muted">Target-year population continuation</p>
+      <p><strong>Urban share:</strong> ${urban ? pct(urban.projected,1) : 'Not available'}</p>
+      <p><strong>People per physician:</strong> ${phys ? fmtSmart(1000/phys.projected,0) : 'Not available'}</p>
+      <p><strong>Internet-use share:</strong> ${internet ? pct(internet.projected,1) : 'Not available'}</p>
+      <p><strong>Most frequent EM-DAT type:</strong> ${escapeHtml(topHazard)}</p>
+      <p><strong>Live records returned:</strong> ${fmtSmart(context.gdacs.count || 0,0)} GDACS; ${fmtSmart(context.unhcr.count || 0,0)} UNHCR.</p>
+    </div>
   </div>`;
+}
+
+function renderTargetYearSignals(projections,targetYear){
+  const rows = projections.filter(p=>p.ok);
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Target-year indicator continuations</h2><p><strong>Target-year continuation</strong> means a transparent extension of the latest usable historical series into ${targetYear}. It is shown so users can see the implied direction and scale of current trajectories.</p></div></div>
+    <div class="metric-grid">
+      ${rows.map(p=>`<div class="metric"><div class="icon">${escapeHtml(p.indicator.icon)}</div><span class="value">${fmtSmart(p.projected,p.indicator.decimals)}</span><span class="label">${escapeHtml(p.indicator.label)}</span><p>${escapeHtml(p.indicator.unit)} · latest actual ${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year} · ${escapeHtml(p.direction)}</p></div>`).join('')}
+    </div>
+    <details class="details"><summary>See calculation method per signal</summary>
+      <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Latest actual</th><th>${targetYear} continuation</th><th>Method</th><th>Source rows</th></tr></thead><tbody>
+      ${rows.map(p=>`<tr><td><strong>${escapeHtml(p.indicator.label)}</strong></td><td>${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year}</td><td>${fmtSmart(p.projected,p.indicator.decimals)} ${escapeHtml(p.indicator.unit)}</td><td>${escapeHtml(p.approach)}</td><td>${escapeHtml(p.model && p.model.n ? p.model.n : p.seriesObj.values.length)}</td></tr>`).join('')}
+      </tbody></table></div>
+    </details>
+  </section>`;
+}
+
+function renderDataCombinations(country,targetYear,projections,derived,context){
+  const emdat=emdatCountrySummary(country);
+  const pop=getProjection(projections,'population');
+  const urban=getProjection(projections,'urbanPct');
+  const phys=getProjection(projections,'physicians');
+  const internet=getProjection(projections,'internetUsers');
+  const imf=getCountryPreparedRows('imf-datamapper', country);
+  const imfLatest=latestByYear(imf);
+  const openMeteo=getCountryPreparedRows('open-meteo', country)[0];
+  const nasa=getCountryPreparedRows('nasa-power', country);
+  const nasaRain = nasa.reduce((a,r)=>a+num(r.precipitationMm),0);
+  const eventsPerYear = emdat && emdat.byYear.length ? (emdat.row.eventCount / emdat.byYear.length) : null;
+  const affectedShare = emdat && pop && pop.latest ? (emdat.row.totalAffected / pop.latest.value) * 100 : null;
+  const combinations=[
+    {title:'Historical disaster frequency', value:eventsPerYear!==null ? `${fmtSmart(eventsPerYear,1)} / year` : 'Not available', text:emdat ? `${fmtSmart(emdat.row.eventCount,0)} EM-DAT events across ${emdat.row.firstYear}-${emdat.row.lastYear}.` : 'EM-DAT summary not loaded.'},
+    {title:'Affected-population scale check', value:affectedShare!==null ? pct(affectedShare,0) : 'Not available', text:emdat && pop ? `EM-DAT total affected divided by latest World Bank population (${pop.latest.year}). This is cumulative and can exceed 100%.` : 'Needs EM-DAT and population data.'},
+    {title:'Urban absolute scale', value:pop && urban ? fmtSmart(pop.projected * urban.projected / 100,0) : 'Not available', text:pop && urban ? `Population continuation × urban-share continuation for ${targetYear}.` : 'Needs population and urban-share data.'},
+    {title:'Health workforce load', value:phys ? `${fmtSmart(1000/phys.projected,0)} people / physician` : 'Not available', text:'Calculated from World Bank physicians per 1,000 people.'},
+    {title:'Digital reach estimate', value:pop && internet ? fmtSmart(pop.projected * internet.projected / 100,0) : 'Not available', text:pop && internet ? `Population continuation × internet-use continuation for ${targetYear}.` : 'Needs population and internet-use data.'},
+    {title:'Macroeconomic sample', value:imfLatest ? `${fmtSmart(imfLatest.value,1)}%` : 'Not available', text:imfLatest ? `IMF DataMapper ${imfLatest.indicator || 'indicator'} for ${imfLatest.year}.` : 'No IMF row returned for this country in prepared data.'},
+    {title:'Weather sample', value:openMeteo ? `${fmtSmart(openMeteo.temperatureC,1)}°C` : 'Not available', text:openMeteo ? `Open-Meteo returned ${fmtSmart(openMeteo.precipitationMm,1)} mm current precipitation at the sample coordinate.` : 'No Open-Meteo row returned for this country.'},
+    {title:'NASA POWER sample rainfall', value:nasa.length ? `${fmtSmart(nasaRain,1)} mm` : 'Not available', text:nasa.length ? `Sum of prepared NASA POWER daily precipitation sample for the country coordinate.` : 'No NASA POWER rows returned for this country.'}
+  ];
+  return `<section class="panel soft">
+    <div class="section-title"><div><h2>Combined data readings</h2><p>These are calculations made by combining returned source values. They are shown as evidence outputs, not advice.</p></div></div>
+    <div class="analysis-grid">${combinations.map(item=>`<div class="analysis-card"><span class="pill teal">Calculated</span><h3>${escapeHtml(item.title)}</h3><div class="big">${escapeHtml(item.value)}</div><p>${escapeHtml(item.text)}</p></div>`).join('')}</div>
+  </section>`;
+}
+
+function renderDisasterExplorer(country){
+  const emdat=emdatCountrySummary(country);
+  if(!emdat){
+    return `<section class="panel"><div class="section-title"><div><h2>EM-DAT disaster records</h2><p>Prepared EM-DAT data is not loaded for this country.</p></div></div></section>`;
+  }
+  const hazardOptions = ['all', ...(emdat.row.topDisasterTypes || []).map(x=>x.disasterType)].filter(Boolean);
+  return `<section class="panel" id="emdatPanel">
+    <div class="section-title"><div><h2>EM-DAT disaster history</h2><p>Explore historical aggregates and the recent row-level records that were returned in the prepared EM-DAT file.</p></div></div>
+    <div class="filter-row">
+      <div><label for="emdatYears">Years</label><select id="emdatYears" onchange="refreshDisasterExplorer()"><option value="5">Last 5 years</option><option value="10" selected>Last 10 years</option><option value="25">Last 25 years</option><option value="all">All prepared years</option></select></div>
+      <div><label for="emdatHazard">Type</label><select id="emdatHazard" onchange="refreshDisasterExplorer()">${hazardOptions.map(h=>`<option value="${escapeHtml(h)}">${escapeHtml(h==='all'?'All types':h)}</option>`).join('')}</select></div>
+      <div><label for="emdatSearch">Search returned records</label><input id="emdatSearch" type="search" placeholder="Search event, place, subtype..." oninput="refreshDisasterExplorer()" /></div>
+    </div>
+    <div id="emdatStats"></div>
+    <div class="grid two">
+      <div class="panel soft" style="box-shadow:none;margin:0"><h3>Annual event pattern</h3><div id="emdatSpark"></div></div>
+      <div class="panel soft" style="box-shadow:none;margin:0"><h3>Most frequent disaster types</h3><div id="emdatHazards"></div></div>
+    </div>
+    <div style="margin-top:16px"><h3>Returned EM-DAT records</h3><p class="muted">These are the row-level events included in the prepared recent-events sample. Aggregate totals above use the full prepared EM-DAT country/year summaries.</p><div id="emdatRecords"></div></div>
+  </section>`;
+}
+
+function refreshDisasterExplorer(){
+  if(!lastCaseData) return;
+  const {country} = lastCaseData;
+  const emdat = emdatCountrySummary(country);
+  if(!emdat) return;
+  const yearsEl=document.getElementById('emdatYears');
+  const hazardEl=document.getElementById('emdatHazard');
+  const searchEl=document.getElementById('emdatSearch');
+  const years=yearsEl ? yearsEl.value : disasterViewState.years;
+  const hazard=hazardEl ? hazardEl.value : disasterViewState.hazard;
+  const query=(searchEl ? searchEl.value : disasterViewState.query || '').trim().toLowerCase();
+  disasterViewState = {years,hazard,query};
+  const maxYear = Math.max(...emdat.byYear.map(r=>Number(r.year || 0)), Number(emdat.row.lastYear || 0), CURRENT_YEAR);
+  const minYear = years==='all' ? Number(emdat.row.firstYear || 2000) : maxYear - Number(years) + 1;
+  const yearRows = emdat.byYear.filter(r=>Number(r.year) >= minYear && Number(r.year) <= maxYear);
+  const windowTotals = yearRows.reduce((acc,r)=>({
+    events:acc.events + num(r.eventCount),
+    deaths:acc.deaths + num(r.totalDeaths),
+    affected:acc.affected + num(r.totalAffected),
+    damage:acc.damage + num(r.totalDamageUsd000)
+  }), {events:0,deaths:0,affected:0,damage:0});
+  const records = emdat.recentEvents.filter(r=>{
+    const yr = Number(r.year || 0);
+    const hay = JSON.stringify(r).toLowerCase();
+    const hazardOk = hazard==='all' || String(r.disasterType || '').toLowerCase() === hazard.toLowerCase();
+    const queryOk = !query || hay.includes(query);
+    return yr >= minYear && yr <= maxYear && hazardOk && queryOk;
+  });
+  const leading = (emdat.row.topDisasterTypes || [])[0];
+  document.getElementById('emdatStats').innerHTML = `<div class="metric-grid">
+    <div class="metric"><div class="icon">📌</div><span class="value">${fmtSmart(windowTotals.events,0)}</span><span class="label">Events in selected period</span><p>${minYear}-${maxYear}</p></div>
+    <div class="metric"><div class="icon">✚</div><span class="value">${fmtSmart(windowTotals.deaths,0)}</span><span class="label">Deaths recorded</span><p>EM-DAT aggregate country/year rows.</p></div>
+    <div class="metric"><div class="icon">👥</div><span class="value">${fmtSmart(windowTotals.affected,0)}</span><span class="label">People affected</span><p>Cumulative reported affected figure.</p></div>
+    <div class="metric"><div class="icon">💰</div><span class="value">${fmtSmart(windowTotals.damage,0)}</span><span class="label">Damage, USD 000</span><p>Reported total damage where available.</p></div>
+    <div class="metric"><div class="icon">⚠️</div><span class="value">${escapeHtml(leading ? leading.disasterType : 'NA')}</span><span class="label">Most frequent type</span><p>${leading ? fmtSmart(leading.count,0)+' events in prepared country summary.' : 'No type summary.'}</p></div>
+  </div>`;
+  document.getElementById('emdatSpark').innerHTML = renderYearSpark(yearRows);
+  document.getElementById('emdatHazards').innerHTML = renderHazardBars(emdat.row.topDisasterTypes || []);
+  document.getElementById('emdatRecords').innerHTML = renderEmdatRecordTable(records);
+}
+
+function renderYearSpark(rows){
+  if(!rows.length) return '<p class="muted">No annual aggregate rows in this period.</p>';
+  const max=Math.max(...rows.map(r=>num(r.eventCount)),1);
+  return `<div class="spark">${rows.map(r=>`<div style="height:${Math.max(3,(num(r.eventCount)/max)*90)}px" title="${escapeHtml(r.year)}: ${escapeHtml(r.eventCount)} events"><span>${escapeHtml(String(r.year).slice(-2))}</span></div>`).join('')}</div>`;
+}
+
+function renderHazardBars(types){
+  if(!types.length) return '<p class="muted">No type summary returned.</p>';
+  const max=Math.max(...types.map(t=>num(t.count)),1);
+  return `<div class="bar-list">${types.slice(0,8).map(t=>`<div class="bar-row-ui"><strong>${escapeHtml(t.disasterType)}</strong><div class="bar-track"><div class="bar-fill" style="width:${Math.max(2,(num(t.count)/max)*100)}%"></div></div><span>${fmtSmart(t.count,0)}</span></div>`).join('')}</div>`;
+}
+
+function renderEmdatRecordTable(records){
+  if(!records.length) return '<p class="muted">No row-level EM-DAT records matched the current filters. The aggregate history above may still contain records for this country and period.</p>';
+  return `<div class="record-count">${records.length} returned row-level records match the filters.</div><div class="table-wrap"><table><thead><tr><th>Year</th><th>Type</th><th>Subtype</th><th>Event</th><th>Location</th><th>Deaths</th><th>Affected</th><th>Damage USD 000</th></tr></thead><tbody>
+    ${records.map(r=>`<tr><td>${escapeHtml(r.year)}</td><td><strong>${escapeHtml(r.disasterType || '')}</strong></td><td>${escapeHtml(r.disasterSubtype || '')}</td><td>${escapeHtml(r.eventName || r.disNo || '')}</td><td>${escapeHtml(r.location || '')}</td><td class="num">${fmtSmart(num(r.totalDeaths),0)}</td><td class="num">${fmtSmart(num(r.totalAffected),0)}</td><td class="num">${fmtSmart(num(r.totalDamageUsd000),0)}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+function renderReturnedRecords(country,context){
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Returned live records</h2><p>Actual records returned by live sources for ${escapeHtml(country.name)}. These replace the previous summary-only count view.</p></div></div>
+    <div class="grid two">
+      <div class="data-source-card"><h3>UNHCR Refugee Data Finder records</h3>${renderUnhcrRecords(context.unhcr)}</div>
+      <div class="data-source-card"><h3>GDACS current/recent event records</h3>${renderGdacsRecords(context.gdacs)}</div>
+    </div>
+  </section>`;
+}
+
+function renderUnhcrRecords(unhcr){
+  if(unhcr.error) return `<p class="muted">${escapeHtml(unhcr.error)}</p>`;
+  if(!unhcr.items.length) return '<p class="muted">No UNHCR records returned for the selected origin/asylum-country query.</p>';
+  return `<p class="record-count">${unhcr.items.length} records returned for ${escapeHtml(unhcr.year)}.</p><div class="inline-records">${unhcr.items.map(item=>`<div class="inline-record">
+    <strong>${escapeHtml(item.coo_name || item.coa_name || item.country || 'UNHCR record')}</strong>
+    <p>${formatUnhcrRecord(item)}</p>
+    <details class="details"><summary>See fields</summary><pre class="mono">${escapeHtml(JSON.stringify(item,null,2))}</pre></details>
+  </div>`).join('')}</div>`;
+}
+
+function formatUnhcrRecord(item){
+  const parts = [];
+  const fields = [
+    ['Origin', item.coo_name || item.coo],
+    ['Asylum', item.coa_name || item.coa],
+    ['Population group', item.population_group || item.population_group_code || item.population_type || item.pop_type],
+    ['Value', item.total || item.value || item.population || item.refugees || item.asylum_seekers || item.oip || item.stateless],
+    ['Year', item.year]
+  ];
+  fields.forEach(([k,v])=>{ if(v!==undefined && v!==null && v!=='') parts.push(`${k}: ${v}`); });
+  return parts.length ? parts.join(' · ') : 'Record returned, but key display fields are blank in the API response.';
+}
+
+function renderGdacsRecords(gdacs){
+  if(gdacs.error) return `<p class="muted">${escapeHtml(gdacs.error)}</p>`;
+  if(!gdacs.items.length) return '<p class="muted">No country-matched GDACS records returned from the current/recent event list.</p>';
+  return `<p class="record-count">${gdacs.items.length} country-matched event records returned.</p><div class="inline-records">${gdacs.items.map(item=>`<div class="inline-record">
+    <strong>${escapeHtml(item.name || item.eventname || item.eventtype || 'GDACS event')}</strong>
+    <p>${formatGdacsRecord(item)}</p>
+    <details class="details"><summary>See fields</summary><pre class="mono">${escapeHtml(JSON.stringify(item,null,2))}</pre></details>
+  </div>`).join('')}</div>`;
+}
+
+function formatGdacsRecord(item){
+  const parts = [
+    ['Type', item.eventtype || item.eventtypecode],
+    ['Alert', item.alertlevel || item.alertLevel],
+    ['Country', item.country || item.iso3],
+    ['From', item.fromdate],
+    ['Updated', item.datemodified || item.todate]
+  ].filter(([k,v])=>v!==undefined && v!==null && v!=='').map(([k,v])=>`${k}: ${v}`);
+  return parts.length ? parts.join(' · ') : 'Record returned, but key display fields are not present.';
+}
+
+function renderPreparedEvidence(country){
+  const used = preparedSources.map(source => {
+    const slug = source.slug || source.id;
+    const rows = slug === 'emdat' ? [] : getCountryPreparedRows(slug, country);
+    return {source, slug, rows};
+  }).filter(item => item.slug !== 'emdat' && item.rows.length);
+  if(!used.length) return `<section class="panel"><h2>Prepared source rows</h2><p class="muted">No country-specific prepared rows were returned for ${escapeHtml(country.name)} beyond EM-DAT.</p></section>`;
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Prepared source rows for ${escapeHtml(country.name)}</h2><p>Actual rows from prepared source files. These are shown as data, not as generated advice.</p></div></div>
+    <div class="data-section-grid">
+      ${used.map(item=>renderPreparedCountryCard(item.source,item.rows,country)).join('')}
+    </div>
+  </section>`;
+}
+
+function renderPreparedCountryCard(source, rows, country){
+  const slug = source.slug || source.id;
+  return `<div class="data-source-card">
+    <span class="pill purple">${escapeHtml(source.name)}</span>
+    <h3>${escapeHtml(preparedCardTitle(slug, rows))}</h3>
+    ${renderRowsCompact(slug, rows.slice(0,8))}
+    <details class="details"><summary>See source fields</summary><pre class="mono">${escapeHtml(JSON.stringify(rows.slice(0,10),null,2))}</pre></details>
+  </div>`;
+}
+
+function preparedCardTitle(slug, rows){
+  const latest=latestByYear(rows);
+  if(slug==='imf-datamapper' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)}% in ${latest.year}`;
+  if(slug==='who-gho' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)} in ${latest.year}`;
+  if(slug==='owid' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,0)} in ${latest.year}`;
+  if(slug==='un-sdg' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)} ${latest.unit || ''}`;
+  if(slug==='worldpop' && rows[0]) return `Sample-area population: ${fmtSmart(rows[0].value,0)}`;
+  if(slug==='open-meteo' && rows[0]) return `${fmtSmart(rows[0].temperatureC,1)}°C; ${fmtSmart(rows[0].precipitationMm,1)} mm precipitation`;
+  if(slug==='nasa-power' && rows.length) return `${rows.length} daily climate rows returned`;
+  if(slug==='geoboundaries' && rows[0]) return `${rows[0].admUnitCount || 'NA'} ADM1 units in boundary metadata`;
+  return `${rows.length} rows returned`;
+}
+
+function renderRowsCompact(slug, rows){
+  if(!rows.length) return '<p class="muted">No rows.</p>';
+  return `<div class="inline-records">${rows.map(row=>`<div class="inline-record"><strong>${escapeHtml(row.indicator || row.metric || row.eventType || row.boundaryType || row.date || row.year || 'Returned row')}</strong><p>${escapeHtml(compactRowText(slug,row))}</p></div>`).join('')}</div>`;
+}
+
+function compactRowText(slug,row){
+  if(slug==='imf-datamapper') return `${row.year}: ${row.value}% ${row.unit || ''}`;
+  if(slug==='who-gho') return `${row.year}: ${row.value}${row.displayValue ? ' ('+row.displayValue+')' : ''}`;
+  if(slug==='owid') return `${row.year}: ${fmtSmart(row.value,2)}${row.sourceColumn ? ' · '+row.sourceColumn : ''}`;
+  if(slug==='un-sdg') return `${row.year}: ${fmtSmart(row.value,2)} ${row.unit || ''}`;
+  if(slug==='worldpop') return `${fmtSmart(row.value,0)} people · ${row.metric || ''}`;
+  if(slug==='open-meteo') return `${row.time || ''}: ${fmtSmart(row.temperatureC,1)}°C, ${fmtSmart(row.precipitationMm,1)} mm`;
+  if(slug==='nasa-power') return `${row.date}: ${fmtSmart(row.temperatureC,1)}°C, ${fmtSmart(row.precipitationMm,1)} mm`;
+  if(slug==='geoboundaries') return `${row.boundaryYearRepresented || ''}; ${row.admUnitCount || 'NA'} units; ${row.sourceDataUpdateDate || ''}`;
+  if(slug==='ifrc-go') return `${row.eventType || ''}; ${(row.countries || []).join(', ')}`;
+  if(slug==='usgs-earthquakes') return `${row.title || ''}; ${row.time || ''}`;
+  return JSON.stringify(row).slice(0,200);
+}
+
+function renderBlackSwanPanel(country,targetYear,projections,context){
+  return `<section class="panel">
+    <div class="section-title"><div><h2>Black Swan stress-test</h2><p>A severe-event scenario selected from the returned evidence. It shows why the scenario was chosen and which data points triggered it.</p></div></div>
+    <div id="blackSwanOutput" class="explain"><strong>No stress-test generated yet.</strong> Generate one after reviewing the data.</div>
+    <div class="btnrow" style="margin-top:14px"><button class="btn red" onclick="generateBlackSwanStressTest()">Generate evidence-linked Black Swan</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear</button></div>
+  </section>`;
+}
+
+function generateBlackSwanStressTest(){
+  if(!lastCaseData) return;
+  const {country,targetYear,projections,context}=lastCaseData;
+  const emdat=emdatCountrySummary(country);
+  const pop=getProjection(projections,'population');
+  const urban=getProjection(projections,'urbanPct');
+  const phys=getProjection(projections,'physicians');
+  const internet=getProjection(projections,'internetUsers');
+  const openMeteo=getCountryPreparedRows('open-meteo', country)[0];
+  const nasaRows=getCountryPreparedRows('nasa-power', country);
+  const nasaRain=nasaRows.reduce((a,r)=>a+num(r.precipitationMm),0);
+  const topHazards = emdat && emdat.row.topDisasterTypes ? emdat.row.topDisasterTypes.slice(0,3).map(x=>x.disasterType) : [];
+  let scenario = {
+    title:'Compound service disruption',
+    event:'A severe, low-probability disruption affects service continuity across several systems at the same time.',
+    why:['No single hazard dominates the returned evidence strongly enough to select a narrower scenario.'],
+    evidence:[]
+  };
+  if(topHazards.some(h=>/flood|storm|water|cyclone/i.test(h)) || (openMeteo && num(openMeteo.precipitationMm)>0) || nasaRain>20){
+    scenario = {
+      title:'Compound flood / storm disruption',
+      event:'A high-impact flood or storm event overlaps with dense settlement, service disruption and transport constraints.',
+      why:['EM-DAT hazard history includes flood, storm or water-related events, or climate/weather samples show precipitation in the prepared data.'],
+      evidence:[]
+    };
+  } else if(topHazards.some(h=>/earthquake/i.test(h)) || (context.gdacs.items || []).some(x=>/EQ|earthquake/i.test(JSON.stringify(x)))){
+    scenario = {
+      title:'Major seismic disruption',
+      event:'A high-impact earthquake produces simultaneous health, shelter, logistics and information-management pressure.',
+      why:['Returned disaster records contain earthquake signals in either EM-DAT or GDACS.'],
+      evidence:[]
+    };
+  } else if(topHazards.some(h=>/epidemic/i.test(h)) || (phys && phys.projected < 1)){
+    scenario = {
+      title:'Public-health surge shock',
+      event:'A sharp public-health surge occurs while workforce capacity and routine service continuity are already constrained.',
+      why:['Returned evidence contains epidemic history and/or a low physician-density continuation.'],
+      evidence:[]
+    };
+  } else if((context.unhcr.count || 0) > 0){
+    scenario = {
+      title:'Mobility and service-load shock',
+      event:'A sudden mobility or returnee/arrival pressure overlaps with service and administrative capacity constraints.',
+      why:['UNHCR returned displacement or population records for the selected country.'],
+      evidence:[]
+    };
+  }
+  if(emdat){
+    scenario.evidence.push(`EM-DAT: ${fmtSmart(emdat.row.eventCount,0)} events from ${emdat.row.firstYear}-${emdat.row.lastYear}; top types: ${(emdat.row.topDisasterTypes || []).slice(0,3).map(x=>`${x.disasterType} (${x.count})`).join(', ') || 'not available'}.`);
+    scenario.evidence.push(`EM-DAT impacts: ${fmtSmart(emdat.row.totalDeaths,0)} deaths; ${fmtSmart(emdat.row.totalAffected,0)} affected; ${fmtSmart(emdat.row.totalDamageUsd000,0)} USD 000 damage.`);
+  }
+  if(pop) scenario.evidence.push(`World Bank population continuation: ${fmtSmart(pop.projected,0)} people in ${targetYear}; latest actual ${fmtSmart(pop.latest.value,0)} in ${pop.latest.year}.`);
+  if(urban) scenario.evidence.push(`Urban population continuation: ${fmtSmart(urban.projected,1)}% in ${targetYear}.`);
+  if(phys) scenario.evidence.push(`Health workforce proxy: ${fmtSmart(1000/phys.projected,0)} people per physician in ${targetYear}.`);
+  if(internet) scenario.evidence.push(`Digital access proxy: ${fmtSmart(internet.projected,1)}% internet-use continuation in ${targetYear}.`);
+  if(openMeteo) scenario.evidence.push(`Open-Meteo sample: ${fmtSmart(openMeteo.temperatureC,1)}°C and ${fmtSmart(openMeteo.precipitationMm,1)} mm current precipitation at sample coordinate.`);
+  if(nasaRows.length) scenario.evidence.push(`NASA POWER sample: ${fmtSmart(nasaRain,1)} mm precipitation across ${nasaRows.length} prepared daily rows.`);
+  if(context.gdacs.items.length) scenario.evidence.push(`GDACS returned ${context.gdacs.items.length} matched current/recent event records.`);
+  if(context.unhcr.items.length) scenario.evidence.push(`UNHCR returned ${context.unhcr.items.length} displacement/population records.`);
+  document.getElementById('blackSwanOutput').innerHTML = `<h3>${escapeHtml(scenario.title)}</h3><p><strong>Scenario:</strong> ${escapeHtml(scenario.event)}</p><p><strong>Selection logic:</strong> ${escapeHtml(scenario.why.join(' '))}</p><div class="table-wrap"><table><thead><tr><th>Evidence used</th></tr></thead><tbody>${scenario.evidence.map(e=>`<tr><td>${escapeHtml(e)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function clearBlackSwanStressTest(){
+  const el=document.getElementById('blackSwanOutput');
+  if(el) el.innerHTML='<strong>No stress-test generated yet.</strong> Generate one after reviewing the data.';
 }
 
 function renderProjectionErrors(failed){
   return `<details class="details"><summary>Indicators not projected</summary><ul class="simple-list">${failed.map(f=>`<li><strong>${escapeHtml(f.indicator?f.indicator.label:'Indicator')}:</strong> ${escapeHtml(f.reason||'No reason returned')}</li>`).join('')}</ul></details>`;
-}
-
-function renderDerivedCard(d){
-  return `<div class="card"><span class="pill green">calculated</span><h3>${escapeHtml(d.label)}</h3><div class="big">${fmtSmart(d.value,d.decimals)}</div><div class="unit">${escapeHtml(d.unit)}</div><p class="small">${escapeHtml(d.explanation)}</p></div>`;
-}
-
-function renderContextSection(context,country){
-  const emdat = emdatCountrySummary(country);
-  const topTypes = emdat && emdat.row.topDisasterTypes ? emdat.row.topDisasterTypes.slice(0,3).map(item=>`${item.disasterType} (${item.count})`).join(', ') : '';
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Historical, current and operational context</h2><p>Context signals that should shape preparedness questions without being treated as projections.</p></div></div>
-    <div class="context-strip">
-      <div class="context-card"><span class="pill teal">Historical disaster context</span><h3>${emdat ? fmtSmart(emdat.row.eventCount || 0,0)+' EM-DAT events' : 'Not loaded'}</h3><p>${emdat ? `Top historical disaster types: ${escapeHtml(topTypes || 'not recorded')}. Recorded affected people: ${fmtSmart(emdat.row.totalAffected || 0,0)}.` : 'Prepared EM-DAT summaries are not available for this country.'}</p></div>
-      <div class="context-card"><span class="pill teal">Current hazard context</span><h3>${fmtSmart(context.gdacs.count || 0,0)} GDACS matches</h3><p>${context.gdacs.error ? escapeHtml(context.gdacs.error) : 'Recent/current disaster-event matches help frame immediate awareness, not future probability.'}</p></div>
-      <div class="context-card"><span class="pill teal">Mobility context</span><h3>${fmtSmart(context.unhcr.count || 0,0)} UNHCR records</h3><p>${context.unhcr.error ? escapeHtml(context.unhcr.error) : 'Returned displacement/population records should trigger questions about host communities, returnees and mobile populations.'}</p></div>
-      <div class="context-card"><span class="pill teal">Prepared evidence layer</span><h3>${fmtSmart(preparedSources.length,0)} prepared sources loaded</h3><p>Prepared files add health, climate, population, economic, SDG, hazard and boundary context where available.</p></div>
-    </div>
-    <details class="details"><summary>See returned record examples</summary><p class="muted">Examples are shown for traceability. Counts are not severity scores.</p>${renderDetailRows(context)}</details>
-  </section>`;
-}
-
-function renderContextCard(label,count,text,error){
-  return `<div class="card"><span class="pill ${error?'red':'teal'}">${escapeHtml(label)}</span><div class="big">${error?'Error':fmtSmart(count,0)}</div><p>${escapeHtml(error || text)}</p></div>`;
-}
-function renderDetailRows(context){
-  const rows=[];
-  (context.unhcr.items||[]).slice(0,8).forEach(item=>rows.push(['UNHCR', item.year || '', item.coo_name || item.coa_name || '', item.population_group || item.population_group_code || '', item.total || item.value || '']));
-  (context.gdacs.items||[]).slice(0,8).forEach(item=>rows.push(['GDACS', item.fromdate || item.datemodified || '', item.country || item.iso3 || '', item.eventtype || item.eventname || item.name || '', item.alertlevel || '']));
-  if(!rows.length) return '<p class="muted">No example records returned for the selected country.</p>';
-  return `<div class="table-wrap"><table><thead><tr><th>Source</th><th>Date/year</th><th>Country/place</th><th>Type</th><th>Value/status</th></tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${escapeHtml(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-}
-
-function generateBlackSwanStressTest(){
-  if(!lastCaseData){ return; }
-  const {country,targetYear,projections,context}=lastCaseData;
-  const pop=getProjection(projections,'population'), phys=getProjection(projections,'physicians'), urban=getProjection(projections,'urbanPct'), internet=getProjection(projections,'internetUsers'), emdat=emdatCountrySummary(country);
-  const shocks=[
-    {
-      title:'Compound urban service shock',
-      trigger:'A severe flood, storm or infrastructure disruption affects a fast-growing urban area while public services are already stretched.',
-      assumptions:['Urban service continuity','Facility access and referral routes','WASH and shelter surge capacity'],
-      action:'Pre-agree urban contingency triggers, local authority roles, minimum stocks and offline communication channels.'
-    },
-    {
-      title:'Health workforce disruption',
-      trigger:'A major hazard occurs while health staffing, supply chains or facility access are constrained.',
-      assumptions:['Routine services can absorb emergency demand','Referral pathways remain functional','Staff availability remains stable'],
-      action:'Map critical health service continuity, surge staffing and referral alternatives before crisis.'
-    },
-    {
-      title:'Digital access failure',
-      trigger:'Connectivity, power or affordability fails during an emergency, limiting feedback, cash, information and accountability systems.',
-      assumptions:['Affected people can be reached digitally','Feedback channels remain online','Cash or registration systems remain usable'],
-      action:'Keep non-digital communication, registration and complaints routes in the operating model.'
-    }
-  ];
-  const chosen = (urban && urban.projected>50) ? shocks[0] : (phys && phys.projected<1.5) ? shocks[1] : (internet && internet.projected<65) ? shocks[2] : shocks[Math.floor(Math.random()*shocks.length)];
-  const disasterMemory = emdat ? `Historical disaster records for ${country.name} show ${fmtSmart(emdat.row.eventCount || 0,0)} recorded events, so the stress-test should use past hazard memory as one scenario input.` : 'Historical disaster context is not loaded, so the stress-test should be treated as a generic assumption test.';
-  const html=`<h3>${escapeHtml(chosen.title)}</h3><p><strong>Stress trigger:</strong> ${escapeHtml(chosen.trigger)}</p><p><strong>Why this belongs in the case file:</strong> ${escapeHtml(disasterMemory)}</p><p><strong>Assumptions to test:</strong></p><ul class="simple-list">${chosen.assumptions.map(a=>`<li>${escapeHtml(a)}</li>`).join('')}</ul><p><strong>No-regrets action:</strong> ${escapeHtml(chosen.action)}</p>`;
-  document.getElementById('blackSwanOutput').innerHTML=html;
-  lastBlackSwanText = `${chosen.title}\nTrigger: ${chosen.trigger}\nAssumptions: ${chosen.assumptions.join('; ')}\nAction: ${chosen.action}\n${disasterMemory}`;
-  setLastCalcText(buildCalcLog(country,targetYear,projections,deriveImplications(projections,targetYear),context) + '\n\n--- Black Swan stress-test ---\n' + lastBlackSwanText);
-}
-function clearBlackSwanStressTest(){
-  const el=document.getElementById('blackSwanOutput');
-  if(el) el.innerHTML='<strong>No stress-test generated yet.</strong> Generate one after reviewing the case file.';
-  lastBlackSwanText='';
-  if(lastCaseData) setLastCalcText(buildCalcLog(lastCaseData.country,lastCaseData.targetYear,lastCaseData.projections,deriveImplications(lastCaseData.projections,lastCaseData.targetYear),lastCaseData.context));
-}
-
-function buildCalcLog(country,targetYear,projections,derived,context){
-  const lines=[];
-  lines.push(`Humanitarian Futures Simulator calculation log`);
-  lines.push(`Country: ${country.name} (${country.iso3})`);
-  lines.push(`Target year: ${targetYear}`);
-  lines.push(`Generated: ${new Date().toISOString()}`);
-  lines.push('');
-  lines.push('Summary: Projected indicators are built from World Bank time-series rows after blank/null values and future-year rows are removed. Contextual sources are counted separately and are not projected.');
-  lines.push('');
-  for(const p of projections){
-    const ind=p.indicator; lines.push(`--- ${ind.label} (${ind.code}) ---`);
-    if(!p.ok){ lines.push(`Not projected: ${p.reason}`); lines.push(''); continue; }
-    lines.push(`Source: ${ind.source}`); lines.push(`Endpoint: ${p.seriesObj.url}`); lines.push(`Source role: ${ind.role}`);
-    lines.push(`First usable value: ${p.first.value} in ${p.first.year}`); lines.push(`Latest usable actual: ${p.latest.value} in ${p.latest.year}`);
-    lines.push(`Target-year value shown: ${p.projected} in ${targetYear}`);
-    if(p.model){ Object.keys(p.model).forEach(k=>lines.push(`${k}: ${p.model[k]}`)); }
-    if(p.notes.length) lines.push(`Adjustments: ${p.notes.join('; ')}`);
-    lines.push('');
-  }
-  lines.push('--- Calculated implications ---');
-  if(!derived.length) lines.push('No calculated implications were generated.');
-  for(const d of derived){ lines.push(`${d.label}: ${d.value} ${d.unit}. ${d.explanation}. Source basis: ${d.source}.`); }
-  lines.push('');
-  lines.push('--- Context source counts, not projections ---');
-  lines.push(`GDACS matches: ${context.gdacs.count||0}${context.gdacs.error?' ERROR: '+context.gdacs.error:''}`);
-  lines.push(`UNHCR country-related records: ${context.unhcr.count||0}${context.unhcr.error?' ERROR: '+context.unhcr.error:''}`);
-  lines.push(`Prepared data sources loaded: ${preparedSources.length ? preparedSources.map(source=>`${source.name} (${source.rowCount || 0} rows/records)`).join('; ') : 'none loaded'}`);
-  const emdat=emdatCountrySummary(country);
-  if(emdat){
-    lines.push(`EM-DAT historical disaster context: ${emdat.row.eventCount || 0} events; total deaths ${emdat.row.totalDeaths || 0}; total affected ${emdat.row.totalAffected || 0}; total damage USD000 ${emdat.row.totalDamageUsd000 || 0}`);
-  }
-  lines.push('');
-  lines.push('--- Use boundaries ---');
-  lines.push('This is a planning aid, not an official forecast.');
-  lines.push('It does not predict disasters, conflict, displacement shocks or humanitarian need.');
-  lines.push('Country-level indicators can hide local variation.');
-  lines.push('Context source counts are not severity scores.');
-  return lines.join('\n');
-}
-
-function downloadCalculationLog(){
-  const text = lastCalcText || 'No calculation log has been generated yet.';
-  const blob = new Blob([text], {type:'text/plain'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url;
-  a.download='humanitarian-futures-calculation-log.txt';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
 }
 
 async function compareCountries(){
@@ -1154,18 +1104,36 @@ async function compareCountries(){
   const results=document.getElementById('results');
   results.innerHTML=`<section class="loading-panel"><h2>Comparing starter countries for ${targetYear}...</h2><p>Pulling and projecting the same indicator set for each country.</p><div class="loaderbar"><span></span></div></section>`;
   try{
-    const rows=[]; const logs=[];
-    for(const c of COUNTRIES){ const projections=await getProjectionBundle(c,targetYear); const derived=deriveImplications(projections,targetYear); rows.push({country:c,projections,derived}); logs.push(buildCalcLog(c,targetYear,projections,derived,{gdacs:{count:0},unhcr:{count:0}})); }
-    setLastCalcText(logs.join('\n\n========================================\n\n'));
+    await loadPreparedData({silent:true});
+    const rows=[];
+    for(const c of COUNTRIES){ const projections=await getProjectionBundle(c,targetYear); rows.push({country:c,projections}); }
     results.innerHTML=renderComparison(rows,targetYear); setMessage(`Compared ${COUNTRIES.length} countries for ${targetYear}.`);
   }catch(e){ results.innerHTML=''; setMessage(`Could not compare countries: ${e.message}`,'error'); }
 }
 
 function renderComparison(rows,targetYear){
-  const sorted=rows.map(r=>{ const p=key=>getProjection(r.projections,key); const d=label=>r.derived.find(x=>x.label===label); const complete=['population','physicians','u5Mortality','internetUsers','urbanPct'].filter(k=>!!p(k)).length; return {country:r.country.name,pop:p('population'),phys:p('physicians'),u5:p('u5Mortality'),internet:p('internetUsers'),urban:p('urbanPct'),peoplePerPhys:d('People per physician'),complete}; }).sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
-  const trs=sorted.map(r=>`<tr><td><strong>${escapeHtml(r.country)}</strong></td><td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td><td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td><td class="num">${r.phys?fmtSmart(r.phys.projected,2):'NA'}</td><td class="num">${r.peoplePerPhys?fmtSmart(r.peoplePerPhys.value,0):'NA'}</td><td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td><td class="num">${r.internet?fmtSmart(r.internet.projected,2):'NA'}</td><td class="num">${r.urban?fmtSmart(r.urban.projected,2):'NA'}</td><td class="num">${r.complete}/5</td></tr>`).join('');
-  return `<section class="panel"><div class="section-title"><div><h2>Starter country comparison for ${targetYear}</h2><p>Comparison uses the same country-level indicator continuation method for each starter country. It should support discussion, not ranking as a single score.</p></div></div><div class="table-wrap"><table><thead><tr><th>Country</th><th>Projected population</th><th>Population change</th><th>Projected physicians / 1,000</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users</th><th>Urban population</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div><div class="btnrow" style="margin-top:14px"><button class="btn" onclick="downloadCalculationLog()">Download full calculation .txt</button></div></section>`;
+  const sorted=rows.map(r=>{ 
+    const p=key=>getProjection(r.projections,key);
+    const emdat=emdatCountrySummary(r.country);
+    const pop=p('population'), phys=p('physicians'), u5=p('u5Mortality'), internet=p('internetUsers'), urban=p('urbanPct');
+    return {country:r.country.name,pop,phys,u5,internet,urban,emdat,complete:['population','physicians','u5Mortality','internetUsers','urbanPct'].filter(k=>!!p(k)).length};
+  }).sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
+  const trs=sorted.map(r=>`<tr><td><strong>${escapeHtml(r.country)}</strong></td><td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td><td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td><td class="num">${r.urban?fmtSmart(r.urban.projected,2):'NA'}</td><td class="num">${r.phys?fmtSmart(1000/r.phys.projected,0):'NA'}</td><td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td><td class="num">${r.internet?fmtSmart(r.internet.projected,2):'NA'}</td><td class="num">${r.emdat?fmtSmart(r.emdat.row.eventCount,0):'NA'}</td><td>${r.emdat && r.emdat.row.topDisasterTypes[0]?escapeHtml(r.emdat.row.topDisasterTypes[0].disasterType):'NA'}</td><td class="num">${r.complete}/5</td></tr>`).join('');
+  return `<section class="panel"><div class="section-title"><div><h2>Starter country comparison for ${targetYear}</h2><p>Comparison uses the same country-level indicator-continuation method and the same prepared EM-DAT summary fields for each starter country.</p></div></div><div class="table-wrap"><table><thead><tr><th>Country</th><th>Population continuation</th><th>Population change</th><th>Urban %</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users %</th><th>EM-DAT events</th><th>Top EM-DAT type</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div></section>`;
 }
+
+function getCountryPreparedRows(slug, country){
+  const source=getPrepared(slug);
+  if(!source || !Array.isArray(source.sampleRows)) return [];
+  return source.sampleRows.filter(row => String(row.iso3 || row.iso || '').toUpperCase() === country.iso3 || String(row.country || '').toLowerCase() === country.name.toLowerCase());
+}
+
+function latestByYear(rows){
+  const dated = rows.filter(r=>Number.isFinite(Number(r.year))).sort((a,b)=>Number(a.year)-Number(b.year));
+  return dated.length ? dated[dated.length-1] : (rows[0] || null);
+}
+
+function num(v){ const n=Number(v); return Number.isFinite(n) ? n : 0; }
 
 init();
 </script>
