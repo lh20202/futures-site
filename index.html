@@ -37,7 +37,7 @@
     .loading-panel h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.05;margin-bottom:10px}.loading-panel p{color:#dbeafe;font-size:1.05rem;margin:0}.loaderbar{height:10px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin-top:24px}.loaderbar span{display:block;height:100%;width:45%;border-radius:999px;background:#93c5fd;animation:loadmove 1.2s ease-in-out infinite}@keyframes loadmove{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}
     .grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:18px;min-height:150px}.card h3{font-size:1.04rem;margin:7px 0 8px}.big{font-size:1.8rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
-    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:17px}.source-card p{margin:8px 0 0;color:#334155}.source-card .source-title{display:flex;justify-content:space-between;gap:10px;align-items:start}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
+    .calc-help{display:inline-block;margin-top:12px;background:#fff;border:1px dashed #adc0d5;color:#243244;border-radius:10px;padding:7px 9px;font-size:.82rem;font-weight:900;cursor:help}.calc-note{font-size:.9rem;color:#334155;margin-top:10px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}.details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.source-card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:17px}.source-card p{margin:8px 0 0;color:#334155}.source-card .source-title{display:flex;justify-content:space-between;gap:10px;align-items:start}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}.source-note{margin-top:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
     .spacer{height:28px}.footnote{color:var(--muted);font-size:.92rem;max-width:850px}.simple-list{padding-left:20px;color:#334155}.simple-list li{margin:7px 0}
     @media (max-width:920px){.controls,.two,.three,.four{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}}
   </style>
@@ -89,16 +89,25 @@
       <header class="hero">
         <p class="eyebrow">source data</p>
         <h1>What data does the simulator use?</h1>
-        <p class="intro">Some sources provide numbers the simulator can extend into the chosen year. Others provide current events or dataset listings that add context but are not projected.</p>
+        <p class="intro">Only sources that return real browser-accessible values or records are listed as working sources. Catalogue searches, reference links and metadata-only routes are excluded from the working list.</p>
       </header>
       <section class="panel soft">
         <div class="section-title">
           <div>
-            <h2>Sources used or referenced</h2>
-            <p>This section is separated from the main simulator so the landing page stays uncluttered.</p>
+            <h2>Sources used by the simulator</h2>
+            <p>Each visible source has a browser-safe test that pulls actual data, records or numeric values.</p>
           </div>
         </div>
+        <div class="btnrow" style="margin-bottom:16px">
+          <button class="btn" id="testAllSourcesBtn">Test working data pulls</button>
+        </div>
+        <div id="sourceTestSummary" class="status hidden"></div>
         <div class="grid two" id="sourceCards"></div>
+        <p class="footnote source-note">Some relevant sources were excluded from this static prototype because they require authentication, a backend proxy, manual downloads or only provide catalogue metadata in the browser. They can be added later through a proper backend connector.</p>
+        <details class="details source-note">
+          <summary>Sources excluded from this static prototype</summary>
+          <div id="excludedSourceList"></div>
+        </details>
       </section>
     </section>
 
@@ -114,7 +123,7 @@
           <li>The simulator retrieves historical country-level indicators from the World Bank.</li>
           <li>It removes blank, null and future-year rows before calculating anything.</li>
           <li>It extends each usable historical pattern into the selected year using a built-in calculation chosen for that indicator type.</li>
-          <li>It separately retrieves current/contextual records from GDACS, HDX, UNHCR and NASA CMR.</li>
+          <li>It separately retrieves current/contextual records from GDACS and UNHCR.</li>
           <li>It does not predict conflict, disasters, displacement shocks or humanitarian need.</li>
         </ul>
       </section>
@@ -155,20 +164,45 @@ const INDICATORS = [
 ];
 
 const SOURCES = [
-  {name:'World Bank Indicators API', url:'https://api.worldbank.org/v2/', status:'Projected numeric data', use:'Provides the projectable country-level indicators in the case file: population, urbanisation, health proxies, internet access, mobile subscriptions, secure servers, forest area and emissions.'},
-  {name:'GDACS', url:'https://www.gdacs.org/', status:'Current/recent event context', use:'Used to look for current or recently listed disaster-event records matching the selected country. These records are not projected and are not future disaster predictions.'},
-  {name:'HDX - Humanitarian Data Exchange', url:'https://data.humdata.org/', status:'Dataset discovery', use:'Used to search for country-relevant humanitarian dataset listings across health, displacement, disaster, climate, food security, INFORM, DTM, IDMC and EM-DAT terms. A listing count shows data availability, not crisis severity.'},
-  {name:'UNHCR Refugee Data Finder / API', url:'https://www.unhcr.org/refugee-statistics/', status:'Displacement records', use:'Used to try to retrieve recent country-related displacement/population records. The current version counts returned records for context; it does not estimate future displacement.'},
-  {name:'NASA Earthdata / CMR', url:'https://www.earthdata.nasa.gov/', status:'Earth-observation dataset discovery', use:'Used to find Earth-observation collection listings related to population exposure, flood, drought, precipitation, land surface temperature and night-time lights. It does not download or analyse satellite files.'},
-  {name:'NASA SEDAC', url:'https://sedac.ciesin.columbia.edu/', status:'Referenced via NASA Earthdata ecosystem', use:'Relevant for population, exposure and environmental datasets. In this static prototype, NASA discovery is done through CMR/Earthdata collection search rather than direct SEDAC file analysis.'},
-  {name:'INFORM Risk Index', url:'https://drmkc.jrc.ec.europa.eu/inform-index', status:'Found through HDX searches', use:'Not directly projected. The simulator searches for INFORM-related datasets through HDX so users can see whether risk-index resources exist for the selected context.'},
-  {name:'WHO Global Health Observatory', url:'https://www.who.int/data/gho', status:'Reference source', use:'WHO is the authoritative health-statistics source. The simulator currently uses World Bank health indicators as accessible proxies in this static browser version.'},
-  {name:'WHO Global Health Workforce statistics', url:'https://www.who.int/data/gho/data/themes/topics/health-workforce', status:'Reference source', use:'The site uses physician density from World Bank as a basic workforce proxy. This is not a replacement for full WHO workforce analysis.'},
-  {name:'ACLED', url:'https://acleddata.com/', status:'Not directly queried', use:'ACLED requires authenticated access for data downloads/API use. It is not safely called from this static front-end. Do not infer conflict patterns from this prototype.'},
-  {name:'IOM Displacement Tracking Matrix', url:'https://dtm.iom.int/', status:'Found through HDX searches', use:'The simulator searches for DTM-related dataset listings through HDX. It does not yet load DTM datasets directly.'},
-  {name:'IDMC Global Internal Displacement Database', url:'https://www.internal-displacement.org/database/', status:'Found through HDX searches', use:'The simulator searches for IDMC-related dataset listings through HDX. It does not yet load IDMC time-series values directly.'},
-  {name:'World Bank Climate Change Knowledge Portal', url:'https://climateknowledgeportal.worldbank.org/', status:'Reference source', use:'Relevant for climate profiles. This prototype does not ingest CCKP climate model outputs; it uses World Bank API and NASA/HDX discovery instead.'},
-  {name:'EM-DAT', url:'https://www.emdat.be/', status:'Found through HDX searches', use:'The simulator searches for EM-DAT-related dataset listings through HDX. It does not forecast disasters or load EM-DAT event histories directly.'}
+  {
+    key:'worldbank',
+    name:'World Bank Indicators',
+    url:'https://data.worldbank.org/',
+    status:'Working data pull',
+    plain:'World Bank Indicators provides country-level development time series such as population, urbanisation, health expenditure, life expectancy, internet access, mobile subscriptions, forest area and CO₂ emissions. It exists to make comparable development data public. This simulator uses those historical values to create transparent trend continuations.',
+    pulls:'Country time series for selected indicators and years.',
+    technical:'Endpoint pattern: https://api.worldbank.org/v2/country/{country}/indicator/{indicator}?format=json&per_page=20000&date=1960:{currentYear}. Data type returned: JSON numeric indicator series. These are actual values projected into the chosen target year after blank rows are removed. Limitation: country-level values hide local variation.'
+  },
+  {
+    key:'unhcr',
+    name:'UNHCR Refugee Data Finder',
+    url:'https://www.unhcr.org/refugee-statistics/',
+    status:'Working record pull',
+    plain:'UNHCR Refugee Data Finder provides figures on forcibly displaced and stateless populations, including refugees, asylum-seekers and other population groups. It matters because displacement context is central to many humanitarian questions. This simulator retrieves recent country-related displacement records for context.',
+    pulls:'Recent displacement records where the selected country is queried as origin and asylum country.',
+    technical:'Endpoint pattern: https://api.unhcr.org/population/v1/population/?year={year}&coo={iso3} and coa={iso3}. Data type returned: JSON population records. These are actual records used as context, not future displacement estimates. Limitation: returned fields depend on UNHCR reporting structure for that year and country.'
+  },
+  {
+    key:'gdacs',
+    name:'GDACS',
+    url:'https://www.gdacs.org/',
+    status:'Working current event pull',
+    plain:'GDACS provides alerts and information on current and recent major disasters. It exists to support awareness and coordination around major disaster events. This simulator uses it only for current/recent event context. It does not predict future disasters.',
+    pulls:'Current/recent disaster event records matched to the selected country.',
+    technical:'Endpoint used: https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=. Data type returned: GeoJSON event records. The site matches country names and ISO codes in returned event records. Limitation: long-running events can remain listed across extended periods.'
+  }
+];
+
+const EXCLUDED_SOURCES = [
+  ['WHO Global Health Observatory direct','Removed because the browser fetch failed in the static preview, even though the endpoint can be reached outside the browser.'],
+  ['ACLED','Requires authenticated access, so it should not be called directly from a static browser page.'],
+  ['IOM DTM','Removed because this pass did not confirm a no-key browser-safe endpoint returning actual DTM displacement values.'],
+  ['IDMC','Removed because documented direct access may require a client identifier and no no-key browser-safe value endpoint was implemented.'],
+  ['NASA SEDAC / Earthdata','Removed because catalogue discovery alone is not actual data ingestion.'],
+  ['World Bank Climate Change Knowledge Portal','Removed because this static version does not pull actual CCKP climate values.'],
+  ['HDX package search','Removed from the working list because dataset listings are metadata, not actual data rows.'],
+  ['INFORM Risk Index','Removed because no working public JSON data pull was implemented in this pass.'],
+  ['EM-DAT','Removed because no browser-safe aggregated data-row fetch was implemented in this pass.']
 ];
 
 let lastCalcText = '';
@@ -181,6 +215,7 @@ function init(){
   countrySelect.value = 'BGD';
   document.getElementById('buildBtn').addEventListener('click', buildCase);
   document.getElementById('compareBtn').addEventListener('click', compareCountries);
+  document.getElementById('testAllSourcesBtn').addEventListener('click', testAllWorkingSources);
   document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>showView(btn.dataset.view)));
   renderSources();
 }
@@ -195,10 +230,15 @@ function showView(viewId){
 function renderSources(){
   document.getElementById('sourceCards').innerHTML = SOURCES.map(s=>`
     <div class="source-card">
-      <div class="source-title"><h3>${escapeHtml(s.name)}</h3><span class="pill ${s.status.includes('Projected')||s.status.includes('Current')||s.status.includes('Dataset')||s.status.includes('Displacement')||s.status.includes('Earth')?'green':s.status.includes('Not')?'red':'amber'}">${escapeHtml(s.status)}</span></div>
-      <p>${escapeHtml(s.use)}</p>
-      <p><a href="${s.url}" target="_blank" rel="noopener">Open source</a></p>
+      <div class="source-title"><h3>${escapeHtml(s.name)}</h3><span class="pill green">${escapeHtml(s.status)}</span></div>
+      <p>${escapeHtml(s.plain)}</p>
+      <p><strong>What the simulator pulls:</strong> ${escapeHtml(s.pulls)}</p>
+      <p><a href="${s.url}" target="_blank" rel="noopener">Visit site</a></p>
+      <div class="source-actions"><button class="btn secondary" onclick="testWorkingSource('${s.key}')">Test this source</button></div>
+      <div class="source-output" id="sourceTest-${s.key}">Not tested yet.</div>
+      <details class="details"><summary>How this data is pulled</summary><p class="muted">${escapeHtml(s.technical)}</p><pre class="mono" id="sourceRaw-${s.key}">No successful response yet.</pre></details>
     </div>`).join('');
+  document.getElementById('excludedSourceList').innerHTML = `<ul class="simple-list">${EXCLUDED_SOURCES.map(([name,reason])=>`<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(reason)}</li>`).join('')}</ul>`;
 }
 
 function countryByIso(iso){ return COUNTRIES.find(c=>c.iso3===iso); }
@@ -217,6 +257,109 @@ async function fetchJson(url, options={}){
   if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return await res.json();
 }
+
+function selectedCountry(){
+  return countryByIso(document.getElementById('countrySelect').value) || COUNTRIES[0];
+}
+
+function sourceOutput(key, cls, html){
+  const el = document.getElementById(`sourceTest-${key}`);
+  if(!el) return;
+  el.className = `source-output ${cls}`;
+  el.innerHTML = html;
+}
+
+function sourceRaw(key, data){
+  const el = document.getElementById(`sourceRaw-${key}`);
+  if(el) el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+}
+
+function sampleJson(data, max=900){
+  return JSON.stringify(data, null, 2).slice(0, max);
+}
+
+async function testWorkingSource(key){
+  const source = SOURCES.find(s=>s.key===key);
+  if(!source) return false;
+  sourceOutput(key, 'loading', '<p><strong>Loading...</strong></p>');
+  try{
+    const result = await SOURCE_TESTS[key](selectedCountry());
+    sourceOutput(key, 'success', `
+      <p><strong>Success</strong></p>
+      <p><strong>Endpoint called:</strong> <span class="small">${escapeHtml(result.endpoint)}</span></p>
+      <p><strong>Record count:</strong> ${escapeHtml(result.count)}</p>
+      ${result.latest ? `<p><strong>Latest:</strong> ${escapeHtml(result.latest)}</p>` : ''}
+      <p><strong>Sample returned data:</strong> ${escapeHtml(result.sample)}</p>
+      <p class="small">Tested: ${escapeHtml(new Date().toLocaleString())}</p>
+    `);
+    sourceRaw(key, result.raw);
+    return true;
+  }catch(e){
+    sourceOutput(key, 'error', `
+      <p><strong>Failed</strong></p>
+      <p>${escapeHtml(e.message)}</p>
+      <p class="small">Likely reason: the browser could not reach the endpoint or the source returned no usable records for this test.</p>
+      <p class="small">Tested: ${escapeHtml(new Date().toLocaleString())}</p>
+    `);
+    sourceRaw(key, 'No successful response yet.');
+    return false;
+  }
+}
+
+async function testAllWorkingSources(){
+  const summary = document.getElementById('sourceTestSummary');
+  const button = document.getElementById('testAllSourcesBtn');
+  summary.className = 'status';
+  summary.textContent = 'Testing working data pulls...';
+  button.disabled = true;
+  let passed = 0, failed = 0;
+  for(const source of SOURCES){
+    const ok = await testWorkingSource(source.key);
+    if(ok) passed += 1; else failed += 1;
+  }
+  summary.className = failed ? 'status warn' : 'status';
+  summary.textContent = `Last test: ${passed} passed, ${failed} failed.`;
+  button.disabled = false;
+}
+
+const SOURCE_TESTS = {
+  async worldbank(country){
+    const ind = INDICATORS.find(i=>i.code==='SP.POP.TOTL');
+    const series = await fetchWorldBankSeries(country, ind);
+    if(!series.values.length) throw new Error('No usable World Bank values returned.');
+    const latest = series.values[series.values.length-1];
+    return {
+      endpoint: series.url,
+      count: series.values.length,
+      latest: `${latest.year}: ${fmtSmart(latest.value, 0)}`,
+      sample: `${country.name} ${ind.label} returned ${series.values.length} usable numeric year/value rows.`,
+      raw: {endpoint:series.url, rawCount:series.rawCount, latest, sample:series.values.slice(-5)}
+    };
+  },
+  async unhcr(country){
+    const result = await fetchUnhcr(country);
+    if(!result.items.length) throw new Error(result.error || 'No UNHCR population records returned for origin/asylum country query.');
+    const first = result.items[0];
+    return {
+      endpoint: result.queries.join(' | '),
+      count: result.count,
+      latest: `Selected year ${result.year}`,
+      sample: `${first.coo_name || first.coa_name || 'Population record'}: ${sampleJson(first, 220)}`,
+      raw: {queries:result.queries, recordCount:result.count, sample:result.items.slice(0,5)}
+    };
+  },
+  async gdacs(country){
+    const result = await fetchGdacs(country);
+    const first = result.items[0];
+    return {
+      endpoint: result.url,
+      count: result.count,
+      latest: first ? (first.datemodified || first.fromdate || 'Event date not shown') : 'No country matches in current/recent list',
+      sample: first ? `${first.name || first.eventname || 'GDACS event'} (${first.country || first.iso3 || 'location not shown'})` : `The endpoint returned records, but none matched ${country.name}.`,
+      raw: {endpoint:result.url, matchedRecords:result.count, sample:result.items.slice(0,5)}
+    };
+  }
+};
 
 async function fetchWorldBankSeries(country, ind){
   const codes = [country.wb, country.iso3.toLowerCase()].filter(Boolean);
@@ -323,12 +466,10 @@ async function getProjectionBundle(country, targetYear){
 }
 
 async function fetchContext(country){
-  const context = {gdacs:{count:0,items:[],error:null}, hdx:{count:0,items:[],queries:[],error:null}, unhcr:{count:0,items:[],error:null}, nasa:{count:0,items:[],queries:[],error:null}};
+  const context = {gdacs:{count:0,items:[],error:null}, unhcr:{count:0,items:[],error:null}};
   await Promise.allSettled([
     fetchGdacs(country).then(v=>context.gdacs=v).catch(e=>context.gdacs.error=e.message),
-    fetchHdx(country).then(v=>context.hdx=v).catch(e=>context.hdx.error=e.message),
-    fetchUnhcr(country).then(v=>context.unhcr=v).catch(e=>context.unhcr.error=e.message),
-    fetchNasa(country).then(v=>context.nasa=v).catch(e=>context.nasa.error=e.message)
+    fetchUnhcr(country).then(v=>context.unhcr=v).catch(e=>context.unhcr.error=e.message)
   ]);
   return context;
 }
@@ -338,26 +479,9 @@ async function fetchGdacs(country){
   const json = await fetchJson(url);
   const arr = Array.isArray(json) ? json : (json.features || json.events || []);
   const name = country.name.toLowerCase(), iso2 = country.iso2.toLowerCase();
-  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`)).slice(0,8);
-  return {count:items.length,items,url,explanation:'Current or recent GDACS event-list records matched by country name/code. These are not future events.'};
-}
-
-async function fetchHdx(country){
-  const terms = ['health','displacement','disaster','climate','food security','INFORM','DTM','IDMC','EM-DAT','digital connectivity'];
-  const items=[]; const queries=[];
-  for(const term of terms){
-    const q = `${country.name} ${term}`;
-    const url = `https://data.humdata.org/api/3/action/package_search?q=${encodeURIComponent(q)}&rows=5`;
-    try{
-      const json = await fetchJson(url);
-      const results = json && json.result && Array.isArray(json.result.results) ? json.result.results : [];
-      queries.push({q,count:results.length,url});
-      results.forEach(r=>items.push({title:r.title||r.name,org:(r.organization&&r.organization.title)||'',notes:r.notes||'',metadata_modified:r.metadata_modified||'',url:`https://data.humdata.org/dataset/${r.name}`,query:q}));
-    }catch(e){ queries.push({q,count:0,error:e.message,url}); }
-  }
-  const dedup=[]; const seen=new Set();
-  for(const item of items){ if(!seen.has(item.url)){ seen.add(item.url); dedup.push(item); } }
-  return {count:dedup.length,items:dedup.slice(0,20),queries,explanation:'HDX dataset listings relevant to the country. This shows available humanitarian datasets, not measured severity.'};
+  const iso3 = country.iso3.toLowerCase();
+  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`) || JSON.stringify(it).toLowerCase().includes(`"${iso3}"`)).slice(0,8).map(it=>it.properties||it);
+  return {count:items.length,items,allCount:arr.length,allItems:arr.slice(0,5),url,explanation:'Current or recent GDACS event-list records matched by country name/code. These are not future events.'};
 }
 
 async function fetchUnhcr(country){
@@ -374,25 +498,7 @@ async function fetchUnhcr(country){
       rows.forEach(r=>items.push({...r,sourceUrl:url}));
     }catch(e){ errors.push(e.message); }
   }
-  return {count:items.length,items:items.slice(0,12),queries,error:errors.length===queries.length?errors.join('; '):null,explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
-}
-
-async function fetchNasa(country){
-  const terms = ['population exposure','flood','drought','land surface temperature','precipitation','night time lights','disaster'];
-  const items=[]; const queries=[];
-  for(const term of terms){
-    const keyword = `${country.name} ${term}`;
-    const url = `https://cmr.earthdata.nasa.gov/search/collections.json?keyword=${encodeURIComponent(keyword)}&page_size=3`;
-    try{
-      const json = await fetchJson(url);
-      const entries = (json.feed && json.feed.entry) || [];
-      queries.push({q:keyword,count:entries.length,url});
-      entries.forEach(e=>items.push({title:e.title,summary:e.summary||'',id:e.id||'',updated:e.updated||'',url:(e.links&&e.links[0]&&e.links[0].href)||'https://search.earthdata.nasa.gov/search',query:keyword}));
-    }catch(e){ queries.push({q:keyword,count:0,error:e.message,url}); }
-  }
-  const dedup=[]; const seen=new Set();
-  for(const item of items){ const key=item.id||item.title; if(!seen.has(key)){seen.add(key); dedup.push(item);} }
-  return {count:dedup.length,items:dedup.slice(0,16),queries,explanation:'NASA Earthdata collection listings relevant to environmental monitoring and exposure. These are dataset listings, not analysed satellite data.'};
+  return {count:items.length,items:items.slice(0,12),queries,year,error:errors.length===queries.length?errors.join('; '):null,explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
 }
 
 function getProjection(projections,key){ return projections.find(p=>p.indicator && p.indicator.key===key && p.ok); }
@@ -422,7 +528,7 @@ function scenarioText(country,targetYear,projections,derived,context){
   if(u5) lines.push(`<p>The under-5 mortality trajectory is <strong>${escapeHtml(u5.direction)}</strong>, with a target-year continuation of <strong>${fmtSmart(u5.projected,2)}</strong> per 1,000 live births.</p>`);
   if(urban) lines.push(`<p>The urbanisation trajectory points to <strong>${fmtSmart(urban.projected,2)}%</strong> urban population by ${targetYear}.</p>`);
   if(internet) lines.push(`<p>The internet-use trajectory points to <strong>${fmtSmart(internet.projected,2)}%</strong> of the population online by ${targetYear}. This is included as a digital access condition inside the case file, not as a separate technology scenario.</p>`);
-  lines.push(`<p>Supporting context found <strong>${context.gdacs.count||0}</strong> GDACS current/recent event matches, <strong>${context.hdx.count||0}</strong> HDX dataset listings, <strong>${context.nasa.count||0}</strong> NASA Earthdata collection listings, and <strong>${context.unhcr.count||0}</strong> UNHCR country-related population/displacement records.</p>`);
+  lines.push(`<p>Supporting context found <strong>${context.gdacs.count||0}</strong> GDACS current/recent event matches and <strong>${context.unhcr.count||0}</strong> UNHCR country-related population/displacement records.</p>`);
   lines.push('<hr><p><strong>Use this as a case file:</strong> a numeric continuation of selected indicators plus current/contextual source signals. It is not an official forecast.</p>');
   return lines.join('\n');
 }
@@ -478,7 +584,7 @@ function renderCase(country,targetYear,projections,derived,context){
       <div class="section-title"><div><h2>Claims this data cannot support</h2><p>These warnings help prevent overclaiming from the simulator output.</p></div></div>
       <ul class="simple-list">
         <li>This does not prove what will happen in ${targetYear}.</li>
-        <li>HDX and NASA counts are dataset listings, not severity scores.</li>
+        <li>UNHCR and GDACS records are context signals, not projected future conditions.</li>
         <li>GDACS records are current/recent event-list matches, not future disaster predictions.</li>
         <li>Country-level indicators do not show local variation, informal systems, trust, staff morale or political negotiations.</li>
         <li>Projected technology indicators show access/infrastructure proxies, not whether technology will improve humanitarian outcomes.</li>
@@ -517,15 +623,13 @@ function renderProjectionErrors(failed){
 
 function renderContextSection(context,country){
   return `<section class="panel">
-    <div class="section-title"><div><h2>Relevant data found, but not projected</h2><p>These records and dataset listings help describe the surrounding data environment. They do not become future-year predictions.</p></div></div>
+    <div class="section-title"><div><h2>Relevant data found, but not projected</h2><p>These records help describe the surrounding data environment. They do not become future-year predictions.</p></div></div>
     <div class="cards">
       ${renderContextCard('GDACS',context.gdacs.count||0,`current/recent disaster-event records matched to ${country.name}.`,context.gdacs.error)}
-      ${renderContextCard('HDX',context.hdx.count||0,'humanitarian dataset listings found across health, displacement, disaster, climate, food security and related searches.',context.hdx.error)}
       ${renderContextCard('UNHCR',context.unhcr.count||0,'country-related displacement/population records returned from origin/asylum query attempts.',context.unhcr.error)}
-      ${renderContextCard('NASA Earthdata',context.nasa.count||0,'Earth-observation collection listings found for exposure, hazards, temperature, precipitation and observation keywords.',context.nasa.error)}
     </div>
-    <div class="explain" style="margin-top:16px"><strong>What this section is for:</strong> it shows whether the simulator found supporting event records or dataset leads for the selected country. A high count means “more relevant data was found,” not “the crisis is worse.”</div>
-    <details class="details"><summary>Dataset and event details</summary><p class="muted">This list shows examples of the datasets or event records found. HDX and NASA rows are links to datasets/collections that someone could inspect separately; GDACS and UNHCR rows are returned records. These details are included so the case file is traceable, not because every listed dataset has been analysed.</p>${renderDetailRows(context)}</details>
+    <div class="explain" style="margin-top:16px"><strong>What this section is for:</strong> it shows whether the simulator found supporting records for the selected country. A high count means “more returned records were found,” not “the crisis is worse.”</div>
+    <details class="details"><summary>Record details</summary><p class="muted">This list shows examples of returned GDACS and UNHCR records. These details are included so the case file is traceable, not because every record has been analysed.</p>${renderDetailRows(context)}</details>
   </section>`;
 }
 function renderContextCard(label,count,text,error){
@@ -533,8 +637,6 @@ function renderContextCard(label,count,text,error){
 }
 function renderDetailRows(context){
   const rows=[];
-  (context.hdx.items||[]).slice(0,10).forEach(i=>rows.push({source:'HDX dataset',title:i.title,detail:i.org||i.query,url:i.url}));
-  (context.nasa.items||[]).slice(0,8).forEach(i=>rows.push({source:'NASA collection',title:i.title,detail:i.query,url:i.url}));
   (context.unhcr.items||[]).slice(0,5).forEach(i=>rows.push({source:'UNHCR record',title:`${i.coo_name||i.coa_name||'Population record'} ${i.year||''}`,detail:JSON.stringify(i).slice(0,180),url:i.sourceUrl}));
   (context.gdacs.items||[]).slice(0,5).forEach(i=>rows.push({source:'GDACS event',title:(i.name||i.eventname||i.title||'GDACS event'),detail:JSON.stringify(i).slice(0,180),url:'https://www.gdacs.org/'}));
   if(!rows.length) return '<p>No contextual detail rows were returned. This can happen if the source does not return country matches or the browser blocks the request.</p>';
@@ -552,8 +654,7 @@ function buildTags(caseData){
   if(mobile && mobile > 90) tags.push('mobile-dependency');
   if(servers && servers > 100) tags.push('digital-infrastructure');
   if(peoplePerPhys && peoplePerPhys.value > 3000) tags.push('health-workforce-fragility');
-  if((context.hdx.count||0) > 25) tags.push('data-dense-context');
-  if((context.nasa.count||0) > 8) tags.push('earth-observation-relevant');
+  if(((context.unhcr.count||0) + (context.gdacs.count||0)) > 10) tags.push('data-dense-context');
   if((context.gdacs.count||0) > 0) tags.push('current-disaster-signal');
   if((context.unhcr.count||0) > 0) tags.push('displacement-signal');
   if(tags.length===0) tags.push('thin-signal-context');
@@ -621,9 +722,7 @@ function buildCalcLog(country,targetYear,projections,derived,context){
   lines.push('');
   lines.push('--- Context source counts, not projections ---');
   lines.push(`GDACS matches: ${context.gdacs.count||0}${context.gdacs.error?' ERROR: '+context.gdacs.error:''}`);
-  lines.push(`HDX dataset listings: ${context.hdx.count||0}${context.hdx.error?' ERROR: '+context.hdx.error:''}`);
   lines.push(`UNHCR country-related records: ${context.unhcr.count||0}${context.unhcr.error?' ERROR: '+context.unhcr.error:''}`);
-  lines.push(`NASA CMR collection listings: ${context.nasa.count||0}${context.nasa.error?' ERROR: '+context.nasa.error:''}`);
   lines.push('');
   lines.push('Claims this log cannot support: it cannot predict disasters, conflict, displacement shocks, humanitarian need, local variation, trust, morale, or operational quality.');
   return lines.join('\n');
@@ -643,7 +742,7 @@ async function compareCountries(){
   results.innerHTML=`<section class="loading-panel"><h2>Comparing starter countries for ${targetYear}...</h2><p>Pulling and projecting the same indicator set for each country.</p><div class="loaderbar"><span></span></div></section>`;
   try{
     const rows=[]; const logs=[];
-    for(const c of COUNTRIES){ const projections=await getProjectionBundle(c,targetYear); const derived=deriveImplications(projections,targetYear); rows.push({country:c,projections,derived}); logs.push(buildCalcLog(c,targetYear,projections,derived,{gdacs:{count:0},hdx:{count:0,queries:[]},unhcr:{count:0},nasa:{count:0,queries:[]}})); }
+    for(const c of COUNTRIES){ const projections=await getProjectionBundle(c,targetYear); const derived=deriveImplications(projections,targetYear); rows.push({country:c,projections,derived}); logs.push(buildCalcLog(c,targetYear,projections,derived,{gdacs:{count:0},unhcr:{count:0}})); }
     lastCalcText=logs.join('\n\n========================================\n\n');
     results.innerHTML=renderComparison(rows,targetYear); setMessage(`Compared ${COUNTRIES.length} countries for ${targetYear}.`);
   }catch(e){ results.innerHTML=''; setMessage(`Could not compare countries: ${e.message}`,'error'); }
