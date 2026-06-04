@@ -52,7 +52,7 @@
     .filter-row{display:grid;grid-template-columns:180px 180px 1fr;gap:10px;margin:14px 0}.filter-row select,.filter-row input{padding:10px 12px;font-size:.96rem;border-radius:12px}
     .record-count{font-weight:900;color:#334155;margin:6px 0 12px}.tag-list{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.clicktag{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;cursor:pointer;font-weight:900;color:#334155}.clicktag.active{background:var(--navy);border-color:var(--navy);color:#fff}
     .spark{display:grid;grid-template-columns:repeat(auto-fit,minmax(18px,1fr));gap:3px;align-items:end;min-height:110px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.spark div{background:#1957d2;border-radius:4px 4px 0 0;min-height:3px;position:relative}.spark div span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%) rotate(-45deg);font-size:.68rem;color:#64748b}
-    .data-section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}.data-source-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.data-source-card h3{font-size:1.02rem;margin:0 0 10px}.inline-records{display:grid;gap:10px}.inline-record{border:1px solid var(--line);border-radius:14px;background:#f8fafc;padding:12px}.inline-record strong{display:block}.inline-record p{margin:6px 0 0;color:#334155}.kv-table{min-width:0}.kv-table th{width:210px}.kv-table td,.kv-table th{text-transform:none;letter-spacing:0;font-size:.9rem}.pattern-controls{grid-template-columns:1fr 1fr 1fr auto}.score-cell{font-weight:950;color:#17202a}
+    .data-section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}.data-source-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.data-source-card h3{font-size:1.02rem;margin:0 0 10px}.inline-records{display:grid;gap:10px}.inline-record{border:1px solid var(--line);border-radius:14px;background:#f8fafc;padding:12px}.inline-record strong{display:block}.inline-record p{margin:6px 0 0;color:#334155}.kv-table{min-width:0}.kv-table th{width:210px}.kv-table td,.kv-table th{text-transform:none;letter-spacing:0;font-size:.9rem}
     .source-chip{display:inline-flex;margin:0 6px 6px 0;border-radius:999px;background:#eef2ff;color:#3730a3;padding:5px 9px;font-weight:900;font-size:.78rem}
     @media (max-width:920px){.controls,.two,.three,.four,.filter-row{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}.source-intro,.case-hero{grid-template-columns:1fr}.source-grid{grid-template-columns:1fr}.bar-row-ui{grid-template-columns:90px 1fr 60px}}
   </style>
@@ -63,7 +63,6 @@
       <div class="brand">Humanitarian Futures Simulator</div>
       <div class="navlinks">
         <button class="navbtn active" data-view="simulatorView">Country case file simulator</button>
-        <button class="navbtn" data-view="disasterPatternView">Disaster pattern simulator</button>
         <button class="navbtn" data-view="sourcesView">Source data</button>
         <button class="navbtn" data-view="aboutView">How it works</button>
       </div>
@@ -99,37 +98,6 @@
 
       <div id="message"></div>
       <div id="results"></div>
-    </section>
-
-    <section id="disasterPatternView" class="view">
-      <header class="hero">
-        <p class="eyebrow">theme-led data case file</p>
-        <h1>Disaster pattern simulator</h1>
-        <p class="intro">This view ranks available starter countries by disaster and crisis patterns already present in the loaded data. It uses historical, current and contextual records; it does not predict disaster occurrence.</p>
-      </header>
-      <section class="builder" aria-label="Build a disaster pattern case file">
-        <h2>Build a disaster pattern case file</h2>
-        <p>Select a theme and country scope. Target year is used only for World Bank exposure/context continuations.</p>
-        <div class="controls pattern-controls">
-          <div>
-            <label for="disasterThemeSelect">Crisis / disaster theme</label>
-            <select id="disasterThemeSelect"></select>
-          </div>
-          <div>
-            <label for="disasterCountrySelect">Country scope</label>
-            <select id="disasterCountrySelect"></select>
-          </div>
-          <div>
-            <label for="disasterYearInput">Optional target year</label>
-            <input id="disasterYearInput" type="number" min="2026" max="2100" value="2052" />
-          </div>
-          <div>
-            <button class="btn" id="buildDisasterPatternBtn">Generate disaster pattern case file</button>
-          </div>
-        </div>
-      </section>
-      <div id="disasterPatternMessage"></div>
-      <div id="disasterPatternResults"></div>
     </section>
 
     <section id="sourcesView" class="view">
@@ -175,9 +143,8 @@
         <h2>In plain terms</h2>
         <ul class="simple-list">
           <li><strong>Country case file simulator:</strong> builds a country-year evidence file using World Bank indicators, prepared source rows, EM-DAT historical disasters and live context records.</li>
-          <li><strong>Disaster pattern simulator:</strong> builds a theme-led pattern view using EM-DAT, GDACS, USGS, IFRC GO, UNHCR, World Bank and climate/weather samples where available.</li>
-          <li>Both views remove blank, null and future-year rows before calculating any World Bank trend continuations.</li>
-          <li>Both views list returned records and source rows rather than hiding them behind summary counts.</li>
+          <li>It removes blank, null and future-year rows before calculating any World Bank trend continuations.</li>
+          <li>It lists returned records and source rows rather than hiding them behind summary counts.</li>
           <li>The site does not predict conflict, disasters, displacement shocks or humanitarian need.</li>
         </ul>
       </section>
@@ -215,15 +182,6 @@ const INDICATORS = [
   {key:'secureServers', iconKey:'lock', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', type:'nonnegative', decimals:2, role:'Digital infrastructure proxy', source:'World Bank', explain:'Secure internet servers per million people.'},
   {key:'forestPct', iconKey:'land', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', type:'percent', decimals:2, role:'Land-use context', source:'World Bank', explain:'Forest area share.'},
   {key:'co2', iconKey:'emissions', code:'EN.ATM.CO2E.PC', label:'CO₂ emissions per capita', unit:'metric tons per person', type:'nonnegative', decimals:2, role:'Emissions/development proxy', source:'World Bank', explain:'CO₂ emissions per person.'}
-];
-
-const DISASTER_THEMES = [
-  {key:'flood-storm', label:'Flood and storm exposure', types:['Flood','Storm','Water'], sources:['EM-DAT','GDACS','NASA POWER','Open-Meteo','World Bank']},
-  {key:'earthquake', label:'Earthquake / seismic disruption', types:['Earthquake'], sources:['EM-DAT','GDACS','USGS Earthquake API','World Bank']},
-  {key:'drought-heat', label:'Drought and heat stress', types:['Drought','Extreme temperature','Wildfire'], sources:['EM-DAT','NASA POWER','Open-Meteo','World Bank']},
-  {key:'epidemic-health', label:'Epidemic and health-system pressure', types:['Epidemic'], sources:['EM-DAT','World Bank','WHO Global Health Observatory']},
-  {key:'mobility', label:'Population displacement / mobility pressure', types:['Flood','Storm','Epidemic','Drought','Earthquake'], sources:['UNHCR','IFRC GO','EM-DAT','World Bank']},
-  {key:'compound', label:'Compound multi-hazard pressure', types:['Flood','Storm','Water','Drought','Extreme temperature','Earthquake','Epidemic'], sources:['EM-DAT','GDACS','UNHCR','World Bank','NASA POWER','Open-Meteo','IFRC GO']}
 ];
 
 const SOURCES = [
@@ -304,20 +262,13 @@ let preparedManifest = null;
 let preparedSources = [];
 let lastCaseData = null;
 let disasterViewState = {years:'10', hazard:'all', query:''};
-let projectionCache = new Map();
-let contextCache = new Map();
 
 function init(){
   const countrySelect = document.getElementById('countrySelect');
   countrySelect.innerHTML = COUNTRIES.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join('');
   countrySelect.value = 'BGD';
-  document.getElementById('disasterThemeSelect').innerHTML = DISASTER_THEMES.map(t=>`<option value="${t.key}">${t.label}</option>`).join('');
-  document.getElementById('disasterCountrySelect').innerHTML = `<option value="all">All available starter countries</option>${COUNTRIES.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join('')}`;
-  document.getElementById('disasterCountrySelect').value = 'all';
   document.getElementById('buildBtn').addEventListener('click', buildCase);
   document.getElementById('compareBtn').addEventListener('click', compareCountries);
-  document.getElementById('buildDisasterPatternBtn').addEventListener('click', buildDisasterPatternFromControls);
-  ['disasterThemeSelect','disasterCountrySelect','disasterYearInput'].forEach(id=>document.getElementById(id).addEventListener('change', buildDisasterPatternFromControls));
   document.getElementById('checkDataSourcesBtn').addEventListener('click', checkDataSources);
   document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>showView(btn.dataset.view)));
   renderSources();
@@ -1288,228 +1239,6 @@ function clearBlackSwanStressTest(){
 
 function renderProjectionErrors(failed){
   return `<details class="details"><summary>Indicators not projected</summary><ul class="simple-list">${failed.map(f=>`<li><strong>${escapeHtml(f.indicator?f.indicator.label:'Indicator')}:</strong> ${escapeHtml(f.reason||'No reason returned')}</li>`).join('')}</ul></details>`;
-}
-
-async function getCachedProjections(country, targetYear){
-  const key = `${country.iso3}-${targetYear}`;
-  if(!projectionCache.has(key)) projectionCache.set(key, getProjectionBundle(country, targetYear));
-  return projectionCache.get(key);
-}
-
-async function getCachedContext(country){
-  if(!contextCache.has(country.iso3)) contextCache.set(country.iso3, fetchContext(country));
-  return contextCache.get(country.iso3);
-}
-
-async function buildDisasterPatternFromControls(){
-  const themeKey = document.getElementById('disasterThemeSelect').value;
-  const countryMode = document.getElementById('disasterCountrySelect').value;
-  const targetYear = Number(document.getElementById('disasterYearInput').value) || CURRENT_YEAR;
-  const msg = document.getElementById('disasterPatternMessage');
-  const out = document.getElementById('disasterPatternResults');
-  msg.innerHTML = '';
-  out.innerHTML = `<section class="loading-panel"><h2>Building disaster pattern case file...</h2><p>Loading prepared records, live context records and country exposure indicators.</p><div class="loaderbar"><span></span></div></section>`;
-  try{
-    await loadPreparedData({silent:true});
-    const html = await buildDisasterPatternCase(themeKey, countryMode, targetYear);
-    out.innerHTML = html;
-    msg.innerHTML = `<div class="status">Generated disaster pattern case file.</div>`;
-  }catch(e){
-    out.innerHTML = '';
-    msg.innerHTML = `<div class="status error">Could not build disaster pattern case file: ${escapeHtml(e.message)}</div>`;
-  }
-}
-
-async function buildDisasterPatternCase(themeKey, countryMode, targetYear){
-  const theme = DISASTER_THEMES.find(t=>t.key===themeKey) || DISASTER_THEMES[0];
-  const selectedCountries = countryMode === 'all' ? COUNTRIES : [countryByIso(countryMode)].filter(Boolean);
-  const rows = [];
-  for(const country of selectedCountries){
-    const [projections, context] = await Promise.all([getCachedProjections(country, targetYear), getCachedContext(country)]);
-    rows.push(scoreCountryForDisasterTheme(country, theme, projections, context, targetYear));
-  }
-  const ranked = rows.sort((a,b)=>b.score-a.score);
-  const records = themeMatchedRecords(theme, countryMode, ranked);
-  const stress = evidenceLinkedStressEvent(theme, ranked, records, targetYear);
-  return `<section class="panel dark">
-    <p class="eyebrow">disaster pattern case file</p>
-    <h2>${escapeHtml(theme.label)}</h2>
-    <p class="muted">This case file ranks available starter countries using historical disaster records, current/live context records, prepared hazard and climate rows, and World Bank exposure/context indicators. It is a pattern-analysis and stress-test view, not a disaster prediction.</p>
-  </section>
-  <section class="panel">
-    <div class="section-title"><div><h2>Countries where this pattern appears most strongly</h2><p>Ranking uses only data currently available to the site.</p></div></div>
-    ${renderDisasterRankingTable(ranked, theme)}
-  </section>
-  <section class="panel soft">
-    <div class="section-title"><div><h2>Pattern profile</h2><p>Sources and interpretation limits for the selected theme.</p></div></div>
-    ${renderPatternProfile(theme)}
-  </section>
-  <section class="panel">
-    <div class="section-title"><div><h2>Returned records</h2><p>Relevant returned rows are shown as readable records. Raw source responses are not shown by default.</p></div></div>
-    ${renderThemeRecords(records, theme)}
-  </section>
-  <section class="panel">
-    <div class="section-title"><div><h2>Evidence-linked stress event</h2><p>A severe stress-test event selected from the returned evidence for this theme.</p></div></div>
-    ${renderStressEvent(stress)}
-  </section>`;
-}
-
-function scoreCountryForDisasterTheme(country, theme, projections, context, targetYear){
-  const emdat = emdatCountrySummary(country);
-  const matchedTypes = matchingEmdatTypesForTheme(theme);
-  const matchedEvents = emdat ? matchedEmdatEvents(emdat, matchedTypes) : [];
-  const topTypes = matchedTypeCounts(emdat, matchedTypes);
-  const affected = matchedEvents.reduce((a,r)=>a+num(r.totalAffected),0);
-  const deaths = matchedEvents.reduce((a,r)=>a+num(r.totalDeaths),0);
-  const pop = getProjection(projections,'population');
-  const urban = getProjection(projections,'urbanPct');
-  const physicians = getProjection(projections,'physicians');
-  const u5 = getProjection(projections,'u5Mortality');
-  const healthSpend = getProjection(projections,'healthSpend');
-  const gdacsMatches = (context.gdacs.items || []).filter(item => recordMatchesTypes(JSON.stringify(item), matchedTypes));
-  const unhcrCount = context.unhcr.count || 0;
-  const usgsRows = theme.key === 'earthquake' ? getPreparedRowsForTheme('usgs-earthquakes', country, matchedTypes) : [];
-  const ifrcRows = ['mobility','compound'].includes(theme.key) ? getCountryPreparedRows('ifrc-go', country) : [];
-  const nasaRows = ['flood-storm','drought-heat','compound'].includes(theme.key) ? getCountryPreparedRows('nasa-power', country) : [];
-  const openMeteo = ['flood-storm','drought-heat','compound'].includes(theme.key) ? getCountryPreparedRows('open-meteo', country) : [];
-  const precip = nasaRows.reduce((a,r)=>a+num(r.precipitationMm),0) + openMeteo.reduce((a,r)=>a+num(r.precipitationMm),0);
-  const heat = Math.max(0, ...nasaRows.map(r=>num(r.temperatureC)), ...openMeteo.map(r=>num(r.temperatureC)));
-  let score = matchedEvents.length * 4 + Math.log10(affected + 1) * 3 + Math.log10(deaths + 1) * 4 + gdacsMatches.length * 6;
-  if(theme.key === 'earthquake') score += usgsRows.length * 5;
-  if(theme.key === 'drought-heat') score += heat + Math.max(0, 20 - precip);
-  if(theme.key === 'epidemic-health'){
-    if(physicians) score += Math.max(0, (2 - physicians.projected) * 10);
-    if(u5) score += Math.min(20, u5.projected / 5);
-    if(healthSpend) score += Math.max(0, (100 - healthSpend.projected) / 10);
-  }
-  if(theme.key === 'mobility') score += unhcrCount * 8 + ifrcRows.length * 3 + (pop ? Math.log10(pop.projected + 1) : 0);
-  if(theme.key === 'compound'){
-    const diversity = emdat ? (emdat.row.topDisasterTypes || []).length : 0;
-    score += diversity * 5 + unhcrCount * 3 + ifrcRows.length * 2 + (urban ? urban.projected / 4 : 0) + (physicians ? Math.max(0, (2 - physicians.projected) * 8) : 0) + precip / 3 + heat / 3;
-  }
-  const exposure = [];
-  if(pop) exposure.push(`population ${fmtSmart(pop.projected,0)} in ${targetYear}`);
-  if(urban) exposure.push(`urban share ${fmtSmart(urban.projected,1)}%`);
-  if(physicians) exposure.push(`${fmtSmart(1000/physicians.projected,0)} people per physician`);
-  if(nasaRows.length || openMeteo.length) exposure.push(`climate/weather sample: ${fmtSmart(precip,1)} mm precipitation; max ${fmtSmart(heat,1)} degrees C`);
-  return {
-    country, projections, context, score, matchedEvents, topTypes, affected, deaths, gdacsMatches, usgsRows, ifrcRows, nasaRows, openMeteo, unhcrCount, exposure,
-    evidenceBasis: evidenceBasisForTheme(theme, {matchedEvents, gdacsMatches, usgsRows, ifrcRows, nasaRows, openMeteo, unhcrCount, projections})
-  };
-}
-
-function matchingEmdatTypesForTheme(theme){
-  return theme.types || [];
-}
-
-function recordMatchesTypes(text, types){
-  const lower = String(text || '').toLowerCase();
-  return types.some(type => lower.includes(type.toLowerCase())) || (types.includes('Water') && /flood|storm|water|cyclone|typhoon/i.test(lower));
-}
-
-function matchedEmdatEvents(emdat, types){
-  return (emdat.recentEvents || []).filter(record => recordMatchesTypes(`${record.disasterType} ${record.disasterSubtype} ${record.eventName}`, types));
-}
-
-function matchedTypeCounts(emdat, types){
-  if(!emdat) return [];
-  return (emdat.row.topDisasterTypes || []).filter(type => recordMatchesTypes(type.disasterType, types));
-}
-
-function getPreparedRowsForTheme(slug, country, types){
-  return getCountryPreparedRows(slug, country).filter(row => recordMatchesTypes(JSON.stringify(row), types));
-}
-
-function evidenceBasisForTheme(theme, parts){
-  const basis = [];
-  if(parts.matchedEvents.length) basis.push('EM-DAT historical event rows');
-  if(parts.gdacsMatches.length) basis.push('GDACS current/recent records');
-  if(parts.usgsRows.length) basis.push('USGS earthquake prepared records');
-  if(parts.ifrcRows.length) basis.push('IFRC GO prepared event rows');
-  if(parts.unhcrCount) basis.push('UNHCR live displacement/population records');
-  if(parts.nasaRows.length) basis.push('NASA POWER climate samples');
-  if(parts.openMeteo.length) basis.push('Open-Meteo weather samples');
-  if(parts.projections.some(p=>p.ok)) basis.push('World Bank exposure/context continuations');
-  return basis.length ? basis.join('; ') : `No strong ${theme.label.toLowerCase()} evidence returned for this country.`;
-}
-
-function renderDisasterRankingTable(rows, theme){
-  return `<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Country</th><th>Matching historical event count</th><th>Main matching disaster types</th><th>Recorded affected people</th><th>Recorded deaths</th><th>Recent/current live matches</th><th>Relevant exposure/context indicators</th><th>Evidence basis</th></tr></thead><tbody>
-    ${rows.map((row,index)=>`<tr><td class="score-cell">${index+1}</td><td><strong>${escapeHtml(row.country.name)}</strong><br><span class="small">Pattern score ${fmtSmart(row.score,1)}</span></td><td class="num">${fmtSmart(row.matchedEvents.length,0)}</td><td>${escapeHtml(row.topTypes.map(t=>`${t.disasterType} (${t.count})`).join(', ') || matchingEmdatTypesForTheme(theme).join(', '))}</td><td class="num">${fmtSmart(row.affected,0)}</td><td class="num">${fmtSmart(row.deaths,0)}</td><td>${escapeHtml(`${row.gdacsMatches.length} GDACS; ${row.unhcrCount} UNHCR; ${row.usgsRows.length} USGS; ${row.ifrcRows.length} IFRC`)}</td><td>${escapeHtml(row.exposure.join('; ') || 'No exposure/context indicators returned.')}</td><td>${escapeHtml(row.evidenceBasis)}</td></tr>`).join('')}
-  </tbody></table></div>`;
-}
-
-function renderPatternProfile(theme){
-  return `<div class="grid two">
-    <div class="analysis-card"><h3>Disaster types included</h3><p>${escapeHtml(matchingEmdatTypesForTheme(theme).join(', '))}</p></div>
-    <div class="analysis-card"><h3>Sources used</h3><p>${escapeHtml(theme.sources.join(', '))}</p></div>
-    <div class="analysis-card"><h3>What the site can infer</h3><p>It can identify where the selected pattern is strongest in available historical records, current context records and exposure/context indicators.</p></div>
-    <div class="analysis-card"><h3>What the site cannot infer</h3><p>It cannot predict when or where a disaster will occur, estimate operational need, or prove severity beyond the returned data fields.</p></div>
-  </div>`;
-}
-
-function themeMatchedRecords(theme, countryMode, ranked){
-  const countries = countryMode === 'all' ? ranked.map(row=>row.country) : [countryByIso(countryMode)].filter(Boolean);
-  const records = [];
-  countries.forEach(country=>{
-    const emdat = emdatCountrySummary(country);
-    if(emdat) matchedEmdatEvents(emdat, matchingEmdatTypesForTheme(theme)).slice(0,8).forEach(row=>records.push({source:'EM-DAT', country:country.name, date:row.year, place:row.location || row.country, type:row.disasterType, status:row.disasterSubtype || 'Historical record', value:`Deaths ${fmtSmart(num(row.totalDeaths),0)}; affected ${fmtSmart(num(row.totalAffected),0)}; damage ${fmtSmart(num(row.totalDamageUsd000),0)} USD 000`, description:row.eventName || row.disNo || 'Historical disaster event'}));
-    if(['earthquake','compound'].includes(theme.key)) getPreparedRowsForTheme('usgs-earthquakes', country, ['earthquake']).slice(0,5).forEach(row=>records.push({source:'USGS Earthquake API', country:country.name, date:row.time, place:row.place || row.title, type:'Earthquake', status:`Magnitude ${row.magnitude ?? 'Field not returned'}`, value:row.title || 'Earthquake record', description:row.url || 'Prepared earthquake event row'}));
-    if(['mobility','compound'].includes(theme.key)) getCountryPreparedRows('ifrc-go', country).slice(0,5).forEach(row=>records.push({source:'IFRC GO', country:country.name, date:row.startDate || row.endDate, place:(row.countries || []).join(', ') || country.name, type:row.eventType || row.disasterType || 'Event', status:'Prepared event row', value:row.name || 'IFRC event', description:row.publicUrl || 'Prepared IFRC event record'}));
-    if(['mobility','compound'].includes(theme.key) && ranked.find(row=>row.country.iso3===country.iso3)?.context?.unhcr?.items){
-      ranked.find(row=>row.country.iso3===country.iso3).context.unhcr.items.slice(0,5).forEach(item=>{
-        const plain = plainUnhcrRecord(item, country);
-        records.push({source:'UNHCR', country:country.name, date:plain.year, place:plain.place, type:plain.role, status:plain.group, value:plain.value, description:plain.description});
-      });
-    }
-    ranked.find(row=>row.country.iso3===country.iso3)?.gdacsMatches.slice(0,5).forEach(item=>{
-      const plain = plainGdacsRecord(item);
-      records.push({source:'GDACS', country:country.name, date:plain.date, place:plain.place, type:plain.type, status:plain.status, value:plain.title, description:plain.description});
-    });
-  });
-  return records.slice(0,40);
-}
-
-function renderThemeRecords(records, theme){
-  if(!records.length) return `<p class="muted">No returned rows matched ${escapeHtml(theme.label)} for the selected scope. The ranking may still use exposure/context indicators.</p>`;
-  return `<div class="table-wrap"><table><thead><tr><th>Source</th><th>Year/date</th><th>Country/place</th><th>Record type</th><th>Value/status</th><th>Description</th></tr></thead><tbody>${records.map(record=>`<tr><td><strong>${escapeHtml(record.source)}</strong></td><td>${escapeHtml(record.date || 'Field not returned')}</td><td>${escapeHtml(record.country || record.place || 'Field not returned')}</td><td>${escapeHtml(record.type || 'Field not returned')}</td><td>${escapeHtml(record.value || record.status || 'Field not returned')}</td><td>${escapeHtml(record.description || 'Field not returned')}</td></tr>`).join('')}</tbody></table></div>`;
-}
-
-function evidenceLinkedStressEvent(theme, ranked, records, targetYear){
-  const top = ranked[0];
-  const associated = ranked.slice(0,3).map(row=>row.country.name);
-  const topTypes = top ? top.topTypes.map(t=>`${t.disasterType} (${t.count})`) : [];
-  const titleByTheme = {
-    'flood-storm':'Severe flood and storm service disruption',
-    earthquake:'Major seismic disruption stress-test',
-    'drought-heat':'Drought and heat stress-test event',
-    'epidemic-health':'Epidemic and health-system pressure stress-test',
-    mobility:'Mobility and displacement pressure stress-test',
-    compound:'Compound multi-hazard pressure stress-test'
-  };
-  return {
-    title:titleByTheme[theme.key] || `${theme.label} stress-test`,
-    why: top ? `${top.country.name} ranks highest for this theme in the available data, with ${top.matchedEvents.length} matching EM-DAT recent-event rows and evidence from ${top.evidenceBasis}.` : 'No ranked country was available.',
-    evidence: top ? [
-      `Top associated countries: ${associated.join(', ')}`,
-      `Main matching disaster types: ${topTypes.join(', ') || matchingEmdatTypesForTheme(theme).join(', ')}`,
-      `Recorded affected people in matching EM-DAT recent rows: ${fmtSmart(top.affected,0)}`,
-      `Recorded deaths in matching EM-DAT recent rows: ${fmtSmart(top.deaths,0)}`,
-      `Recent/current supporting records shown: ${records.length}`,
-      `World Bank exposure/context continuations use target year ${targetYear}; disaster records are not projected.`
-    ] : [],
-    records: records.slice(0,5)
-  };
-}
-
-function renderStressEvent(stress){
-  return `<div class="analysis-card">
-    <h3>${escapeHtml(stress.title)}</h3>
-    <p><strong>Why this event was selected:</strong> ${escapeHtml(stress.why)}</p>
-    <div class="table-wrap"><table><thead><tr><th>Evidence used</th></tr></thead><tbody>${stress.evidence.map(item=>`<tr><td>${escapeHtml(item)}</td></tr>`).join('')}</tbody></table></div>
-    ${stress.records.length ? `<h4 style="margin-top:14px">Recent/current records supporting the theme</h4>${renderThemeRecords(stress.records, {label:stress.title})}` : '<p class="muted">No recent/current supporting records returned for this stress event.</p>'}
-    <p class="small"><strong>Note:</strong> This is a stress-test based on historical/current records and contextual indicators, not a prediction.</p>
-  </div>`;
 }
 
 async function compareCountries(){
