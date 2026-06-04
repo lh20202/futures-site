@@ -3,158 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Humanitarian Futures Simulator</title>
+  <title>Humanitarian Records Explorer</title>
   <style>
     :root{
-      --page:#eef2f6;--panel:#ffffff;--soft:#f8fafc;--ink:#17202a;--muted:#607085;--line:#d9e2ec;
-      --blue:#1957d2;--blueBg:#eaf1ff;--green:#177245;--greenBg:#e5f5ec;--amber:#805600;--amberBg:#fff4d6;
-      --red:#a82720;--redBg:#fee7e5;--purple:#6036aa;--purpleBg:#efe7ff;--teal:#0f766e;--tealBg:#e4f7f4;
-      --navy:#101827;--shadow:0 18px 40px rgba(15,23,42,.08);
+      --page:#f6f3ee;--panel:#fffdfa;--soft:#fbf7f1;--ink:#1f2933;--muted:#687789;--line:#e5ddd2;
+      --accent:#c84f31;--accentDark:#9d3823;--accentSoft:#fde8df;--blue:#245caa;--blueSoft:#e7effc;
+      --green:#25704d;--greenSoft:#e6f3ec;--amber:#8a5a08;--amberSoft:#fff3d1;--red:#a3382d;--redSoft:#fae5e0;
+      --nav:#263241;--shadow:0 18px 44px rgba(61,47,35,.10);--radius:18px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;min-height:100vh;background:var(--page);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
-    a{color:var(--blue);font-weight:800;text-decoration:none}a:hover{text-decoration:underline}
-    .page{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:24px 0 56px}
-    .topnav{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:34px}
-    .brand{font-weight:950;letter-spacing:-.02em}.navlinks{display:flex;gap:8px;flex-wrap:wrap}
-    .navbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;color:#334155;cursor:pointer}.navbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-    .view{display:none}.view.active{display:block}
-    header.hero{padding:22px 0 18px;text-align:left}
-    .eyebrow{margin:0 0 10px;color:var(--muted);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
-    h1{margin:0;font-size:clamp(2.15rem,6vw,4.6rem);line-height:.99;letter-spacing:-.055em;max-width:1000px}
-    h2,h3,h4{margin:0}.intro{max-width:820px;color:#334155;font-size:1.08rem;margin:16px 0 0}
-    .builder{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:26px;margin:20px 0 16px}
-    .builder h2{font-size:1.55rem;margin-bottom:4px}.builder p{color:var(--muted);margin:0 0 20px}
-    .controls{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end}
-    label{font-size:.78rem;font-weight:950;color:#344155;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:7px}
-    select,input,button{font:inherit}select,input{width:100%;border:1px solid #cdd6e1;border-radius:14px;background:#fff;color:var(--ink);padding:14px 14px;font-weight:800;font-size:1.02rem}
-    .btnrow{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:950;padding:14px 18px;cursor:pointer;white-space:nowrap}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#eaf1ff;color:#174ea6}.btn.ghost{background:#fff;color:#17202a;border:1px solid var(--line)}.btn.red{background:#b91c1c}.btn:disabled{opacity:.45;cursor:not-allowed}
-    .mini-actions{margin-top:12px}.mini-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}
-    .panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;margin:18px 0}.panel.soft{background:#fbfcfe}.panel.dark{background:var(--navy);color:#f8fafc;border-color:#1f2937}.panel.dark .muted{color:#cbd5e1}.panel.dark hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:20px 0}
-    .section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}.section-title p{margin:6px 0 0;color:var(--muted)}
-    .pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:900;background:var(--blueBg);color:var(--blue);white-space:nowrap}.pill.green{background:var(--greenBg);color:var(--green)}.pill.amber{background:var(--amberBg);color:var(--amber)}.pill.purple{background:var(--purpleBg);color:var(--purple)}.pill.teal{background:var(--tealBg);color:var(--teal)}.pill.red{background:var(--redBg);color:var(--red)}
-    .status{padding:15px 16px;border-left:5px solid var(--green);background:#fff;border-radius:12px;border:1px solid var(--line);margin:14px 0;color:#334155}.status.warn{border-left-color:#d97706}.status.error{border-left-color:#dc2626}
-    .loading-panel{background:linear-gradient(135deg,#101827,#16203a);color:#fff;border-radius:26px;padding:46px 30px;margin:24px 0;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)}
-    .loading-panel h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.05;margin-bottom:10px}.loading-panel p{color:#dbeafe;font-size:1.05rem;margin:0}.loaderbar{height:10px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin-top:24px}.loaderbar span{display:block;height:100%;width:45%;border-radius:999px;background:#93c5fd;animation:loadmove 1.2s ease-in-out infinite}@keyframes loadmove{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}
-    .grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:18px;min-height:132px}.card h3{font-size:1.02rem;margin:7px 0 8px}.big{font-size:1.75rem;font-weight:950;margin:4px 0 0}.unit{color:var(--muted);font-weight:700}.small{font-size:.88rem;color:var(--muted)}.muted{color:var(--muted)}
-    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f5f9;color:#334155;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}.explain{background:#f8fbff;border:1px solid #d6e4fb;border-radius:14px;padding:14px;color:#334155}
-    .details{margin-top:12px}.details summary{font-weight:900;cursor:pointer;color:#243244}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.hidden{display:none!important}
-    .footnote{color:var(--muted);font-size:.92rem;max-width:850px}.simple-list{padding-left:20px;color:#334155}.simple-list li{margin:7px 0}
-    .source-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:stretch;margin-bottom:18px}.source-intro .explain{height:100%}
-    .source-theme{margin:26px 0 12px;padding-top:4px;border-top:1px solid var(--line)}.source-theme:first-child{border-top:0;margin-top:8px}.source-theme h3{font-size:1.08rem;margin:0}.source-theme p{margin:5px 0 0;color:var(--muted)}
-    .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:stretch}.source-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;min-height:360px}.source-card p{margin:8px 0 0;color:#334155}.source-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:2px}.source-card h3{font-size:1.08rem;line-height:1.2}.source-card .source-output{margin-top:auto}.source-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}.source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.source-actions .btn{padding:10px 13px;border-radius:12px;font-size:.92rem}.source-output{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);padding:13px;color:#334155}.source-output.loading{background:var(--amberBg);border-color:#f2d58b;color:var(--amber);font-weight:900}.source-output.success{background:var(--greenBg);border-color:#9fd7b7}.source-output.error{background:var(--redBg);border-color:#f0a9a5}.source-output p{margin:7px 0}
-    .case-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;align-items:stretch}.case-summary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px}.case-summary .big{color:#fff}
-    .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.metric-icon{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;color:#334155}.metric-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.metric .value{font-size:1.55rem;font-weight:950;display:block;margin:3px 0}.metric .label{font-size:.86rem;font-weight:900;color:#334155;text-transform:none;letter-spacing:0;margin:0}.metric p{margin:7px 0 0;color:var(--muted);font-size:.88rem}
-    .analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.analysis-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.analysis-card h3{font-size:1.03rem;margin:6px 0}.analysis-card p{color:#334155;margin:8px 0 0}
-    .bar-list{display:grid;gap:8px;margin-top:12px}.bar-row-ui{display:grid;grid-template-columns:120px 1fr 80px;gap:10px;align-items:center;font-size:.9rem}.bar-track{height:12px;background:#e7edf5;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:#1957d2;border-radius:999px}.bar-fill.green{background:#177245}.bar-fill.amber{background:#d97706}.bar-fill.red{background:#b91c1c}
-    .filter-row{display:grid;grid-template-columns:180px 180px 1fr;gap:10px;margin:14px 0}.filter-row select,.filter-row input{padding:10px 12px;font-size:.96rem;border-radius:12px}
-    .record-count{font-weight:900;color:#334155;margin:6px 0 12px}.tag-list{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.clicktag{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;cursor:pointer;font-weight:900;color:#334155}.clicktag.active{background:var(--navy);border-color:var(--navy);color:#fff}
-    .spark{display:grid;grid-template-columns:repeat(auto-fit,minmax(18px,1fr));gap:3px;align-items:end;min-height:110px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.spark div{background:#1957d2;border-radius:4px 4px 0 0;min-height:3px;position:relative}.spark div span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%) rotate(-45deg);font-size:.68rem;color:#64748b}
-    .data-section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}.data-source-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.data-source-card h3{font-size:1.02rem;margin:0 0 10px}.inline-records{display:grid;gap:10px}.inline-record{border:1px solid var(--line);border-radius:14px;background:#f8fafc;padding:12px}.inline-record strong{display:block}.inline-record p{margin:6px 0 0;color:#334155}.kv-table{min-width:0}.kv-table th{width:210px}.kv-table td,.kv-table th{text-transform:none;letter-spacing:0;font-size:.9rem}
-    .source-chip{display:inline-flex;margin:0 6px 6px 0;border-radius:999px;background:#eef2ff;color:#3730a3;padding:5px 9px;font-weight:900;font-size:.78rem}
-    @media (max-width:920px){.controls,.two,.three,.four,.filter-row{grid-template-columns:1fr}.controls{align-items:stretch}.page{width:min(100% - 20px,1180px)}table{min-width:720px}.topnav{align-items:flex-start;flex-direction:column}.btn{width:100%}.mini-actions .btn{width:auto}.source-intro,.case-hero{grid-template-columns:1fr}.source-grid{grid-template-columns:1fr}.bar-row-ui{grid-template-columns:90px 1fr 60px}}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:var(--page);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5}
+    a{color:var(--accentDark);font-weight:850;text-decoration:none}a:hover{text-decoration:underline}
+    .page{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:18px 0 58px}
+    .topnav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 16px;background:rgba(246,243,238,.94);backdrop-filter:blur(12px)}
+    .brand{font-weight:950;letter-spacing:0;color:#28313c}.navlinks{display:flex;gap:8px;flex-wrap:wrap}.navbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font-weight:900;color:#374151;cursor:pointer}.navbtn.active{background:var(--nav);border-color:var(--nav);color:#fff}
+    .view{display:none}.view.active{display:block}.hero{padding:48px 0 22px}.eyebrow{margin:0 0 10px;color:var(--accentDark);font-weight:950;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}h1{margin:0;font-size:clamp(2.25rem,5.8vw,4.8rem);line-height:.98;max-width:1050px}h2,h3,h4{margin:0}.intro{max-width:820px;color:#425063;font-size:1.1rem;margin:16px 0 0}
+    .search-hero{background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:20px;margin:18px 0 18px}.search-row{display:grid;grid-template-columns:1fr auto;gap:12px}.search-row input{font-size:1.1rem;padding:16px 18px}.btn{border:0;border-radius:14px;background:var(--accent);color:#fff;font-weight:950;padding:14px 18px;cursor:pointer;white-space:nowrap}.btn:hover{background:var(--accentDark)}.btn.secondary{background:var(--blueSoft);color:#1e4f96}.btn.ghost{background:#fff;color:#263241;border:1px solid var(--line)}.btn.small{padding:9px 12px;border-radius:12px;font-size:.9rem}.btn:disabled{opacity:.5;cursor:not-allowed}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:22px;margin:18px 0}.panel.soft{background:#fffaf4}.panel.flat{box-shadow:none}.section-title{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}.section-title p{margin:6px 0 0;color:var(--muted)}
+    .grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 28px rgba(61,47,35,.06);display:flex;flex-direction:column;gap:10px;min-height:210px}.card h3{font-size:1.08rem}.card p{margin:0;color:#475569}.card .btn{margin-top:auto;align-self:flex-start}.badges{display:flex;gap:7px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:900;background:var(--accentSoft);color:var(--accentDark);white-space:nowrap}.pill.blue{background:var(--blueSoft);color:var(--blue)}.pill.green{background:var(--greenSoft);color:var(--green)}.pill.amber{background:var(--amberSoft);color:var(--amber)}.pill.soft{background:#f2eee8;color:#5c5146}
+    label{font-size:.78rem;font-weight:950;color:#465364;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:7px}select,input,button,textarea{font:inherit}select,input{width:100%;border:1px solid #d9d0c5;border-radius:14px;background:#fff;color:var(--ink);padding:12px 13px;font-weight:800}textarea{width:100%;min-height:80px;border:1px solid #d9d0c5;border-radius:14px;padding:12px 13px}.filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:end}.filters .wide{grid-column:span 2}.filter-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.checkbox-row{display:flex;gap:8px;align-items:center;font-weight:850;color:#425063}.checkbox-row input{width:auto}.summary-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:16px 0}.summary-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.summary-card strong{display:block;font-size:1.45rem}.summary-card span{color:var(--muted);font-weight:850}.status{padding:14px 16px;border-left:5px solid var(--green);background:#fff;border-radius:12px;border:1px solid var(--line);margin:14px 0;color:#334155}.status.warn{border-left-color:#d97706}.status.error{border-left-color:#dc2626}.hidden{display:none!important}.loading{background:#fff8ed;color:#7c4a03;border-color:#f1d597}.muted{color:var(--muted)}.small{font-size:.9rem;color:var(--muted)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{width:100%;border-collapse:collapse;min-width:820px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f7efe6;color:#465364;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}tr:last-child td{border-bottom:0}.num{text-align:right;font-variant-numeric:tabular-nums}.record-list{display:grid;gap:12px}.record-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px}.record-card h3{font-size:1rem;margin:0 0 6px}.record-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.details{margin-top:12px}.details summary{font-weight:950;cursor:pointer;color:#263241}.kv-table{min-width:0}.kv-table th{width:230px;text-transform:none;letter-spacing:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;overflow:auto;color:#334155}.bar-list{display:grid;gap:9px;margin-top:12px}.bar-row{display:grid;grid-template-columns:160px 1fr 90px;gap:10px;align-items:center}.bar-track{height:12px;background:#eee7dc;border-radius:999px;overflow:hidden}.bar-fill{height:100%;border-radius:999px;background:var(--accent)}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;cursor:pointer}.tab.active{background:var(--nav);color:#fff;border-color:var(--nav)}.source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}.source-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}.source-card p{margin:0;color:#475569}.source-output{border:1px solid var(--line);border-radius:14px;background:#fffaf4;padding:12px;margin-top:auto}.simple-list{padding-left:20px;color:#425063}.simple-list li{margin:7px 0}
+    @media(max-width:860px){.page{width:min(100% - 20px,1180px)}.topnav{align-items:flex-start;flex-direction:column}.search-row,.filters,.two,.three,.four.filters .wide{grid-column:auto}.btn{width:100%}.card .btn,.btn.small{width:auto}.bar-row{grid-template-columns:100px 1fr 56px}table{min-width:760px}.hero{padding-top:28px}}
   </style>
 </head>
 <body>
   <main class="page">
     <nav class="topnav">
-      <div class="brand">Humanitarian Futures Simulator</div>
+      <div class="brand">Humanitarian Records Explorer</div>
       <div class="navlinks">
-        <button class="navbtn active" data-view="simulatorView">Country case file simulator</button>
-        <button class="navbtn" data-view="sourcesView">Source data</button>
-        <button class="navbtn" data-view="aboutView">How it works</button>
+        <button class="navbtn active" data-view="homeView" onclick="showView('homeView')">Home</button>
+        <button class="navbtn" data-view="queryView" onclick="showView('queryView')">Query datasets</button>
+        <button class="navbtn" data-view="explorersView" onclick="showView('explorersView')">Use-case explorers</button>
+        <button class="navbtn" data-view="sourcesView" onclick="showView('sourcesView')">Source data</button>
+        <button class="navbtn" data-view="aboutView" onclick="showView('aboutView')">About</button>
       </div>
     </nav>
 
-    <section id="simulatorView" class="view active">
+    <section id="homeView" class="view active">
       <header class="hero">
-        <p class="eyebrow">country-year data case file</p>
-        <h1>Choose a country. Choose a year.</h1>
-        <p class="intro">The simulator pulls public records, prepared source files and country indicators into a country-year evidence file. The output is data-first: trends, returned records, historical patterns, and cross-source signals.</p>
+        <p class="eyebrow">humanitarian records explorer</p>
+        <h1>Explore humanitarian records across disasters, displacement, health, climate and development.</h1>
       </header>
-
-      <section class="builder" aria-label="Build a country-year case file">
-        <h2>Build a case file</h2>
-        <p>Start with a country and target year. The case file will show projected indicator continuations, disaster-history patterns, returned records and source-specific evidence.</p>
-        <div class="controls">
-          <div>
-            <label for="countrySelect">Country</label>
-            <select id="countrySelect"></select>
-          </div>
-          <div>
-            <label for="yearInput">Target year</label>
-            <input id="yearInput" type="number" min="2026" max="2100" value="2052" />
-          </div>
-          <div>
-            <button class="btn" id="buildBtn">Generate case file</button>
-          </div>
-        </div>
-        <div class="mini-actions">
-          <button class="btn secondary" id="compareBtn">Compare starter countries</button>
+      <section class="search-hero" aria-label="Search available records">
+        <div class="search-row">
+          <input id="homeSearch" type="search" placeholder="Search a country, hazard, source or keyword" />
+          <button class="btn" id="homeSearchBtn">Search records</button>
         </div>
       </section>
+      <section class="panel flat">
+        <div class="section-title"><div><h2>Start with a use case</h2><p>Filters select the country, source, date range, disaster type, indicator or search text for the records shown.</p></div></div>
+        <div id="homeCards" class="cards"></div>
+      </section>
+      <section class="panel flat"><div class="badges" id="homeSourceBadges"></div></section>
+    </section>
 
-      <div id="message"></div>
-      <div id="results"></div>
+    <section id="queryView" class="view">
+      <header class="hero">
+        <p class="eyebrow">query datasets</p>
+        <h1>Ask structured questions of the available data.</h1>
+        <p class="intro">Choose a country, theme, source and optional filters. Results show returned records, historical aggregates and latest available values where the source provides them.</p>
+      </header>
+      <section class="panel">
+        <div class="filters">
+          <div><label for="queryCountry">Country</label><select id="queryCountry"></select></div>
+          <div><label for="queryTheme">Theme</label><select id="queryTheme"></select></div>
+          <div><label for="querySource">Source</label><select id="querySource"></select></div>
+          <div><label for="queryStartYear">Start year</label><input id="queryStartYear" type="number" min="1900" max="2100" value="2000" /></div>
+          <div><label for="queryEndYear">End year</label><input id="queryEndYear" type="number" min="1900" max="2100" value="2026" /></div>
+          <div><label for="queryHazard">Disaster type</label><select id="queryHazard"></select></div>
+          <div class="wide"><label for="queryText">Search text</label><input id="queryText" type="search" placeholder="Filter returned records" /></div>
+          <div class="filter-actions"><button class="btn" id="runQueryBtn">Run query</button><button class="btn ghost" id="clearQueryBtn">Clear</button></div>
+        </div>
+      </section>
+      <div id="queryMessage"></div>
+      <div id="queryResults"></div>
+    </section>
+
+    <section id="explorersView" class="view">
+      <header class="hero">
+        <p class="eyebrow">use-case explorers</p>
+        <h1>Explore records by task.</h1>
+        <p class="intro">Use focused interfaces for disaster history, current alerts, displacement records, country indicators, country comparison and cross-source evidence search.</p>
+      </header>
+      <section class="panel">
+        <div class="tabs" id="explorerTabs"></div>
+        <div id="explorerPanel"></div>
+      </section>
     </section>
 
     <section id="sourcesView" class="view">
       <header class="hero">
         <p class="eyebrow">source data</p>
-        <h1>Data sources used by the simulator</h1>
-        <p class="intro">These sources provide the evidence base for the simulator. Some are pulled live from public data services. Others are prepared into static data files so the site can use them reliably. Each source can be checked from this page.</p>
+        <h1>Coverage and availability by source.</h1>
+        <p class="intro">Every included source is visible here. Use checks to confirm live responses and prepared-file availability in plain language.</p>
       </header>
-      <section class="panel soft">
-        <div class="source-intro">
-          <div>
-            <h2>Working sources</h2>
-            <p class="muted">The simulator uses the sources below as its evidence base. They are grouped by planning theme rather than by technical access method. Each card explains what the source is, what it contains, and how the simulator uses it.</p>
-          </div>
-          <div class="explain">
-            <strong>Check the data before using a case file.</strong>
-            <p>Use the check button to confirm that live services respond and prepared source files are available. Everyday users see a plain-English status; technical details stay inside each card.</p>
-          </div>
-        </div>
-        <div class="btnrow" style="margin-bottom:16px">
-          <button class="btn" id="checkDataSourcesBtn">Check data sources</button>
-        </div>
-        <div id="sourceTestSummary" class="status hidden"></div>
-        <div id="preparedStatus" class="status hidden"></div>
+      <section class="panel">
+        <div class="section-title"><div><h2>Included sources</h2><p>Grouped by theme, with technical details behind expandable sections.</p></div><button class="btn" id="checkSourcesBtn">Check data availability</button></div>
+        <div id="sourceSummary" class="status hidden"></div>
         <div id="sourceCards"></div>
       </section>
       <section class="panel soft">
-        <p class="footnote source-note">Some relevant sources are not included in this version because they require authentication, an app identifier, a manual download, or did not return usable rows during the prepared-data build.</p>
-        <details class="details source-note">
-          <summary>Sources not included in this version</summary>
-          <div id="notIncludedSourceList"></div>
-        </details>
+        <h2>Sources not included</h2>
+        <p class="muted">Some sources are excluded because they require authentication, an app identifier, manual download, or did not return usable prepared rows.</p>
+        <details class="details"><summary>See excluded source notes</summary><div id="notIncludedSources"></div></details>
       </section>
     </section>
 
     <section id="aboutView" class="view">
       <header class="hero">
-        <p class="eyebrow">about the calculations</p>
-        <h1>How it works</h1>
-        <p class="intro">This page keeps the technical explanation away from the main user flow. The output is a transparent data case file, not an official forecast.</p>
+        <p class="eyebrow">about</p>
+        <h1>Built for transparent data retrieval.</h1>
+        <p class="intro">This static site retrieves records, aggregates them where the data supports it, and keeps source details visible without requiring a backend.</p>
       </header>
       <section class="panel">
         <h2>In plain terms</h2>
         <ul class="simple-list">
-          <li><strong>Country case file simulator:</strong> builds a country-year evidence file using World Bank indicators, prepared source rows, EM-DAT historical disasters and live context records.</li>
-          <li>It removes blank, null and future-year rows before calculating any World Bank trend continuations.</li>
-          <li>It lists returned records and source rows rather than hiding them behind summary counts.</li>
-          <li>The site does not predict conflict, disasters, displacement shocks or humanitarian need.</li>
+          <li>The site loads prepared source files from <strong>data/prepared/</strong> and checks selected public data services from the browser.</li>
+          <li>EM-DAT is used as prepared historical disaster data, with aggregates and row-level recent records where available.</li>
+          <li>World Bank Indicators are retrieved as country time series of actual returned values.</li>
+          <li>UNHCR and GDACS records are shown as returned by their public services when available.</li>
+          <li>This site retrieves and organises available records from selected public and prepared sources.</li>
         </ul>
-      </section>
-      <section class="panel">
-        <h2>What “target-year continuation” means</h2>
-        <p class="muted">A target-year continuation is a transparent extension of past numeric values into the chosen year. The method depends on the indicator type: population uses compound annual change, percentage indicators are capped between 0 and 100, mortality uses a decline curve, and other numeric indicators use recent straight-line continuation. It is a trend reading, not a forecast.</p>
-      </section>
-      <section class="panel">
-        <h2>What the Black Swan stress-test does</h2>
-        <p class="muted">The Black Swan and disaster-pattern stress-test sections select severe events from returned evidence: historical disaster types, recent/current records, climate samples, service proxies and population scale. They create stress-test and pattern-analysis views from historical, current and contextual data. Live records alone do not create forecasts.</p>
       </section>
     </section>
   </main>
@@ -169,1121 +138,148 @@ const COUNTRIES = [
   {name:'Philippines', iso3:'PHL', iso2:'PH', wb:'ph', lat:14.5995, lon:120.9842},
   {name:'Sudan', iso3:'SDN', iso2:'SD', wb:'sd', lat:15.5007, lon:32.5599}
 ].sort((a,b)=>a.name.localeCompare(b.name));
-
-const INDICATORS = [
-  {key:'population', iconKey:'population', code:'SP.POP.TOTL', label:'Population', unit:'people', type:'compound', decimals:0, role:'Scale', source:'World Bank', explain:'Country population.'},
-  {key:'urbanPct', iconKey:'urban', code:'SP.URB.TOTL.IN.ZS', label:'Urban population', unit:'% of total population', type:'percent', decimals:2, role:'Settlement pattern', source:'World Bank', explain:'Share of population living in urban areas.'},
-  {key:'physicians', iconKey:'health', code:'SH.MED.PHYS.ZS', label:'Physicians per 1,000 people', unit:'per 1,000 people', type:'nonnegative', decimals:2, role:'Health workforce proxy', source:'World Bank', explain:'Physician density. A proxy, not a full workforce measure.'},
-  {key:'u5Mortality', iconKey:'rate', code:'SH.DYN.MORT', label:'Under-5 mortality', unit:'per 1,000 live births', type:'logdecline', decimals:2, role:'Child health proxy', source:'World Bank', explain:'Under-5 mortality rate.'},
-  {key:'lifeExpectancy', iconKey:'trend', code:'SP.DYN.LE00.IN', label:'Life expectancy at birth', unit:'years', type:'linear', decimals:1, role:'Health outcome proxy', source:'World Bank', explain:'Broad health outcome proxy.'},
-  {key:'healthSpend', iconKey:'finance', code:'SH.XPD.CHEX.PC.CD', label:'Current health expenditure per capita', unit:'current US$', type:'nonnegative', decimals:2, role:'Health financing proxy', source:'World Bank', explain:'Health expenditure per person in current US dollars.'},
-  {key:'internetUsers', iconKey:'network', code:'IT.NET.USER.ZS', label:'Individuals using the Internet', unit:'% of population', type:'percent', decimals:2, role:'Digital access proxy', source:'World Bank', explain:'Internet-use share.'},
-  {key:'mobileSubs', iconKey:'mobile', code:'IT.CEL.SETS.P2', label:'Mobile cellular subscriptions', unit:'per 100 people', type:'capped200', decimals:2, role:'Digital infrastructure proxy', source:'World Bank', explain:'Mobile subscriptions per 100 people.'},
-  {key:'secureServers', iconKey:'lock', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', type:'nonnegative', decimals:2, role:'Digital infrastructure proxy', source:'World Bank', explain:'Secure internet servers per million people.'},
-  {key:'forestPct', iconKey:'land', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', type:'percent', decimals:2, role:'Land-use context', source:'World Bank', explain:'Forest area share.'},
-  {key:'co2', iconKey:'emissions', code:'EN.ATM.CO2E.PC', label:'CO₂ emissions per capita', unit:'metric tons per person', type:'nonnegative', decimals:2, role:'Emissions/development proxy', source:'World Bank', explain:'CO₂ emissions per person.'}
-];
-
-const SOURCES = [
-  {
-    key:'worldbank',
-    name:'World Bank Indicators',
-    url:'https://data.worldbank.org/',
-    status:'Live data',
-    category:'Development and vulnerability',
-    plain:'World Bank Indicators provides country-level development time series such as population, urbanisation, health expenditure, life expectancy, internet access, mobile subscriptions, forest area and CO₂ emissions. It exists to make comparable development data public. This simulator uses those historical values to create transparent trend continuations.',
-    pulls:'Country time series for selected indicators and years.',
-    technical:'Endpoint pattern: https://api.worldbank.org/v2/country/{country}/indicator/{indicator}?format=json&per_page=20000&date=1960:{currentYear}. Data type returned: JSON numeric indicator series. These are actual values projected into the chosen target year after blank rows are removed. Limitation: country-level values hide local variation.'
-  },
-  {
-    key:'unhcr',
-    name:'UNHCR Refugee Data Finder',
-    url:'https://www.unhcr.org/refugee-statistics/',
-    status:'Live data',
-    category:'Displacement and humanitarian context',
-    plain:'UNHCR Refugee Data Finder provides figures on forcibly displaced and stateless populations, including refugees, asylum-seekers and other population groups. This simulator retrieves recent country-related displacement records for context.',
-    pulls:'Recent displacement records where the selected country is queried as origin and asylum country.',
-    technical:'Endpoint pattern: https://api.unhcr.org/population/v1/population/?year={year}&coo={iso3} and coa={iso3}. Data type returned: JSON population records. These are actual records used as context, not future displacement estimates.'
-  },
-  {
-    key:'gdacs',
-    name:'GDACS',
-    url:'https://www.gdacs.org/',
-    status:'Live data',
-    category:'Disaster and hazard history',
-    plain:'GDACS provides alerts and information on current and recent major disasters. This simulator uses it only for current/recent event context.',
-    pulls:'Current/recent disaster event records matched to the selected country.',
-    technical:'Endpoint used: https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=. Data type returned: GeoJSON event records. The site matches country names and ISO codes in returned event records.'
-  }
-];
-
-const NOT_INCLUDED_SOURCES = [
-  ['ACLED','Requires credentials: authenticated access/token is required.'],
-  ['IOM DTM','Requires credentials: public DTM routes checked for this pass require subscription/authentication.'],
-  ['IDMC','Requires credentials: documented direct access uses a client identifier/API key.'],
-  ['NASA SEDAC / Earthdata','Catalogue discovery did not provide actual numeric data ingestion for this static site.'],
-  ['World Bank Climate Change Knowledge Portal','No no-secret climate-value route returned usable rows in this build.']
-];
-
-const SOURCE_CATEGORIES = [
-  'Development and vulnerability',
-  'Health and population',
-  'Displacement and humanitarian context',
-  'Disaster and hazard history',
-  'Climate and environmental stress',
-  'Conflict, economic and operational context'
-];
-
-const SOURCE_CATEGORY_BY_SLUG = {
-  worldbank:'Development and vulnerability',
-  'who-gho':'Health and population',
-  worldpop:'Health and population',
-  unhcr:'Displacement and humanitarian context',
-  gdacs:'Disaster and hazard history',
-  emdat:'Disaster and hazard history',
-  owid:'Development and vulnerability',
-  'un-sdg':'Development and vulnerability',
-  sdg6:'Development and vulnerability',
-  geoboundaries:'Development and vulnerability',
-  'open-meteo':'Climate and environmental stress',
-  'nasa-power':'Climate and environmental stress',
-  'usgs-earthquakes':'Disaster and hazard history',
-  'ifrc-go':'Displacement and humanitarian context',
-  'imf-datamapper':'Conflict, economic and operational context',
-  gdelt:'Conflict, economic and operational context',
-  ucdp:'Conflict, economic and operational context',
-  faostat:'Development and vulnerability',
-  inform:'Development and vulnerability',
-  reliefweb:'Displacement and humanitarian context',
-  'hdx-hapi':'Displacement and humanitarian context'
+const THEMES = ['Disaster events','Current alerts','Displacement and population','Health and services','Climate and environment','Development and infrastructure','Operating environment','All available evidence'];
+const THEME_BY_CATEGORY = {
+  'Health and population':'Health and services','Development and vulnerability':'Development and infrastructure','Displacement and humanitarian context':'Displacement and population','Disaster and hazard history':'Disaster events','Climate and environmental stress':'Climate and environment','Conflict, economic and operational context':'Operating environment'
 };
-
+const SOURCE_CATEGORIES = ['Disaster and hazard history','Displacement and humanitarian context','Health and population','Climate and environmental stress','Development and vulnerability','Conflict, economic and operational context'];
+const INDICATORS = [
+  {key:'population', code:'SP.POP.TOTL', label:'Population', unit:'people', theme:'population and urbanisation'},
+  {key:'urbanPct', code:'SP.URB.TOTL.IN.ZS', label:'Urban population', unit:'% of total population', theme:'population and urbanisation'},
+  {key:'physicians', code:'SH.MED.PHYS.ZS', label:'Physicians per 1,000 people', unit:'per 1,000 people', theme:'health and services'},
+  {key:'u5Mortality', code:'SH.DYN.MORT', label:'Under-5 mortality', unit:'per 1,000 live births', theme:'health and services'},
+  {key:'lifeExpectancy', code:'SP.DYN.LE00.IN', label:'Life expectancy at birth', unit:'years', theme:'health and services'},
+  {key:'healthSpend', code:'SH.XPD.CHEX.PC.CD', label:'Current health expenditure per capita', unit:'current US$', theme:'health and services'},
+  {key:'internetUsers', code:'IT.NET.USER.ZS', label:'Individuals using the Internet', unit:'% of population', theme:'digital access'},
+  {key:'mobileSubs', code:'IT.CEL.SETS.P2', label:'Mobile cellular subscriptions', unit:'per 100 people', theme:'digital access'},
+  {key:'secureServers', code:'IT.NET.SECR.P6', label:'Secure internet servers', unit:'per 1 million people', theme:'digital access'},
+  {key:'forestPct', code:'AG.LND.FRST.ZS', label:'Forest area', unit:'% of land area', theme:'climate and environment'},
+  {key:'co2', code:'EN.ATM.CO2E.PC', label:'CO2 emissions per capita', unit:'metric tons per person', theme:'economic and operating context'}
+];
+const LIVE_SOURCES = [
+  {id:'worldbank', name:'World Bank Indicators', category:'Development and vulnerability', mode:'Live', site:'https://data.worldbank.org/', description:'Country-level development time series such as population, health, digital access, forests and emissions.'},
+  {id:'unhcr', name:'UNHCR Refugee Data Finder', category:'Displacement and humanitarian context', mode:'Live', site:'https://www.unhcr.org/refugee-statistics/', description:'Population and displacement records where a country appears as origin, host or asylum country.'},
+  {id:'gdacs', name:'GDACS', category:'Disaster and hazard history', mode:'Live', site:'https://www.gdacs.org/', description:'Current or recent disaster alert records returned by the public event list.'}
+];
+const NOT_INCLUDED_SOURCES = [
+  ['ACLED','Authenticated access or token required.'],['IOM DTM','Public routes checked for this static build required subscription or authentication.'],['IDMC','Documented direct access requires a client identifier or API key.'],['FAOSTAT','Prepared check returned missing authorization.'],['ReliefWeb','Prepared check required an appname parameter.'],['UCDP','Prepared check required an API token.']
+];
+const USE_CASES = [
+  {id:'disaster', title:'Disaster history by country', text:'Query EM-DAT historical disaster records and aggregates.', datasets:['EM-DAT'], explorer:'disaster'},
+  {id:'alerts', title:'Recent disaster alerts', text:'View current or recent GDACS records matching a country.', datasets:['GDACS'], explorer:'alerts'},
+  {id:'displacement', title:'Displacement and population records', text:'Review UNHCR records where a country appears as origin or host/asylum country.', datasets:['UNHCR'], explorer:'displacement'},
+  {id:'context', title:'Country context indicators', text:'Retrieve health, population, digital, climate and economic indicators.', datasets:['World Bank','Prepared sources'], explorer:'context'},
+  {id:'compare', title:'Compare countries', text:'Compare selected countries on returned historical and latest available values.', datasets:['EM-DAT','World Bank'], explorer:'compare'},
+  {id:'search', title:'Search all available records', text:'Search across prepared records and returned live/context records.', datasets:['Prepared files','GDACS','UNHCR'], explorer:'search'}
+];
 let preparedManifest = null;
 let preparedSources = [];
-let lastCaseData = null;
-let disasterViewState = {years:'10', hazard:'all', query:''};
+let activeExplorer = 'disaster';
+let lastQueryResults = null;
 
 function init(){
-  const countrySelect = document.getElementById('countrySelect');
-  countrySelect.innerHTML = COUNTRIES.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join('');
-  countrySelect.value = 'BGD';
-  document.getElementById('buildBtn').addEventListener('click', buildCase);
-  document.getElementById('compareBtn').addEventListener('click', compareCountries);
-  document.getElementById('checkDataSourcesBtn').addEventListener('click', checkDataSources);
+  try{
+  fillCountrySelects();
+  fillThemeSelects();
+  fillSourceSelect();
+  fillHazardSelect();
+  renderHome();
+  renderExplorerTabs();
+  renderExplorer();
+  renderSourcePage();
   document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>showView(btn.dataset.view)));
-  renderSources();
-  loadPreparedData({silent:true});
-}
-
-function showView(viewId){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById(viewId).classList.add('active');
-  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===viewId));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function renderSources(){
-  renderAllSourceCards();
-  renderNotIncludedSources();
-}
-
-function allWorkingSources(){
-  return [...SOURCES, ...preparedSources];
-}
-
-function renderAllSourceCards(){
-  document.getElementById('sourceCards').innerHTML = renderSourceGroups(allWorkingSources(), source => source.key ? renderLiveCard(source) : renderPreparedCard(source));
-}
-
-function renderSourceGroups(sources, renderer){
-  return SOURCE_CATEGORIES.map(category => {
-    const items = sources.filter(source => (source.category || SOURCE_CATEGORY_BY_SLUG[source.slug || source.id || source.key]) === category);
-    if(!items.length) return '';
-    return `<section class="source-theme"><h3>${escapeHtml(category)}</h3><p>${escapeHtml(sourceCategoryDescription(category))}</p><div class="source-grid">${items.map(renderer).join('')}</div></section>`;
-  }).join('');
-}
-
-function sourceCategoryDescription(category){
-  const descriptions = {
-    'Development and vulnerability':'Development, poverty, SDG, administrative and structural signals that shape long-term vulnerability.',
-    'Health and population':'Population scale, demographic exposure and health-system context.',
-    'Displacement and humanitarian context':'Displacement, emergency and operational records relevant to humanitarian planning.',
-    'Disaster and hazard history':'Historical and current hazard records used to understand repeated shocks and recent events.',
-    'Climate and environmental stress':'Weather and climate variables that support seasonal and environmental stress analysis.',
-    'Conflict, economic and operational context':'Macroeconomic and wider operating-environment signals used to frame feasibility and pressure.'
-  };
-  return descriptions[category] || 'Relevant planning context.';
-}
-
-function renderLiveCard(s){
-  return `<div class="source-card">
-      <div class="source-title"><h3>${escapeHtml(s.name)}</h3><span class="pill green">${escapeHtml(s.status)}</span></div>
-      <div class="source-meta"><span class="pill">${escapeHtml(s.category)}</span></div>
-      <p>${escapeHtml(s.plain)}</p>
-      <p><strong>What it contains:</strong> ${escapeHtml(s.pulls)}</p>
-      <p><strong>How the simulator uses it:</strong> live country context and indicator checks.</p>
-      <p><a href="${s.url}" target="_blank" rel="noopener">Visit site</a></p>
-      <div class="source-actions"><button class="btn secondary" onclick="testWorkingSource('${s.key}')">Check this source</button></div>
-      <div class="source-output" id="sourceTest-${s.key}">Ready to check.</div>
-      <details class="details"><summary>See technical details</summary><p class="muted">${escapeHtml(s.technical)}</p><pre class="mono" id="sourceRaw-${s.key}">No successful response yet.</pre></details>
-    </div>`;
-}
-
-function renderNotIncludedSources(){
-  const manifestFailures = preparedManifest && Array.isArray(preparedManifest.failedSources) ? preparedManifest.failedSources.map(source => [
-    source.name,
-    `Fetch failed: ${source.reason}`
-  ]) : [];
-  const combined = [...NOT_INCLUDED_SOURCES, ...manifestFailures];
-  document.getElementById('notIncludedSourceList').innerHTML = `<ul class="simple-list">${combined.map(([name,reason])=>`<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(reason)}</li>`).join('')}</ul>`;
-}
-
-async function loadPreparedData(options={}){
-  const silent = !!options.silent;
-  const status = document.getElementById('preparedStatus');
-  if(!silent){
-    status.className = 'status';
-    status.textContent = 'Loading prepared data...';
-  } else {
-    status.className = 'status hidden';
-  }
-  try{
-    const manifest = await fetchJson('data/prepared/manifest.json');
-    preparedManifest = manifest;
-    const successful = Array.isArray(manifest.successfulSources) ? manifest.successfulSources : [];
-    if(!successful.length) throw new Error('Prepared source files are not available yet.');
-    const loaded = [];
-    for(const entry of successful){
-      const data = await fetchJson(`data/prepared/${entry.file}`);
-      if(data.status === 'success'){
-        const normalized = normalizePreparedSource(data, entry);
-        if(normalized.rowCount > 0) loaded.push(normalized);
-      }
-    }
-    preparedSources = loaded;
-    renderAllSourceCards();
-    if(!silent){
-      status.className = 'status';
-      status.textContent = `Prepared sources loaded: ${loaded.length}. Last prepared: ${manifest.generatedAt || 'timestamp not shown'}.`;
-    }
-    renderNotIncludedSources();
+  document.getElementById('homeSearchBtn').addEventListener('click',()=>{showView('queryView'); document.getElementById('queryText').value=document.getElementById('homeSearch').value; runMainQuery();});
+  document.getElementById('runQueryBtn').addEventListener('click',runMainQuery);
+  document.getElementById('clearQueryBtn').addEventListener('click',clearQuery);
+  document.getElementById('checkSourcesBtn').addEventListener('click',checkAllSources);
+  loadPreparedData().then(()=>{fillSourceSelect(); fillHazardSelect(); renderHome(); renderSourcePage(); renderExplorer();});
   }catch(e){
-    if(!silent){
-      status.className = 'status warn';
-      status.textContent = 'Prepared source files are not available. Live sources can still be checked.';
-    }
+    console.error(e);
   }
 }
+function showView(viewId){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(viewId).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===viewId));window.scrollTo({top:0,behavior:'smooth'});}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function fmt(n,dec=0){const num=Number(n);if(!Number.isFinite(num))return 'Not available';return new Intl.NumberFormat('en-GB',{maximumFractionDigits:dec,minimumFractionDigits:dec}).format(num);}
+function fmtSmart(n){const num=Number(n);if(!Number.isFinite(num))return 'Not available';return new Intl.NumberFormat('en-GB',{maximumFractionDigits:Math.abs(num)>=1000?0:2}).format(num);}
+function parseValue(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+async function fetchJson(url,options={}){const res=await fetch(url,options);if(!res.ok)throw new Error(`${res.status} ${res.statusText}`);return res.json();}
+function countryByIso(iso){return COUNTRIES.find(c=>c.iso3===iso)||COUNTRIES[0];}
+function countryOptions(){return COUNTRIES.map(c=>`<option value="${c.iso3}">${c.name}</option>`).join('');}
+function fillCountrySelects(){['queryCountry'].forEach(id=>{document.getElementById(id).innerHTML=countryOptions();document.getElementById(id).value='BGD';});}
+function fillThemeSelects(){document.getElementById('queryTheme').innerHTML=THEMES.map(t=>`<option>${t}</option>`).join('');document.getElementById('queryTheme').value='All available evidence';}
+function fillSourceSelect(){const sources=getAvailableSources();document.getElementById('querySource').innerHTML='<option value="all">All available sources</option>'+sources.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`).join('');}
+function fillHazardSelect(){const hazards=getHazards();document.getElementById('queryHazard').innerHTML='<option value="all">All disaster types</option>'+hazards.map(h=>`<option>${escapeHtml(h)}</option>`).join('');}
+function renderHome(){document.getElementById('homeCards').innerHTML=USE_CASES.map(card=>`<article class="card"><h3>${escapeHtml(card.title)}</h3><p>${escapeHtml(card.text)}</p><div class="badges">${card.datasets.map(d=>`<span class="pill blue">${escapeHtml(d)}</span>`).join('')}</div><button class="btn secondary" onclick="openExplorer('${card.explorer}')">Open explorer</button></article>`).join('');document.getElementById('homeSourceBadges').innerHTML=getAvailableSources().map(s=>`<span class="pill ${s.mode==='Live'?'green':'soft'}">${escapeHtml(s.name)}</span>`).join('');}
+function openExplorer(id){activeExplorer=id;showView('explorersView');renderExplorerTabs();renderExplorer();}
 
-function normalizePreparedSource(source, manifestEntry){
-  const slug = source.slug || source.id || manifestEntry.slug;
-  const rowCount = Number(source.rowCount || source.rowsProcessed || (source.sampleRows && source.sampleRows.length) || (source.aggregates && source.aggregates.byCountry && source.aggregates.byCountry.length) || 0);
-  return {
-    ...source,
-    slug,
-    id: source.id || slug,
-    category: source.category || manifestEntry.category || SOURCE_CATEGORY_BY_SLUG[slug] || 'Development and vulnerability',
-    sourceType: source.sourceType || manifestEntry.sourceType || 'Prepared data',
-    site: source.site || manifestEntry.site,
-    rowCount,
-    retrievalTimestamp: source.retrievalTimestamp || source.generatedAt || manifestEntry.retrievalTimestamp,
-    contains: source.whatItContains || source.contains,
-    matters: source.whyItMatters || source.matters,
-    uses: source.whatThisSiteUses || source.uses,
-    technicalSample: source.sampleRows || source.sample || (source.aggregates && source.aggregates.byCountry ? source.aggregates.byCountry.slice(0, 5) : [])
-  };
-}
+async function loadPreparedData(){try{preparedManifest=await fetchJson('data/prepared/manifest.json');const entries=Array.isArray(preparedManifest.successfulSources)?preparedManifest.successfulSources:[];const loaded=[];for(const entry of entries){try{const data=await fetchJson(`data/prepared/${entry.file}`);if(data.status==='success')loaded.push(normalizePreparedSource(data,entry));}catch(e){}}preparedSources=loaded.filter(s=>s.rowCount>0);return preparedSources;}catch(e){preparedSources=[];return [];}}
+function normalizePreparedSource(source,entry){const slug=source.slug||source.id||entry.slug;const rowCount=Number(source.rowCount||source.rowsProcessed||(source.sampleRows&&source.sampleRows.length)||(source.aggregates&&source.aggregates.byCountry&&source.aggregates.byCountry.length)||0);return {...source,id:slug,slug,name:source.name||entry.name,category:source.category||entry.category||'Development and vulnerability',mode:source.sourceType||entry.sourceType||'Prepared',site:source.site||entry.site,rowCount,description:source.description||source.contains||source.whatItContains||'',contains:source.contains||source.whatItContains||'',uses:source.uses||source.whatThisSiteUses||'',matters:source.matters||source.whyItMatters||'',retrievalTimestamp:source.retrievalTimestamp||source.generatedAt||entry.retrievalTimestamp,sampleRows:source.sampleRows||[],technicalSample:source.sampleRows||source.sample||(source.aggregates&&source.aggregates.byCountry?source.aggregates.byCountry.slice(0,4):[])};}
+function getAvailableSources(){return [...LIVE_SOURCES,...preparedSources.map(s=>({id:s.slug,name:s.name,category:s.category,mode:s.mode,site:s.site,description:s.description,rowCount:s.rowCount}))];}
+function getSourceTheme(source){return THEME_BY_CATEGORY[source.category]||'All available evidence';}
+function getPrepared(slug){return preparedSources.find(s=>s.slug===slug||s.id===slug);}
+function getEmdatSource(){return getPrepared('emdat');}
+function getHazards(){const emdat=getEmdatSource();const list=(emdat&&emdat.aggregates&&emdat.aggregates.byDisasterType?emdat.aggregates.byDisasterType:[]).map(r=>r.disasterType).filter(Boolean);return [...new Set(list)].sort();}
+function normaliseCountryMatch(row,country){const text=JSON.stringify(row||{}).toLowerCase();return String(row.iso3||row.iso||row.countryCode||'').toUpperCase()===country.iso3||String(row.country||row.country_name||'').toLowerCase()===country.name.toLowerCase()||text.includes(country.name.toLowerCase())||text.includes(country.iso3.toLowerCase());}
+function normaliseYear(row){const fields=['year','date','time','fromdate','todate','datemodified','startDate'];for(const key of fields){const v=row&&row[key];if(v){const m=String(v).match(/(19|20)\d{2}/);if(m)return Number(m[0]);}}return null;}
+function normaliseTheme(row){const text=JSON.stringify(row||{}).toLowerCase();if(/flood|storm|earthquake|drought|epidemic|disaster|hazard|alert/.test(text))return 'Disaster events';if(/refugee|asylum|stateless|population|displacement/.test(text))return 'Displacement and population';if(/health|mortality|physician|life expectancy/.test(text))return 'Health and services';if(/temperature|precipitation|forest|co2|climate/.test(text))return 'Climate and environment';if(/gdp|economic|poverty|boundary|internet|mobile/.test(text))return 'Development and infrastructure';return 'All available evidence';}
+function rowTextMatch(row,text){return !text||JSON.stringify(row||{}).toLowerCase().includes(text.toLowerCase());}
 
-function renderPreparedCard(source){
-  const statusLabel = source.sourceType || 'Prepared data';
-  const pillClass = statusLabel === 'Local prepared data' ? 'teal' : 'purple';
-  const technical = {
-    endpoint: source.endpoint || 'data/prepared/' + (source.slug || source.id) + '.json',
-    sourceFile: source.sourceFile,
-    preparedFile: 'data/prepared/' + (source.slug || source.id) + '.json',
-    buildScript: source.slug === 'emdat' ? 'scripts/build-emdat.js and scripts/build-data.js' : 'scripts/build-data.js',
-    retrievalTimestamp: source.retrievalTimestamp || source.generatedAt,
-    rowCount: source.rowCount,
-    aggregateGroups: source.aggregates ? Object.keys(source.aggregates) : undefined,
-    citationNote: source.citationNote,
-    limitations: source.limitations || source.fieldNotes,
-    sample: source.technicalSample || []
-  };
-  return `<div class="source-card">
-    <div class="source-title"><h3>${escapeHtml(source.name)}</h3><span class="pill ${pillClass}">${escapeHtml(statusLabel)}</span></div>
-    <div class="source-meta"><span class="pill">${escapeHtml(source.category || 'Planning context')}</span></div>
-    <p>${escapeHtml(source.description || source.contains || '')}</p>
-    <p><strong>What it contains:</strong> ${escapeHtml(source.contains || 'Prepared records and indicators.')}</p>
-    <p><strong>Why it matters:</strong> ${escapeHtml(source.matters || 'It adds context for humanitarian futures analysis.')}</p>
-    <p><strong>How the simulator uses it:</strong> ${escapeHtml(source.uses || 'Prepared rows are loaded as supporting context.')}</p>
-    <p><a href="${escapeHtml(source.site || '#')}" target="_blank" rel="noopener">Visit site</a></p>
-    <div class="source-output success">
-      <p><strong>Working.</strong> ${escapeHtml(source.rowCount)} rows or source records are available.</p>
-      <p class="small">Last prepared: ${escapeHtml(source.retrievalTimestamp || 'timestamp not shown')}</p>
-    </div>
-    <details class="details"><summary>See technical details</summary><pre class="mono">${escapeHtml(JSON.stringify(technical, null, 2))}</pre></details>
-  </div>`;
-}
+async function runMainQuery(){const filters=getQueryFilters();document.getElementById('queryMessage').innerHTML='<div class="status loading">Running query against selected sources...</div>';try{await loadPreparedData();const results=await runDatasetQuery(filters);lastQueryResults=results;document.getElementById('queryMessage').innerHTML='';renderQueryResults(results,'queryResults');}catch(e){document.getElementById('queryMessage').innerHTML=`<div class="status error">Could not run query: ${escapeHtml(e.message)}</div>`;}}
+function getQueryFilters(){return {country:countryByIso(document.getElementById('queryCountry').value),theme:document.getElementById('queryTheme').value,source:document.getElementById('querySource').value,startYear:Number(document.getElementById('queryStartYear').value)||null,endYear:Number(document.getElementById('queryEndYear').value)||null,hazard:document.getElementById('queryHazard').value,text:document.getElementById('queryText').value.trim()};}
+function clearQuery(){document.getElementById('queryText').value='';document.getElementById('querySource').value='all';document.getElementById('queryTheme').value='All available evidence';document.getElementById('queryHazard').value='all';document.getElementById('queryResults').innerHTML='';document.getElementById('queryMessage').innerHTML='';}
+async function runDatasetQuery(filters){const records=[];const coverage=[];const sourceAllowed=id=>filters.source==='all'||filters.source===id;if(sourceAllowed('emdat')){const r=queryEmdat(filters);records.push(...r.records);coverage.push(r.coverage);}if(sourceAllowed('worldbank')&&['All available evidence','Health and services','Climate and environment','Development and infrastructure','Operating environment'].includes(filters.theme)){const wb=await queryWorldBank(filters.country, indicatorForTheme(filters.theme));records.push(...wb.records);coverage.push(wb.coverage);}if(sourceAllowed('unhcr')&&['All available evidence','Displacement and population'].includes(filters.theme)){const u=await queryUnhcr(filters);records.push(...u.records);coverage.push(u.coverage);}if(sourceAllowed('gdacs')&&['All available evidence','Current alerts','Disaster events'].includes(filters.theme)){const g=await queryGdacs(filters);records.push(...g.records);coverage.push(g.coverage);}if(filters.source==='all'||!['emdat','worldbank','unhcr','gdacs'].includes(filters.source)){const p=queryPreparedRows(filters);records.push(...p.records);coverage.push(...p.coverage);}const filtered=records.filter(r=>passesYear(r,filters)&&passesTheme(r,filters)&&rowTextMatch(r.raw,filters.text));return {filters,records:filtered,coverage:coverage.filter(Boolean)};}
+function passesYear(record,filters){const y=record.year;if(!Number.isFinite(Number(y)))return true;if(filters.startYear&&Number(y)<filters.startYear)return false;if(filters.endYear&&Number(y)>filters.endYear)return false;return true;}
+function passesTheme(record,filters){return filters.theme==='All available evidence'||record.theme===filters.theme||record.source==='EM-DAT International Disaster Database'&&filters.theme==='Disaster events';}
+function indicatorForTheme(theme){if(theme==='Health and services')return INDICATORS.find(i=>i.key==='lifeExpectancy');if(theme==='Climate and environment')return INDICATORS.find(i=>i.key==='forestPct');if(theme==='Operating environment')return INDICATORS.find(i=>i.key==='co2');return INDICATORS.find(i=>i.key==='population');}
+function queryEmdat(filters){const source=getEmdatSource();if(!source||!source.aggregates)return {records:[],coverage:{source:'EM-DAT',status:'Data not returned by this source',count:0}};const rows=(source.aggregates.recentEvents||[]).filter(r=>normaliseCountryMatch(r,filters.country)).filter(r=>filters.hazard==='all'||String(r.disasterType||'')===filters.hazard).filter(r=>{const y=normaliseYear(r);return (!filters.startYear||!y||y>=filters.startYear)&&(!filters.endYear||!y||y<=filters.endYear);}).filter(r=>rowTextMatch(r,filters.text)).map(r=>recordFromRow(r,source,'Disaster events'));const summary=(source.aggregates.byCountry||[]).find(r=>normaliseCountryMatch(r,filters.country));if(summary)rows.unshift({source:source.name,sourceId:'emdat',country:summary.country,year:`${summary.firstYear}-${summary.lastYear}`,theme:'Disaster events',type:'Historical aggregate',value:`${fmt(summary.eventCount)} events`,description:`Deaths: ${fmt(summary.totalDeaths)}; affected: ${fmt(summary.totalAffected)}; damage: USD ${fmt(summary.totalDamageUsd000)} thousand.`,url:source.site,raw:summary});return {records:rows,coverage:{source:source.name,status:rows.length?'Returned records':'No matching records',count:rows.length}};}
+function queryPreparedRows(filters){const records=[];const coverage=[];for(const source of preparedSources){if(source.slug==='emdat')continue;if(filters.source!=='all'&&filters.source!==source.slug)continue;const rows=(source.sampleRows||[]).filter(r=>normaliseCountryMatch(r,filters.country)).filter(r=>rowTextMatch(r,filters.text));const sourceTheme=getSourceTheme(source);if(filters.theme!=='All available evidence'&&sourceTheme!==filters.theme)continue;records.push(...rows.map(r=>recordFromRow(r,source,sourceTheme)));coverage.push({source:source.name,status:rows.length?'Returned rows':'No matching rows',count:rows.length});}return {records,coverage};}
+async function queryWorldBank(country, indicator){try{const series=await fetchWorldBankSeries(country,indicator);const rows=series.values.slice(-12).map(r=>({source:'World Bank Indicators',sourceId:'worldbank',country:country.name,year:r.year,theme:themeForIndicator(indicator),type:indicator.label,value:`${fmtSmart(r.value)} ${indicator.unit}`,description:`Returned value for ${indicator.label}.`,url:'https://data.worldbank.org/',raw:{indicator:indicator.label,code:indicator.code,year:r.year,value:r.value,unit:indicator.unit}}));return {records:rows,coverage:{source:'World Bank Indicators',status:rows.length?'Returned values':'No matching values',count:rows.length}};}catch(e){return {records:[],coverage:{source:'World Bank Indicators',status:'Data not returned by this source',count:0,error:e.message}};}}
+function themeForIndicator(ind){if(ind.theme==='health and services')return 'Health and services';if(ind.theme==='climate and environment')return 'Climate and environment';if(ind.theme==='economic and operating context')return 'Operating environment';return 'Development and infrastructure';}
+async function queryUnhcr(filters){try{const result=await fetchUnhcr(filters.country);const rows=result.items.map(r=>recordFromUnhcr(r,filters.country));return {records:rows,coverage:{source:'UNHCR Refugee Data Finder',status:rows.length?'Returned records':'No matching records',count:rows.length}};}catch(e){return {records:[],coverage:{source:'UNHCR Refugee Data Finder',status:'Data not returned by this source',count:0,error:e.message}};}}
+async function queryGdacs(filters){try{const result=await fetchGdacs(filters.country);let rows=result.items.map(r=>recordFromGdacs(r));if(filters.hazard!=='all')rows=rows.filter(r=>String(r.type||'').toLowerCase().includes(filters.hazard.toLowerCase()));return {records:rows,coverage:{source:'GDACS',status:rows.length?'Returned records':'No matching records',count:rows.length}};}catch(e){return {records:[],coverage:{source:'GDACS',status:'Data not returned by this source',count:0,error:e.message}};}}
+function recordFromRow(row,source,theme){const year=normaliseYear(row);const type=row.disasterType||row.eventType||row.indicator||row.metric||row.boundaryType||row.title||source.name;const value=row.value??row.displayValue??row.eventCount??row.totalAffected??row.magnitude??row.admUnitCount??row.temperatureC??row.precipitationMm??'';return {source:source.name,sourceId:source.slug||source.id,country:row.country||row.place||row.name||'',year,theme,type,value:value!==''?fmtSmart(value):'Record returned',description:row.eventName||row.location||row.name||row.title||row.metric||source.description||'Returned source record.',url:row.url||row.publicUrl||row.downloadUrl||source.site,raw:row};}
+function recordFromUnhcr(row,country){const best=bestUnhcrValue(row);const role=plainUnhcrRole(row,country);return {source:'UNHCR Refugee Data Finder',sourceId:'unhcr',country:row.coo_name||row.coa_name||country.name,year:Number(row.year)||null,theme:'Displacement and population',type:best.label||'Population record',value:best.value!==null?fmt(best.value):'Record returned',description:role+'. '+(best.value!==null?'Population value returned.':'Record returned, but this response did not include a displayable population value.'),url:'https://www.unhcr.org/refugee-statistics/',raw:row};}
+function recordFromGdacs(row){return {source:'GDACS',sourceId:'gdacs',country:row.country||row.iso3||row.iso2||'',year:normaliseYear(row),theme:'Current alerts',type:row.eventtype||row.eventType||row.alertlevel||'Alert record',value:row.alertlevel||row.severity||'Record returned',description:row.name||row.eventname||row.description||'Current or recent alert record.',url:row.url||row.link||'https://www.gdacs.org/',raw:row};}
+function renderQueryResults(results,targetId){const el=document.getElementById(targetId);const filters=results.filters;const sourceCount=new Set(results.records.map(r=>r.source)).size;el.innerHTML=`<section class="panel"><div class="section-title"><div><h2>Query results</h2><p>Data shown from selected sources for ${escapeHtml(filters.country.name)}.</p></div></div>${renderSummaryStrip([{label:'Records found',value:results.records.length},{label:'Sources used',value:sourceCount},{label:'Selected theme',value:filters.theme},{label:'Country',value:filters.country.name}])}${renderCoverage(results.coverage)}${results.records.length?renderRecordTable(results.records)+renderRecordCards(results.records.slice(0,12)):`<div class="status warn">No matching records. Adjust the country, source, dates, disaster type or search text.</div>`}</section>`;}
+function renderSummaryStrip(items){return `<div class="summary-strip">${items.map(i=>`<div class="summary-card"><strong>${escapeHtml(i.value)}</strong><span>${escapeHtml(i.label)}</span></div>`).join('')}</div>`;}
+function renderCoverage(coverage){return `<div class="badges">${coverage.map(c=>`<span class="pill ${c.count?'green':'amber'}">${escapeHtml(c.source)}: ${escapeHtml(c.status)}${Number.isFinite(c.count)?' ('+c.count+')':''}</span>`).join('')}</div>`;}
+function renderRecordTable(records){return `<div class="table-wrap" style="margin-top:16px"><table><thead><tr><th>Source</th><th>Country/place</th><th>Year/date</th><th>Theme/type</th><th>Value/status</th><th>Description</th><th>Source</th></tr></thead><tbody>${records.map(r=>`<tr><td>${escapeHtml(r.source)}</td><td>${escapeHtml(r.country||'Not shown')}</td><td>${escapeHtml(r.year||'Not shown')}</td><td>${escapeHtml(r.theme)}<br><span class="small">${escapeHtml(r.type||'Record')}</span></td><td>${escapeHtml(r.value||'Record returned')}</td><td>${escapeHtml(r.description||'')}</td><td>${r.url?`<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener">Visit source</a>`:'Not shown'}</td></tr>`).join('')}</tbody></table></div>`;}
+function renderRecordCards(records){return `<div class="record-list" style="margin-top:16px">${records.map(r=>renderReadableRecord(r,r.source)).join('')}</div>`;}
+function renderReadableRecord(record,source){return `<article class="record-card"><h3>${escapeHtml(record.type||'Returned record')}</h3><p>${escapeHtml(record.description||'')}</p><div class="record-meta"><span class="pill blue">${escapeHtml(source)}</span><span class="pill soft">${escapeHtml(record.country||'Place not shown')}</span><span class="pill soft">${escapeHtml(record.year||'Date not shown')}</span></div><p><strong>${escapeHtml(record.value||'Record returned')}</strong></p>${record.url?`<p><a href="${escapeHtml(record.url)}" target="_blank" rel="noopener">Visit source</a></p>`:''}<details class="details"><summary>See source details</summary>${renderReadableFieldTable(record.raw)}<details class="details"><summary>Raw source response for debugging</summary><pre class="mono">${escapeHtml(JSON.stringify(record.raw,null,2))}</pre></details></details></article>`;}
+function renderReadableFieldTable(record,fieldMap){const entries=Object.entries(record||{}).filter(([k,v])=>v!==null&&v!==undefined&&v!==''&&typeof v!=='object').slice(0,18);if(!entries.length)return '<p class="muted">No readable fields returned.</p>';return `<div class="table-wrap"><table class="kv-table"><tbody>${entries.map(([k,v])=>`<tr><th>${escapeHtml(readableKey(fieldMap&&fieldMap[k]||k))}</th><td>${escapeHtml(v)}</td></tr>`).join('')}</tbody></table></div>`;}
+function readableKey(k){return String(k).replace(/[_-]+/g,' ').replace(/\b\w/g,m=>m.toUpperCase());}
 
-function countryByIso(iso){ return COUNTRIES.find(c=>c.iso3===iso); }
-function setMessage(text, type='ok'){
-  const cls = type==='error'?'status error':type==='warn'?'status warn':'status';
-  document.getElementById('message').innerHTML = `<div class="${cls}">${escapeHtml(text)}</div>`;
-}
-function clearMessage(){ document.getElementById('message').innerHTML=''; }
-function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
-function renderProfessionalIcon(iconKey){
-  const paths = {
-    population:'<circle cx="8" cy="9" r="2.5"></circle><circle cx="16" cy="9" r="2.5"></circle><path d="M4 19c.8-3 3-4.5 5-4.5s4.2 1.5 5 4.5"></path><path d="M10 19c.7-2.4 2.6-3.7 4.8-3.7 1.9 0 3.5 1.1 4.2 3.7"></path>',
-    urban:'<path d="M5 20V8l5-3v15"></path><path d="M10 20V4h9v16"></path><path d="M7 11h1"></path><path d="M7 15h1"></path><path d="M13 8h2"></path><path d="M13 12h2"></path><path d="M13 16h2"></path>',
-    health:'<path d="M12 5v14"></path><path d="M5 12h14"></path><rect x="4" y="4" width="16" height="16" rx="3"></rect>',
-    rate:'<path d="M4 17h16"></path><path d="M6 15l4-4 3 3 5-7"></path><circle cx="18" cy="7" r="1.5"></circle>',
-    trend:'<path d="M4 18h17"></path><path d="M5 16l5-5 4 3 6-8"></path>',
-    finance:'<circle cx="8" cy="12" r="4"></circle><path d="M12 8h7v12H8v-4"></path><path d="M15 11v6"></path><path d="M18 13v4"></path>',
-    network:'<circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="7" r="2"></circle><circle cx="18" cy="17" r="2"></circle><path d="M8 11l8-4"></path><path d="M8 13l8 4"></path>',
-    mobile:'<rect x="8" y="3" width="8" height="18" rx="2"></rect><path d="M11 18h2"></path>',
-    lock:'<rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>',
-    land:'<path d="M4 17c3-5 6-7 10-7 3 0 5 2 6 5"></path><path d="M7 16c2 1 5 1 8 0"></path><path d="M13 10c0-3 2-5 5-6 0 3-2 5-5 6z"></path>',
-    emissions:'<circle cx="8" cy="14" r="4"></circle><circle cx="15" cy="10" r="3"></circle><path d="M4 20h16"></path><path d="M16 18v-5"></path>',
-    events:'<rect x="5" y="5" width="14" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h8"></path><path d="M8 17h5"></path>',
-    deaths:'<path d="M12 5v14"></path><path d="M7 10h10"></path><path d="M6 20h12"></path>',
-    affected:'<circle cx="12" cy="8" r="3"></circle><path d="M5 20c1.2-4 3.7-6 7-6s5.8 2 7 6"></path>',
-    damage:'<path d="M6 19h12"></path><path d="M8 19V9l4-4 4 4v10"></path><path d="M10 12h4"></path>',
-    warning:'<path d="M12 4l9 17H3L12 4z"></path><path d="M12 10v5"></path><path d="M12 18h.01"></path>'
-  };
-  return `<span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24">${paths[iconKey] || paths.events}</svg></span>`;
-}
-function fmt(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:dec,minimumFractionDigits:dec}).format(n); }
-function fmtSmart(n,dec=2){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; const abs=Math.abs(n); const d=abs>=1000?0:dec; return new Intl.NumberFormat('en-GB',{maximumFractionDigits:d,minimumFractionDigits:0}).format(n); }
-function pct(n,dec=1){ if(n===null||n===undefined||!Number.isFinite(n)) return 'Not available'; return `${fmt(n,dec)}%`; }
-async function fetchJson(url, options={}){ const res = await fetch(url, options); if(!res.ok) throw new Error(`${res.status} ${res.statusText}`); return await res.json(); }
-function selectedCountry(){ return countryByIso(document.getElementById('countrySelect').value) || COUNTRIES[0]; }
+async function fetchWorldBankSeries(country,ind){const codes=[country.wb,country.iso3.toLowerCase()].filter(Boolean);let lastErr=null;for(const code of codes){const url=`https://api.worldbank.org/v2/country/${code}/indicator/${ind.code}?format=json&per_page=20000&date=1960:${CURRENT_YEAR}`;try{const json=await fetchJson(url);const rows=Array.isArray(json)&&Array.isArray(json[1])?json[1]:[];const values=rows.map(r=>({year:Number(r.date),value:parseValue(r.value)})).filter(r=>Number.isFinite(r.year)&&r.value!==null).sort((a,b)=>a.year-b.year);return {url,indicator:ind,values};}catch(e){lastErr=e;}}throw lastErr||new Error('World Bank query failed');}
+async function fetchUnhcr(country){const year=Math.min(CURRENT_YEAR-1,2024);const queries=[`https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=30`,`https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=30`];let items=[];let errors=[];for(const url of queries){try{const json=await fetchJson(url);const rows=Array.isArray(json&&json.items)?json.items:Array.isArray(json)?json:[];rows.forEach(r=>items.push({...r,sourceUrl:url}));}catch(e){errors.push(e.message);}}if(errors.length===queries.length)throw new Error(errors.join('; '));return {items:items.slice(0,50),queries,year};}
+async function fetchGdacs(country){const url='https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=';const json=await fetchJson(url);const arr=Array.isArray(json)?json:(json.features||json.events||[]);const name=country.name.toLowerCase(),iso2=country.iso2.toLowerCase(),iso3=country.iso3.toLowerCase();const items=arr.filter(it=>{const text=JSON.stringify(it).toLowerCase();return text.includes(name)||text.includes(`"${iso2}"`)||text.includes(`"${iso3}"`);}).slice(0,30).map(it=>it.properties||it);return {items,allCount:arr.length,url};}
+function bestUnhcrValue(row){const candidates=[['refugees','Refugees'],['asylum_seekers','Asylum-seekers'],['returned_refugees','Returned refugees'],['idps','Internally displaced people'],['returned_idps','Returned internally displaced people'],['stateless','Stateless people'],['others_of_concern','Others of concern'],['total','Population value']];for(const [key,label] of candidates){const value=parseValue(row[key]);if(value!==null)return {label,value};}return {label:row.population_group||row.pop_type||'Population record',value:null};}
+function plainUnhcrRole(row,country){const coo=String(row.coo||row.coo_iso||'').toUpperCase();const coa=String(row.coa||row.coa_iso||'').toUpperCase();if(coo===country.iso3)return 'Country of origin';if(coa===country.iso3)return 'Host/asylum country';return 'Selected country appears in this returned record';}
 
-function sourceOutput(key, cls, html){
-  const el = document.getElementById(`sourceTest-${key}`);
-  if(!el) return;
-  el.className = `source-output ${cls}`;
-  el.innerHTML = html;
-}
-function sourceRaw(key, data){
-  const el = document.getElementById(`sourceRaw-${key}`);
-  if(el) el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-}
+function renderExplorerTabs(){document.getElementById('explorerTabs').innerHTML=USE_CASES.map(c=>`<button class="tab ${activeExplorer===c.explorer?'active':''}" onclick="openExplorer('${c.explorer}')">${escapeHtml(c.title)}</button>`).join('');}
+function renderExplorer(){const panel=document.getElementById('explorerPanel');if(!panel)return;const c=countryOptions();if(activeExplorer==='disaster')panel.innerHTML=renderDisasterExplorer(c);if(activeExplorer==='alerts')panel.innerHTML=renderAlertExplorer(c);if(activeExplorer==='displacement')panel.innerHTML=renderDisplacementExplorer(c);if(activeExplorer==='context')panel.innerHTML=renderContextExplorer(c);if(activeExplorer==='compare')panel.innerHTML=renderCompareExplorer();if(activeExplorer==='search')panel.innerHTML=renderEvidenceSearch(c);}
+function renderDisasterExplorer(c){return `<div class="filters"><div><label>Country</label><select id="disCountry">${c}</select></div><div><label>Start year</label><input id="disStart" type="number" value="2000"></div><div><label>End year</label><input id="disEnd" type="number" value="2026"></div><div><label>Disaster type</label><select id="disHazard"><option value="all">All disaster types</option>${getHazards().map(h=>`<option>${escapeHtml(h)}</option>`).join('')}</select></div><div><label>Event search</label><input id="disText" type="search" placeholder="Search place, event or subtype"></div><div><label>Sort</label><select id="disSort"><option value="eventCount">Event count</option><option value="totalDeaths">Deaths</option><option value="totalAffected">Affected</option><option value="totalDamageUsd000">Damage</option></select></div><label class="checkbox-row"><input id="disCompare" type="checkbox"> Compare starter countries</label><div class="filter-actions"><button class="btn" onclick="runDisasterExplorer()">Explore records</button></div></div><div id="disResults"></div>`;}
+function runDisasterExplorer(){const filters={country:countryByIso(document.getElementById('disCountry').value),startYear:Number(document.getElementById('disStart').value),endYear:Number(document.getElementById('disEnd').value),hazard:document.getElementById('disHazard').value,text:document.getElementById('disText').value.trim(),theme:'Disaster events',source:'emdat'};const results=queryEmdat(filters);let html=`<section class="panel flat">${renderSummaryStrip([{label:'Records found',value:results.records.length},{label:'Source',value:'EM-DAT'},{label:'Country',value:filters.country.name}])}${results.records.length?renderRecordTable(results.records):'<div class="status warn">No matching EM-DAT records.</div>'}${renderDisasterAggregates(filters)}</section>`;if(document.getElementById('disCompare').checked)html+=renderDisasterComparison(filters);document.getElementById('disResults').innerHTML=html;}
+function renderDisasterAggregates(filters){const emdat=getEmdatSource();if(!emdat||!emdat.aggregates)return '';const byYear=(emdat.aggregates.byCountryYear||[]).filter(r=>normaliseCountryMatch(r,filters.country)&&r.year>=filters.startYear&&r.year<=filters.endYear);const country=(emdat.aggregates.byCountry||[]).find(r=>normaliseCountryMatch(r,filters.country));return `<div class="grid two" style="margin-top:16px"><div class="panel flat"><h3>Annual event pattern</h3>${renderBars(byYear.map(r=>({label:r.year,value:r.eventCount})))}</div><div class="panel flat"><h3>Top disaster types</h3>${renderBars((country&&country.topDisasterTypes||[]).map(r=>({label:r.disasterType,value:r.count})))}</div></div>`;}
+function renderDisasterComparison(filters){const emdat=getEmdatSource();if(!emdat||!emdat.aggregates)return '';const rows=COUNTRIES.map(c=>{const row=(emdat.aggregates.byCountry||[]).find(r=>normaliseCountryMatch(r,c));return {country:c.name,value:row?Number(row[document.getElementById('disSort').value]||0):0,top:row&&row.topDisasterTypes&&row.topDisasterTypes[0]?row.topDisasterTypes[0].disasterType:'Not available'};}).sort((a,b)=>b.value-a.value);return `<section class="panel flat"><h3>Starter country comparison</h3><div class="table-wrap"><table><thead><tr><th>Country</th><th>Selected value</th><th>Most frequent type</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(r.country)}</td><td class="num">${fmt(r.value)}</td><td>${escapeHtml(r.top)}</td></tr>`).join('')}</tbody></table></div></section>`;}
+function renderAlertExplorer(c){return `<div class="filters"><div><label>Country</label><select id="alertCountry">${c}</select></div><div><label>Alert level</label><input id="alertLevel" placeholder="Any returned level"></div><div><label>Event type</label><input id="alertType" placeholder="Flood, storm, earthquake"></div><div class="wide"><label>Search text</label><input id="alertText" type="search"></div><div class="filter-actions"><button class="btn" onclick="runAlertExplorer()">View returned records</button></div></div><div id="alertResults"></div>`;}
+async function runAlertExplorer(){const country=countryByIso(document.getElementById('alertCountry').value);document.getElementById('alertResults').innerHTML='<div class="status loading">Checking GDACS records...</div>';const results=await queryGdacs({country,hazard:'all'});const text=[document.getElementById('alertLevel').value,document.getElementById('alertType').value,document.getElementById('alertText').value].filter(Boolean).join(' ');results.records=results.records.filter(r=>rowTextMatch(r.raw,text));renderQueryResults({filters:{country,theme:'Current alerts'},records:results.records,coverage:[results.coverage]},'alertResults');}
+function renderDisplacementExplorer(c){return `<div class="filters"><div><label>Country</label><select id="unhcrCountry">${c}</select></div><div><label>Role</label><select id="unhcrRole"><option value="either">Either</option><option value="origin">Country of origin</option><option value="host">Host/asylum country</option></select></div><div><label>Population group</label><input id="unhcrGroup" placeholder="Refugees, asylum... "></div><div class="wide"><label>Search text</label><input id="unhcrText" type="search"></div><div class="filter-actions"><button class="btn" onclick="runDisplacementExplorer()">View returned records</button></div></div><div id="unhcrResults"></div>`;}
+async function runDisplacementExplorer(){const country=countryByIso(document.getElementById('unhcrCountry').value);document.getElementById('unhcrResults').innerHTML='<div class="status loading">Checking UNHCR records...</div>';const results=await queryUnhcr({country});const role=document.getElementById('unhcrRole').value, group=document.getElementById('unhcrGroup').value, text=document.getElementById('unhcrText').value;results.records=results.records.filter(r=>role==='either'||(role==='origin'&&r.description.includes('Country of origin'))||(role==='host'&&r.description.includes('Host/asylum'))).filter(r=>rowTextMatch(r.raw,group+' '+text));renderQueryResults({filters:{country,theme:'Displacement and population'},records:results.records,coverage:[results.coverage]},'unhcrResults');}
+function renderContextExplorer(c){return `<div class="filters"><div><label>Country</label><select id="ctxCountry">${c}</select></div><div><label>Theme</label><select id="ctxTheme"><option>population and urbanisation</option><option>health and services</option><option>digital access</option><option>climate and environment</option><option>economic and operating context</option></select></div><div><label>Indicator</label><select id="ctxIndicator">${INDICATORS.map(i=>`<option value="${i.key}">${escapeHtml(i.label)}</option>`).join('')}</select></div><div><label>Returned values</label><select id="ctxMode"><option value="latest">Latest available only</option><option value="series">Historical series</option></select></div><div class="filter-actions"><button class="btn" onclick="runContextExplorer()">Retrieve values</button></div></div><div id="ctxResults"></div>`;}
+async function runContextExplorer(){const country=countryByIso(document.getElementById('ctxCountry').value), ind=INDICATORS.find(i=>i.key===document.getElementById('ctxIndicator').value);document.getElementById('ctxResults').innerHTML='<div class="status loading">Retrieving World Bank values...</div>';const result=await queryWorldBank(country,ind);if(document.getElementById('ctxMode').value==='latest')result.records=result.records.slice(-1);renderQueryResults({filters:{country,theme:themeForIndicator(ind)},records:result.records,coverage:[result.coverage]},'ctxResults');}
+function renderCompareExplorer(){return `<div class="filters"><div class="wide"><label>Countries</label><select id="cmpCountries" multiple size="6">${COUNTRIES.map(c=>`<option value="${c.iso3}" selected>${c.name}</option>`).join('')}</select></div><div><label>Theme</label><select id="cmpTheme"><option value="disaster">Disaster events</option><option value="population">Population</option><option value="internetUsers">Digital access</option><option value="lifeExpectancy">Health and services</option></select></div><div><label>Disaster type</label><select id="cmpHazard"><option value="all">All disaster types</option>${getHazards().map(h=>`<option>${escapeHtml(h)}</option>`).join('')}</select></div><div class="filter-actions"><button class="btn" onclick="runCompareExplorer()">Compare countries</button></div></div><div id="cmpResults"></div>`;}
+async function runCompareExplorer(){const selected=[...document.getElementById('cmpCountries').selectedOptions].map(o=>countryByIso(o.value));const theme=document.getElementById('cmpTheme').value;document.getElementById('cmpResults').innerHTML='<div class="status loading">Building comparison table...</div>';let rows=[];if(theme==='disaster'){const emdat=getEmdatSource();rows=selected.map(c=>{const row=emdat&&emdat.aggregates.byCountry.find(r=>normaliseCountryMatch(r,c));return {country:c.name,value:row?row.eventCount:null,source:row?'EM-DAT':'Missing',extra:row&&row.topDisasterTypes[0]?row.topDisasterTypes[0].disasterType:'Not available'};});}else{const ind=INDICATORS.find(i=>i.key===theme);for(const c of selected){try{const series=await fetchWorldBankSeries(c,ind);const latest=series.values[series.values.length-1];rows.push({country:c.name,value:latest&&latest.value,source:latest?'World Bank':'Missing',extra:latest?latest.year:'Not available'});}catch(e){rows.push({country:c.name,value:null,source:'Missing',extra:e.message});}}}document.getElementById('cmpResults').innerHTML=`<section class="panel flat">${renderSummaryStrip([{label:'Countries',value:rows.length},{label:'Theme',value:document.getElementById('cmpTheme').selectedOptions[0].textContent},{label:'Data basis',value:'Returned values'}])}<div class="table-wrap"><table><thead><tr><th>Country</th><th>Value</th><th>Source coverage</th><th>Detail</th></tr></thead><tbody>${rows.sort((a,b)=>(b.value||0)-(a.value||0)).map(r=>`<tr><td>${escapeHtml(r.country)}</td><td class="num">${r.value===null?'Data not returned':fmtSmart(r.value)}</td><td>${escapeHtml(r.source)}</td><td>${escapeHtml(r.extra)}</td></tr>`).join('')}</tbody></table></div></section>`;}
+function renderEvidenceSearch(c){return `<div class="filters"><div class="wide"><label>Search text</label><input id="evText" type="search" placeholder="Country, hazard, place or keyword"></div><div><label>Country</label><select id="evCountry"><option value="all">All starter countries</option>${c}</select></div><div><label>Source</label><select id="evSource"><option value="all">All available sources</option>${getAvailableSources().map(s=>`<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('')}</select></div><div><label>Theme</label><select id="evTheme">${THEMES.map(t=>`<option>${t}</option>`).join('')}</select></div><div class="filter-actions"><button class="btn" onclick="runEvidenceSearch()">Search evidence</button></div></div><div id="evResults"></div>`;}
+async function runEvidenceSearch(){const countryVal=document.getElementById('evCountry').value;const countries=countryVal==='all'?COUNTRIES:[countryByIso(countryVal)];const all=[];const coverage=[];document.getElementById('evResults').innerHTML='<div class="status loading">Searching available records...</div>';for(const country of countries){const res=await runDatasetQuery({country,theme:document.getElementById('evTheme').value,source:document.getElementById('evSource').value,startYear:null,endYear:null,hazard:'all',text:document.getElementById('evText').value});all.push(...res.records);coverage.push(...res.coverage);}renderQueryResults({filters:{country:{name:countryVal==='all'?'All starter countries':countryByIso(countryVal).name},theme:document.getElementById('evTheme').value},records:all,coverage},'evResults');}
+function renderBars(items){if(!items||!items.length)return '<p class="muted">No aggregate rows returned.</p>';const max=Math.max(...items.map(i=>Number(i.value)||0),1);return `<div class="bar-list">${items.slice(0,12).map(i=>`<div class="bar-row"><strong>${escapeHtml(i.label)}</strong><div class="bar-track"><div class="bar-fill" style="width:${Math.max(3,(Number(i.value)||0)/max*100)}%"></div></div><span class="num">${fmt(i.value)}</span></div>`).join('')}</div>`;}
 
-async function testWorkingSource(key){
-  const source = SOURCES.find(s=>s.key===key);
-  if(!source) return false;
-  sourceOutput(key, 'loading', '<p><strong>Checking this source...</strong></p>');
-  try{
-    const result = await SOURCE_TESTS[key](selectedCountry());
-    sourceOutput(key, 'success', `
-      <p><strong>Working.</strong> Returned ${escapeHtml(result.count)} usable records or values.</p>
-      ${result.latest ? `<p><strong>Latest:</strong> ${escapeHtml(result.latest)}</p>` : ''}
-      <p>${escapeHtml(result.sample)}</p>
-      <p class="small">Last checked: ${escapeHtml(new Date().toLocaleString())}</p>
-    `);
-    sourceRaw(key, {endpoint: result.endpoint, ...result.raw});
-    return true;
-  }catch(e){
-    sourceOutput(key, 'error', `
-      <p><strong>Not working in this browser check.</strong></p>
-      <p>${escapeHtml(e.message)}</p>
-      <p class="small">This source is not shown as working unless a real response returns usable records.</p>
-    `);
-    sourceRaw(key, 'No successful response yet.');
-    return false;
-  }
-}
+function renderSourcePage(){const sources=getAvailableSources();const grouped=SOURCE_CATEGORIES.map(category=>{const items=sources.filter(s=>s.category===category);if(!items.length)return '';return `<section style="margin:22px 0"><h2>${escapeHtml(category)}</h2><p class="muted">${escapeHtml(sourceCategoryDescription(category))}</p><div class="source-grid">${items.map(renderSourceCard).join('')}</div></section>`;}).join('');document.getElementById('sourceCards').innerHTML=grouped||'<p class="muted">Prepared sources are still loading.</p>';const manifestFailures=preparedManifest&&Array.isArray(preparedManifest.failedSources)?preparedManifest.failedSources.map(s=>[s.name,s.reason]):[];document.getElementById('notIncludedSources').innerHTML=`<ul class="simple-list">${[...NOT_INCLUDED_SOURCES,...manifestFailures].map(([n,r])=>`<li><strong>${escapeHtml(n)}:</strong> ${escapeHtml(r)}</li>`).join('')}</ul>`;}
+function sourceCategoryDescription(category){return {'Disaster and hazard history':'Historical disaster events and current or recent hazard records.','Displacement and humanitarian context':'Population, displacement and emergency-operation records.','Health and population':'Population and health-system context.','Climate and environmental stress':'Weather, climate and environmental sample records.','Development and vulnerability':'Development, infrastructure, poverty and administrative context.','Conflict, economic and operational context':'Economic and wider operating-environment records.'}[category]||'Available records.';}
+function renderSourceCard(s){return `<article class="source-card"><div><h3>${escapeHtml(s.name)}</h3><div class="badges"><span class="pill ${s.mode==='Live'?'green':'soft'}">${escapeHtml(s.mode)}</span><span class="pill blue">${escapeHtml(getSourceTheme(s))}</span></div></div><p>${escapeHtml(s.description||'Prepared records available to this static site.')}</p>${s.rowCount?`<p><strong>${fmt(s.rowCount)}</strong> rows or aggregate records available.</p>`:''}<p><a href="${escapeHtml(s.site||'#')}" target="_blank" rel="noopener">Visit source</a></p><div class="source-output" id="sourceStatus-${s.id}">Ready to check.</div><button class="btn secondary small" onclick="checkSource('${s.id}')">Check data availability</button><details class="details"><summary>Source details</summary>${renderReadableFieldTable(s)}<details class="details"><summary>Raw response for debugging</summary><pre class="mono">${escapeHtml(JSON.stringify(s,null,2))}</pre></details></details></article>`;}
+async function checkSource(id){const el=document.getElementById(`sourceStatus-${id}`);if(el)el.className='source-output loading',el.textContent='Checking data availability...';try{let msg='';if(id==='worldbank'){const r=await queryWorldBank(COUNTRIES[0],INDICATORS[0]);msg=`World Bank returned ${r.records.length} values for ${COUNTRIES[0].name}.`;}else if(id==='unhcr'){const r=await queryUnhcr({country:COUNTRIES[0]});msg=`UNHCR returned ${r.records.length} records for ${COUNTRIES[0].name}.`;}else if(id==='gdacs'){const r=await queryGdacs({country:COUNTRIES[0],hazard:'all'});msg=`GDACS returned ${r.records.length} country-matched records for ${COUNTRIES[0].name}.`;}else{const s=getPrepared(id);msg=s?`${s.name} is loaded from data/prepared/ with ${s.rowCount} rows or aggregate records.`:'Source file not loaded.';}if(el)el.className='source-output',el.innerHTML=`<strong>Available.</strong> ${escapeHtml(msg)}`;return true;}catch(e){if(el)el.className='source-output',el.innerHTML=`<strong>Data not returned by this source.</strong> ${escapeHtml(e.message)}`;return false;}}
+async function checkAllSources(){const box=document.getElementById('sourceSummary');box.className='status loading';box.textContent='Checking included sources...';let ok=0;for(const s of getAvailableSources()){if(await checkSource(s.id))ok++;}box.className='status';box.textContent=`Check complete: ${ok} included sources returned data or are loaded as prepared files.`;}
 
-async function checkDataSources(){
-  const summary = document.getElementById('sourceTestSummary');
-  const button = document.getElementById('checkDataSourcesBtn');
-  summary.className = 'status';
-  summary.textContent = 'Checking data sources...';
-  button.disabled = true;
-  button.textContent = 'Checking data sources...';
-  try{
-    const live = await testAllWorkingSources();
-    await loadPreparedData();
-    const preparedCount = preparedSources.length;
-    const failed = preparedManifest && preparedManifest.summary ? preparedManifest.summary.failed : 0;
-    summary.className = live.failed || failed ? 'status warn' : 'status';
-    summary.textContent = `Last checked: ${new Date().toLocaleString()}. ${live.passed} live checks responded and ${preparedCount} prepared sources are available.`;
-  }finally{
-    button.disabled = false;
-    button.textContent = 'Check data sources';
-  }
-}
-
-async function testAllWorkingSources(){
-  const summary = document.getElementById('sourceTestSummary');
-  summary.className = 'status';
-  summary.textContent = 'Checking live data sources...';
-  let passed = 0, failed = 0;
-  for(const source of SOURCES){
-    const ok = await testWorkingSource(source.key);
-    if(ok) passed += 1; else failed += 1;
-  }
-  summary.className = failed ? 'status warn' : 'status';
-  summary.textContent = `Live data checked: ${passed} working, ${failed} not working in this browser check.`;
-  return {passed, failed};
-}
-
-const SOURCE_TESTS = {
-  async worldbank(country){
-    const ind = INDICATORS.find(i=>i.code==='SP.POP.TOTL');
-    const series = await fetchWorldBankSeries(country, ind);
-    if(!series.values.length) throw new Error('No usable World Bank values returned.');
-    const latest = series.values[series.values.length-1];
-    return {endpoint: series.url, count: series.values.length, latest: `${latest.year}: ${fmtSmart(latest.value, 0)}`, sample: `${country.name} ${ind.label} returned ${series.values.length} usable numeric year/value rows.`, raw: {endpoint:series.url, rawCount:series.rawCount, latest, sample:series.values.slice(-5)}};
-  },
-  async unhcr(country){
-    const result = await fetchUnhcr(country);
-    if(!result.items.length) throw new Error(result.error || 'No UNHCR population records returned for origin/asylum country query.');
-    const first = result.items[0];
-    return {endpoint: result.queries.join(' | '), count: result.count, latest: `Selected year ${result.year}`, sample: `${first.coo_name || first.coa_name || country.name} returned displacement or population records for the selected year.`, raw: {queries:result.queries, recordCount:result.count, sample:result.items.slice(0,5)}};
-  },
-  async gdacs(country){
-    const result = await fetchGdacs(country);
-    const first = result.items[0];
-    return {endpoint: result.url, count: result.count, latest: first ? (first.datemodified || first.fromdate || 'Event date not shown') : 'No country matches in current/recent list', sample: first ? `${first.name || first.eventname || 'GDACS event'} (${first.country || first.iso3 || 'location not shown'})` : `The endpoint returned records, but none matched ${country.name}.`, raw: {endpoint:result.url, matchedRecords:result.count, sample:result.items.slice(0,5)}};
-  }
-};
-
-async function fetchWorldBankSeries(country, ind){
-  const codes = [country.wb, country.iso3.toLowerCase()].filter(Boolean);
-  let lastErr = null;
-  for(const code of codes){
-    const url = `https://api.worldbank.org/v2/country/${code}/indicator/${ind.code}?format=json&per_page=20000&date=1960:${CURRENT_YEAR}`;
-    try{
-      const json = await fetchJson(url);
-      const rows = Array.isArray(json) && Array.isArray(json[1]) ? json[1] : [];
-      const values = rows.map(r=>({year:Number(r.date), valueRaw:r.value, value:parseValue(r.value)}))
-        .filter(r=>Number.isFinite(r.year) && r.year <= CURRENT_YEAR && r.value !== null)
-        .sort((a,b)=>a.year-b.year);
-      const cleaned = cleanSeries(values, ind);
-      if(cleaned.length > 0 || rows.length > 0) return {indicator:ind, url, rawCount:rows.length, values:cleaned, removed:values.length-cleaned.length};
-      lastErr = new Error('No rows returned');
-    }catch(e){ lastErr = e; }
-  }
-  throw lastErr || new Error('World Bank query failed');
-}
-
-function parseValue(v){ if(v === null || v === undefined || v === '') return null; const n = Number(v); return Number.isFinite(n) ? n : null; }
-
-function cleanSeries(values, ind){
-  const seen = new Set(); const out = [];
-  for(const r of values){
-    if(seen.has(r.year)) continue;
-    seen.add(r.year);
-    if(ind.type === 'percent' && (r.value < 0 || r.value > 100)) continue;
-    if(ind.type === 'capped200' && (r.value < 0 || r.value > 250)) continue;
-    if(['compound','nonnegative','logdecline'].includes(ind.type) && r.value < 0) continue;
-    out.push(r);
-  }
-  return out;
-}
-
-function recentValues(series, max=20){ return series && series.length ? series.slice(Math.max(0,series.length-max)) : []; }
-
-function linearRegression(points){
-  const n = points.length; if(n < 2) return null;
-  const sx = points.reduce((a,p)=>a+p.year,0), sy = points.reduce((a,p)=>a+p.value,0);
-  const mx = sx/n, my = sy/n;
-  const sxx = points.reduce((a,p)=>a+(p.year-mx)*(p.year-mx),0);
-  const sxy = points.reduce((a,p)=>a+((p.year-mx)*(p.value-my)),0);
-  if(sxx === 0) return null;
-  const slope = sxy/sxx, intercept = my - slope*mx;
-  const ssTot = points.reduce((a,p)=>a+(p.value-my)*(p.value-my),0);
-  const ssRes = points.reduce((a,p)=>a+Math.pow(p.value-(slope*p.year+intercept),2),0);
-  const r2 = ssTot === 0 ? 1 : Math.max(0, 1 - ssRes/ssTot);
-  return {n,slope,intercept,r2};
-}
-function logRegression(points){
-  const usable = points.filter(p=>p.value > 0).map(p=>({year:p.year,value:Math.log(p.value)}));
-  const reg = linearRegression(usable); if(!reg) return null;
-  return {...reg, log:true};
-}
-
-function projectSeries(seriesObj, targetYear){
-  const ind = seriesObj.indicator, values = seriesObj.values;
-  if(values.length < 2) return {ok:false, reason:`Not enough usable historical values for ${ind.label}.`, indicator:ind, seriesObj};
-  const latest = values[values.length-1], first = values[0];
-  let approach='', projected=null, model=null, notes=[];
-  if(ind.type === 'compound'){
-    const usable = values.filter(v=>v.value > 0); const f=usable[0], l=usable[usable.length-1];
-    if(!f || !l || f.year === l.year) return {ok:false, reason:`Cannot calculate population trend.`, indicator:ind, seriesObj};
-    const years = l.year - f.year; const cagr = Math.pow(l.value/f.value, 1/years)-1;
-    projected = l.value * Math.pow(1+cagr, targetYear-l.year);
-    approach = 'compound annual continuation';
-    model = {cagr,n:usable.length,startYear:f.year,startValue:f.value,latestYear:l.year,latestValue:l.value,formula:'projected = latestValue × (1 + CAGR)^(targetYear - latestYear)'};
-  } else if(ind.type === 'logdecline'){
-    const pts = recentValues(values,30).filter(v=>v.value>0); model = logRegression(pts);
-    if(!model) return {ok:false, reason:`Cannot calculate mortality trend.`, indicator:ind, seriesObj};
-    projected = Math.exp(model.slope * targetYear + model.intercept);
-    approach = 'log trend continuation'; model.formula = 'projected = exp(intercept + slope × targetYear)';
-  } else {
-    const pts = recentValues(values,20); model = linearRegression(pts);
-    if(!model) return {ok:false, reason:`Cannot calculate trend.`, indicator:ind, seriesObj};
-    projected = model.slope * targetYear + model.intercept;
-    approach = 'recent straight-line continuation'; model.formula = 'projected = intercept + slope × targetYear';
-  }
-  if(ind.type === 'percent'){
-    if(projected < 0){ projected = 0; notes.push('capped at 0%'); }
-    if(projected > 100){ projected = 100; notes.push('capped at 100%'); }
-  }
-  if(ind.type === 'capped200'){
-    if(projected < 0){ projected = 0; notes.push('capped at zero'); }
-    if(projected > 200){ projected = 200; notes.push('capped at 200 per 100 people'); }
-  }
-  if(['nonnegative','logdecline','compound','linear'].includes(ind.type) && projected < 0){ projected = 0; notes.push('floored at zero'); }
-  const changeFromLatest = latest.value !== 0 ? ((projected-latest.value)/Math.abs(latest.value))*100 : null;
-  const direction = projected > latest.value*1.02 ? 'increasing' : projected < latest.value*.98 ? 'decreasing' : 'broadly flat';
-  return {ok:true,indicator:ind,latest,first,projected,targetYear,approach,model,notes,changeFromLatest,direction,seriesObj};
-}
-
-async function getProjectionBundle(country, targetYear){
-  const out=[];
-  for(const ind of INDICATORS){
-    try{ const series = await fetchWorldBankSeries(country, ind); out.push(projectSeries(series,targetYear)); }
-    catch(e){ out.push({ok:false,indicator:ind,reason:e.message,error:true}); }
-  }
-  return out;
-}
-
-async function fetchContext(country){
-  const context = {gdacs:{count:0,items:[],error:null}, unhcr:{count:0,items:[],error:null}};
-  await Promise.allSettled([
-    fetchGdacs(country).then(v=>context.gdacs=v).catch(e=>context.gdacs.error=e.message),
-    fetchUnhcr(country).then(v=>context.unhcr=v).catch(e=>context.unhcr.error=e.message)
-  ]);
-  return context;
-}
-
-async function fetchGdacs(country){
-  const url = 'https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?fromDate=&toDate=&alertlevel=&eventtype=&country=';
-  const json = await fetchJson(url);
-  const arr = Array.isArray(json) ? json : (json.features || json.events || []);
-  const name = country.name.toLowerCase(), iso2 = country.iso2.toLowerCase(), iso3 = country.iso3.toLowerCase();
-  const items = arr.filter(it=> JSON.stringify(it).toLowerCase().includes(name) || JSON.stringify(it).toLowerCase().includes(`"${iso2}"`) || JSON.stringify(it).toLowerCase().includes(`"${iso3}"`)).slice(0,20).map(it=>it.properties||it);
-  return {count:items.length,items,allCount:arr.length,allItems:arr.slice(0,5),url,explanation:'Current or recent GDACS event-list records matched by country name/code. These are not future events.'};
-}
-
-async function fetchUnhcr(country){
-  const year = Math.min(CURRENT_YEAR-1, 2024);
-  const queries = [
-    `https://api.unhcr.org/population/v1/population/?year=${year}&coo=${country.iso3}&limit=20`,
-    `https://api.unhcr.org/population/v1/population/?year=${year}&coa=${country.iso3}&limit=20`
-  ];
-  let items=[]; let errors=[];
-  for(const url of queries){
-    try{
-      const json = await fetchJson(url);
-      const rows = Array.isArray(json && json.items) ? json.items : Array.isArray(json) ? json : [];
-      rows.forEach(r=>items.push({...r,sourceUrl:url}));
-    }catch(e){ errors.push(e.message); }
-  }
-  return {count:items.length,items:items.slice(0,24),queries,year,error:errors.length===queries.length?errors.join('; '):null,explanation:`UNHCR population records for ${year} where the selected country appears as origin or asylum country.`};
-}
-
-function getProjection(projections,key){ return projections.find(p=>p.indicator && p.indicator.key===key && p.ok); }
-function value(projections,key){ const p=getProjection(projections,key); return p ? p.projected : null; }
-function latestValue(projections,key){ const p=getProjection(projections,key); return p ? p.latest.value : null; }
-function getPrepared(slug){ return preparedSources.find(source => (source.slug || source.id) === slug); }
-
-function getEmdatSource(){ return getPrepared('emdat'); }
-function emdatCountrySummary(country){
-  const source = getEmdatSource();
-  if(!source || !source.aggregates) return null;
-  const byCountry = source.aggregates.byCountry || [];
-  const row = byCountry.find(item => String(item.iso || '').toUpperCase() === country.iso3) ||
-    byCountry.find(item => String(item.country || '').toLowerCase() === country.name.toLowerCase());
-  if(!row) return null;
-  const byYear = (source.aggregates.byCountryYear || []).filter(item => String(item.iso || '').toUpperCase() === country.iso3 || String(item.country || '').toLowerCase() === country.name.toLowerCase()).sort((a,b)=>a.year-b.year);
-  const recentEvents = (source.aggregates.recentEvents || []).filter(item => String(item.iso || '').toUpperCase() === country.iso3 || String(item.country || '').toLowerCase() === country.name.toLowerCase()).sort((a,b)=>Number(b.year||0)-Number(a.year||0));
-  return {source, row, byYear, recentEvents};
-}
-
-function countryRows(source, country){
-  const rows = source && Array.isArray(source.sampleRows) ? source.sampleRows : [];
-  return rows.filter(row => String(row.iso3 || row.iso || row.countryCode || '').toUpperCase() === country.iso3 || String(row.country || '').toLowerCase() === country.name.toLowerCase());
-}
-
-function deriveImplications(projections,targetYear){
-  const pop=value(projections,'population'), phys=value(projections,'physicians'), urbanPct=value(projections,'urbanPct'), internetPct=value(projections,'internetUsers'), latestPop=latestValue(projections,'population');
-  const items=[];
-  if(pop && phys && phys>0){
-    items.push({label:'People per physician',value:1000/phys,unit:'people per physician',decimals:0});
-    items.push({label:'Implied physician count',value:pop*phys/1000,unit:'physicians',decimals:0});
-  }
-  if(pop && latestPop){ items.push({label:'Population change to target year',value:((pop-latestPop)/latestPop)*100,unit:'% from latest actual population',decimals:1}); }
-  if(pop && urbanPct!==null){ items.push({label:'Projected urban population',value:pop*urbanPct/100,unit:'people',decimals:0}); }
-  if(pop && internetPct!==null){ items.push({label:'Projected internet-user population',value:pop*internetPct/100,unit:'people',decimals:0}); }
-  return items;
-}
-
-async function buildCase(){
-  clearMessage();
-  const country=countryByIso(document.getElementById('countrySelect').value);
-  const targetYear=Number(document.getElementById('yearInput').value);
-  if(!Number.isFinite(targetYear)||targetYear<2026||targetYear>2100){ setMessage('Choose a valid target year between 2026 and 2100.','error'); return; }
-  const results=document.getElementById('results');
-  results.innerHTML = `<section class="loading-panel"><h2>Building ${escapeHtml(country.name)} ${targetYear} case file...</h2><p>Pulling indicators, prepared source rows and returned context records.</p><div class="loaderbar"><span></span></div></section>`;
-  try{
-    await loadPreparedData({silent:true});
-    const [projections,context]=await Promise.all([getProjectionBundle(country,targetYear),fetchContext(country)]);
-    const derived=deriveImplications(projections,targetYear);
-    const okCount=projections.filter(p=>p.ok).length;
-    lastCaseData={country,targetYear,projections,derived,context};
-    if(okCount===0){
-      results.innerHTML = renderFailure(country,targetYear,projections,context);
-      setMessage(`${country.name} did not return usable projectable indicators. Context sources may still be visible below.`, 'warn');
-      return;
-    }
-    results.innerHTML=renderCase(country,targetYear,projections,derived,context);
-    setMessage(`Generated a data case file for ${country.name} ${targetYear}.`);
-    refreshDisasterExplorer();
-  }catch(e){ results.innerHTML=''; setMessage(`Could not build case file: ${e.message}`,'error'); }
-}
-
-function renderFailure(country,targetYear,projections,context){
-  return `<section class="panel"><h2>${escapeHtml(country.name)} ${targetYear}: no projectable indicators returned</h2><p class="muted">The projectable World Bank indicators did not return enough usable numeric values. Context records are shown where available.</p>${renderProjectionErrors(projections.filter(p=>!p.ok))}</section>${renderReturnedRecords(country,context)}`;
-}
-
-function renderCase(country,targetYear,projections,derived,context){
-  return `
-    <section class="panel dark">${renderCaseHeader(country,targetYear,projections,derived,context)}</section>
-    ${renderTargetYearSignals(projections,targetYear)}
-    ${renderDataCombinations(country,targetYear,projections,derived,context)}
-    ${renderDisasterExplorer(country)}
-    ${renderReturnedRecords(country,context)}
-    ${renderPreparedEvidence(country)}
-    ${renderBlackSwanPanel(country,targetYear,projections,context)}
-    <section class="panel soft">
-      <div class="section-title"><div><h2>Data boundaries</h2><p>These are data limits that affect interpretation.</p></div></div>
-      <ul class="simple-list">
-        <li>Target-year values are continuations of historical country-level series, not official forecasts.</li>
-        <li>EM-DAT row-level records shown here come from the prepared recent-events sample; aggregate totals use the prepared country/year summaries.</li>
-        <li>GDACS, UNHCR and IFRC rows are returned records, not severity scores.</li>
-        <li>Prepared climate/weather samples use selected coordinate samples and should not be read as national coverage.</li>
-      </ul>
-    </section>`;
-}
-
-function renderCaseHeader(country,targetYear,projections,derived,context){
-  const pop=getProjection(projections,'population'), urban=getProjection(projections,'urbanPct'), phys=getProjection(projections,'physicians'), internet=getProjection(projections,'internetUsers');
-  const emdat=emdatCountrySummary(country);
-  const topHazard=emdat && emdat.row.topDisasterTypes && emdat.row.topDisasterTypes[0] ? emdat.row.topDisasterTypes[0].disasterType : 'not available';
-  return `<div class="case-hero">
-    <div>
-      <p class="eyebrow">data case file</p>
-      <h2>${escapeHtml(country.name)} ${targetYear}</h2>
-      <p class="muted">This file combines projected country indicators with returned disaster, displacement, climate, health, economic and operational records. It is designed for evidence review, not recommendation text.</p>
-      <hr>
-      <div class="tag-list">
-        <span class="source-chip">World Bank trend continuations</span>
-        <span class="source-chip">EM-DAT historical aggregates</span>
-        <span class="source-chip">UNHCR returned records</span>
-        <span class="source-chip">GDACS current/recent events</span>
-        <span class="source-chip">${preparedSources.length} prepared sources loaded</span>
-      </div>
-    </div>
-    <div class="case-summary">
-      <span class="pill green">Snapshot</span>
-      <div class="big">${pop ? fmtSmart(pop.projected,0) : 'Not available'}</div>
-      <p class="muted">Target-year population continuation</p>
-      <p><strong>Urban share:</strong> ${urban ? pct(urban.projected,1) : 'Not available'}</p>
-      <p><strong>People per physician:</strong> ${phys ? fmtSmart(1000/phys.projected,0) : 'Not available'}</p>
-      <p><strong>Internet-use share:</strong> ${internet ? pct(internet.projected,1) : 'Not available'}</p>
-      <p><strong>Most frequent EM-DAT type:</strong> ${escapeHtml(topHazard)}</p>
-      <p><strong>Live records returned:</strong> ${fmtSmart(context.gdacs.count || 0,0)} GDACS; ${fmtSmart(context.unhcr.count || 0,0)} UNHCR.</p>
-    </div>
-  </div>`;
-}
-
-function renderTargetYearSignals(projections,targetYear){
-  const rows = projections.filter(p=>p.ok);
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Target-year indicator continuations</h2><p><strong>Target-year continuation</strong> means a transparent extension of the latest usable historical series into ${targetYear}. It is shown so users can see the implied direction and scale of current trajectories.</p></div></div>
-    <div class="metric-grid">
-      ${rows.map(p=>`<div class="metric">${renderProfessionalIcon(p.indicator.iconKey)}<span class="value">${fmtSmart(p.projected,p.indicator.decimals)}</span><span class="label">${escapeHtml(p.indicator.label)}</span><p>${escapeHtml(p.indicator.unit)} · latest actual ${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year} · ${escapeHtml(p.direction)}</p></div>`).join('')}
-    </div>
-    <details class="details"><summary>See calculation method per signal</summary>
-      <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Latest actual</th><th>${targetYear} continuation</th><th>Method</th><th>Source rows</th></tr></thead><tbody>
-      ${rows.map(p=>`<tr><td><strong>${escapeHtml(p.indicator.label)}</strong></td><td>${fmtSmart(p.latest.value,p.indicator.decimals)} in ${p.latest.year}</td><td>${fmtSmart(p.projected,p.indicator.decimals)} ${escapeHtml(p.indicator.unit)}</td><td>${escapeHtml(p.approach)}</td><td>${escapeHtml(p.model && p.model.n ? p.model.n : p.seriesObj.values.length)}</td></tr>`).join('')}
-      </tbody></table></div>
-    </details>
-  </section>`;
-}
-
-function renderDataCombinations(country,targetYear,projections,derived,context){
-  const emdat=emdatCountrySummary(country);
-  const pop=getProjection(projections,'population');
-  const urban=getProjection(projections,'urbanPct');
-  const phys=getProjection(projections,'physicians');
-  const internet=getProjection(projections,'internetUsers');
-  const imf=getCountryPreparedRows('imf-datamapper', country);
-  const imfLatest=latestByYear(imf);
-  const openMeteo=getCountryPreparedRows('open-meteo', country)[0];
-  const nasa=getCountryPreparedRows('nasa-power', country);
-  const nasaRain = nasa.reduce((a,r)=>a+num(r.precipitationMm),0);
-  const eventsPerYear = emdat && emdat.byYear.length ? (emdat.row.eventCount / emdat.byYear.length) : null;
-  const affectedShare = emdat && pop && pop.latest ? (emdat.row.totalAffected / pop.latest.value) * 100 : null;
-  const combinations=[
-    {title:'Historical disaster frequency', value:eventsPerYear!==null ? `${fmtSmart(eventsPerYear,1)} / year` : 'Not available', text:emdat ? `${fmtSmart(emdat.row.eventCount,0)} EM-DAT events across ${emdat.row.firstYear}-${emdat.row.lastYear}.` : 'EM-DAT summary not loaded.'},
-    {title:'Affected-population scale check', value:affectedShare!==null ? pct(affectedShare,0) : 'Not available', text:emdat && pop ? `EM-DAT total affected divided by latest World Bank population (${pop.latest.year}). This is cumulative and can exceed 100%.` : 'Needs EM-DAT and population data.'},
-    {title:'Urban absolute scale', value:pop && urban ? fmtSmart(pop.projected * urban.projected / 100,0) : 'Not available', text:pop && urban ? `Population continuation × urban-share continuation for ${targetYear}.` : 'Needs population and urban-share data.'},
-    {title:'Health workforce load', value:phys ? `${fmtSmart(1000/phys.projected,0)} people / physician` : 'Not available', text:'Calculated from World Bank physicians per 1,000 people.'},
-    {title:'Digital reach estimate', value:pop && internet ? fmtSmart(pop.projected * internet.projected / 100,0) : 'Not available', text:pop && internet ? `Population continuation × internet-use continuation for ${targetYear}.` : 'Needs population and internet-use data.'},
-    {title:'Macroeconomic sample', value:imfLatest ? `${fmtSmart(imfLatest.value,1)}%` : 'Not available', text:imfLatest ? `IMF DataMapper ${imfLatest.indicator || 'indicator'} for ${imfLatest.year}.` : 'No IMF row returned for this country in prepared data.'},
-    {title:'Weather sample', value:openMeteo ? `${fmtSmart(openMeteo.temperatureC,1)}°C` : 'Not available', text:openMeteo ? `Open-Meteo returned ${fmtSmart(openMeteo.precipitationMm,1)} mm current precipitation at the sample coordinate.` : 'No Open-Meteo row returned for this country.'},
-    {title:'NASA POWER sample rainfall', value:nasa.length ? `${fmtSmart(nasaRain,1)} mm` : 'Not available', text:nasa.length ? `Sum of prepared NASA POWER daily precipitation sample for the country coordinate.` : 'No NASA POWER rows returned for this country.'}
-  ];
-  return `<section class="panel soft">
-    <div class="section-title"><div><h2>Combined data readings</h2><p>These are calculations made by combining returned source values. They are shown as evidence outputs, not advice.</p></div></div>
-    <div class="analysis-grid">${combinations.map(item=>`<div class="analysis-card"><span class="pill teal">Calculated</span><h3>${escapeHtml(item.title)}</h3><div class="big">${escapeHtml(item.value)}</div><p>${escapeHtml(item.text)}</p></div>`).join('')}</div>
-  </section>`;
-}
-
-function renderDisasterExplorer(country){
-  const emdat=emdatCountrySummary(country);
-  if(!emdat){
-    return `<section class="panel"><div class="section-title"><div><h2>EM-DAT disaster records</h2><p>Prepared EM-DAT data is not loaded for this country.</p></div></div></section>`;
-  }
-  const hazardOptions = ['all', ...(emdat.row.topDisasterTypes || []).map(x=>x.disasterType)].filter(Boolean);
-  return `<section class="panel" id="emdatPanel">
-    <div class="section-title"><div><h2>EM-DAT disaster history</h2><p>Explore historical aggregates and the recent row-level records that were returned in the prepared EM-DAT file.</p></div></div>
-    <div class="filter-row">
-      <div><label for="emdatYears">Years</label><select id="emdatYears" onchange="refreshDisasterExplorer()"><option value="5">Last 5 years</option><option value="10" selected>Last 10 years</option><option value="25">Last 25 years</option><option value="all">All prepared years</option></select></div>
-      <div><label for="emdatHazard">Type</label><select id="emdatHazard" onchange="refreshDisasterExplorer()">${hazardOptions.map(h=>`<option value="${escapeHtml(h)}">${escapeHtml(h==='all'?'All types':h)}</option>`).join('')}</select></div>
-      <div><label for="emdatSearch">Search returned records</label><input id="emdatSearch" type="search" placeholder="Search event, place, subtype..." oninput="refreshDisasterExplorer()" /></div>
-    </div>
-    <div id="emdatStats"></div>
-    <div class="grid two">
-      <div class="panel soft" style="box-shadow:none;margin:0"><h3>Annual event pattern</h3><div id="emdatSpark"></div></div>
-      <div class="panel soft" style="box-shadow:none;margin:0"><h3>Most frequent disaster types</h3><div id="emdatHazards"></div></div>
-    </div>
-    <div style="margin-top:16px"><h3>Returned EM-DAT records</h3><p class="muted">These are the row-level events included in the prepared recent-events sample. Aggregate totals above use the full prepared EM-DAT country/year summaries.</p><div id="emdatRecords"></div></div>
-  </section>`;
-}
-
-function refreshDisasterExplorer(){
-  if(!lastCaseData) return;
-  const {country} = lastCaseData;
-  const emdat = emdatCountrySummary(country);
-  if(!emdat) return;
-  const yearsEl=document.getElementById('emdatYears');
-  const hazardEl=document.getElementById('emdatHazard');
-  const searchEl=document.getElementById('emdatSearch');
-  const years=yearsEl ? yearsEl.value : disasterViewState.years;
-  const hazard=hazardEl ? hazardEl.value : disasterViewState.hazard;
-  const query=(searchEl ? searchEl.value : disasterViewState.query || '').trim().toLowerCase();
-  disasterViewState = {years,hazard,query};
-  const maxYear = Math.max(...emdat.byYear.map(r=>Number(r.year || 0)), Number(emdat.row.lastYear || 0), CURRENT_YEAR);
-  const minYear = years==='all' ? Number(emdat.row.firstYear || 2000) : maxYear - Number(years) + 1;
-  const yearRows = emdat.byYear.filter(r=>Number(r.year) >= minYear && Number(r.year) <= maxYear);
-  const windowTotals = yearRows.reduce((acc,r)=>({
-    events:acc.events + num(r.eventCount),
-    deaths:acc.deaths + num(r.totalDeaths),
-    affected:acc.affected + num(r.totalAffected),
-    damage:acc.damage + num(r.totalDamageUsd000)
-  }), {events:0,deaths:0,affected:0,damage:0});
-  const records = emdat.recentEvents.filter(r=>{
-    const yr = Number(r.year || 0);
-    const hay = JSON.stringify(r).toLowerCase();
-    const hazardOk = hazard==='all' || String(r.disasterType || '').toLowerCase() === hazard.toLowerCase();
-    const queryOk = !query || hay.includes(query);
-    return yr >= minYear && yr <= maxYear && hazardOk && queryOk;
-  });
-  const leading = (emdat.row.topDisasterTypes || [])[0];
-  document.getElementById('emdatStats').innerHTML = `<div class="metric-grid">
-    <div class="metric">${renderProfessionalIcon('events')}<span class="value">${fmtSmart(windowTotals.events,0)}</span><span class="label">Events in selected period</span><p>${minYear}-${maxYear}</p></div>
-    <div class="metric">${renderProfessionalIcon('deaths')}<span class="value">${fmtSmart(windowTotals.deaths,0)}</span><span class="label">Deaths recorded</span><p>EM-DAT aggregate country/year rows.</p></div>
-    <div class="metric">${renderProfessionalIcon('affected')}<span class="value">${fmtSmart(windowTotals.affected,0)}</span><span class="label">People affected</span><p>Cumulative reported affected figure.</p></div>
-    <div class="metric">${renderProfessionalIcon('damage')}<span class="value">${fmtSmart(windowTotals.damage,0)}</span><span class="label">Damage, USD 000</span><p>Reported total damage where available.</p></div>
-    <div class="metric">${renderProfessionalIcon('warning')}<span class="value">${escapeHtml(leading ? leading.disasterType : 'NA')}</span><span class="label">Most frequent type</span><p>${leading ? fmtSmart(leading.count,0)+' events in prepared country summary.' : 'No type summary.'}</p></div>
-  </div>`;
-  document.getElementById('emdatSpark').innerHTML = renderYearSpark(yearRows);
-  document.getElementById('emdatHazards').innerHTML = renderHazardBars(emdat.row.topDisasterTypes || []);
-  document.getElementById('emdatRecords').innerHTML = renderEmdatRecordTable(records);
-}
-
-function renderYearSpark(rows){
-  if(!rows.length) return '<p class="muted">No annual aggregate rows in this period.</p>';
-  const max=Math.max(...rows.map(r=>num(r.eventCount)),1);
-  return `<div class="spark">${rows.map(r=>`<div style="height:${Math.max(3,(num(r.eventCount)/max)*90)}px" title="${escapeHtml(r.year)}: ${escapeHtml(r.eventCount)} events"><span>${escapeHtml(String(r.year).slice(-2))}</span></div>`).join('')}</div>`;
-}
-
-function renderHazardBars(types){
-  if(!types.length) return '<p class="muted">No type summary returned.</p>';
-  const max=Math.max(...types.map(t=>num(t.count)),1);
-  return `<div class="bar-list">${types.slice(0,8).map(t=>`<div class="bar-row-ui"><strong>${escapeHtml(t.disasterType)}</strong><div class="bar-track"><div class="bar-fill" style="width:${Math.max(2,(num(t.count)/max)*100)}%"></div></div><span>${fmtSmart(t.count,0)}</span></div>`).join('')}</div>`;
-}
-
-function renderEmdatRecordTable(records){
-  if(!records.length) return '<p class="muted">No row-level EM-DAT records matched the current filters. The aggregate history above may still contain records for this country and period.</p>';
-  return `<div class="record-count">${records.length} returned row-level records match the filters.</div><div class="table-wrap"><table><thead><tr><th>Year</th><th>Type</th><th>Subtype</th><th>Event</th><th>Location</th><th>Deaths</th><th>Affected</th><th>Damage USD 000</th></tr></thead><tbody>
-    ${records.map(r=>`<tr><td>${escapeHtml(r.year)}</td><td><strong>${escapeHtml(r.disasterType || '')}</strong></td><td>${escapeHtml(r.disasterSubtype || '')}</td><td>${escapeHtml(r.eventName || r.disNo || '')}</td><td>${escapeHtml(r.location || '')}</td><td class="num">${fmtSmart(num(r.totalDeaths),0)}</td><td class="num">${fmtSmart(num(r.totalAffected),0)}</td><td class="num">${fmtSmart(num(r.totalDamageUsd000),0)}</td></tr>`).join('')}
-  </tbody></table></div>`;
-}
-
-function renderReturnedRecords(country,context){
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Live context records</h2><p>Recent/current records returned from live sources for ${escapeHtml(country.name)}.</p></div></div>
-    <div class="grid two">
-      <div class="data-source-card"><h3>Displacement and population records</h3>${renderUnhcrRecords(context.unhcr, country)}</div>
-      <div class="data-source-card"><h3>Current disaster alerts and events</h3>${renderGdacsRecords(context.gdacs)}</div>
-    </div>
-  </section>`;
-}
-
-function renderUnhcrRecords(unhcr, selectedCountry){
-  if(unhcr.error) return `<p class="muted">${escapeHtml(unhcr.error)}</p>`;
-  if(!unhcr.items.length) return '<p class="muted">No UNHCR records returned for the selected origin/asylum-country query.</p>';
-  const groups = unhcrTrendGroups(unhcr.items);
-  const trend = groups.find(group => group.values.length >= 2);
-  const trendText = trend ? `Simple direction for ${trend.label}: ${trendDirection(trend.values)} across ${trend.values.length} returned years.` : 'Trend not calculated from this source: returned records are not a sufficient time series.';
-  return `<p class="record-count">${unhcr.items.length} records returned for ${escapeHtml(unhcr.year)}.</p><p class="muted">${escapeHtml(trendText)}</p><div class="inline-records">${unhcr.items.map(item=>{
-    const plain = plainUnhcrRecord(item, selectedCountry);
-    return `<div class="inline-record">
-      <strong>${escapeHtml(plain.title)}</strong>
-      <p><strong>Source:</strong> UNHCR Refugee Data Finder</p>
-      <p><strong>Year:</strong> ${escapeHtml(plain.year)}</p>
-      <p><strong>Country/place:</strong> ${escapeHtml(plain.place)}</p>
-      <p><strong>Record type:</strong> ${escapeHtml(plain.role)}</p>
-      <p><strong>Population group:</strong> ${escapeHtml(plain.group)}</p>
-      <p><strong>Value/status:</strong> ${escapeHtml(plain.value)}</p>
-      <p>${escapeHtml(plain.description)}</p>
-      <details class="details"><summary>See source response details</summary>${renderReadableFieldTable(plain.fields)}<details class="details"><summary>Raw response for debugging</summary><pre class="mono">${escapeHtml(JSON.stringify(item,null,2))}</pre></details></details>
-    </div>`;
-  }).join('')}</div>`;
-}
-
-function plainUnhcrRecord(item, selectedCountry){
-  const origin = item.coo_name || item.coo || 'Field not returned';
-  const asylum = item.coa_name || item.coa || 'Field not returned';
-  const originMatch = String(item.coo || item.coo_iso || '').toUpperCase() === selectedCountry.iso3 || String(origin).toLowerCase() === selectedCountry.name.toLowerCase();
-  const asylumMatch = String(item.coa || item.coa_iso || '').toUpperCase() === selectedCountry.iso3 || String(asylum).toLowerCase() === selectedCountry.name.toLowerCase();
-  const role = originMatch && asylumMatch ? 'Selected country appears as origin and host/asylum country' : originMatch ? 'Selected country appears as country of origin' : asylumMatch ? 'Selected country appears as country of asylum/host' : 'Selected country appears in returned record';
-  const group = item.population_group || item.population_group_name || item.population_type || item.pop_type || bestUnhcrGroup(item).label;
-  const best = bestUnhcrGroup(item);
-  const value = best.value !== null ? `${fmtSmart(best.value,0)} ${best.label}` : 'Record returned, but this response did not include a displayable population value.';
-  return {
-    title: `${origin} to ${asylum}`,
-    year: item.year || 'Field not returned',
-    place: `Origin: ${origin}; host/asylum: ${asylum}`,
-    role,
-    group: group || 'Field not returned',
-    value,
-    description: best.value !== null ? `${role}. The returned value shown is ${best.label}.` : 'Record returned, but this response did not include a displayable population value.',
-    fields: {
-      'Country of origin': origin,
-      'Country of asylum/host': asylum,
-      'Selected-country role': role,
-      'Population group': group || 'Field not returned',
-      'Display value': value,
-      'Year': item.year || 'Field not returned',
-      'Source URL': item.sourceUrl || 'Field not returned'
-    }
-  };
-}
-
-function bestUnhcrGroup(item){
-  const candidates = [
-    ['refugees','refugees'],
-    ['asylum_seekers','asylum seekers'],
-    ['returned_refugees','returned refugees'],
-    ['idps','internally displaced people'],
-    ['returned_idps','returned internally displaced people'],
-    ['stateless','stateless people'],
-    ['oip','other people of concern'],
-    ['total','people'],
-    ['value','people'],
-    ['population','people']
-  ];
-  for(const [key,label] of candidates){
-    const value = Number(item[key]);
-    if(Number.isFinite(value) && value > 0) return {key,label,value};
-  }
-  return {key:null,label:'population value',value:null};
-}
-
-function unhcrTrendGroups(items){
-  const groups = new Map();
-  items.forEach(item=>{
-    const best = bestUnhcrGroup(item);
-    const year = Number(item.year);
-    if(best.value === null || !Number.isFinite(year)) return;
-    const key = `${item.coo || item.coo_name}|${item.coa || item.coa_name}|${best.key}`;
-    if(!groups.has(key)) groups.set(key, {label:best.label, values:[]});
-    groups.get(key).values.push({year,value:best.value});
-  });
-  return [...groups.values()].map(group=>({...group, values:group.values.sort((a,b)=>a.year-b.year)}));
-}
-
-function trendDirection(values){
-  const first = values[0], last = values[values.length-1];
-  if(last.value > first.value * 1.05) return 'increasing';
-  if(last.value < first.value * 0.95) return 'decreasing';
-  return 'broadly flat';
-}
-
-function renderGdacsRecords(gdacs){
-  if(gdacs.error) return `<p class="muted">${escapeHtml(gdacs.error)}</p>`;
-  if(!gdacs.items.length) return '<p class="muted">No country-matched GDACS records returned from the current/recent event list.</p>';
-  return `<p class="record-count">${gdacs.items.length} country-matched event records returned.</p><p class="muted">Trend not calculated from this source: returned records are current/recent alert context, not a sufficient time series.</p><div class="inline-records">${gdacs.items.map(item=>{
-    const plain = plainGdacsRecord(item);
-    return `<div class="inline-record">
-      <strong>${escapeHtml(plain.title)}</strong>
-      <p><strong>Source:</strong> GDACS</p>
-      <p><strong>Date:</strong> ${escapeHtml(plain.date)}</p>
-      <p><strong>Country/place:</strong> ${escapeHtml(plain.place)}</p>
-      <p><strong>Record type:</strong> ${escapeHtml(plain.type)}</p>
-      <p><strong>Value/status:</strong> ${escapeHtml(plain.status)}</p>
-      <p>${escapeHtml(plain.description)}</p>
-      <details class="details"><summary>See source response details</summary>${renderReadableFieldTable(plain.fields)}<details class="details"><summary>Raw response for debugging</summary><pre class="mono">${escapeHtml(JSON.stringify(item,null,2))}</pre></details></details>
-    </div>`;
-  }).join('')}</div>`;
-}
-
-function plainGdacsRecord(item){
-  const title = item.name || item.eventname || item.title || 'GDACS event';
-  const type = item.eventtype || item.eventtypecode || 'Field not returned';
-  const place = item.country || item.iso3 || item.location || 'Field not returned';
-  const date = item.fromdate || item.datemodified || item.todate || 'Field not returned';
-  const status = item.alertlevel || item.alertLevel || item.severity || 'Field not returned';
-  return {
-    title,
-    date,
-    place,
-    type,
-    status,
-    description: `${type} record for ${place}. Alert/status: ${status}.`,
-    fields: {
-      'Event name': title,
-      'Date returned': date,
-      'Country/place': place,
-      'Record type': type,
-      'Alert/status': status,
-      'Updated': item.datemodified || 'Field not returned',
-      'Source': 'GDACS'
-    }
-  };
-}
-
-function renderReadableFieldTable(record){
-  const entries = Object.entries(record || {});
-  if(!entries.length) return '<p class="muted">No display fields returned.</p>';
-  return `<div class="table-wrap"><table class="kv-table"><tbody>${entries.map(([label,value])=>`<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value === undefined || value === null || value === '' ? 'Field not returned' : value)}</td></tr>`).join('')}</tbody></table></div>`;
-}
-
-function renderPreparedEvidence(country){
-  const used = preparedSources.map(source => {
-    const slug = source.slug || source.id;
-    const rows = slug === 'emdat' ? [] : getCountryPreparedRows(slug, country);
-    return {source, slug, rows};
-  }).filter(item => item.slug !== 'emdat' && item.rows.length);
-  if(!used.length) return `<section class="panel"><h2>Additional country evidence</h2><p class="muted">No country-specific prepared rows were returned for ${escapeHtml(country.name)} beyond EM-DAT.</p></section>`;
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Additional country evidence</h2><p>These are country-specific values already prepared from public sources so the site can use them reliably without waiting for every source to respond live.</p></div></div>
-    ${SOURCE_CATEGORIES.map(category => {
-      const items = used.filter(item => (item.source.category || SOURCE_CATEGORY_BY_SLUG[item.slug]) === category);
-      if(!items.length) return '';
-      return `<div class="source-theme"><h3>${escapeHtml(category)}</h3><div class="data-section-grid">${items.map(item=>renderPreparedCountryCard(item.source,item.rows,country)).join('')}</div></div>`;
-    }).join('')}
-  </section>`;
-}
-
-function renderPreparedCountryCard(source, rows, country){
-  const slug = source.slug || source.id;
-  const display = preparedDisplayValue(slug, rows);
-  return `<div class="data-source-card">
-    <span class="pill purple">${escapeHtml(source.name)}</span>
-    <h3>${escapeHtml(display.headline)}</h3>
-    <p><strong>What the returned row means:</strong> ${escapeHtml(display.meaning)}</p>
-    <p><strong>Latest or relevant value:</strong> ${escapeHtml(display.value)}</p>
-    <p><strong>Year/date:</strong> ${escapeHtml(display.date)}</p>
-    <p><strong>Unit:</strong> ${escapeHtml(display.unit)}</p>
-    <p>${escapeHtml(display.context)}</p>
-    ${renderRowsCompact(slug, rows.slice(0,5))}
-    <details class="details"><summary>Prepared source details</summary>${renderReadableFieldTable(display.fields)}<details class="details"><summary>Raw prepared row</summary><pre class="mono">${escapeHtml(JSON.stringify(rows.slice(0,10),null,2))}</pre></details></details>
-  </div>`;
-}
-
-function preparedCardTitle(slug, rows){
-  const latest=latestByYear(rows);
-  if(slug==='imf-datamapper' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)}% in ${latest.year}`;
-  if(slug==='who-gho' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)} in ${latest.year}`;
-  if(slug==='owid' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,0)} in ${latest.year}`;
-  if(slug==='un-sdg' && latest) return `${latest.indicator}: ${fmtSmart(latest.value,1)} ${latest.unit || ''}`;
-  if(slug==='worldpop' && rows[0]) return `Sample-area population: ${fmtSmart(rows[0].value,0)}`;
-  if(slug==='open-meteo' && rows[0]) return `${fmtSmart(rows[0].temperatureC,1)}°C; ${fmtSmart(rows[0].precipitationMm,1)} mm precipitation`;
-  if(slug==='nasa-power' && rows.length) return `${rows.length} daily climate rows returned`;
-  if(slug==='geoboundaries' && rows[0]) return `${rows[0].admUnitCount || 'NA'} ADM1 units in boundary metadata`;
-  return `${rows.length} rows returned`;
-}
-
-function preparedDisplayValue(slug, rows){
-  const latest=latestByYear(rows);
-  const first=rows[0] || {};
-  if(slug==='imf-datamapper' && latest) return preparedDisplay(`${latest.indicator}: ${fmtSmart(latest.value,1)}%`, 'IMF macroeconomic indicator for the selected country.', `${fmtSmart(latest.value,1)}`, latest.year, latest.unit || 'annual percent change', `The prepared IMF row shows ${latest.indicator || 'a macroeconomic value'} for ${latest.year}.`, latest);
-  if(slug==='who-gho' && latest) return preparedDisplay(`${latest.indicator}: ${fmtSmart(latest.value,1)}`, 'WHO health indicator returned for the selected country.', fmtSmart(latest.value,1), latest.year, latest.displayValue || 'WHO display value', `The prepared WHO row adds health outcome context for ${latest.year}.`, latest);
-  if(slug==='owid' && latest) return preparedDisplay(`${latest.indicator}: ${fmtSmart(latest.value,1)}`, 'Our World in Data country indicator.', fmtSmart(latest.value,1), latest.year, latest.sourceColumn || 'indicator value', `The prepared OWID row provides ${latest.indicator || 'country'} context.`, latest);
-  if(slug==='un-sdg' && latest) return preparedDisplay(`${latest.indicator}: ${fmtSmart(latest.value,1)}`, 'UN SDG indicator value for the selected country.', fmtSmart(latest.value,1), latest.year, latest.unit || 'indicator unit', 'The prepared SDG row adds development and vulnerability context.', latest);
-  if(slug==='worldpop' && first) return preparedDisplay(`Sample-area population: ${fmtSmart(first.value,0)}`, 'WorldPop population estimate for a sample area near the country coordinate.', fmtSmart(first.value,0), first.year || 'Field not returned', 'people', 'This is a sample-area value, not a national total.', first);
-  if(slug==='open-meteo' && first) return preparedDisplay(`${fmtSmart(first.temperatureC,1)} degrees C`, 'Open-Meteo weather sample at the country coordinate.', `${fmtSmart(first.temperatureC,1)} degrees C; ${fmtSmart(first.precipitationMm,1)} mm`, first.time || 'Field not returned', 'temperature and precipitation', 'This prepared weather row supports climate/environmental context.', first);
-  if(slug==='nasa-power' && rows.length) return preparedDisplay(`${rows.length} daily climate samples`, 'NASA POWER daily temperature and precipitation samples.', `${fmtSmart(rows.reduce((a,r)=>a+num(r.precipitationMm),0),1)} mm total precipitation sample`, `${rows[0].date || 'Field not returned'} to ${rows[rows.length-1].date || 'Field not returned'}`, 'daily climate sample', 'These coordinate samples support drought, heat and precipitation pattern context.', rows[0]);
-  if(slug==='geoboundaries' && first) return preparedDisplay(`${first.admUnitCount || 'Field not returned'} ADM1 units`, 'Administrative-boundary metadata for the selected country.', first.admUnitCount || 'Field not returned', first.boundaryYearRepresented || first.sourceDataUpdateDate || 'Field not returned', 'boundary units', 'Boundary metadata supports geographic context; it is not a humanitarian indicator.', first);
-  if(slug==='ifrc-go' && rows.length) return preparedDisplay(`${rows.length} IFRC event rows mentioning country`, 'IFRC GO event records where the selected country appears in prepared event countries.', rows.length, rows[0].startDate || 'Field not returned', 'event records', 'These returned event rows add humanitarian operations context.', rows[0]);
-  if(slug==='usgs-earthquakes' && rows.length) return preparedDisplay(`${rows.length} earthquake rows`, 'USGS earthquake records associated with the selected country/place text where available.', rows.length, rows[0].time || 'Field not returned', 'event records', 'These prepared rows support seismic context when they match the country.', rows[0]);
-  return preparedDisplay(preparedCardTitle(slug, rows), 'Prepared public-source row for the selected country.', rows.length, latest?.year || first.date || first.time || 'Field not returned', 'rows', 'The prepared source returned country-specific evidence.', latest || first);
-}
-
-function preparedDisplay(headline, meaning, value, date, unit, context, fields){
-  return {headline, meaning, value:String(value ?? 'Field not returned'), date:String(date ?? 'Field not returned'), unit:String(unit ?? 'Field not returned'), context, fields: fields || {}};
-}
-
-function renderRowsCompact(slug, rows){
-  if(!rows.length) return '<p class="muted">No rows.</p>';
-  return `<div class="inline-records">${rows.map(row=>`<div class="inline-record"><strong>${escapeHtml(row.indicator || row.metric || row.eventType || row.boundaryType || row.date || row.year || 'Returned row')}</strong><p>${escapeHtml(compactRowText(slug,row))}</p></div>`).join('')}</div>`;
-}
-
-function compactRowText(slug,row){
-  if(slug==='imf-datamapper') return `${row.year}: ${row.value}% ${row.unit || ''}`;
-  if(slug==='who-gho') return `${row.year}: ${row.value}${row.displayValue ? ' ('+row.displayValue+')' : ''}`;
-  if(slug==='owid') return `${row.year}: ${fmtSmart(row.value,2)}${row.sourceColumn ? ' · '+row.sourceColumn : ''}`;
-  if(slug==='un-sdg') return `${row.year}: ${fmtSmart(row.value,2)} ${row.unit || ''}`;
-  if(slug==='worldpop') return `${fmtSmart(row.value,0)} people · ${row.metric || ''}`;
-  if(slug==='open-meteo') return `${row.time || ''}: ${fmtSmart(row.temperatureC,1)}°C, ${fmtSmart(row.precipitationMm,1)} mm`;
-  if(slug==='nasa-power') return `${row.date}: ${fmtSmart(row.temperatureC,1)}°C, ${fmtSmart(row.precipitationMm,1)} mm`;
-  if(slug==='geoboundaries') return `${row.boundaryYearRepresented || ''}; ${row.admUnitCount || 'NA'} units; ${row.sourceDataUpdateDate || ''}`;
-  if(slug==='ifrc-go') return `${row.eventType || ''}; ${(row.countries || []).join(', ')}`;
-  if(slug==='usgs-earthquakes') return `${row.title || ''}; ${row.time || ''}`;
-  return JSON.stringify(row).slice(0,200);
-}
-
-function renderBlackSwanPanel(country,targetYear,projections,context){
-  return `<section class="panel">
-    <div class="section-title"><div><h2>Black Swan stress-test</h2><p>A severe-event scenario selected from the returned evidence. It shows why the scenario was chosen and which data points triggered it.</p></div></div>
-    <div id="blackSwanOutput" class="explain"><strong>No stress-test generated yet.</strong> Generate one after reviewing the data.</div>
-    <div class="btnrow" style="margin-top:14px"><button class="btn red" onclick="generateBlackSwanStressTest()">Generate evidence-linked Black Swan</button><button class="btn ghost" onclick="clearBlackSwanStressTest()">Clear</button></div>
-  </section>`;
-}
-
-function generateBlackSwanStressTest(){
-  if(!lastCaseData) return;
-  const {country,targetYear,projections,context}=lastCaseData;
-  const emdat=emdatCountrySummary(country);
-  const pop=getProjection(projections,'population');
-  const urban=getProjection(projections,'urbanPct');
-  const phys=getProjection(projections,'physicians');
-  const internet=getProjection(projections,'internetUsers');
-  const openMeteo=getCountryPreparedRows('open-meteo', country)[0];
-  const nasaRows=getCountryPreparedRows('nasa-power', country);
-  const nasaRain=nasaRows.reduce((a,r)=>a+num(r.precipitationMm),0);
-  const topHazards = emdat && emdat.row.topDisasterTypes ? emdat.row.topDisasterTypes.slice(0,3).map(x=>x.disasterType) : [];
-  let scenario = {
-    title:'Compound service disruption',
-    event:'A severe, low-probability disruption affects service continuity across several systems at the same time.',
-    why:['No single hazard dominates the returned evidence strongly enough to select a narrower scenario.'],
-    evidence:[]
-  };
-  if(topHazards.some(h=>/flood|storm|water|cyclone/i.test(h)) || (openMeteo && num(openMeteo.precipitationMm)>0) || nasaRain>20){
-    scenario = {
-      title:'Compound flood / storm disruption',
-      event:'A high-impact flood or storm event overlaps with dense settlement, service disruption and transport constraints.',
-      why:['EM-DAT hazard history includes flood, storm or water-related events, or climate/weather samples show precipitation in the prepared data.'],
-      evidence:[]
-    };
-  } else if(topHazards.some(h=>/earthquake/i.test(h)) || (context.gdacs.items || []).some(x=>/EQ|earthquake/i.test(JSON.stringify(x)))){
-    scenario = {
-      title:'Major seismic disruption',
-      event:'A high-impact earthquake produces simultaneous health, shelter, logistics and information-management pressure.',
-      why:['Returned disaster records contain earthquake signals in either EM-DAT or GDACS.'],
-      evidence:[]
-    };
-  } else if(topHazards.some(h=>/epidemic/i.test(h)) || (phys && phys.projected < 1)){
-    scenario = {
-      title:'Public-health surge shock',
-      event:'A sharp public-health surge occurs while workforce capacity and routine service continuity are already constrained.',
-      why:['Returned evidence contains epidemic history and/or a low physician-density continuation.'],
-      evidence:[]
-    };
-  } else if((context.unhcr.count || 0) > 0){
-    scenario = {
-      title:'Mobility and service-load shock',
-      event:'A sudden mobility or returnee/arrival pressure overlaps with service and administrative capacity constraints.',
-      why:['UNHCR returned displacement or population records for the selected country.'],
-      evidence:[]
-    };
-  }
-  if(emdat){
-    scenario.evidence.push(`EM-DAT: ${fmtSmart(emdat.row.eventCount,0)} events from ${emdat.row.firstYear}-${emdat.row.lastYear}; top types: ${(emdat.row.topDisasterTypes || []).slice(0,3).map(x=>`${x.disasterType} (${x.count})`).join(', ') || 'not available'}.`);
-    scenario.evidence.push(`EM-DAT impacts: ${fmtSmart(emdat.row.totalDeaths,0)} deaths; ${fmtSmart(emdat.row.totalAffected,0)} affected; ${fmtSmart(emdat.row.totalDamageUsd000,0)} USD 000 damage.`);
-  }
-  if(pop) scenario.evidence.push(`World Bank population continuation: ${fmtSmart(pop.projected,0)} people in ${targetYear}; latest actual ${fmtSmart(pop.latest.value,0)} in ${pop.latest.year}.`);
-  if(urban) scenario.evidence.push(`Urban population continuation: ${fmtSmart(urban.projected,1)}% in ${targetYear}.`);
-  if(phys) scenario.evidence.push(`Health workforce proxy: ${fmtSmart(1000/phys.projected,0)} people per physician in ${targetYear}.`);
-  if(internet) scenario.evidence.push(`Digital access proxy: ${fmtSmart(internet.projected,1)}% internet-use continuation in ${targetYear}.`);
-  if(openMeteo) scenario.evidence.push(`Open-Meteo sample: ${fmtSmart(openMeteo.temperatureC,1)}°C and ${fmtSmart(openMeteo.precipitationMm,1)} mm current precipitation at sample coordinate.`);
-  if(nasaRows.length) scenario.evidence.push(`NASA POWER sample: ${fmtSmart(nasaRain,1)} mm precipitation across ${nasaRows.length} prepared daily rows.`);
-  if(context.gdacs.items.length) scenario.evidence.push(`GDACS returned ${context.gdacs.items.length} matched current/recent event records.`);
-  if(context.unhcr.items.length) scenario.evidence.push(`UNHCR returned ${context.unhcr.items.length} displacement/population records.`);
-  document.getElementById('blackSwanOutput').innerHTML = `<h3>${escapeHtml(scenario.title)}</h3><p><strong>Scenario:</strong> ${escapeHtml(scenario.event)}</p><p><strong>Selection logic:</strong> ${escapeHtml(scenario.why.join(' '))}</p><div class="table-wrap"><table><thead><tr><th>Evidence used</th></tr></thead><tbody>${scenario.evidence.map(e=>`<tr><td>${escapeHtml(e)}</td></tr>`).join('')}</tbody></table></div>`;
-}
-
-function clearBlackSwanStressTest(){
-  const el=document.getElementById('blackSwanOutput');
-  if(el) el.innerHTML='<strong>No stress-test generated yet.</strong> Generate one after reviewing the data.';
-}
-
-function renderProjectionErrors(failed){
-  return `<details class="details"><summary>Indicators not projected</summary><ul class="simple-list">${failed.map(f=>`<li><strong>${escapeHtml(f.indicator?f.indicator.label:'Indicator')}:</strong> ${escapeHtml(f.reason||'No reason returned')}</li>`).join('')}</ul></details>`;
-}
-
-async function compareCountries(){
-  clearMessage();
-  const targetYear=Number(document.getElementById('yearInput').value);
-  if(!Number.isFinite(targetYear)||targetYear<2026||targetYear>2100){ setMessage('Choose a valid target year between 2026 and 2100.','error'); return; }
-  const results=document.getElementById('results');
-  results.innerHTML=`<section class="loading-panel"><h2>Comparing starter countries for ${targetYear}...</h2><p>Pulling and projecting the same indicator set for each country.</p><div class="loaderbar"><span></span></div></section>`;
-  try{
-    await loadPreparedData({silent:true});
-    const rows=[];
-    for(const c of COUNTRIES){ const projections=await getProjectionBundle(c,targetYear); rows.push({country:c,projections}); }
-    results.innerHTML=renderComparison(rows,targetYear); setMessage(`Compared ${COUNTRIES.length} countries for ${targetYear}.`);
-  }catch(e){ results.innerHTML=''; setMessage(`Could not compare countries: ${e.message}`,'error'); }
-}
-
-function renderComparison(rows,targetYear){
-  const sorted=rows.map(r=>{ 
-    const p=key=>getProjection(r.projections,key);
-    const emdat=emdatCountrySummary(r.country);
-    const pop=p('population'), phys=p('physicians'), u5=p('u5Mortality'), internet=p('internetUsers'), urban=p('urbanPct');
-    return {country:r.country.name,pop,phys,u5,internet,urban,emdat,complete:['population','physicians','u5Mortality','internetUsers','urbanPct'].filter(k=>!!p(k)).length};
-  }).sort((a,b)=>(b.pop?.projected||0)-(a.pop?.projected||0));
-  const trs=sorted.map(r=>`<tr><td><strong>${escapeHtml(r.country)}</strong></td><td class="num">${r.pop?fmtSmart(r.pop.projected,0):'NA'}</td><td class="num">${r.pop&&r.pop.changeFromLatest!==null?pct(r.pop.changeFromLatest,1):'NA'}</td><td class="num">${r.urban?fmtSmart(r.urban.projected,2):'NA'}</td><td class="num">${r.phys?fmtSmart(1000/r.phys.projected,0):'NA'}</td><td class="num">${r.u5?fmtSmart(r.u5.projected,2):'NA'}</td><td class="num">${r.internet?fmtSmart(r.internet.projected,2):'NA'}</td><td class="num">${r.emdat?fmtSmart(r.emdat.row.eventCount,0):'NA'}</td><td>${r.emdat && r.emdat.row.topDisasterTypes[0]?escapeHtml(r.emdat.row.topDisasterTypes[0].disasterType):'NA'}</td><td class="num">${r.complete}/5</td></tr>`).join('');
-  return `<section class="panel"><div class="section-title"><div><h2>Starter country comparison for ${targetYear}</h2><p>Comparison uses the same country-level indicator-continuation method and the same prepared EM-DAT summary fields for each starter country.</p></div></div><div class="table-wrap"><table><thead><tr><th>Country</th><th>Population continuation</th><th>Population change</th><th>Urban %</th><th>People per physician</th><th>Under-5 mortality</th><th>Internet users %</th><th>EM-DAT events</th><th>Top EM-DAT type</th><th>Completeness</th></tr></thead><tbody>${trs}</tbody></table></div></section>`;
-}
-
-function getCountryPreparedRows(slug, country){
-  const source=getPrepared(slug);
-  if(!source || !Array.isArray(source.sampleRows)) return [];
-  return source.sampleRows.filter(row => {
-    const codes = [row.iso3, row.iso, row.countryCode].map(v=>String(v || '').toUpperCase());
-    const countryText = String(row.country || row.countryName || '').toLowerCase();
-    const countryList = Array.isArray(row.countries) ? row.countries.map(v=>String(v || '').toLowerCase()) : [];
-    return codes.includes(country.iso3) || countryText === country.name.toLowerCase() || countryList.includes(country.name.toLowerCase()) || countryList.includes(country.iso3.toLowerCase());
-  });
-}
-
-function latestByYear(rows){
-  const dated = rows.filter(r=>Number.isFinite(Number(r.year))).sort((a,b)=>Number(a.year)-Number(b.year));
-  return dated.length ? dated[dated.length-1] : (rows[0] || null);
-}
-
-function num(v){ const n=Number(v); return Number.isFinite(n) ? n : 0; }
-
+Object.assign(window,{showView,openExplorer,runMainQuery,clearQuery,runDisasterExplorer,runAlertExplorer,runDisplacementExplorer,runContextExplorer,runCompareExplorer,runEvidenceSearch,checkSource,checkAllSources});
 init();
 </script>
 </body>
